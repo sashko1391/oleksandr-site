@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGENTIS — AI юридичний аналіз | Кейс розробки | Олександр Кравченко</title>
+<meta name="description" content="Як я побудував AGENTIS — AI-платформу юридичного аналізу з 5 мовними моделями, 207 законами та 15 AI-агентами. Повний кейс розробки: архітектура, рішення, результати.">
+<link rel="canonical" href="https://www.parkinsandr.tech/projects/agentis/">
+<meta property="og:title" content="AGENTIS — AI юридичний аналіз | Кейс розробки">
+<meta property="og:description" content="AI-платформа з 5 моделями, 207 законами, 15 агентами. Повний кейс від ідеї до запуску.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/projects/agentis/">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AGENTIS — AI юридичний аналіз. Кейс розробки",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-02-23",
+  "dateModified": "2026-02-23",
+  "description": "Повний кейс розробки AI-платформи юридичного аналізу: архітектура, технічні рішення, результати.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/projects/agentis/",
+  "about": {
+    "@type": "WebApplication",
+    "name": "AGENTIS",
+    "url": "https://www.agentis.com.ua",
+    "applicationCategory": "Legal Tech"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+
+  /* Hero */
+  .case-hero {
+    padding: 8rem 2rem 3rem; text-align: center;
+    background: linear-gradient(180deg, var(--milk) 0%, var(--blue-pale) 100%);
+  }
+  .case-hero-inner { max-width: 800px; margin: 0 auto; }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .case-tag::before, .case-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .case-hero h1 {
+    font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
+    color: var(--blue-deep); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .case-hero h1 em { font-style: italic; color: var(--blue-mid); }
+  .case-hero-desc { font-size: 1.1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; }
+  .case-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--blue-deep); color: var(--milk);
+    border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem;
+    transition: all 0.3s;
+  }
+  .case-link:hover { background: var(--blue-mid); transform: translateY(-2px); }
+
+  /* Stats */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    max-width: 800px; margin: -1.5rem auto 0; padding: 0 2rem; position: relative; z-index: 2;
+  }
+  .stat-card {
+    background: var(--white); border-radius: 12px; padding: 1.5rem; text-align: center;
+    border: 1px solid rgba(27,58,92,0.06); box-shadow: 0 4px 20px rgba(27,58,92,0.05);
+  }
+  .stat-card .num {
+    font-family: 'Instrument Serif', serif; font-size: 2rem; color: var(--blue-deep); line-height: 1;
+  }
+  .stat-card .lbl { font-size: 0.72rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  /* Content */
+  .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+  .case-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .case-body h2 {
+    font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep);
+    margin: 3rem 0 1rem; line-height: 1.3;
+  }
+  .case-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .case-body strong { font-weight: 500; color: var(--ink); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+
+  /* Tech Stack */
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;
+  }
+  .tech-card {
+    padding: 1.25rem; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06);
+  }
+  .tech-card h4 {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    color: var(--blue-mid); letter-spacing: 0.05em; margin-bottom: 0.5rem; text-transform: uppercase;
+  }
+  .tech-card p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 0; }
+
+  /* Pipeline */
+  .pipeline { margin: 2rem 0; }
+  .pipeline-step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.25rem 0; border-bottom: 1px solid rgba(27,58,92,0.06);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+  .pipeline-num {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue-deep); color: var(--milk);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
+  }
+  .pipeline-step h4 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+  .pipeline-step p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 0; }
+
+  /* Challenge */
+  .challenge-card {
+    padding: 1.5rem; margin: 1rem 0; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06);
+  }
+  .challenge-card h4 { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .challenge-card .problem { font-size: 0.88rem; color: var(--orange); margin-bottom: 0.3rem; }
+  .challenge-card .solution { font-size: 0.88rem; color: var(--green); }
+
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .case-hero { padding: 6rem 1.5rem 3rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); padding: 0 1.5rem; }
+    .case-body { padding: 3rem 1.5rem 3rem; }
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-tag">Кейс розробки</div>
+    <h1>AGENTIS — <em>AI-платформа</em> юридичного аналізу</h1>
+    <p class="case-hero-desc">Конвеєр з 15 AI-агентів, які аналізують юридичну ситуацію за 5 хвилин. 207 законів, 5 мовних моделей, PDF-звіти з покроковим алгоритмом дій.</p>
+    <a href="https://www.agentis.com.ua/" target="_blank" class="case-link">Відкрити AGENTIS →</a>
+  </div>
+</section>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl">AI-моделей</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">207</div>
+    <div class="lbl">Законів у базі</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">22k+</div>
+    <div class="lbl">Семантичних зв'язків</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">15</div>
+    <div class="lbl">AI-агентів</div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <h2>Проблема</h2>
+
+  <p>Більшість людей в Україні не знають своїх прав. Коли виникає юридична ситуація — звільнення, ДТП, спір з сусідами, проблеми з банком — перша реакція: панікувати, гуглити хаотично, або платити юристу тисячі гривень за первинну консультацію, яка зводиться до «треба розбиратись».</p>
+
+  <p>Юридична інформація є у вільному доступі — 14 кодексів, 193+ закони. Але вона написана мовою, яку розуміють тільки юристи. Людині потрібен не текст закону, а відповідь: що робити, в який строк, які ризики, скільки це коштує.</p>
+
+  <h2>Ідея</h2>
+
+  <p>Створити систему, яка приймає опис ситуації простою мовою і видає структурований аналіз: правову кваліфікацію, ризики, строки, варіанти дій, необхідні документи і орієнтовну вартість. Не заміна юристу, а перший крок — щоб людина прийшла до юриста вже підготовленою і не переплачувала за базову інформацію.</p>
+
+  <div class="callout callout-blue">
+    <strong>Чому саме я:</strong> у мене юридична освіта (магістр права, КНУ ім. Шевченка) плюс досвід розробки з AI. Це рідкісне поєднання — я розумію і код, і право. Знаю, як працюють закони, і знаю, як працюють мовні моделі. AGENTIS — продукт на перетині двох цих світів.
+  </div>
+
+  <h2>Архітектура: конвеєр перевірок</h2>
+
+  <p>AGENTIS — це не один чат-бот, який «все знає». Це конвеєр з 15 спеціалізованих AI-агентів, де кожен відповідає за свій етап аналізу, а наступний перевіряє попередній. Це радикально підвищує точність порівняно з простим промптом у ChatGPT.</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num">01</div>
+      <div>
+        <h4>Класифікація ситуації</h4>
+        <p>AI визначає галузь права, юрисдикцію, тип правовідносин. Фільтрує нерелевантне.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">02</div>
+      <div>
+        <h4>Семантичний пошук у законах</h4>
+        <p>Серед 207 законів і 22 000+ зв'язків знаходить релевантні статті. Не просто keyword-search, а розуміння контексту.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">03</div>
+      <div>
+        <h4>Правова кваліфікація</h4>
+        <p>Визначає конкретні порушення, статті, на які можна спиратись, і формулює юридичну позицію.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">04</div>
+      <div>
+        <h4>Аналіз ризиків</h4>
+        <p>Окремий агент шукає слабкі місця: строки давності, проблеми з доказами, зустрічні вимоги.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">05</div>
+      <div>
+        <h4>Шляхи вирішення</h4>
+        <p>Генерує 2–4 конкретні варіанти: від досудового врегулювання до позову. З оцінкою ймовірності успіху.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">06</div>
+      <div>
+        <h4>Перехресна перевірка</h4>
+        <p>Інша модель перевіряє висновки першої. Знаходить суперечності, неточні посилання, логічні помилки.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">07</div>
+      <div>
+        <h4>Звіт у PDF</h4>
+        <p>Структурований документ з покроковим алгоритмом: що, коли, де, скільки коштує, які документи зібрати.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Технічний стек</h2>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <h4>Frontend</h4>
+      <p>Next.js, React, TypeScript, Tailwind CSS. SSR для SEO, оптимістичний UI для швидкості.</p>
+    </div>
+    <div class="tech-card">
+      <h4>AI / LLM</h4>
+      <p>5 моделей: Claude (Anthropic), GPT-4 (OpenAI), Gemini (Google) — кожна зі своєю спеціалізацією. Перехресна перевірка між моделями.</p>
+    </div>
+    <div class="tech-card">
+      <h4>База знань</h4>
+      <p>207 законів та кодексів, розбиті на семантичні чанки. 22 151 зв'язок між статтями. Vector database для пошуку за змістом.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Інфраструктура</h4>
+      <p>Vercel (хостинг + edge functions), PostgreSQL, serverless architecture. Автоскейлинг під навантаження.</p>
+    </div>
+  </div>
+
+  <h2>Ключові виклики</h2>
+
+  <div class="challenge-card">
+    <h4>Галюцинації AI</h4>
+    <p class="problem">⚠ Проблема: мовні моделі вигадують статті законів, яких не існує</p>
+    <p class="solution">✓ Рішення: RAG-архітектура — модель відповідає тільки на основі реальних текстів законів з бази + перехресна перевірка іншою моделлю</p>
+  </div>
+
+  <div class="challenge-card">
+    <h4>Актуальність законодавства</h4>
+    <p class="problem">⚠ Проблема: закони змінюються, база швидко застаріває</p>
+    <p class="solution">✓ Рішення: автоматичний парсинг оновлень з Верховної Ради + система версіонування — кожна стаття має дату актуальності</p>
+  </div>
+
+  <div class="challenge-card">
+    <h4>Зрозумілість для людей</h4>
+    <p class="problem">⚠ Проблема: юридична мова незрозуміла 90% людей</p>
+    <p class="solution">✓ Рішення: спеціальний агент-перекладач, який переписує висновки простою мовою, зберігаючи юридичну точність</p>
+  </div>
+
+  <div class="challenge-card">
+    <h4>Час очікування</h4>
+    <p class="problem">⚠ Проблема: 15 агентів працюють 3–5 хвилин — це довго для вебу</p>
+    <p class="solution">✓ Рішення: стрімінг результатів — користувач бачить прогрес кожного етапу в реальному часі, а не чекає мовчки</p>
+  </div>
+
+  <h2>Що я виніс з цього проєкту</h2>
+
+  <p>AGENTIS — це проєкт, де все, що я знаю і вмію, зійшлось в одній точці: право, розробка, AI, UX для складних систем. Він навчив мене, що справжній Legal Tech — це не «прикрутити чат-бот до юридичного сайту». Це глибока робота з предметною областю, де помилка в коді може привести до помилки в юридичній пораді.</p>
+
+  <p>Кожне рішення тут — компроміс між точністю і зрозумілістю, між швидкістю і якістю, між «AI знає все» і «AI може помилятись». І я пишаюсь тим, як ці компроміси були вирішені.</p>
+
+</div>
+
+<div class="cta-banner">
+  <h3>Хочете щось подібне для вашого бізнесу?</h3>
+  <p>AI-інтеграції, складні платформи, Legal Tech — це те, що я люблю і вмію.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>

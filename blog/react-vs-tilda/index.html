@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React vs Tilda: що обрати для бізнесу у 2026 | Олександр Кравченко</title>
+<meta name="description" content="Чесне порівняння React/Next.js і Tilda для бізнес-сайтів. Коли конструктор — ок, а коли потрібна кастомна розробка. З прикладами і цифрами.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/react-vs-tilda/">
+<meta property="og:title" content="React vs Tilda: що обрати для бізнесу у 2026">
+<meta property="og:description" content="Чесне порівняння: коли конструктор — ок, а коли потрібна кастомна розробка.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/react-vs-tilda/">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "React vs Tilda: що обрати для бізнесу у 2026",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-02-23",
+  "dateModified": "2026-02-23",
+  "description": "Чесне порівняння React/Next.js і Tilda для бізнес-сайтів.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/react-vs-tilda/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.5rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .callout-orange { background: var(--orange-pale); color: #8B5E3C; border-left: 3px solid var(--orange); }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin: 2rem 0;
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(27,58,92,0.08);
+  }
+  .compare-table th {
+    padding: 1rem 1.25rem; text-align: left;
+    font-family: 'Instrument Serif', serif; font-size: 1rem;
+    background: var(--blue-deep); color: var(--milk); font-weight: 400;
+  }
+  .compare-table th:first-child { background: var(--milk-warm); color: var(--ink-soft); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; }
+  .compare-table td {
+    padding: 0.9rem 1.25rem; font-size: 0.88rem; color: var(--ink-soft);
+    border-bottom: 1px solid rgba(27,58,92,0.05); line-height: 1.5;
+  }
+  .compare-table td:first-child { font-weight: 500; color: var(--ink); background: rgba(245,240,234,0.5); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .win { color: var(--green); font-weight: 500; }
+  .lose { color: var(--ink-muted); }
+
+  .verdict-card {
+    padding: 2rem; margin: 2rem 0; border-radius: 16px;
+    border: 1px solid rgba(27,58,92,0.06);
+  }
+  .verdict-tilda { background: #FFF8F0; }
+  .verdict-react { background: #F0F7FF; }
+  .verdict-card h3 { margin-top: 0; }
+  .verdict-card p { margin-bottom: 0; }
+
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .compare-table { font-size: 0.8rem; }
+    .compare-table th, .compare-table td { padding: 0.6rem 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<article>
+  <header class="article-header">
+    <div class="article-tag">Блог</div>
+    <h1>React vs Tilda: що обрати для бізнесу у 2026</h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Лютий 2026</span>
+      <span>10 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <p>Це одне з найчастіших питань, яке мені задають: «А може нам просто на Tilda зробити?» Відповідь, як завжди — залежить. Але не від бюджету, як може здатись. А від того, що ви хочете отримати через рік.</p>
+
+    <p>Я не буду казати, що Tilda — це погано. Це був би маніпулятивний хід від людини, яка заробляє на кастомній розробці. Натомість я дам чесне порівняння, щоб ви могли прийняти обґрунтоване рішення. Навіть якщо це рішення буде — піти на Tilda.</p>
+
+    <div class="callout callout-blue">
+      <strong>Дисклеймер:</strong> я розробляю на React/Next.js і заробляю на цьому. Але у мене в портфоліо 0 сайтів на Tilda не тому, що я її ненавиджу, а тому що мої клієнти приходять з задачами, які Tilda не тягне. Якщо ваша задача — простіша, Tilda може бути правильним вибором.
+    </div>
+
+    <h2>Порівняння в цифрах</h2>
+
+    <table class="compare-table">
+      <tr>
+        <th></th>
+        <th>Tilda</th>
+        <th>React / Next.js</th>
+      </tr>
+      <tr>
+        <td>Час запуску</td>
+        <td class="win">1–3 дні</td>
+        <td>2–4 тижні</td>
+      </tr>
+      <tr>
+        <td>Стартова вартість</td>
+        <td class="win">$0–500 + підписка</td>
+        <td>Від $800+</td>
+      </tr>
+      <tr>
+        <td>Швидкість сайту</td>
+        <td class="lose">Середня (2–5с)</td>
+        <td class="win">Висока (0.5–1.5с)</td>
+      </tr>
+      <tr>
+        <td>SEO-потенціал</td>
+        <td class="lose">Обмежений</td>
+        <td class="win">Повний контроль</td>
+      </tr>
+      <tr>
+        <td>Кастомний функціонал</td>
+        <td class="lose">Дуже обмежено</td>
+        <td class="win">Без обмежень</td>
+      </tr>
+      <tr>
+        <td>AI-інтеграції</td>
+        <td class="lose">Практично ні</td>
+        <td class="win">Будь-які API</td>
+      </tr>
+      <tr>
+        <td>Масштабування</td>
+        <td class="lose">Стеля швидко</td>
+        <td class="win">Без обмежень</td>
+      </tr>
+      <tr>
+        <td>Потрібен розробник</td>
+        <td class="win">Ні (drag & drop)</td>
+        <td>Так</td>
+      </tr>
+      <tr>
+        <td>Власність над кодом</td>
+        <td class="lose">Код на платформі</td>
+        <td class="win">100% ваш</td>
+      </tr>
+      <tr>
+        <td>Щомісячна підписка</td>
+        <td class="lose">$15–25/міс</td>
+        <td class="win">$0 (Vercel Free)</td>
+      </tr>
+    </table>
+
+    <h2>Коли Tilda — правильний вибір</h2>
+
+    <div class="verdict-card verdict-tilda">
+      <h3>Обирайте Tilda, якщо:</h3>
+      <p>Вам потрібна проста сторінка-візитка. У вас обмежений бюджет і потрібно запуститись якнайшвидше. Сайт — не основний канал продажів, а просто «щоб було». Ви хочете самі вносити зміни без розробника. Контент змінюється рідко. Немає потреби в кастомному функціоналі — калькуляторах, AI-чатах, особистих кабінетах, складних формах.</p>
+    </div>
+
+    <h2>Коли потрібна кастомна розробка</h2>
+
+    <div class="verdict-card verdict-react">
+      <h3>Обирайте React/Next.js, якщо:</h3>
+      <p>Сайт — це інструмент бізнесу, а не візитка. Вам важлива швидкість завантаження (Google PageSpeed впливає на рекламу і SEO). Потрібен кастомний функціонал: калькулятори, AI-помічники, каталоги з фільтрами, бронювання, інтеграції з CRM. Ви плануєте масштабуватись. SEO — один з каналів залучення клієнтів. Хочете контролювати кожен піксель і не залежати від обмежень платформи.</p>
+    </div>
+
+    <h2>Реальні приклади з моєї практики</h2>
+
+    <h3>SVENGO (завод ЗБВ) — кастомна розробка</h3>
+    <p>Клієнту потрібен був каталог з 50+ позиціями, AI-помічник для консультацій, калькулятор доставки. На Tilda це неможливо в принципі — жоден блок не підтримує інтеграцію з мовними моделями. Результат: сайт, який сам консультує клієнтів і генерує ліди навіть вночі.</p>
+
+    <h3>Славутич (ресторан) — теж кастомна</h3>
+    <p>Можна було б зробити на Tilda? Технічно так — меню, фотографії, контакти. Але клієнт хотів онлайн-бронювання, інтерактивне меню, галерею з lazy-loading, і сайт який летить. На Next.js це зроблено з SSR — Google бачить всі сторінки, швидкість — під секунду. На Tilda це був би сайт на 3–4 секунди з обмеженим SEO.</p>
+
+    <h3>Коли я порадив Tilda</h3>
+    <p>Так, таке теж буває. Знайомий відкривав невеличкий магазин квітів і запитав про сайт. Бюджет — мінімальний, потрібна тільки адреса, години роботи і кілька фото букетів. Я порадив Tilda і допоміг налаштувати за вечір. Не кожна задача вимагає React — і чесний розробник скаже вам це.</p>
+
+    <h2>Прихована вартість Tilda</h2>
+
+    <p>Здається, що Tilda дешевша. Але порахуємо на 2 роки: підписка $20/міс × 24 = $480. Плюс обмеження, які рано чи пізно змусять переїхати. Міграція — це фактично новий сайт з нуля. Разом витрачаєте $480 + вартість нового сайту. Кастомний сайт на Vercel хоститься безкоштовно і ваш назавжди.</p>
+
+    <div class="callout callout-green">
+      <strong>Мій підхід:</strong> я завжди чесно кажу клієнту, коли його задачу можна вирішити простіше і дешевше. Тому що обдурений клієнт — це не клієнт, а проблема. А задоволений клієнт, навіть якщо пішов на Tilda — це репутація і рекомендації.
+    </div>
+
+    <h2>Підсумок</h2>
+
+    <p>Не існує універсальної відповіді. Tilda — чудовий інструмент для простих задач. React/Next.js — для всього іншого. Запитайте себе: «Чим буде мій сайт через рік?». Якщо відповідь «таким самим» — Tilda. Якщо «більшим, швидшим, розумнішим» — час розмовляти з розробником.</p>
+  </div>
+</article>
+
+<div class="cta-banner">
+  <h3>Не впевнені що вам підходить?</h3>
+  <p>Розкажіть про задачу — я чесно порадю, навіть якщо це буде Tilda.</p>
+  <a href="/#chat-section" class="cta-btn">Поговорити з AI →</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>
