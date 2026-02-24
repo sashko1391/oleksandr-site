@@ -1,7 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/blog/yak-obrati-rozrobnyka", "destination": "/blog/yak-obrati-rozrobnyka/index.html" },
-    { "source": "/blog/react-vs-tilda", "destination": "/blog/react-vs-tilda/index.html" },
-    { "source": "/projects/agentis", "destination": "/projects/agentis/index.html" }
-  ]
-}
+{}
