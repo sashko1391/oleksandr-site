@@ -1705,10 +1705,39 @@
   let contactCollected = false;
   let chatHistory = [];
 
-  // Endpoint for your backend proxy (Cloudflare Worker / Vercel Function / etc.)
-  // The proxy holds the bot token securely and forwards to Telegram API.
-  // See: /api/send-chat — example endpoint you deploy separately.
+  // Cloudflare Worker proxy — тримає Telegram bot token серверно
   const CHAT_PROXY_URL = 'https://oleksandr-site.sashko1391.workers.dev';
+
+  // Retry queued messages on page load
+  (function flushQueue() {
+    try {
+      const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+      if (!queue.length) return;
+
+      const remaining = [];
+      queue.forEach(async (payload) => {
+        try {
+          const res = await fetch(CHAT_PROXY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) remaining.push(payload);
+        } catch {
+          remaining.push(payload);
+        }
+      });
+
+      // Update queue: keep only failed
+      setTimeout(() => {
+        if (remaining.length) {
+          localStorage.setItem('chat_queue', JSON.stringify(remaining));
+        } else {
+          localStorage.removeItem('chat_queue');
+        }
+      }, 5000);
+    } catch { /* localStorage unavailable */ }
+  })();
 
   function addMessage(text, isUser) {
     const container = document.getElementById('chatMessages');
@@ -1763,17 +1792,24 @@
     };
 
     try {
-      await fetch(CHAT_PROXY_URL, {
+      const res = await fetch(CHAT_PROXY_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+
+      if (!res.ok) {
+        console.warn('Proxy returned', res.status, '— queuing for retry');
+        throw new Error('Proxy error ' + res.status);
+      }
     } catch (e) {
-      // Fallback: save to localStorage so nothing is lost
-      const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-      queue.push(payload);
-      localStorage.setItem('chat_queue', JSON.stringify(queue));
-      console.log('Queued for retry. Deploy /api/send-chat proxy to enable Telegram delivery.');
+      // Queue for retry on next page load
+      try {
+        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        queue.push(payload);
+        localStorage.setItem('chat_queue', JSON.stringify(queue));
+      } catch { /* localStorage unavailable — data lost */ }
+      console.warn('sendToTelegram failed, queued:', e.message);
     }
   }
 
