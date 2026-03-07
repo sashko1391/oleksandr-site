@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Академія сучасних освітян — Кейс розробки | Олександр Кравченко</title>
+    <meta name="description"
+        content="Як я побудував сучасний сайт для Академії сучасних освітян (www.ace.org.ua) — Next.js, реєстр сертифікатів, програми ПК, блог та SEO-оптимізація. Повний кейс редизайну.">
+    <link rel="canonical" href="https://www.parkinsandr.tech/projects/ace/">
+    <meta property="og:title" content="Академія сучасних освітян — Кейс розробки сайту">
+    <meta property="og:description"
+        content="Редизайн освітньої платформи на Next.js. 8700+ випускників, реєстр сертифікатів, SEO-оптимізація. Повний кейс.">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:url" content="https://www.parkinsandr.tech/projects/ace/">
+    <meta property="og:image" content="https://www.parkinsandr.tech/images/ace.jpg">
+    <meta name="author" content="Oleksandr Kravchenko">
+    <meta name="robots" content="index, follow">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Академія сучасних освітян — Кейс оновлення сайту",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-03-07",
+  "dateModified": "2026-03-07",
+  "description": "Повний кейс оновлення сайту для Академії сучасних освітян: від застарілого рішення до сучасної платформи на Next.js.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/projects/ace/",
+  "about": {
+    "@type": "WebSite",
+    "name": "Академія сучасних освітян",
+    "url": "https://www.ace.org.ua",
+    "description": "Офіційний суб'єкт підвищення кваліфікації педагогічних працівників"
+  }
+}
+</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --milk: #F5F0EA;
+            --milk-warm: #EDE7DE;
+            --blue-deep: #1B3A5C;
+            --blue-mid: #2E6B9E;
+            --blue-sky: #5BA4D9;
+            --blue-light: #A8D4F0;
+            --blue-pale: #D6EAF5;
+            --ink: #1A1A1A;
+            --ink-soft: #4A4A4A;
+            --ink-muted: #7A7A7A;
+            --white: #FFFFFF;
+            --green: #3A8C5C;
+            --green-pale: #E8F5EE;
+            --orange: #D4854A;
+            --orange-pale: #FFF3E8;
+            --teal: #1a5c5c;
+            --teal-light: #2a8a8a;
+            --teal-pale: #e0f2f1;
+            --gold: #d4a44a;
+            --gold-pale: #fdf5e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--milk);
+            color: var(--ink);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(245, 240, 234, 0.88);
+            border-bottom: 1px solid rgba(27, 58, 92, 0.05);
+        }
+
+        .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--blue-deep);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--blue-sky);
+        }
+
+        .nav-back {
+            font-size: 0.82rem;
+            color: var(--ink-soft);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.3s;
+        }
+
+        .nav-back:hover {
+            color: var(--blue-deep);
+        }
+
+        /* Hero */
+        .case-hero {
+            padding: 8rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--milk) 0%, var(--teal-pale) 100%);
+        }
+
+        .case-hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .case-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .case-tag::before,
+        .case-tag::after {
+            content: '';
+            width: 20px;
+            height: 1.5px;
+            background: var(--teal);
+        }
+
+        .case-hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            color: var(--teal);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .case-hero h1 em {
+            font-style: italic;
+            color: var(--teal-light);
+        }
+
+        .case-hero-desc {
+            font-size: 1.1rem;
+            color: var(--ink-soft);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .case-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.6rem;
+            background: var(--teal);
+            color: var(--milk);
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: all 0.3s;
+        }
+
+        .case-link:hover {
+            background: var(--teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 800px;
+            margin: -1.5rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(26, 92, 92, 0.08);
+            box-shadow: 0 4px 20px rgba(26, 92, 92, 0.05);
+        }
+
+        .stat-card .num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .stat-card .lbl {
+            font-size: 0.72rem;
+            color: var(--ink-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* Content */
+        .case-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 4rem 2rem 5rem;
+        }
+
+        .case-body p {
+            font-size: 1.02rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .case-body h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--teal);
+            margin: 3rem 0 1rem;
+            line-height: 1.3;
+        }
+
+        .case-body h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin: 2rem 0 0.75rem;
+        }
+
+        .case-body strong {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .case-body ul {
+            margin: 0 0 1.5rem 1.5rem;
+        }
+
+        .case-body li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--ink-soft);
+            font-weight: 300;
+            margin-bottom: 0.4rem;
+        }
+
+        .callout {
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .callout-teal {
+            background: var(--teal-pale);
+            color: var(--teal);
+            border-left: 3px solid var(--teal-light);
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-card {
+            padding: 1.25rem;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid rgba(26, 92, 92, 0.08);
+        }
+
+        .tech-card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--teal);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .tech-card p {
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Before/After */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .ba-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(26, 92, 92, 0.08);
+        }
+
+        .ba-before {
+            background: #fff5f5;
+            border-left: 3px solid #c44;
+        }
+
+        .ba-after {
+            background: var(--green-pale);
+            border-left: 3px solid var(--green);
+        }
+
+        .ba-card h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .ba-before h4 {
+            color: #c44;
+        }
+
+        .ba-after h4 {
+            color: var(--green);
+        }
+
+        .ba-card p {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            line-height: 1.55;
+            margin-bottom: 0;
+        }
+
+        /* Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            padding: 1.25rem;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid rgba(26, 92, 92, 0.08);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-card h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Pipeline */
+        .pipeline {
+            margin: 2rem 0;
+        }
+
+        .pipeline-step {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(26, 92, 92, 0.08);
+        }
+
+        .pipeline-step:last-child {
+            border-bottom: none;
+        }
+
+        .pipeline-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--teal);
+            color: var(--milk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .pipeline-step h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+        }
+
+        .pipeline-step p {
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .cta-banner {
+            max-width: 720px;
+            margin: 0 auto 3rem;
+            padding: 2.5rem;
+            background: var(--teal);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-banner h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            color: var(--milk);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-banner p {
+            font-size: 0.88rem;
+            color: rgba(224, 242, 241, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.6rem;
+            background: var(--milk);
+            color: var(--teal);
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: transform 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            padding: 2rem 3rem;
+            border-top: 1px solid rgba(27, 58, 92, 0.06);
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+        }
+
+        footer a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .case-hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 1.5rem;
+            }
+
+            .case-body {
+                padding: 3rem 1.5rem 3rem;
+            }
+
+            .tech-grid,
+            .feature-grid,
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+        <a href="/" class="nav-back">← На головну</a>
+    </nav>
+
+    <section class="case-hero">
+        <div class="case-hero-inner">
+            <div class="case-tag">Кейс розробки</div>
+            <h1>Академія сучасних <em>освітян</em></h1>
+            <p class="case-hero-desc">Повний редизайн і перезапуск сайту для офіційного суб'єкта підвищення кваліфікації
+                педагогів. Від застарілого рішення — до сучасної платформи на Next.js.</p>
+            <a href="https://www.ace.org.ua/" target="_blank" rel="noopener noreferrer" class="case-link">Відкрити
+                www.ace.org.ua →</a>
+        </div>
+    </section>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="num">12+</div>
+            <div class="lbl">Років роботи</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">8700+</div>
+            <div class="lbl">Випускників</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">6</div>
+            <div class="lbl">Сторінок</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">∞</div>
+            <div class="lbl">Сертифікатів</div>
+        </div>
+    </div>
+
+    <div class="case-body">
+
+        <h2>Про клієнта</h2>
+
+        <p><strong>ГО «Академія сучасних освітян»</strong> — це офіційний суб'єкт підвищення кваліфікації педагогічних
+            працівників з Білої Церкви (Київська обл.). За 12+ років роботи Академія підготувала більше 8 700 педагогів
+            і видала стільки ж офіційних сертифікатів, які зараховуються при атестації за Постановою КМУ №800.</p>
+
+        <p>Засновниця — <strong>Жанна Вихристенко</strong>, кандидат педагогічних наук, сертифікований тренер-коуч НУШ,
+            арт-коуч, ігротехнік, доцент кафедри педагогіки і психології КОІПОПК. З 2012 року допомагає тисячам
+            педагогів із підвищенням кваліфікації та впровадженням сучасних практик.</p>
+
+        <h2>Задача</h2>
+
+        <p>Старий сайт Академії перестав відповідати масштабу організації. Потрібна була не просто «нова обгортка», а
+            повноцінна платформа, яка:</p>
+
+        <ul>
+            <li>Одразу показує офіційний статус та довіру — щоб вчитель не сумнівався</li>
+            <li>Дозволяє зручно обирати програми підвищення кваліфікації (курси 30–150 год, вебінари 6–16 год, тренінги
+                16 год)</li>
+            <li>Має реєстр сертифікатів — перевірку виданих документів онлайн</li>
+            <li>Містить блог із методичними матеріалами</li>
+            <li>Працює швидко, виглядає сучасно, відмінно індексується пошуковиками</li>
+        </ul>
+
+        <div class="callout callout-teal">
+            <strong>Особливість проєкту:</strong> цільова аудиторія — вчителі, які часто скептично ставляться до
+            онлайн-курсів. Сайт мусить із першого погляду переконати: це офіційно, це якісно, сертифікат дійсно
+            зараховується.
+        </div>
+
+        <h2>Що було vs Що стало</h2>
+
+        <div class="before-after">
+            <div class="ba-card ba-before">
+                <h4>✗ Було</h4>
+                <p>Застарілий дизайн, повільне завантаження, відсутня мобільна адаптація, немає реєстру сертифікатів,
+                    контент складно оновлювати, SEO не оптимізований</p>
+            </div>
+            <div class="ba-card ba-after">
+                <h4>✓ Стало</h4>
+                <p>Сучасна платформа на Next.js, миттєве завантаження, повна адаптивність, реєстр сертифікатів, зручне
+                    управління контентом, повна SEO-оптимізація</p>
+            </div>
+        </div>
+
+        <h2>Що було реалізовано</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h4>Каталог програм ПК</h4>
+                <p>Структурований каталог з фільтрацією: курси, вебінари, тренінги. Картки з описом, тривалістю та
+                    кредитами ЄКТС.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h4>Реєстр сертифікатів</h4>
+                <p>Онлайн-верифікація виданих сертифікатів — для атестаційних комісій та самих педагогів.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h4>Блог «Методінфо»</h4>
+                <p>Розділ із методичними статтями, порадами та новинами для вчителів. SEO-оптимізований контент.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👩‍🏫</div>
+                <h4>Сторінка «Про Академію»</h4>
+                <p>Історія організації, команда, документи — все для формування довіри з першого візиту.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h4>Повна адаптивність</h4>
+                <p>Ідеальне відображення на телефонах, планшетах та десктопах. Вчителі часто шукають курси з телефону.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h4>Швидкість</h4>
+                <p>Next.js із SSR та статичною генерацією. Сторінки завантажуються миттєво, навіть на повільному
+                    мобільному інтернеті.</p>
+            </div>
+        </div>
+
+        <h2>Хід розробки</h2>
+
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="pipeline-num">01</div>
+                <div>
+                    <h4>Аналіз аудиторії</h4>
+                    <p>Вивчив потреби цільової аудиторії — вчителів ЗЗСО. Головне: довіра до офіційності, простота
+                        вибору програми, мобільний доступ.</p>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="pipeline-num">02</div>
+                <div>
+                    <h4>Дизайн та UX</h4>
+                    <p>Створив дизайн-систему з «академічними» кольорами: стриманий teal + золотий акцент. Фокус на
+                        довірі: сертифікати, цифри, відгуки — одразу на першому екрані.</p>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="pipeline-num">03</div>
+                <div>
+                    <h4>Архітектура та розробка</h4>
+                    <p>Next.js 14 з App Router, TypeScript, Tailwind CSS. Окремі модулі: каталог програм, реєстр
+                        сертифікатів, блог, контактна форма.</p>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="pipeline-num">04</div>
+                <div>
+                    <h4>SEO та оптимізація</h4>
+                    <p>Schema.org розмітка, семантична структура H1–H6, мета-теги для кожної сторінки, sitemap.xml,
+                        robots.txt. Оптимізація зображень у WebP.</p>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="pipeline-num">05</div>
+                <div>
+                    <h4>Деплой на Railway</h4>
+                    <p>CI/CD через GitHub → Railway. Автоматичний білд при кожному пуші. Node.js 22, npm ci, next build
+                        & start.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Технічний стек</h2>
+
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h4>Frontend</h4>
+                <p>Next.js 14, React, TypeScript, Tailwind CSS. SSR для SEO, оптимізація зображень через next/image.</p>
+            </div>
+            <div class="tech-card">
+                <h4>Стилі та анімації</h4>
+                <p>Tailwind CSS з кастомною дизайн-системою. Framer Motion для плавних анімацій та мікровзаємодій.</p>
+            </div>
+            <div class="tech-card">
+                <h4>Хостинг</h4>
+                <p>Railway — автоматичний деплой з GitHub, Node.js 22, CI/CD, автоскейлинг. Домен www.ace.org.ua через
+                    DNS.
+                </p>
+            </div>
+            <div class="tech-card">
+                <h4>SEO & Analytics</h4>
+                <p>Повна Schema.org розмітка (Organization, Course, BreadcrumbList), Open Graph, структуровані дані для
+                    пошуку.</p>
+            </div>
+        </div>
+
+        <h2>Результат</h2>
+
+        <p>Нова версія сайту <strong>www.ace.org.ua</strong> запущена в березні 2026. Сайт вже працює на домені Academy,
+            прийнятий замовником, і обслуговує тисячі вчителів по всій Україні. За відгуками засновниці — вчителі
+            нарешті можуть «за 30 секунд обрати програму і зареєструватись».</p>
+
+        <p>Це проєкт, де важливо не тільки «зробити гарно», але й <strong>зробити переконливо</strong> — щоб вчителька з
+            Фастова, яка бачить сайт вперше, одразу зрозуміла: це офіційно, це зараховується, це варто.</p>
+
+    </div>
+
+    <div class="cta-banner">
+        <h3>Потрібен сайт для освітнього проєкту?</h3>
+        <p>Платформи для навчальних закладів, курсів, академій — з реєстрами, каталогами та SEO.</p>
+        <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
+    </div>
+
+    <footer>
+        <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+    </footer>
+
+</body>
+
+</html>

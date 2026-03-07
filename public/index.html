@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- SEO: Title & Description (ключові слова природно вписані) -->
-<title>Розробка сайтів Київ | Олександр Кравченко — React, Next.js, AI</title>
-<meta name="description" content="Розробка сайтів для бізнесу на React та Next.js. Лендінги, корпоративні сайти, інтернет-магазини, AI-інтеграції. Від ідеї до запуску за 2–4 тижні. Київська область.">
+  <!-- SEO: Title & Description (ключові слова природно вписані) -->
+  <title>Розробка сайтів Київ | Олександр Кравченко — React, Next.js, AI</title>
+  <meta name="description"
+    content="Розробка сайтів для бізнесу на React та Next.js. Лендінги, корпоративні сайти, інтернет-магазини, AI-інтеграції. Від ідеї до запуску за 2–4 тижні. Київська область.">
 
-<!-- SEO: Canonical -->
-<link rel="canonical" href="https://www.parkinsandr.tech/">
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://www.parkinsandr.tech/">
 
-<!-- SEO: Open Graph -->
-<meta property="og:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
-<meta property="og:description" content="Сучасні сайти на React/Next.js з AI-інтеграціями. Лендінги, магазини, корпоративні платформи. Київська область.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="uk_UA">
-<meta property="og:url" content="https://www.parkinsandr.tech/">
-<meta property="og:site_name" content="Oleksandr Kravchenko — Web Developer">
+  <!-- SEO: Open Graph -->
+  <meta property="og:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
+  <meta property="og:description"
+    content="Сучасні сайти на React/Next.js з AI-інтеграціями. Лендінги, магазини, корпоративні платформи. Київська область.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:url" content="https://www.parkinsandr.tech/">
+  <meta property="og:site_name" content="Oleksandr Kravchenko — Web Developer">
+  <meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
 
-<!-- SEO: Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
-<meta name="twitter:description" content="React, Next.js, AI-інтеграції. Від лендінгу до платформи за 2–4 тижні.">
+  <!-- SEO: Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+  <meta name="twitter:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
+  <meta name="twitter:description" content="React, Next.js, AI-інтеграції. Від лендінгу до платформи за 2–4 тижні.">
 
-<!-- SEO: додаткові мета -->
-<meta name="author" content="Oleksandr Kravchenko">
-<meta name="robots" content="index, follow">
-<meta name="geo.region" content="UA-32">
-<meta name="geo.placename" content="Kyiv Oblast">
-<meta name="language" content="Ukrainian">
-<meta name="theme-color" content="#1B3A5C">
+  <!-- SEO: додаткові мета -->
+  <meta name="author" content="Oleksandr Kravchenko">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="UA-32">
+  <meta name="geo.placename" content="Kyiv Oblast">
+  <meta name="language" content="Ukrainian">
+  <meta name="theme-color" content="#1B3A5C">
 
-<!-- SEO: Structured Data — Person + LocalBusiness -->
-<script type="application/ld+json">
+  <!-- SEO: Structured Data — Person + LocalBusiness -->
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -108,1801 +113,2307 @@
   "sameAs": []
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --milk: #F5F0EA;
-    --milk-warm: #EDE7DE;
-    --milk-deep: #E4DDD4;
-    --blue-deep: #1B3A5C;
-    --blue-mid: #2E6B9E;
-    --blue-sky: #5BA4D9;
-    --blue-light: #A8D4F0;
-    --blue-pale: #D6EAF5;
-    --ink: #1A1A1A;
-    --ink-soft: #4A4A4A;
-    --ink-muted: #7A7A7A;
-    --white: #FFFFFF;
-    --green: #3A8C5C;
-    --green-pale: #E8F5EE;
-    --orange: #D4854A;
-    --orange-pale: #FFF3E8;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background-color: var(--milk);
-    color: var(--ink);
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-  }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.25rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(20px);
-    background: rgba(245, 240, 234, 0.88);
-    border-bottom: 1px solid rgba(27, 58, 92, 0.05);
-  }
-
-  .logo {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.5rem;
-    color: var(--blue-deep);
-    text-decoration: none;
-  }
-  .logo span { color: var(--blue-sky); }
-
-  .nav-links { display: flex; gap: 2.25rem; list-style: none; align-items: center; }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--ink-soft);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    position: relative;
-    transition: color 0.3s;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0;
-    width: 0; height: 1.5px;
-    background: var(--blue-mid);
-    transition: width 0.3s;
-  }
-  .nav-links a:hover { color: var(--blue-deep); }
-  .nav-links a:hover::after { width: 100%; }
-
-  .nav-cta {
-    padding: 0.55rem 1.4rem !important;
-    background: var(--blue-deep);
-    color: var(--milk) !important;
-    border-radius: 100px;
-    transition: background 0.3s, transform 0.2s !important;
-  }
-  .nav-cta::after { display: none !important; }
-  .nav-cta:hover { background: var(--blue-mid) !important; transform: translateY(-1px); }
-
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 7rem 3rem 4rem;
-  }
-
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .hero-text h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(2.6rem, 4.8vw, 3.8rem);
-    line-height: 1.15;
-    color: var(--blue-deep);
-    margin-bottom: 1.25rem;
-    letter-spacing: -0.01em;
-  }
-  .hero-text h1 em { font-style: italic; color: var(--blue-mid); }
-
-  .hero-promise {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
-    background: var(--blue-pale);
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--blue-deep);
-    margin-bottom: 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.02em;
-  }
-  .hero-promise::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    animation: pulse-dot 2s infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .hero-sub {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 520px;
-    margin-bottom: 2rem;
-    font-weight: 300;
-  }
-  .hero-sub strong { font-weight: 500; color: var(--ink); }
-
-  .hero-honesty {
-    margin-bottom: 2rem;
-    padding: 1rem 1.5rem;
-    background: var(--white);
-    border-radius: 12px;
-    border: 1px solid rgba(27,58,92,0.06);
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    max-width: 520px;
-  }
-  .hero-honesty strong { color: var(--blue-deep); font-weight: 500; }
-
-  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 1.8rem;
-    background: var(--blue-deep);
-    color: var(--milk);
-    text-decoration: none;
-    border-radius: 100px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .btn-primary:hover {
-    background: var(--blue-mid);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(46,107,158,0.25);
-  }
-  .btn-primary .arrow { transition: transform 0.3s; }
-  .btn-primary:hover .arrow { transform: translateX(4px); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 1.8rem;
-    background: transparent;
-    color: var(--blue-deep);
-    text-decoration: none;
-    border-radius: 100px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    border: 1.5px solid rgba(27,58,92,0.2);
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-  .btn-ghost:hover { border-color: var(--blue-deep); background: rgba(27,58,92,0.04); }
-
-  .hero-ai-note {
-    margin-top: 2rem;
-    font-size: 0.85rem;
-    color: var(--ink-muted);
-    line-height: 1.6;
-    max-width: 480px;
-  }
-  .hero-ai-note a {
-    color: var(--blue-mid);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--blue-mid);
-    transition: color 0.3s;
-  }
-  .hero-ai-note a:hover { color: var(--blue-deep); }
-
-  /* Hero visual */
-  .hero-visual {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .hero-shape {
-    width: 340px; height: 340px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-pale) 0%, var(--blue-light) 50%, var(--blue-sky) 100%);
-    position: relative;
-    animation: float 6s ease-in-out infinite;
-  }
-  .hero-shape::before {
-    content: '{ }';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 3.5rem;
-    color: var(--blue-deep);
-    opacity: 0.2;
-  }
-
-  .floating-tag {
-    position: absolute;
-    background: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--blue-deep);
-    box-shadow: 0 4px 20px rgba(27,58,92,0.08);
-    animation: float 4s ease-in-out infinite;
-    white-space: nowrap;
-  }
-  .floating-tag:nth-child(2) { top: 8%; right: 0; animation-delay: -1s; }
-  .floating-tag:nth-child(3) { bottom: 18%; left: -8%; animation-delay: -2s; }
-  .floating-tag:nth-child(4) { top: 58%; right: -5%; animation-delay: -3s; }
-  .floating-tag:nth-child(5) { bottom: 5%; right: 8%; animation-delay: -0.5s; }
-
-  .tag-dot {
-    display: inline-block;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
-  .dot-g { background: #4CAF50; }
-  .dot-b { background: var(--blue-sky); }
-  .dot-o { background: #FF9800; }
-
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* ===== TICKER ===== */
-  .ticker {
-    padding: 1.25rem 0;
-    border-top: 1px solid rgba(27,58,92,0.06);
-    border-bottom: 1px solid rgba(27,58,92,0.06);
-    overflow: hidden;
-    background: var(--milk-warm);
-  }
-  .ticker-track {
-    display: flex;
-    gap: 2.5rem;
-    animation: ticker 30s linear infinite;
-    width: max-content;
-  }
-  .ticker-item {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .ticker-item::before { content: '◆'; color: var(--blue-light); font-size: 0.45rem; }
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* ===== SECTION HELPERS ===== */
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
-  main > section { padding: 5rem 0; }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .section-label::before { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
-
-  .section-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    color: var(--blue-deep);
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-  }
-
-  .section-desc {
-    font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.65;
-    max-width: 540px;
-    font-weight: 300;
-  }
-
-  /* ===== SCENARIOS ===== */
-  .scenarios-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-
-  .scenario-card {
-    padding: 2.25rem 2rem;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid rgba(27,58,92,0.05);
-    transition: all 0.4s;
-    position: relative;
-    overflow: hidden;
-  }
-  .scenario-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    border-radius: 0 3px 3px 0;
-  }
-  .scenario-card:nth-child(1)::before { background: var(--blue-sky); }
-  .scenario-card:nth-child(2)::before { background: var(--green); }
-  .scenario-card:nth-child(3)::before { background: var(--orange); }
-  .scenario-card:nth-child(4)::before { background: var(--blue-deep); }
-
-  .scenario-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(27,58,92,0.08);
-  }
-
-  .scenario-emoji { font-size: 1.6rem; margin-bottom: 1rem; }
-
-  .scenario-card h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.2rem;
-    color: var(--blue-deep);
-    margin-bottom: 0.35rem;
-  }
-
-  .scenario-who {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    font-style: italic;
-    margin-bottom: 0.75rem;
-  }
-
-  .scenario-card p {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    font-weight: 300;
-  }
-
-  .scenario-details {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .scenario-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    padding: 0.3rem 0.7rem;
-    border-radius: 6px;
-    background: var(--milk);
-    color: var(--ink-soft);
-    letter-spacing: 0.02em;
-  }
-
-  /* ===== PORTFOLIO ===== */
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-
-  .portfolio-card {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    aspect-ratio: 16/10;
-    transition: transform 0.4s;
-  }
-  .portfolio-card:hover { transform: scale(1.015); }
-
-  .portfolio-bg {
-    position: absolute;
-    inset: 0;
-    transition: transform 0.6s;
-    background-color: var(--blue-deep);
-  }
-  .portfolio-card:hover .portfolio-bg { transform: scale(1.06); }
-
-  .portfolio-card:nth-child(2) .portfolio-bg { background: url('images/slavutych.jpg') center top / cover no-repeat, var(--blue-deep); }
-  .portfolio-card:nth-child(3) .portfolio-bg { background: url('images/svengo.jpg') center top / cover no-repeat, #2a2a2a; }
-  .portfolio-card:nth-child(4) .portfolio-bg { background: url('images/interrogator.jpg') center top / cover no-repeat, #1a1520; }
-  .portfolio-card:nth-child(5) .portfolio-bg { background: url('images/parfumerka.jpg') center top / cover no-repeat, #3a1a2a; }
-
-  .portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.08) 100%);
-    z-index: 1;
-  }
-
-  .portfolio-content {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 1.75rem;
-    z-index: 2;
-  }
-
-  .portfolio-tag {
-    display: inline-block;
-    padding: 0.25rem 0.65rem;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(8px);
-    border-radius: 100px;
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.8);
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .portfolio-content h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 0.4rem;
-  }
-
-  .portfolio-content p {
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.45;
-    font-weight: 300;
-    margin-bottom: 0.75rem;
-  }
-
-  .portfolio-metrics {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .metric {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--blue-light);
-    letter-spacing: 0.02em;
-  }
-  .metric::before { content: '↑'; font-weight: 700; }
-  .metric.neutral::before { content: '●'; font-size: 0.4rem; }
-
-  /* ===== ABOUT ===== */
-  .about-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 2.5rem;
-    align-items: start;
-  }
-
-  .about-card {
-    padding: 2.25rem;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid rgba(27,58,92,0.05);
-  }
-
-  .about-card h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.15rem;
-    color: var(--blue-deep);
-    margin-bottom: 0.75rem;
-  }
-
-  .about-card p {
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.65;
-  }
-  .about-card p + p { margin-top: 0.75rem; }
-
-  .superpower {
-    position: relative;
-    overflow: hidden;
-  }
-  .superpower::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 3px;
-    background: linear-gradient(90deg, var(--blue-sky), var(--green));
-  }
-
-  .badge-row {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-top: 1.25rem;
-  }
-  .badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    padding: 0.35rem 0.75rem;
-    border-radius: 8px;
-    letter-spacing: 0.02em;
-  }
-  .badge-blue { background: var(--blue-pale); color: var(--blue-deep); }
-  .badge-green { background: var(--green-pale); color: var(--green); }
-  .badge-warm { background: var(--orange-pale); color: var(--orange); }
-
-  .fit-block {
-    margin-top: 1.25rem;
-    padding: 1.25rem;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    line-height: 1.55;
-  }
-  .fit-yes { background: var(--green-pale); color: var(--green); }
-  .fit-no { background: #FFF5F5; color: #A04040; margin-top: 0.75rem; }
-  .fit-block strong { display: block; margin-bottom: 0.35rem; }
-
-  .fun-fact {
-    margin-top: 1.25rem;
-    padding: 1rem 1.25rem;
-    background: var(--milk);
-    border-radius: 10px;
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    border-left: 3px solid var(--blue-light);
-  }
-  .fun-fact span { font-weight: 500; color: var(--ink); }
-
-  .stats-mini {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  .stat-mini {
-    text-align: center;
-    padding: 1.25rem;
-    background: var(--white);
-    border-radius: 12px;
-    border: 1px solid rgba(27,58,92,0.05);
-    transition: transform 0.3s;
-  }
-  .stat-mini:hover { transform: translateY(-3px); }
-  .stat-mini .num {
-    font-family: 'Instrument Serif', serif;
-    font-size: 2rem;
-    color: var(--blue-deep);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .stat-mini .lbl { font-size: 0.72rem; color: var(--ink-muted); }
-
-  /* ===== PROCESS ===== */
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    position: relative;
-  }
-  .process-grid::before {
-    content: '';
-    position: absolute;
-    top: 32px;
-    left: 8%; right: 8%;
-    height: 1.5px;
-    background: linear-gradient(90deg, transparent, var(--blue-light), var(--blue-mid), var(--blue-light), transparent);
-  }
-  .process-step { text-align: center; position: relative; }
-  .step-num {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 2px solid var(--blue-mid);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.25rem;
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.1rem;
-    color: var(--blue-deep);
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s;
-  }
-  .process-step:hover .step-num {
-    background: var(--blue-deep);
-    color: var(--milk);
-    border-color: var(--blue-deep);
-  }
-  .process-step h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.05rem;
-    color: var(--blue-deep);
-    margin-bottom: 0.35rem;
-  }
-  .process-step p {
-    font-size: 0.82rem;
-    color: var(--ink-muted);
-    line-height: 1.45;
-    max-width: 200px;
-    margin: 0 auto;
-  }
-
-  /* ===== TESTIMONIALS ===== */
-  .testimonials-section {
-    background: var(--milk-warm);
-    border-top: 1px solid rgba(27,58,92,0.05);
-    border-bottom: 1px solid rgba(27,58,92,0.05);
-  }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-  .testimonial-card {
-    padding: 2rem;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid rgba(27,58,92,0.05);
-    position: relative;
-  }
-  .testimonial-card::before {
-    content: '"';
-    font-family: 'Instrument Serif', serif;
-    font-size: 3.5rem;
-    color: var(--blue-light);
-    line-height: 1;
-    position: absolute;
-    top: 1rem; right: 1.5rem;
-    opacity: 0.5;
-  }
-  .testimonial-card p {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    font-style: italic;
-    margin-bottom: 1.25rem;
-  }
-  .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .author-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--blue-deep);
-  }
-  .author-info .name { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
-  .author-info .role { font-size: 0.72rem; color: var(--ink-muted); }
-
-  /* ===== QUOTE BANNER ===== */
-  .quote-banner {
-    padding: 3.5rem;
-    background: var(--blue-deep);
-    border-radius: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 3rem auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: calc(100% - 6rem);
-  }
-  .quote-banner::before {
-    content: '';
-    position: absolute;
-    top: -40%; right: -8%;
-    width: 350px; height: 350px;
-    border-radius: 50%;
-    background: rgba(91,164,217,0.08);
-  }
-  .quote-banner blockquote {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-    color: var(--milk);
-    font-style: italic;
-    line-height: 1.4;
-    max-width: 650px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-  .quote-banner .quote-attr {
-    color: var(--blue-light);
-    font-family: 'DM Sans', sans-serif;
-    font-style: normal;
-    font-size: 0.8rem;
-    margin-top: 1.25rem;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-
-  /* ===== CONTACT ===== */
-  .contact-section { text-align: center; }
-  .contact-section .section-label,
-  .contact-section .section-title,
-  .contact-section .section-desc {
-    text-align: center;
-    justify-content: center;
-  }
-
-  .contact-form-wrap {
-    max-width: 560px;
-    margin: 2.5rem auto 0;
-    background: var(--white);
-    padding: 2.5rem;
-    border-radius: 20px;
-    border: 1px solid rgba(27,58,92,0.06);
-    text-align: left;
-  }
-
-  .form-row { margin-bottom: 1.25rem; }
-  .form-row label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    margin-bottom: 0.4rem;
-  }
-  .form-row input,
-  .form-row textarea,
-  .form-row select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1.5px solid rgba(27,58,92,0.12);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    color: var(--ink);
-    background: var(--milk);
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
-  }
-  .form-row input:focus,
-  .form-row textarea:focus,
-  .form-row select:focus {
-    border-color: var(--blue-mid);
-    box-shadow: 0 0 0 3px rgba(46,107,158,0.08);
-  }
-  .form-row textarea { resize: vertical; min-height: 100px; }
-
-  .form-row-2col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .form-submit {
-    width: 100%;
-    padding: 0.9rem;
-    background: var(--blue-deep);
-    color: var(--milk);
-    border: none;
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .form-submit:hover {
-    background: var(--blue-mid);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(46,107,158,0.25);
-  }
-
-  .form-note {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-  }
-  .form-note strong { color: var(--blue-deep); font-weight: 500; }
-
-  .contact-alt {
-    display: flex;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-  .contact-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
-    background: var(--milk);
-    border-radius: 100px;
-    border: 1px solid rgba(27,58,92,0.08);
-    text-decoration: none;
-    color: var(--ink-soft);
-    font-size: 0.82rem;
-    transition: all 0.3s;
-  }
-  .contact-pill:hover {
-    border-color: var(--blue-mid);
-    color: var(--blue-deep);
-    transform: translateY(-2px);
-  }
-
-  /* ===== CHAT WIDGET ===== */
-  .chat-section {
-    padding: 5rem 0 3rem;
-  }
-  .chat-section .section-label,
-  .chat-section .section-title {
-    text-align: center;
-    justify-content: center;
-  }
-
-  .chat-container {
-    max-width: 680px;
-    margin: 2rem auto 0;
-    background: var(--white);
-    border-radius: 20px;
-    border: 1px solid rgba(27,58,92,0.08);
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(27,58,92,0.06);
-  }
-
-  .chat-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.5rem;
-    background: var(--blue-deep);
-    color: var(--milk);
-  }
-  .chat-header-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-sky), var(--blue-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--blue-deep);
-  }
-  .chat-header-info .chat-name {
-    font-size: 0.88rem;
-    font-weight: 500;
-  }
-  .chat-header-info .chat-status {
-    font-size: 0.68rem;
-    color: var(--blue-light);
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-  .chat-header-info .chat-status::before {
-    content: '';
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #4CAF50;
-  }
-
-  .chat-messages {
-    padding: 1.5rem;
-    max-height: 480px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .chat-msg {
-    display: flex;
-    gap: 0.6rem;
-    max-width: 85%;
-    animation: msg-in 0.4s ease;
-  }
-  .chat-msg.bot { align-self: flex-start; }
-  .chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
-
-  @keyframes msg-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .msg-avatar {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 600;
-  }
-  .chat-msg.bot .msg-avatar {
-    background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
-    color: var(--blue-deep);
-  }
-  .chat-msg.user .msg-avatar {
-    background: var(--blue-deep);
-    color: var(--milk);
-  }
-
-  .msg-bubble {
-    padding: 0.75rem 1rem;
-    border-radius: 14px;
-    font-size: 0.88rem;
-    line-height: 1.55;
-  }
-  .chat-msg.bot .msg-bubble {
-    background: var(--milk);
-    color: var(--ink-soft);
-    border-bottom-left-radius: 4px;
-  }
-  .chat-msg.user .msg-bubble {
-    background: var(--blue-deep);
-    color: var(--milk);
-    border-bottom-right-radius: 4px;
-  }
-
-  .msg-bubble .typing {
-    display: inline-flex;
-    gap: 4px;
-    padding: 4px 0;
-  }
-  .typing span {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--ink-muted);
-    animation: typing-bounce 1.2s infinite;
-  }
-  .typing span:nth-child(2) { animation-delay: 0.15s; }
-  .typing span:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes typing-bounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-4px); opacity: 1; }
-  }
-
-  .chat-input-area {
-    display: flex;
-    gap: 0.5rem;
-    padding: 1rem 1.5rem;
-    border-top: 1px solid rgba(27,58,92,0.06);
-    background: var(--milk);
-  }
-  .chat-input {
-    flex: 1;
-    padding: 0.7rem 1rem;
-    border: 1.5px solid rgba(27,58,92,0.1);
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--ink);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  .chat-input:focus { border-color: var(--blue-mid); }
-  .chat-input::placeholder { color: var(--ink-muted); }
-
-  .chat-send {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: var(--blue-deep);
-    border: none;
-    color: var(--milk);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .chat-send:hover { background: var(--blue-mid); transform: scale(1.05); }
-
-  .chat-quick-btns {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    padding: 0 1.5rem 1rem;
-    background: var(--milk);
-  }
-  .quick-btn {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(27,58,92,0.12);
-    border-radius: 100px;
-    background: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    color: var(--blue-deep);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .quick-btn:hover {
-    background: var(--blue-pale);
-    border-color: var(--blue-mid);
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    padding: 2.5rem 3rem;
-    border-top: 1px solid rgba(27,58,92,0.06);
-  }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-copy { font-size: 0.75rem; color: var(--ink-muted); }
-  .footer-joke {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--ink-muted);
-    opacity: 0.5;
-  }
-  .footer-links { display: flex; gap: 1.25rem; }
-  .footer-links a {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-links a:hover { color: var(--blue-mid); }
-
-  /* ===== REVEAL ===== */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-d1 { transition-delay: 0.1s; }
-  .reveal-d2 { transition-delay: 0.2s; }
-  .reveal-d3 { transition-delay: 0.3s; }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 1024px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
-    .hero-sub, .hero-honesty, .hero-ai-note { margin-left: auto; margin-right: auto; }
-    .hero-buttons { justify-content: center; }
-    .hero-visual { margin-top: 2rem; }
-    .scenarios-grid { grid-template-columns: 1fr; }
-    .about-layout { grid-template-columns: 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    .process-grid { grid-template-columns: 1fr 1fr; }
-    .process-grid::before { display: none; }
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .container { padding: 0 1.5rem; }
-    main > section { padding: 3.5rem 0; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .hero-shape { width: 240px; height: 240px; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .portfolio-featured { aspect-ratio: 16/10 !important; }
-    .process-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-    .quote-banner { margin: 2rem auto; padding: 2.5rem 1.5rem; width: calc(100% - 3rem); }
-    .form-row-2col { grid-template-columns: 1fr; }
-    .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
-    .stats-mini { grid-template-columns: 1fr 1fr; }
-    footer { padding: 2rem 1.5rem; }
-    .chat-container { margin: 2rem 1.5rem 0; }
-  }
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --milk: #F5F0EA;
+      --milk-warm: #EDE7DE;
+      --milk-deep: #E4DDD4;
+      --blue-deep: #1B3A5C;
+      --blue-mid: #2E6B9E;
+      --blue-sky: #5BA4D9;
+      --blue-light: #A8D4F0;
+      --blue-pale: #D6EAF5;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4A4A;
+      --ink-muted: #7A7A7A;
+      --white: #FFFFFF;
+      --green: #3A8C5C;
+      --green-pale: #E8F5EE;
+      --orange: #D4854A;
+      --orange-pale: #FFF3E8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--milk);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(245, 240, 234, 0.88);
+      border-bottom: 1px solid rgba(27, 58, 92, 0.05);
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      color: var(--blue-deep);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--blue-sky);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--blue-mid);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue-deep);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.55rem 1.4rem !important;
+      background: var(--blue-deep);
+      color: var(--milk) !important;
+      border-radius: 100px;
+      transition: background 0.3s, transform 0.2s !important;
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--blue-mid) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 3rem 4rem;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.6rem, 4.8vw, 3.8rem);
+      line-height: 1.15;
+      color: var(--blue-deep);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--blue-mid);
+    }
+
+    .hero-promise {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: var(--blue-pale);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--blue-deep);
+      margin-bottom: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-promise::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .hero-sub strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .hero-honesty {
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid rgba(27, 58, 92, 0.06);
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .hero-honesty strong {
+      color: var(--blue-deep);
+      font-weight: 500;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.8rem;
+      background: var(--blue-deep);
+      color: var(--milk);
+      text-decoration: none;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(46, 107, 158, 0.25);
+    }
+
+    .btn-primary .arrow {
+      transition: transform 0.3s;
+    }
+
+    .btn-primary:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      background: transparent;
+      color: var(--blue-deep);
+      text-decoration: none;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border: 1.5px solid rgba(27, 58, 92, 0.2);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--blue-deep);
+      background: rgba(27, 58, 92, 0.04);
+    }
+
+    .hero-ai-note {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .hero-ai-note a {
+      color: var(--blue-mid);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--blue-mid);
+      transition: color 0.3s;
+    }
+
+    .hero-ai-note a:hover {
+      color: var(--blue-deep);
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-shape {
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-pale) 0%, var(--blue-light) 50%, var(--blue-sky) 100%);
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-shape::before {
+      content: '{ }';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.5rem;
+      color: var(--blue-deep);
+      opacity: 0.2;
+    }
+
+    .floating-tag {
+      position: absolute;
+      background: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--blue-deep);
+      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.08);
+      animation: float 4s ease-in-out infinite;
+      white-space: nowrap;
+    }
+
+    .floating-tag:nth-child(2) {
+      top: 8%;
+      right: 0;
+      animation-delay: -1s;
+    }
+
+    .floating-tag:nth-child(3) {
+      bottom: 18%;
+      left: -8%;
+      animation-delay: -2s;
+    }
+
+    .floating-tag:nth-child(4) {
+      top: 58%;
+      right: -5%;
+      animation-delay: -3s;
+    }
+
+    .floating-tag:nth-child(5) {
+      bottom: 5%;
+      right: 8%;
+      animation-delay: -0.5s;
+    }
+
+    .tag-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .dot-g {
+      background: #4CAF50;
+    }
+
+    .dot-b {
+      background: var(--blue-sky);
+    }
+
+    .dot-o {
+      background: #FF9800;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* ===== TICKER ===== */
+    .ticker {
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(27, 58, 92, 0.06);
+      border-bottom: 1px solid rgba(27, 58, 92, 0.06);
+      overflow: hidden;
+      background: var(--milk-warm);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 2.5rem;
+      animation: ticker 30s linear infinite;
+      width: max-content;
+    }
+
+    .ticker-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .ticker-item::before {
+      content: '◆';
+      color: var(--blue-light);
+      font-size: 0.45rem;
+    }
+
+    @keyframes ticker {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ===== SECTION HELPERS ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    main>section {
+      padding: 5rem 0;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 20px;
+      height: 1.5px;
+      background: var(--blue-mid);
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--blue-deep);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      max-width: 540px;
+      font-weight: 300;
+    }
+
+    /* ===== SCENARIOS ===== */
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .scenario-card {
+      padding: 2.25rem 2rem;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid rgba(27, 58, 92, 0.05);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .scenario-card:nth-child(1)::before {
+      background: var(--blue-sky);
+    }
+
+    .scenario-card:nth-child(2)::before {
+      background: var(--green);
+    }
+
+    .scenario-card:nth-child(3)::before {
+      background: var(--orange);
+    }
+
+    .scenario-card:nth-child(4)::before {
+      background: var(--blue-deep);
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(27, 58, 92, 0.08);
+    }
+
+    .scenario-emoji {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      color: var(--blue-deep);
+      margin-bottom: 0.35rem;
+    }
+
+    .scenario-who {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .scenario-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    .scenario-details {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .scenario-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      background: var(--milk);
+      color: var(--ink-soft);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .portfolio-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 16/10;
+      transition: transform 0.4s;
+    }
+
+    .portfolio-card:hover {
+      transform: scale(1.015);
+    }
+
+    .portfolio-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+      background-color: var(--blue-deep);
+    }
+
+    .portfolio-card:hover .portfolio-bg {
+      transform: scale(1.06);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.08) 100%);
+      z-index: 1;
+    }
+
+    .portfolio-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.75rem;
+      z-index: 2;
+    }
+
+    .portfolio-tag {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border-radius: 100px;
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .portfolio-content h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .portfolio-content p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.45;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .portfolio-metrics {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--blue-light);
+      letter-spacing: 0.02em;
+    }
+
+    .metric::before {
+      content: '↑';
+      font-weight: 700;
+    }
+
+    .metric.neutral::before {
+      content: '●';
+      font-size: 0.4rem;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+
+    .about-card {
+      padding: 2.25rem;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid rgba(27, 58, 92, 0.05);
+    }
+
+    .about-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.15rem;
+      color: var(--blue-deep);
+      margin-bottom: 0.75rem;
+    }
+
+    .about-card p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    .about-card p+p {
+      margin-top: 0.75rem;
+    }
+
+    .superpower {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .superpower::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue-sky), var(--green));
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-blue {
+      background: var(--blue-pale);
+      color: var(--blue-deep);
+    }
+
+    .badge-green {
+      background: var(--green-pale);
+      color: var(--green);
+    }
+
+    .badge-warm {
+      background: var(--orange-pale);
+      color: var(--orange);
+    }
+
+    .fit-block {
+      margin-top: 1.25rem;
+      padding: 1.25rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    .fit-yes {
+      background: var(--green-pale);
+      color: var(--green);
+    }
+
+    .fit-no {
+      background: #FFF5F5;
+      color: #A04040;
+      margin-top: 0.75rem;
+    }
+
+    .fit-block strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .fun-fact {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: var(--milk);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      border-left: 3px solid var(--blue-light);
+    }
+
+    .fun-fact span {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .stats-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-mini {
+      text-align: center;
+      padding: 1.25rem;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid rgba(27, 58, 92, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .stat-mini:hover {
+      transform: translateY(-3px);
+    }
+
+    .stat-mini .num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      color: var(--blue-deep);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-mini .lbl {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+    }
+
+    /* ===== PROCESS ===== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 8%;
+      right: 8%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--blue-light), var(--blue-mid), var(--blue-light), transparent);
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--blue-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      color: var(--blue-deep);
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+
+    .process-step:hover .step-num {
+      background: var(--blue-deep);
+      color: var(--milk);
+      border-color: var(--blue-deep);
+    }
+
+    .process-step h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.05rem;
+      color: var(--blue-deep);
+      margin-bottom: 0.35rem;
+    }
+
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-section {
+      background: var(--milk-warm);
+      border-top: 1px solid rgba(27, 58, 92, 0.05);
+      border-bottom: 1px solid rgba(27, 58, 92, 0.05);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid rgba(27, 58, 92, 0.05);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      font-family: 'Instrument Serif', serif;
+      font-size: 3.5rem;
+      color: var(--blue-light);
+      line-height: 1;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .testimonial-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+    }
+
+    .author-info .name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .author-info .role {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+    }
+
+    /* ===== QUOTE BANNER ===== */
+    .quote-banner {
+      padding: 3.5rem;
+      background: var(--blue-deep);
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 3rem auto;
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(100% - 6rem);
+    }
+
+    .quote-banner::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -8%;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: rgba(91, 164, 217, 0.08);
+    }
+
+    .quote-banner blockquote {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      color: var(--milk);
+      font-style: italic;
+      line-height: 1.4;
+      max-width: 650px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .quote-banner .quote-attr {
+      color: var(--blue-light);
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-section {
+      text-align: center;
+    }
+
+    .contact-section .section-label,
+    .contact-section .section-title,
+    .contact-section .section-desc {
+      text-align: center;
+      justify-content: center;
+    }
+
+    .contact-form-wrap {
+      max-width: 560px;
+      margin: 2.5rem auto 0;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(27, 58, 92, 0.06);
+      text-align: left;
+    }
+
+    .form-row {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(27, 58, 92, 0.12);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: var(--milk);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(46, 107, 158, 0.08);
+    }
+
+    .form-row textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--blue-deep);
+      color: var(--milk);
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .form-submit:hover {
+      background: var(--blue-mid);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(46, 107, 158, 0.25);
+    }
+
+    .form-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    .form-note strong {
+      color: var(--blue-deep);
+      font-weight: 500;
+    }
+
+    .contact-alt {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--milk);
+      border-radius: 100px;
+      border: 1px solid rgba(27, 58, 92, 0.08);
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      transition: all 0.3s;
+    }
+
+    .contact-pill:hover {
+      border-color: var(--blue-mid);
+      color: var(--blue-deep);
+      transform: translateY(-2px);
+    }
+
+    /* ===== CHAT WIDGET ===== */
+    .chat-section {
+      padding: 5rem 0 3rem;
+    }
+
+    .chat-section .section-label,
+    .chat-section .section-title {
+      text-align: center;
+      justify-content: center;
+    }
+
+    .chat-container {
+      max-width: 680px;
+      margin: 2rem auto 0;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid rgba(27, 58, 92, 0.08);
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(27, 58, 92, 0.06);
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: var(--blue-deep);
+      color: var(--milk);
+    }
+
+    .chat-header-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-sky), var(--blue-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .chat-header-info .chat-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .chat-header-info .chat-status {
+      font-size: 0.68rem;
+      color: var(--blue-light);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .chat-header-info .chat-status::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4CAF50;
+    }
+
+    .chat-messages {
+      padding: 1.5rem;
+      max-height: 480px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-msg {
+      display: flex;
+      gap: 0.6rem;
+      max-width: 85%;
+      animation: msg-in 0.4s ease;
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    @keyframes msg-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .chat-msg.bot .msg-avatar {
+      background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
+      color: var(--blue-deep);
+    }
+
+    .chat-msg.user .msg-avatar {
+      background: var(--blue-deep);
+      color: var(--milk);
+    }
+
+    .msg-bubble {
+      padding: 0.75rem 1rem;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .chat-msg.bot .msg-bubble {
+      background: var(--milk);
+      color: var(--ink-soft);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-msg.user .msg-bubble {
+      background: var(--blue-deep);
+      color: var(--milk);
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-bubble .typing {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px 0;
+    }
+
+    .typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+      animation: typing-bounce 1.2s infinite;
+    }
+
+    .typing span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes typing-bounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    .chat-input-area {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(27, 58, 92, 0.06);
+      background: var(--milk);
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid rgba(27, 58, 92, 0.1);
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--ink);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--blue-mid);
+    }
+
+    .chat-input::placeholder {
+      color: var(--ink-muted);
+    }
+
+    .chat-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue-deep);
+      border: none;
+      color: var(--milk);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-send:hover {
+      background: var(--blue-mid);
+      transform: scale(1.05);
+    }
+
+    .chat-quick-btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0 1.5rem 1rem;
+      background: var(--milk);
+    }
+
+    .quick-btn {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(27, 58, 92, 0.12);
+      border-radius: 100px;
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: var(--blue-deep);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: var(--blue-pale);
+      border-color: var(--blue-mid);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 2.5rem 3rem;
+      border-top: 1px solid rgba(27, 58, 92, 0.06);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    .footer-joke {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      opacity: 0.5;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--blue-mid);
+    }
+
+    /* ===== REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-d1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-d2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-d3 {
+      transition-delay: 0.3s;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-sub,
+      .hero-honesty,
+      .hero-ai-note {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        margin-top: 2rem;
+      }
+
+      .scenarios-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      main>section {
+        padding: 3.5rem 0;
+      }
+
+      .hero {
+        padding: 6rem 1.5rem 3rem;
+      }
+
+      .hero-shape {
+        width: 240px;
+        height: 240px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-featured {
+        aspect-ratio: 16/10 !important;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .quote-banner {
+        margin: 2rem auto;
+        padding: 2.5rem 1.5rem;
+        width: calc(100% - 3rem);
+      }
+
+      .form-row-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+
+      .stats-mini {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      footer {
+        padding: 2rem 1.5rem;
+      }
+
+      .chat-container {
+        margin: 2rem 1.5rem 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <a href="#" class="logo">Oleksandr<span>.</span>Kravchenko</a>
-  <ul class="nav-links">
-    <li><a href="#scenarios">Послуги</a></li>
-    <li><a href="#portfolio">Роботи</a></li>
-    <li><a href="#about">Про мене</a></li>
-    <li><a href="#chat-section" class="nav-cta">Поговорити з AI</a></li>
-  </ul>
-</nav>
+  <nav>
+    <a href="#" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+    <ul class="nav-links">
+      <li><a href="#scenarios">Послуги</a></li>
+      <li><a href="#portfolio">Роботи</a></li>
+      <li><a href="#about">Про мене</a></li>
+      <li><a href="#chat-section" class="nav-cta">Поговорити з AI</a></li>
+    </ul>
+  </nav>
 
-<!-- ===== HERO ===== -->
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-promise">Вільний для нових проєктів</div>
-      <h1>Роблю сайти,<br>які <em>працюють</em>,<br>а не просто існують</h1>
-      <p class="hero-sub">
-        Розробляю на React та Next.js для малого й середнього бізнесу.
-        <strong>Не шаблон, не конструктор, не «потім доробимо».</strong>
-      </p>
-      <div class="hero-honesty">
-        <strong>Чесно:</strong> я працюю другий рік. Але подивіться на результат — хіба не він важливіший за красиву цифру в резюме?
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-promise">Вільний для нових проєктів</div>
+        <h1>Роблю сайти,<br>які <em>працюють</em>,<br>а не просто існують</h1>
+        <p class="hero-sub">
+          Розробляю на React та Next.js для малого й середнього бізнесу.
+          <strong>Не шаблон, не конструктор, не «потім доробимо».</strong>
+        </p>
+        <div class="hero-honesty">
+          <strong>Чесно:</strong> я працюю другий рік. Але подивіться на результат — хіба не він важливіший за красиву
+          цифру в резюме?
+        </div>
+        <div class="hero-buttons">
+          <a href="#chat-section" class="btn-primary">
+            Оцінити проєкт безкоштовно <span class="arrow">→</span>
+          </a>
+          <a href="#portfolio" class="btn-ghost">Подивитись роботи</a>
+        </div>
+        <p class="hero-ai-note">
+          До речі, я активно працюю з AI — вони кращі й ефективніші партнери. І шуткують краще за більшість колег. <a
+            href="#chat-section">Поспілкуйтесь з моїм помічником внизу сторінки</a>. Якщо він не зайнятий.
+        </p>
       </div>
-      <div class="hero-buttons">
-        <a href="#chat-section" class="btn-primary">
-          Оцінити проєкт безкоштовно <span class="arrow">→</span>
+      <div class="hero-visual">
+        <div class="hero-shape"></div>
+        <div class="floating-tag"><span class="tag-dot dot-g"></span>Next.js</div>
+        <div class="floating-tag"><span class="tag-dot dot-b"></span>UI/UX</div>
+        <div class="floating-tag"><span class="tag-dot dot-o"></span>AI Partner</div>
+        <div class="floating-tag">😏 Шуточки</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
+      <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
+      <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
+      <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
+      <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
+      <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
+      <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
+      <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
+      <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
+      <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
+      <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
+      <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ===== SCENARIOS ===== -->
+    <section id="scenarios">
+      <div class="container">
+        <div class="section-label">Послуги</div>
+        <h2 class="section-title">Оберіть свій сценарій</h2>
+        <div class="section-desc">Не список технологій, а конкретні рішення під вашу ситуацію.</div>
+        <div class="scenarios-grid">
+          <div class="scenario-card reveal">
+            <div class="scenario-emoji">🏗️</div>
+            <h3>Сайт з нуля</h3>
+            <div class="scenario-who">Коли нічого немає або соромно показувати</div>
+            <p>Повний цикл: аналіз бізнесу → дизайн → розробка → запуск. Отримуєте не просто сайт, а інструмент для
+              залучення клієнтів, який зростає разом із бізнесом.</p>
+            <div class="scenario-details">
+              <span class="scenario-tag">2–4 тижні*</span>
+              <span class="scenario-tag">React / Next.js</span>
+              <span class="scenario-tag">SEO-ready</span>
+            </div>
+          </div>
+          <div class="scenario-card reveal reveal-d1">
+            <div class="scenario-emoji">🔄</div>
+            <h3>Редизайн і перезапуск</h3>
+            <div class="scenario-who">Сайт є, але конверсія = 0 і стильно було у 2019</div>
+            <p>Аудит поточного сайту, знаходжу що ламає конверсію, перебудовую на сучасному стеку. Ваші клієнти нарешті
+              натискають «Замовити», а не «Назад».</p>
+            <div class="scenario-details">
+              <span class="scenario-tag">2–4 тижні*</span>
+              <span class="scenario-tag">UX аудит</span>
+              <span class="scenario-tag">Міграція</span>
+            </div>
+          </div>
+          <div class="scenario-card reveal reveal-d2">
+            <div class="scenario-emoji">🎯</div>
+            <h3>Лендінг під рекламу</h3>
+            <div class="scenario-who">Є трафік, потрібна сторінка, що конвертує</div>
+            <p>Односторінковий сайт, заточений під результат: швидкий, адаптивний, з аналітикою та A/B тестуванням.
+              Ідеально для Google Ads та таргету.</p>
+            <div class="scenario-details">
+              <span class="scenario-tag">Пара днів – тиждень</span>
+              <span class="scenario-tag">A/B тести</span>
+              <span class="scenario-tag">Аналітика</span>
+            </div>
+          </div>
+          <div class="scenario-card reveal reveal-d3">
+            <div class="scenario-emoji">🤖</div>
+            <h3>AI-інтеграції та Legal Tech</h3>
+            <div class="scenario-who">Хочете, щоб сайт думав, а не просто стояв</div>
+            <p>Чат-боти на Claude/OpenAI, автоматизація процесів, аналіз документів. Маю юридичну освіту — розумію і
+              код, і регламенти. Без дрібного шрифту.</p>
+            <div class="scenario-details">
+              <span class="scenario-tag">Від 2 тижнів</span>
+              <span class="scenario-tag">LLM API</span>
+              <span class="scenario-tag">Legal Tech</span>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.75rem; color:var(--ink-muted); font-style:italic;">* Якщо ви вчасно
+          відповідаєте на питання :)</p>
+      </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-label">Портфоліо</div>
+        <h2 class="section-title">Не просто красиво — результативно</h2>
+        <div class="section-desc">Кожен проєкт — з задачею, рішенням та цифрами.</div>
+        <div class="portfolio-grid">
+          <a href="/projects/agentis/" class="portfolio-card portfolio-featured reveal"
+            style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
+            <img class="portfolio-bg" src="images/agentis.jpg" alt="Сайт AGENTIS" loading="lazy"
+              style="background-color: #0a1628;">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag" style="background:rgba(91,164,217,0.25);">🏆 Головний проєкт · Legal Tech ·
+                AI</span>
+              <h3 style="font-size:1.8rem;">AGENTIS</h3>
+              <p>AI-платформа юридичного аналізу: 5 AI-моделей, 207 законів у базі, 22 000+ семантичних зв'язків, 15
+                AI-агентів на кожну ситуацію. Конвеєр перевірок, PDF-звіти, оцінка ризиків.</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">5 AI-моделей</span>
+                <span class="metric neutral">207 законів</span>
+                <span class="metric neutral">15 AI-агентів</span>
+                <span class="metric neutral">PDF-звіти</span>
+              </div>
+            </div>
+          </a>
+          <a href="/projects/ace/" class="portfolio-card reveal"
+            style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
+            <img class="portfolio-bg" src="images/ace.jpg" alt="Сайт Академії сучасних освітян" loading="lazy"
+              style="background-color: #1a5c5c;">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag" style="background:rgba(26,92,92,0.3);">🎓 Освіта · Next.js · Railway</span>
+              <h3 style="font-size:1.8rem;">Академія сучасних освітян</h3>
+              <p>Редизайн сайту для офіційного суб'єкта підвищення кваліфікації педагогів. 12+ років, 8 700+
+                випускників, реєстр сертифікатів, каталог програм ПК.</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">12+ років</span>
+                <span class="metric neutral">8700+ випускників</span>
+                <span class="metric neutral">Next.js · Railway</span>
+                <span class="metric neutral">Сертифікати КМУ №800</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.slavutych-restaurant.site/" target="_blank" rel="noopener noreferrer"
+            class="portfolio-card reveal" style="text-decoration:none;">
+            <img class="portfolio-bg" src="images/slavutych.jpg" alt="Сайт ресторану Славутич" loading="lazy"
+              style="background-color: var(--blue-deep);">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag">Ресторан · Next.js</span>
+              <h3>Славутич</h3>
+              <p>Сайт ресторану сучасної української кухні: меню, бронювання столиків, галерея, тераса</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">Next.js · SSR</span>
+                <span class="metric neutral">Онлайн-бронювання</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.svengo.shop/" target="_blank" rel="noopener noreferrer"
+            class="portfolio-card reveal reveal-d1" style="text-decoration:none;">
+            <img class="portfolio-bg" src="images/svengo.jpg" alt="Сайт заводу ЗБВ SVENGO" loading="lazy"
+              style="background-color: #2a2a2a;">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag">B2B · Завод ЗБВ</span>
+              <h3>SVENGO</h3>
+              <p>Сайт заводу залізобетонних виробів: каталог 50+ позицій, ШІ-помічник, калькулятор доставки</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">AI-помічник</span>
+                <span class="metric neutral">Каталог · SEO</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://sashko1391.github.io/interrogator/" target="_blank" rel="noopener noreferrer"
+            class="portfolio-card reveal reveal-d2" style="text-decoration:none;">
+            <img class="portfolio-bg" src="images/interrogator.jpg" alt="Детективна AI гра Слідчий" loading="lazy"
+              style="background-color: #1a1520;">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag">AI-гра · Claude API</span>
+              <h3>Слідчий</h3>
+              <p>Детективна гра на основі AI: допитуй підозрюваних, шукай суперечності, виноси вердикт</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">Claude Sonnet</span>
+                <span class="metric neutral">UA/EN · Premium</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://dniprowska-parfumerka.shop/" target="_blank" rel="noopener noreferrer"
+            class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
+            <img class="portfolio-bg" src="images/parfumerka.jpg" alt="Інтернет-магазин парфумерії Dniprowska"
+              loading="lazy" style="background-color: #3a1a2a;">
+            <div class="portfolio-overlay"></div>
+            <div class="portfolio-content">
+              <span class="portfolio-tag">E-commerce · Парфумерія</span>
+              <h3>Dniprowska Parfumerka</h3>
+              <p>Інтернет-магазин парфумерії: каталог з фільтрами, ШІ-консультант, розпив ароматів</p>
+              <div class="portfolio-metrics">
+                <span class="metric neutral">AI-консультант</span>
+                <span class="metric neutral">Каталог · Фільтри</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+      <div class="container">
+        <div class="section-label">Про мене</div>
+        <h2 class="section-title">Не просто розробник</h2>
+        <div class="about-layout">
+          <div>
+            <div class="about-card superpower reveal">
+              <h3>Юрист, який пише код</h3>
+              <p>Магістр права КНУ ім. Шевченка + повний стек веб-розробки. Рідкісне поєднання, яке дає реальну
+                перевагу: я розумію бізнес-логіку, регламенти та GDPR не з документації, а з практики.</p>
+              <p>AI — мій щоденний інструмент. Я не просто «використовую ChatGPT», а будую з ним продукти: від аналізу
+                документів до генеративних інтерфейсів. Це дозволяє мені працювати швидше та видавати рішення, які
+                зазвичай потребують цілої команди.</p>
+              <div class="badge-row">
+                <span class="badge badge-blue">React / Next.js</span>
+                <span class="badge badge-blue">TypeScript</span>
+                <span class="badge badge-green">Legal Tech</span>
+                <span class="badge badge-warm">AI / LLM</span>
+              </div>
+            </div>
+
+            <div class="fit-block fit-yes reveal reveal-d1">
+              <strong>✦ Ідеально підходжу, якщо вам потрібен:</strong>
+              Сайт, що реально працює на бізнес, а не «щоб було». Розробник, який розуміє вашу нішу і думає як продакт,
+              а не як виконавець ТЗ.
+            </div>
+            <div class="fit-block fit-no reveal reveal-d2">
+              <strong>✦ Не підходжу, якщо:</strong>
+              Потрібен «сайт за 500 грн на вчора» або копія чужого сайту піксель-в-піксель. Це не моя гра.
+            </div>
+          </div>
+
+          <div>
+            <div class="stats-mini reveal">
+              <div class="stat-mini">
+                <div class="num">2-й</div>
+                <div class="lbl">рік у розробці</div>
+              </div>
+              <div class="stat-mini">
+                <div class="num">∞</div>
+                <div class="lbl">кави випито</div>
+              </div>
+              <div class="stat-mini">
+                <div class="num">24/7</div>
+                <div class="lbl">AI-напарник</div>
+              </div>
+              <div class="stat-mini">
+                <div class="num">0</div>
+                <div class="lbl">сайтів на Tilda</div>
+              </div>
+            </div>
+
+            <div class="fun-fact reveal reveal-d1">
+              <span>🚴 2 350 км Україною на велосипеді за 28 днів.</span><br>
+              Ваш дедлайн для мене — легка прогулянка. А ще я плаваю в ополонці через день. Холодний розум — це не
+              метафора.
+            </div>
+
+            <div class="about-card reveal reveal-d2" style="margin-top: 1.25rem;">
+              <h3>Як я працюю</h3>
+              <p>Працюю з Троїцького на Київщині — без офісного шуму, з максимальною концентрацією. На зв'язку в
+                Telegram, WhatsApp і Zoom. Регулярні демо кожного тижня — ви бачите прогрес, а не чекаєте дива.</p>
+              <p
+                style="margin-top:0.5rem; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--ink-muted);">
+                // Найкращий код пишеться між лісом і полем 🌲</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section id="process">
+      <div class="container">
+        <div class="section-label">Процес</div>
+        <h2 class="section-title">Від «мені потрібен сайт» до «wow»</h2>
+        <div class="section-desc">Чотири кроки — без сюрпризів, без зникнень, без «ну ще трошки зачекайте».</div>
+        <div class="process-grid">
+          <div class="process-step reveal">
+            <div class="step-num">01</div>
+            <h3>Бриф</h3>
+            <p>Напишіть мені або помічнику що вам потрібно. Швидко узгодимо деталі.</p>
+          </div>
+          <div class="process-step reveal reveal-d1">
+            <div class="step-num">02</div>
+            <h3>Дизайн</h3>
+            <p>Запропоную свій макет у Figma. Або надайте інструкції — зроблю по вашому баченню.</p>
+          </div>
+          <div class="process-step reveal reveal-d2">
+            <div class="step-num">03</div>
+            <h3>Розробка</h3>
+            <p>Код + щотижневі демо. Ви бачите, як сайт оживає в реальному часі.</p>
+          </div>
+          <div class="process-step reveal reveal-d3">
+            <div class="step-num">04</div>
+            <h3>Запуск</h3>
+            <p>Тести, деплой, аналітика. І місяць безкоштовної підтримки після.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials-section" style="padding:5rem 0;">
+      <div class="container">
+        <div class="section-label">Відгуки</div>
+        <h2 class="section-title">Що кажуть клієнти. Дослівно.</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <p>Саня, я в цьому нічого не шарю, показуй Наташі.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">СП</div>
+              <div class="author-info">
+                <div class="name">Сергій П.</div>
+                <div class="role">Власник ресторану</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-d1">
+            <p>Вау, круто.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">МП</div>
+              <div class="author-info">
+                <div class="name">Максим П.</div>
+                <div class="role">Замовляв інтернет-магазин</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-d2">
+            <p>Не можу глянути, інтернет слабий.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">СМ</div>
+              <div class="author-info">
+                <div class="name">Сергій М.</div>
+                <div class="role">Власник заводу ЗБВ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- v7 -->
+  <div class="quote-banner reveal">
+    <blockquote>«Гарний сайт — це коли клієнт натискає "Замовити", а не "Назад".»</blockquote>
+    <div class="quote-attr">— Олександр, десь між третьою та четвертою кавою</div>
+  </div>
+
+  <!-- ===== BLOG ===== -->
+  <section id="blog" style="padding:5rem 0;">
+    <div class="container">
+      <div class="section-label">Блог</div>
+      <h2 class="section-title">Корисне для бізнесу</h2>
+      <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; margin-top:2.5rem;">
+        <a href="/blog/yak-obrati-rozrobnyka/"
+          style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;"
+          onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'"
+          onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+          <div
+            style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">
+            Гайд · 8 хв</div>
+          <h3
+            style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">
+            Як обрати розробника сайту у 2026</h3>
+          <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">9 критеріїв, червоні
+            прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
         </a>
-        <a href="#portfolio" class="btn-ghost">Подивитись роботи</a>
-      </div>
-      <p class="hero-ai-note">
-        До речі, я активно працюю з AI — вони кращі й ефективніші партнери. І шуткують краще за більшість колег. <a href="#chat-section">Поспілкуйтесь з моїм помічником внизу сторінки</a>. Якщо він не зайнятий.
-      </p>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-shape"></div>
-      <div class="floating-tag"><span class="tag-dot dot-g"></span>Next.js</div>
-      <div class="floating-tag"><span class="tag-dot dot-b"></span>UI/UX</div>
-      <div class="floating-tag"><span class="tag-dot dot-o"></span>AI Partner</div>
-      <div class="floating-tag">😏 Шуточки</div>
-    </div>
-  </div>
-</header>
-
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
-    <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
-    <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
-    <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
-    <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
-    <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
-    <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
-    <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
-    <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
-    <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
-    <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
-    <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
-  </div>
-</div>
-
-<main>
-
-<!-- ===== SCENARIOS ===== -->
-<section id="scenarios">
-  <div class="container">
-    <div class="section-label">Послуги</div>
-    <div class="section-title">Оберіть свій сценарій</div>
-    <div class="section-desc">Не список технологій, а конкретні рішення під вашу ситуацію.</div>
-    <div class="scenarios-grid">
-      <div class="scenario-card reveal">
-        <div class="scenario-emoji">🏗️</div>
-        <h3>Сайт з нуля</h3>
-        <div class="scenario-who">Коли нічого немає або соромно показувати</div>
-        <p>Повний цикл: аналіз бізнесу → дизайн → розробка → запуск. Отримуєте не просто сайт, а інструмент для залучення клієнтів, який зростає разом із бізнесом.</p>
-        <div class="scenario-details">
-          <span class="scenario-tag">2–4 тижні*</span>
-          <span class="scenario-tag">React / Next.js</span>
-          <span class="scenario-tag">SEO-ready</span>
-        </div>
-      </div>
-      <div class="scenario-card reveal reveal-d1">
-        <div class="scenario-emoji">🔄</div>
-        <h3>Редизайн і перезапуск</h3>
-        <div class="scenario-who">Сайт є, але конверсія = 0 і стильно було у 2019</div>
-        <p>Аудит поточного сайту, знаходжу що ламає конверсію, перебудовую на сучасному стеку. Ваші клієнти нарешті натискають «Замовити», а не «Назад».</p>
-        <div class="scenario-details">
-          <span class="scenario-tag">2–4 тижні*</span>
-          <span class="scenario-tag">UX аудит</span>
-          <span class="scenario-tag">Міграція</span>
-        </div>
-      </div>
-      <div class="scenario-card reveal reveal-d2">
-        <div class="scenario-emoji">🎯</div>
-        <h3>Лендінг під рекламу</h3>
-        <div class="scenario-who">Є трафік, потрібна сторінка, що конвертує</div>
-        <p>Односторінковий сайт, заточений під результат: швидкий, адаптивний, з аналітикою та A/B тестуванням. Ідеально для Google Ads та таргету.</p>
-        <div class="scenario-details">
-          <span class="scenario-tag">Пара днів – тиждень</span>
-          <span class="scenario-tag">A/B тести</span>
-          <span class="scenario-tag">Аналітика</span>
-        </div>
-      </div>
-      <div class="scenario-card reveal reveal-d3">
-        <div class="scenario-emoji">🤖</div>
-        <h3>AI-інтеграції та Legal Tech</h3>
-        <div class="scenario-who">Хочете, щоб сайт думав, а не просто стояв</div>
-        <p>Чат-боти на Claude/OpenAI, автоматизація процесів, аналіз документів. Маю юридичну освіту — розумію і код, і регламенти. Без дрібного шрифту.</p>
-        <div class="scenario-details">
-          <span class="scenario-tag">Від 2 тижнів</span>
-          <span class="scenario-tag">LLM API</span>
-          <span class="scenario-tag">Legal Tech</span>
-        </div>
+        <a href="/blog/react-vs-tilda/"
+          style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;"
+          onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'"
+          onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+          <div
+            style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">
+            Порівняння · 10 хв</div>
+          <h3
+            style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">
+            React vs Tilda: що обрати для бізнесу</h3>
+          <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">Чесне порівняння з
+            таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
+        </a>
       </div>
     </div>
-    <p style="margin-top:1rem; font-size:0.75rem; color:var(--ink-muted); font-style:italic;">* Якщо ви вчасно відповідаєте на питання :)</p>
-  </div>
-</section>
+  </section>
 
-<!-- ===== PORTFOLIO ===== -->
-<section id="portfolio">
-  <div class="container">
-    <div class="section-label">Портфоліо</div>
-    <div class="section-title">Не просто красиво — результативно</div>
-    <div class="section-desc">Кожен проєкт — з задачею, рішенням та цифрами.</div>
-    <div class="portfolio-grid">
-      <a href="/projects/agentis/" class="portfolio-card portfolio-featured reveal" style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
-        <div class="portfolio-bg" style="background: url('images/agentis.jpg') center top / cover no-repeat, #0a1628;"></div>
-        <div class="portfolio-overlay"></div>
-        <div class="portfolio-content">
-          <span class="portfolio-tag" style="background:rgba(91,164,217,0.25);">🏆 Головний проєкт · Legal Tech · AI</span>
-          <h3 style="font-size:1.8rem;">AGENTIS</h3>
-          <p>AI-платформа юридичного аналізу: 5 AI-моделей, 207 законів у базі, 22 000+ семантичних зв'язків, 15 AI-агентів на кожну ситуацію. Конвеєр перевірок, PDF-звіти, оцінка ризиків.</p>
-          <div class="portfolio-metrics">
-            <span class="metric neutral">5 AI-моделей</span>
-            <span class="metric neutral">207 законів</span>
-            <span class="metric neutral">15 AI-агентів</span>
-            <span class="metric neutral">PDF-звіти</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://www.slavutych-restaurant.site/" target="_blank" class="portfolio-card reveal" style="text-decoration:none;">
-        <div class="portfolio-bg"></div>
-        <div class="portfolio-overlay"></div>
-        <div class="portfolio-content">
-          <span class="portfolio-tag">Ресторан · Next.js</span>
-          <h3>Славутич</h3>
-          <p>Сайт ресторану сучасної української кухні: меню, бронювання столиків, галерея, тераса</p>
-          <div class="portfolio-metrics">
-            <span class="metric neutral">Next.js · SSR</span>
-            <span class="metric neutral">Онлайн-бронювання</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://www.svengo.shop/" target="_blank" class="portfolio-card reveal reveal-d1" style="text-decoration:none;">
-        <div class="portfolio-bg"></div>
-        <div class="portfolio-overlay"></div>
-        <div class="portfolio-content">
-          <span class="portfolio-tag">B2B · Завод ЗБВ</span>
-          <h3>SVENGO</h3>
-          <p>Сайт заводу залізобетонних виробів: каталог 50+ позицій, ШІ-помічник, калькулятор доставки</p>
-          <div class="portfolio-metrics">
-            <span class="metric neutral">AI-помічник</span>
-            <span class="metric neutral">Каталог · SEO</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://sashko1391.github.io/interrogator/" target="_blank" class="portfolio-card reveal reveal-d2" style="text-decoration:none;">
-        <div class="portfolio-bg"></div>
-        <div class="portfolio-overlay"></div>
-        <div class="portfolio-content">
-          <span class="portfolio-tag">AI-гра · Claude API</span>
-          <h3>Слідчий</h3>
-          <p>Детективна гра на основі AI: допитуй підозрюваних, шукай суперечності, виноси вердикт</p>
-          <div class="portfolio-metrics">
-            <span class="metric neutral">Claude Sonnet</span>
-            <span class="metric neutral">UA/EN · Premium</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://dniprowska-parfumerka.shop/" target="_blank" class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-        <div class="portfolio-bg"></div>
-        <div class="portfolio-overlay"></div>
-        <div class="portfolio-content">
-          <span class="portfolio-tag">E-commerce · Парфумерія</span>
-          <h3>Dniprowska Parfumerka</h3>
-          <p>Інтернет-магазин парфумерії: каталог з фільтрами, ШІ-консультант, розпив ароматів</p>
-          <div class="portfolio-metrics">
-            <span class="metric neutral">AI-консультант</span>
-            <span class="metric neutral">Каталог · Фільтри</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
+  <!-- ===== CHAT SECTION ===== -->
+  <section class="chat-section" id="chat-section">
+    <div class="container">
+      <div class="section-label">Помічник</div>
+      <h2 class="section-title">Поспілкуйтесь з моїм AI-колегою</h2>
+      <p class="section-desc" style="text-align:center; margin:0.5rem auto 0;">Він знає про мої послуги, строки та
+        підхід. Можете узгодити перші деталі — він передасть.</p>
 
-<!-- ===== ABOUT ===== -->
-<section id="about">
-  <div class="container">
-    <div class="section-label">Про мене</div>
-    <div class="section-title">Не просто розробник</div>
-    <div class="about-layout">
-      <div>
-        <div class="about-card superpower reveal">
-          <h3>Юрист, який пише код</h3>
-          <p>Магістр права КНУ ім. Шевченка + повний стек веб-розробки. Рідкісне поєднання, яке дає реальну перевагу: я розумію бізнес-логіку, регламенти та GDPR не з документації, а з практики.</p>
-          <p>AI — мій щоденний інструмент. Я не просто «використовую ChatGPT», а будую з ним продукти: від аналізу документів до генеративних інтерфейсів. Це дозволяє мені працювати швидше та видавати рішення, які зазвичай потребують цілої команди.</p>
-          <div class="badge-row">
-            <span class="badge badge-blue">React / Next.js</span>
-            <span class="badge badge-blue">TypeScript</span>
-            <span class="badge badge-green">Legal Tech</span>
-            <span class="badge badge-warm">AI / LLM</span>
+      <div class="chat-container reveal">
+        <div class="chat-header">
+          <div class="chat-header-avatar">C</div>
+          <div class="chat-header-info">
+            <div class="chat-name">Claude — помічник Олександра</div>
+            <div class="chat-status">Онлайн</div>
           </div>
         </div>
 
-        <div class="fit-block fit-yes reveal reveal-d1">
-          <strong>✦ Ідеально підходжу, якщо вам потрібен:</strong>
-          Сайт, що реально працює на бізнес, а не «щоб було». Розробник, який розуміє вашу нішу і думає як продакт, а не як виконавець ТЗ.
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg bot">
+            <div class="msg-avatar">C</div>
+            <div class="msg-bubble">Привіт! Я AI-помічник Олександра. Можу розповісти про послуги, строки, підхід до
+              роботи, або просто поспілкуватись. Що вас цікавить?</div>
+          </div>
         </div>
-        <div class="fit-block fit-no reveal reveal-d2">
-          <strong>✦ Не підходжу, якщо:</strong>
-          Потрібен «сайт за 500 грн на вчора» або копія чужого сайту піксель-в-піксель. Це не моя гра.
+
+        <div class="chat-quick-btns" id="quickBtns">
+          <button class="quick-btn" onclick="sendQuick(this)">Скільки коштує сайт?</button>
+          <button class="quick-btn" onclick="sendQuick(this)">Які строки?</button>
+          <button class="quick-btn" onclick="sendQuick(this)">Як почати проєкт?</button>
+          <button class="quick-btn" onclick="sendQuick(this)">Чому AI — це перевага?</button>
+        </div>
+
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть повідомлення..."
+            onkeydown="if(event.key==='Enter')sendMessage()">
+          <button class="chat-send" onclick="sendMessage()" aria-label="Надіслати">↑</button>
         </div>
       </div>
 
-      <div>
-        <div class="stats-mini reveal">
-          <div class="stat-mini">
-            <div class="num">2-й</div>
-            <div class="lbl">рік у розробці</div>
-          </div>
-          <div class="stat-mini">
-            <div class="num">∞</div>
-            <div class="lbl">кави випито</div>
-          </div>
-          <div class="stat-mini">
-            <div class="num">24/7</div>
-            <div class="lbl">AI-напарник</div>
-          </div>
-          <div class="stat-mini">
-            <div class="num">0</div>
-            <div class="lbl">сайтів на Tilda</div>
-          </div>
-        </div>
-
-        <div class="fun-fact reveal reveal-d1">
-          <span>🚴 2 350 км Україною на велосипеді за 28 днів.</span><br>
-          Ваш дедлайн для мене — легка прогулянка. А ще я плаваю в ополонці через день. Холодний розум — це не метафора.
-        </div>
-
-        <div class="about-card reveal reveal-d2" style="margin-top: 1.25rem;">
-          <h3>Як я працюю</h3>
-          <p>Працюю з Троїцького на Київщині — без офісного шуму, з максимальною концентрацією. На зв'язку в Telegram, WhatsApp і Zoom. Регулярні демо кожного тижня — ви бачите прогрес, а не чекаєте дива.</p>
-          <p style="margin-top:0.5rem; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--ink-muted);">// Найкращий код пишеться між лісом і полем 🌲</p>
-        </div>
+      <div class="contact-alt" style="margin-top:2.5rem;">
+        <a href="https://t.me/+380936429885" class="contact-pill">💬 Telegram</a>
+        <a href="https://wa.me/380936429885" class="contact-pill">📱 WhatsApp</a>
+        <a href="mailto:sashko1391@gmail.com" class="contact-pill">✉️ sashko1391@gmail.com</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===== PROCESS ===== -->
-<section id="process">
-  <div class="container">
-    <div class="section-label">Процес</div>
-    <div class="section-title">Від «мені потрібен сайт» до «wow»</div>
-    <div class="section-desc">Чотири кроки — без сюрпризів, без зникнень, без «ну ще трошки зачекайте».</div>
-    <div class="process-grid">
-      <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <h3>Бриф</h3>
-        <p>Напишіть мені або помічнику що вам потрібно. Швидко узгодимо деталі.</p>
-      </div>
-      <div class="process-step reveal reveal-d1">
-        <div class="step-num">02</div>
-        <h3>Дизайн</h3>
-        <p>Запропоную свій макет у Figma. Або надайте інструкції — зроблю по вашому баченню.</p>
-      </div>
-      <div class="process-step reveal reveal-d2">
-        <div class="step-num">03</div>
-        <h3>Розробка</h3>
-        <p>Код + щотижневі демо. Ви бачите, як сайт оживає в реальному часі.</p>
-      </div>
-      <div class="process-step reveal reveal-d3">
-        <div class="step-num">04</div>
-        <h3>Запуск</h3>
-        <p>Тести, деплой, аналітика. І місяць безкоштовної підтримки після.</p>
-      </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 Oleksandr Kravchenko — Усі права та пікселі захищені</div>
+      <div class="footer-joke">console.log("Дякую, що доскролили 💙")</div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ===== TESTIMONIALS ===== -->
-<section class="testimonials-section" style="padding:5rem 0;">
-  <div class="container">
-    <div class="section-label">Відгуки</div>
-    <div class="section-title">Що кажуть клієнти. Дослівно.</div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <p>Саня, я в цьому нічого не шарю, показуй Наташі.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">СП</div>
-          <div class="author-info">
-            <div class="name">Сергій П.</div>
-            <div class="role">Власник ресторану</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal reveal-d1">
-        <p>Вау, круто.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">МП</div>
-          <div class="author-info">
-            <div class="name">Максим П.</div>
-            <div class="role">Замовляв інтернет-магазин</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal reveal-d2">
-        <p>Не можу глянути, інтернет слабий.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">СМ</div>
-          <div class="author-info">
-            <div class="name">Сергій М.</div>
-            <div class="role">Власник заводу ЗБВ</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    // Reveal
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-</main>
+    // Nav shadow
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.boxShadow =
+        window.scrollY > 40 ? '0 2px 16px rgba(27,58,92,0.05)' : 'none';
+    });
 
-<!-- v7 -->
-<div class="quote-banner reveal">
-  <blockquote>«Гарний сайт — це коли клієнт натискає "Замовити", а не "Назад".»</blockquote>
-  <div class="quote-attr">— Олександр, десь між третьою та четвертою кавою</div>
-</div>
+    // ===== CHAT LOGIC =====
+    const responses = {
+      'Скільки коштує сайт?': `Вартість залежить від складності проєкту — кількості сторінок, функціоналу, інтеграцій.\n\nОлександр не працює за фіксованим прайсом — кожен проєкт оцінюється індивідуально після короткого брифу.\n\nНапишіть, що вам потрібно, і я передам — Олександр дасть оцінку протягом доби 😊\n\nАбо залиште контакт, і він сам зв'яжеться!`,
 
-<!-- ===== BLOG ===== -->
-<section id="blog" style="padding:5rem 0;">
-  <div class="container">
-    <div class="section-label">Блог</div>
-    <div class="section-title">Корисне для бізнесу</div>
-    <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
-    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; margin-top:2.5rem;">
-      <a href="/blog/yak-obrati-rozrobnyka/" style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">Гайд · 8 хв</div>
-        <h3 style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">Як обрати розробника сайту у 2026</h3>
-        <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">9 критеріїв, червоні прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
-      </a>
-      <a href="/blog/react-vs-tilda/" style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">Порівняння · 10 хв</div>
-        <h3 style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">React vs Tilda: що обрати для бізнесу</h3>
-        <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
-      </a>
-    </div>
-  </div>
-</section>
+      'Які строки?': `Олександр працює швидко, але якісно:\n\n⚡ Лендінг — пара днів до тижня\n🏗️ Повний сайт — 2–4 тижні\n🤖 AI-проєкт — від 2 тижнів\n\nВажливий нюанс: строки актуальні, якщо ви вчасно відповідаєте на питання 😉\n\nХочете обговорити ваш проєкт? Залиште контакт — Олександр зв'яжеться!`,
 
-<!-- ===== CHAT SECTION ===== -->
-<section class="chat-section" id="chat-section">
-  <div class="container">
-    <div class="section-label">Помічник</div>
-    <div class="section-title">Поспілкуйтесь з моїм AI-колегою</div>
-    <p class="section-desc" style="text-align:center; margin:0.5rem auto 0;">Він знає про мої послуги, строки та підхід. Можете узгодити перші деталі — він передасть.</p>
+      'Як почати проєкт?': `Дуже просто:\n\n1️⃣ Напишіть мені або Олександру що вам потрібно\n2️⃣ Швидко узгодимо деталі\n3️⃣ Олександр запропонує макет, або ви надаєте свої інструкції\n4️⃣ Розробка з щотижневими демо → запуск!\n\nМожете почати прямо зараз — розкажіть, що за проєкт, і залиште контакт 👇`,
 
-    <div class="chat-container reveal">
-      <div class="chat-header">
-        <div class="chat-header-avatar">C</div>
-        <div class="chat-header-info">
-          <div class="chat-name">Claude — помічник Олександра</div>
-          <div class="chat-status">Онлайн</div>
-        </div>
-      </div>
+      'Чому AI — це перевага?': `О, це моя улюблена тема! 🤓\n\nОлександр не просто "використовує AI" — він будує з ним. Я, наприклад, допомагаю з кодом, текстами, аналітикою. Це дозволяє:\n\n• Робити за тижні те, що раніше займало місяці\n• Один розробник + AI = маленька команда\n• Інтегрувати AI-фішки прямо в ваш продукт\n\nА ще я справді шуткую краще за більшість колег Олександра. Він сам так каже. Хоча, може, просто підлещується 😄`
+    };
 
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-msg bot">
-          <div class="msg-avatar">C</div>
-          <div class="msg-bubble">Привіт! Я AI-помічник Олександра. Можу розповісти про послуги, строки, підхід до роботи, або просто поспілкуватись. Що вас цікавить?</div>
-        </div>
-      </div>
+    const fallbacks = [
+      'Цікаве питання! Щоб Олександр міг відповісти детально — залиште свій контакт (Telegram, телефон або пошту), і він зв\'яжеться протягом доби 😊',
+      'Хм, це вже виходить за межі моїх повноважень 😅 Але я все записую! Залиште номер або Telegram — Олександр подивиться нашу розмову і відповість.',
+      'О, серйозні наміри! Це краще обговорити напряму. Напишіть свій контакт — я передам Олександру разом з усією нашою бесідою 📨',
+      'Я вже майже все записав! Залишилось тільки ваш контакт, щоб Олександр міг зв\'язатись і обговорити деталі. Telegram, телефон або пошта — що зручніше?'
+    ];
 
-      <div class="chat-quick-btns" id="quickBtns">
-        <button class="quick-btn" onclick="sendQuick(this)">Скільки коштує сайт?</button>
-        <button class="quick-btn" onclick="sendQuick(this)">Які строки?</button>
-        <button class="quick-btn" onclick="sendQuick(this)">Як почати проєкт?</button>
-        <button class="quick-btn" onclick="sendQuick(this)">Чому AI — це перевага?</button>
-      </div>
+    let fallbackIndex = 0;
+    let messageCount = 0;
+    let contactCollected = false;
+    let chatHistory = [];
 
-      <div class="chat-input-area">
-        <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть повідомлення..." onkeydown="if(event.key==='Enter')sendMessage()">
-        <button class="chat-send" onclick="sendMessage()" aria-label="Надіслати">↑</button>
-      </div>
-    </div>
+    // Cloudflare Worker proxy — тримає Telegram bot token серверно
+    const CHAT_PROXY_URL = 'https://oleksandr-site.sashko1391.workers.dev';
 
-    <div class="contact-alt" style="margin-top:2.5rem;">
-      <a href="https://t.me/+380936429885" class="contact-pill">💬 Telegram</a>
-      <a href="https://wa.me/380936429885" class="contact-pill">📱 WhatsApp</a>
-      <a href="mailto:sashko1391@gmail.com" class="contact-pill">✉️ sashko1391@gmail.com</a>
-    </div>
-  </div>
-</section>
+    // Retry queued messages on page load
+    (function flushQueue() {
+      try {
+        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        if (!queue.length) return;
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-copy">© 2026 Oleksandr Kravchenko — Усі права та пікселі захищені</div>
-    <div class="footer-joke">console.log("Дякую, що доскролили 💙")</div>
-  </div>
-</footer>
+        const remaining = [];
+        queue.forEach(async (payload) => {
+          try {
+            const res = await fetch(CHAT_PROXY_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (!res.ok) remaining.push(payload);
+          } catch {
+            remaining.push(payload);
+          }
+        });
 
-<script>
-  // Reveal
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        // Update queue: keep only failed
+        setTimeout(() => {
+          if (remaining.length) {
+            localStorage.setItem('chat_queue', JSON.stringify(remaining));
+          } else {
+            localStorage.removeItem('chat_queue');
+          }
+        }, 5000);
+      } catch { /* localStorage unavailable */ }
+    })();
 
-  // Nav shadow
-  window.addEventListener('scroll', () => {
-    document.querySelector('nav').style.boxShadow =
-      window.scrollY > 40 ? '0 2px 16px rgba(27,58,92,0.05)' : 'none';
-  });
-
-  // ===== CHAT LOGIC =====
-  const responses = {
-    'Скільки коштує сайт?': `Вартість залежить від складності проєкту — кількості сторінок, функціоналу, інтеграцій.\n\nОлександр не працює за фіксованим прайсом — кожен проєкт оцінюється індивідуально після короткого брифу.\n\nНапишіть, що вам потрібно, і я передам — Олександр дасть оцінку протягом доби 😊\n\nАбо залиште контакт, і він сам зв'яжеться!`,
-
-    'Які строки?': `Олександр працює швидко, але якісно:\n\n⚡ Лендінг — пара днів до тижня\n🏗️ Повний сайт — 2–4 тижні\n🤖 AI-проєкт — від 2 тижнів\n\nВажливий нюанс: строки актуальні, якщо ви вчасно відповідаєте на питання 😉\n\nХочете обговорити ваш проєкт? Залиште контакт — Олександр зв'яжеться!`,
-
-    'Як почати проєкт?': `Дуже просто:\n\n1️⃣ Напишіть мені або Олександру що вам потрібно\n2️⃣ Швидко узгодимо деталі\n3️⃣ Олександр запропонує макет, або ви надаєте свої інструкції\n4️⃣ Розробка з щотижневими демо → запуск!\n\nМожете почати прямо зараз — розкажіть, що за проєкт, і залиште контакт 👇`,
-
-    'Чому AI — це перевага?': `О, це моя улюблена тема! 🤓\n\nОлександр не просто "використовує AI" — він будує з ним. Я, наприклад, допомагаю з кодом, текстами, аналітикою. Це дозволяє:\n\n• Робити за тижні те, що раніше займало місяці\n• Один розробник + AI = маленька команда\n• Інтегрувати AI-фішки прямо в ваш продукт\n\nА ще я справді шуткую краще за більшість колег Олександра. Він сам так каже. Хоча, може, просто підлещується 😄`
-  };
-
-  const fallbacks = [
-    'Цікаве питання! Щоб Олександр міг відповісти детально — залиште свій контакт (Telegram, телефон або пошту), і він зв\'яжеться протягом доби 😊',
-    'Хм, це вже виходить за межі моїх повноважень 😅 Але я все записую! Залиште номер або Telegram — Олександр подивиться нашу розмову і відповість.',
-    'О, серйозні наміри! Це краще обговорити напряму. Напишіть свій контакт — я передам Олександру разом з усією нашою бесідою 📨',
-    'Я вже майже все записав! Залишилось тільки ваш контакт, щоб Олександр міг зв\'язатись і обговорити деталі. Telegram, телефон або пошта — що зручніше?'
-  ];
-
-  let fallbackIndex = 0;
-  let messageCount = 0;
-  let contactCollected = false;
-  let chatHistory = [];
-
-  // Cloudflare Worker proxy — тримає Telegram bot token серверно
-  const CHAT_PROXY_URL = 'https://oleksandr-site.sashko1391.workers.dev';
-
-  // Retry queued messages on page load
-  (function flushQueue() {
-    try {
-      const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-      if (!queue.length) return;
-
-      const remaining = [];
-      queue.forEach(async (payload) => {
-        try {
-          const res = await fetch(CHAT_PROXY_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!res.ok) remaining.push(payload);
-        } catch {
-          remaining.push(payload);
-        }
-      });
-
-      // Update queue: keep only failed
-      setTimeout(() => {
-        if (remaining.length) {
-          localStorage.setItem('chat_queue', JSON.stringify(remaining));
-        } else {
-          localStorage.removeItem('chat_queue');
-        }
-      }, 5000);
-    } catch { /* localStorage unavailable */ }
-  })();
-
-  function addMessage(text, isUser) {
-    const container = document.getElementById('chatMessages');
-    const msg = document.createElement('div');
-    msg.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
-    msg.innerHTML = `
+    function addMessage(text, isUser) {
+      const container = document.getElementById('chatMessages');
+      const msg = document.createElement('div');
+      msg.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
+      msg.innerHTML = `
       <div class="msg-avatar">${isUser ? '👤' : 'C'}</div>
       <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
     `;
-    container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
 
-    // Track history
-    chatHistory.push({ role: isUser ? 'Клієнт' : 'Помічник', text: text });
-  }
+      // Track history
+      chatHistory.push({ role: isUser ? 'Клієнт' : 'Помічник', text: text });
+    }
 
-  function addTyping() {
-    const container = document.getElementById('chatMessages');
-    const msg = document.createElement('div');
-    msg.className = 'chat-msg bot';
-    msg.id = 'typing-indicator';
-    msg.innerHTML = `
+    function addTyping() {
+      const container = document.getElementById('chatMessages');
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg bot';
+      msg.id = 'typing-indicator';
+      msg.innerHTML = `
       <div class="msg-avatar">C</div>
       <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
     `;
-    container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
-  }
-
-  function removeTyping() {
-    const el = document.getElementById('typing-indicator');
-    if (el) el.remove();
-  }
-
-  function isContactInfo(text) {
-    const lower = text.toLowerCase();
-    return /[\d\+]{10,}/.test(text) ||
-           /@/.test(text) ||
-           /\.com|\.ua|\.net/.test(lower) ||
-           /^@\w+/.test(text.trim());
-  }
-
-  async function sendToTelegram(contactInfo) {
-    const historyText = chatHistory
-      .map(m => `${m.role}: ${m.text}`)
-      .join('\n---\n');
-
-    const payload = {
-      contact: contactInfo,
-      history: historyText,
-      timestamp: new Date().toISOString()
-    };
-
-    try {
-      const res = await fetch(CHAT_PROXY_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!res.ok) {
-        console.warn('Proxy returned', res.status, '— queuing for retry');
-        throw new Error('Proxy error ' + res.status);
-      }
-    } catch (e) {
-      // Queue for retry on next page load
-      try {
-        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-        queue.push(payload);
-        localStorage.setItem('chat_queue', JSON.stringify(queue));
-      } catch { /* localStorage unavailable — data lost */ }
-      console.warn('sendToTelegram failed, queued:', e.message);
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
     }
-  }
 
-  function askForContact() {
-    if (contactCollected) return null;
-    return '\n\n---\nДо речі! Щоб Олександр міг подивитись нашу розмову і зв\'язатись з вами — залиште, будь ласка, свій контакт: Telegram, телефон або пошту 📲';
-  }
+    function removeTyping() {
+      const el = document.getElementById('typing-indicator');
+      if (el) el.remove();
+    }
 
-  function respond(userText) {
-    addTyping();
-    messageCount++;
-    const delay = 800 + Math.random() * 1200;
+    function isContactInfo(text) {
+      const lower = text.toLowerCase();
+      return /[\d\+]{10,}/.test(text) ||
+        /@/.test(text) ||
+        /\.com|\.ua|\.net/.test(lower) ||
+        /^@\w+/.test(text.trim());
+    }
 
-    setTimeout(() => {
-      removeTyping();
+    async function sendToTelegram(contactInfo) {
+      const historyText = chatHistory
+        .map(m => `${m.role}: ${m.text}`)
+        .join('\n---\n');
 
-      // Check if user just gave contact info
-      if (!contactCollected && isContactInfo(userText)) {
-        contactCollected = true;
-        sendToTelegram(userText);
-        addMessage('Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.', false);
-        return;
-      }
+      const payload = {
+        contact: contactInfo,
+        history: historyText,
+        timestamp: new Date().toISOString()
+      };
 
-      // Check for matching response
-      let reply = null;
-      for (const [key, val] of Object.entries(responses)) {
-        if (userText.includes(key) || userText.toLowerCase().includes(key.toLowerCase().replace('?',''))) {
-          reply = val;
-          break;
+      try {
+        const res = await fetch(CHAT_PROXY_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          console.warn('Proxy returned', res.status, '— queuing for retry');
+          throw new Error('Proxy error ' + res.status);
         }
+      } catch (e) {
+        // Queue for retry on next page load
+        try {
+          const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+          queue.push(payload);
+          localStorage.setItem('chat_queue', JSON.stringify(queue));
+        } catch { /* localStorage unavailable — data lost */ }
+        console.warn('sendToTelegram failed, queued:', e.message);
       }
+    }
 
-      // Keyword matching
-      if (!reply) {
-        const lower = userText.toLowerCase();
-        if (lower.includes('кошт') || lower.includes('ціна') || lower.includes('скільки') || lower.includes('прайс') || lower.includes('бюджет')) {
-          reply = responses['Скільки коштує сайт?'];
-        } else if (lower.includes('строк') || lower.includes('час') || lower.includes('довго') || lower.includes('швидко') || lower.includes('термін')) {
-          reply = responses['Які строки?'];
-        } else if (lower.includes('почати') || lower.includes('замов') || lower.includes('старт') || lower.includes('хочу сайт') || lower.includes('потрібен сайт')) {
-          reply = responses['Як почати проєкт?'];
-        } else if (lower.includes('ai') || lower.includes('шт.інтелект') || lower.includes('штучн') || lower.includes('нейро') || lower.includes('бот') || lower.includes('claude') || lower.includes('gpt')) {
-          reply = responses['Чому AI — це перевага?'];
-        } else if (lower.includes('привіт') || lower.includes('здоров') || lower.includes('вітаю') || lower.includes('hello') || lower.includes('хай')) {
-          reply = 'Привіт! 👋 Радий вас бачити. Чим можу допомогти? Можу розповісти про послуги, строки або підхід Олександра до роботи.';
-        } else if (lower.includes('дякую') || lower.includes('спасибі') || lower.includes('thx') || lower.includes('thanks')) {
-          if (!contactCollected) {
-            reply = 'Завжди радий! 😊 До речі, залиште свій контакт (Telegram, телефон або пошту) — Олександр подивиться нашу бесіду і зможе продовжити розмову особисто!';
-          } else {
-            reply = 'Завжди радий! 😊 Олександр вже отримав нашу розмову і зв\'яжеться з вами. Гарного дня!';
+    function askForContact() {
+      if (contactCollected) return null;
+      return '\n\n---\nДо речі! Щоб Олександр міг подивитись нашу розмову і зв\'язатись з вами — залиште, будь ласка, свій контакт: Telegram, телефон або пошту 📲';
+    }
+
+    function respond(userText) {
+      addTyping();
+      messageCount++;
+      const delay = 800 + Math.random() * 1200;
+
+      setTimeout(() => {
+        removeTyping();
+
+        // Check if user just gave contact info
+        if (!contactCollected && isContactInfo(userText)) {
+          contactCollected = true;
+          sendToTelegram(userText);
+          addMessage('Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.', false);
+          return;
+        }
+
+        // Check for matching response
+        let reply = null;
+        for (const [key, val] of Object.entries(responses)) {
+          if (userText.includes(key) || userText.toLowerCase().includes(key.toLowerCase().replace('?', ''))) {
+            reply = val;
+            break;
           }
-        } else if (lower.includes('жарт') || lower.includes('смішн') || lower.includes('розсміш')) {
-          reply = 'Чому JavaScript-розробник пішов до окуліста? Бо він не бачив null! 🤓\n\n...Олександр каже, що мої жарти — це єдиний баг, який він не хоче фіксити.';
         }
-      }
 
-      if (!reply) {
-        reply = fallbacks[fallbackIndex % fallbacks.length];
-        fallbackIndex++;
-      }
+        // Keyword matching
+        if (!reply) {
+          const lower = userText.toLowerCase();
+          if (lower.includes('кошт') || lower.includes('ціна') || lower.includes('скільки') || lower.includes('прайс') || lower.includes('бюджет')) {
+            reply = responses['Скільки коштує сайт?'];
+          } else if (lower.includes('строк') || lower.includes('час') || lower.includes('довго') || lower.includes('швидко') || lower.includes('термін')) {
+            reply = responses['Які строки?'];
+          } else if (lower.includes('почати') || lower.includes('замов') || lower.includes('старт') || lower.includes('хочу сайт') || lower.includes('потрібен сайт')) {
+            reply = responses['Як почати проєкт?'];
+          } else if (lower.includes('ai') || lower.includes('шт.інтелект') || lower.includes('штучн') || lower.includes('нейро') || lower.includes('бот') || lower.includes('claude') || lower.includes('gpt')) {
+            reply = responses['Чому AI — це перевага?'];
+          } else if (lower.includes('привіт') || lower.includes('здоров') || lower.includes('вітаю') || lower.includes('hello') || lower.includes('хай')) {
+            reply = 'Привіт! 👋 Радий вас бачити. Чим можу допомогти? Можу розповісти про послуги, строки або підхід Олександра до роботи.';
+          } else if (lower.includes('дякую') || lower.includes('спасибі') || lower.includes('thx') || lower.includes('thanks')) {
+            if (!contactCollected) {
+              reply = 'Завжди радий! 😊 До речі, залиште свій контакт (Telegram, телефон або пошту) — Олександр подивиться нашу бесіду і зможе продовжити розмову особисто!';
+            } else {
+              reply = 'Завжди радий! 😊 Олександр вже отримав нашу розмову і зв\'яжеться з вами. Гарного дня!';
+            }
+          } else if (lower.includes('жарт') || lower.includes('смішн') || lower.includes('розсміш')) {
+            reply = 'Чому JavaScript-розробник пішов до окуліста? Бо він не бачив null! 🤓\n\n...Олександр каже, що мої жарти — це єдиний баг, який він не хоче фіксити.';
+          }
+        }
 
-      // After 3+ messages, gently ask for contact if not collected
-      if (!contactCollected && messageCount >= 3 && messageCount % 2 === 1) {
-        const contactAsk = askForContact();
-        if (contactAsk) reply += contactAsk;
-      }
+        if (!reply) {
+          reply = fallbacks[fallbackIndex % fallbacks.length];
+          fallbackIndex++;
+        }
 
-      addMessage(reply, false);
-    }, delay);
-  }
+        // After 3+ messages, gently ask for contact if not collected
+        if (!contactCollected && messageCount >= 3 && messageCount % 2 === 1) {
+          const contactAsk = askForContact();
+          if (contactAsk) reply += contactAsk;
+        }
 
-  function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if (!text) return;
+        addMessage(reply, false);
+      }, delay);
+    }
 
-    addMessage(text, true);
-    input.value = '';
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
 
-    // Hide quick buttons after first message
-    document.getElementById('quickBtns').style.display = 'none';
+      addMessage(text, true);
+      input.value = '';
 
-    respond(text);
-  }
+      // Hide quick buttons after first message
+      document.getElementById('quickBtns').style.display = 'none';
 
-  function sendQuick(btn) {
-    const text = btn.textContent;
-    addMessage(text, true);
-    document.getElementById('quickBtns').style.display = 'none';
-    respond(text);
-  }
-</script>
+      respond(text);
+    }
+
+    function sendQuick(btn) {
+      const text = btn.textContent;
+      addMessage(text, true);
+      document.getElementById('quickBtns').style.display = 'none';
+      respond(text);
+    }
+  </script>
 
 </body>
+
 </html>
