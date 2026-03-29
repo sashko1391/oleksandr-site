@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO: Title & Description (ключові слова природно вписані) -->
-  <title>Розробка сайтів Київ | Олександр Кравченко — React, Next.js, AI</title>
+  <title>Розробка сайтів Київ | Олександр Кравченко</title>
   <meta name="description"
-    content="Розробка сайтів для бізнесу на React та Next.js. Лендінги, корпоративні сайти, інтернет-магазини, AI-інтеграції. Від ідеї до запуску за 2–4 тижні. Київська область.">
+    content="Розробка сайтів для бізнесу на React та Next.js. Лендінги, магазини, AI-інтеграції. Від ідеї до запуску за 2–4 тижні.">
 
   <!-- SEO: Canonical -->
   <link rel="canonical" href="https://www.parkinsandr.tech/">
@@ -36,6 +36,7 @@
   <meta name="geo.placename" content="Kyiv Oblast">
   <meta name="language" content="Ukrainian">
   <meta name="theme-color" content="#1B3A5C">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <!-- SEO: Structured Data — Person + LocalBusiness -->
   <script type="application/ld+json">
@@ -114,6 +115,7 @@
 }
 </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
@@ -141,6 +143,37 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 999;
+      padding: 0.75rem 1.5rem;
+      background: var(--blue-deep);
+      color: var(--milk);
+      border-radius: 0 0 8px 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Focus visible for keyboard navigation */
+    :focus-visible {
+      outline: 2px solid var(--blue-mid);
+      outline-offset: 2px;
+    }
+
+    a:focus:not(:focus-visible),
+    button:focus:not(:focus-visible) {
+      outline: none;
     }
 
     html {
@@ -1565,6 +1598,85 @@
       color: var(--blue-mid);
     }
 
+    /* ===== HAMBURGER MENU ===== */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--blue-deep);
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ===== BLOG CARDS ===== */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .blog-card {
+      text-decoration: none;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid rgba(27, 58, 92, 0.05);
+      transition: all 0.4s;
+      display: block;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(27, 58, 92, 0.08);
+    }
+
+    .blog-card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--blue-mid);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      color: var(--blue-deep);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .blog-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
     /* ===== REVEAL ===== */
     .reveal {
       opacity: 0;
@@ -1633,12 +1745,40 @@
     }
 
     @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
       nav {
         padding: 1rem 1.5rem;
       }
 
       .nav-links {
         display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(245, 240, 234, 0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 100;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
       }
 
       .container {
@@ -1704,9 +1844,14 @@
 
 <body>
 
-  <nav>
+  <a href="#main-content" class="skip-link">Перейти до контенту</a>
+
+  <nav role="navigation" aria-label="Головна навігація">
     <a href="#" class="logo">Oleksandr<span>.</span>Kravchenko</a>
-    <ul class="nav-links">
+    <button class="hamburger" aria-label="Відкрити меню" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#scenarios">Послуги</a></li>
       <li><a href="#portfolio">Роботи</a></li>
       <li><a href="#about">Про мене</a></li>
@@ -1766,7 +1911,7 @@
     </div>
   </div>
 
-  <main>
+  <main id="main-content">
 
     <!-- ===== SCENARIOS ===== -->
     <section id="scenarios">
@@ -1838,8 +1983,8 @@
         <div class="portfolio-grid">
           <a href="/projects/agentis/" class="portfolio-card portfolio-featured reveal"
             style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
-            <img class="portfolio-bg" src="images/agentis.jpg" alt="Сайт AGENTIS" loading="lazy"
-              style="background-color: #0a1628;">
+            <img class="portfolio-bg" src="images/agentis.jpg" alt="AGENTIS — AI-платформа юридичного аналізу" loading="lazy"
+              width="1200" height="603" style="background-color: #0a1628;">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag" style="background:rgba(91,164,217,0.25);">🏆 Головний проєкт · Legal Tech ·
@@ -1857,8 +2002,8 @@
           </a>
           <a href="/projects/ace/" class="portfolio-card reveal"
             style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
-            <img class="portfolio-bg" src="images/ace.jpg" alt="Сайт Академії сучасних освітян" loading="lazy"
-              style="background-color: #1a5c5c;">
+            <img class="portfolio-bg" src="images/ace.jpg" alt="Академія сучасних освітян — освітня платформа" loading="lazy"
+              width="2880" height="1442" style="background-color: #1a5c5c;">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag" style="background:rgba(26,92,92,0.3);">🎓 Освіта · Next.js · Railway</span>
@@ -1874,8 +2019,8 @@
             </div>
           </a>
       <a href="/projects/slavutych/" class="portfolio-card reveal" style="text-decoration:none;">
-        <img class="portfolio-bg" src="images/slavutych.jpg" alt="Сайт ресторану Славутич" loading="lazy"
-              style="background-color: var(--blue-deep);">
+        <img class="portfolio-bg" src="images/slavutych.jpg" alt="Славутич — сайт ресторану української кухні" loading="lazy"
+              width="1200" height="603" style="background-color: var(--blue-deep);">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag">Ресторан · Next.js</span>
@@ -1889,8 +2034,8 @@
           </a>
           <a href="https://www.svengo.shop/" target="_blank" rel="noopener noreferrer"
             class="portfolio-card reveal reveal-d1" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/svengo.jpg" alt="Сайт заводу ЗБВ SVENGO" loading="lazy"
-              style="background-color: #2a2a2a;">
+            <img class="portfolio-bg" src="images/svengo.jpg" alt="SVENGO — сайт заводу залізобетонних виробів" loading="lazy"
+              width="1200" height="603" style="background-color: #2a2a2a;">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag">B2B · Завод ЗБВ</span>
@@ -1904,8 +2049,8 @@
           </a>
           <a href="https://sashko1391.github.io/interrogator/" target="_blank" rel="noopener noreferrer"
             class="portfolio-card reveal reveal-d2" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/interrogator.jpg" alt="Детективна AI гра Слідчий" loading="lazy"
-              style="background-color: #1a1520;">
+            <img class="portfolio-bg" src="images/interrogator.jpg" alt="Слідчий — детективна AI-гра на Claude API" loading="lazy"
+              width="1200" height="603" style="background-color: #1a1520;">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag">AI-гра · Claude API</span>
@@ -1919,8 +2064,8 @@
           </a>
           <a href="https://dniprowska-parfumerka.shop/" target="_blank" rel="noopener noreferrer"
             class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/parfumerka.jpg" alt="Інтернет-магазин парфумерії Dniprowska"
-              loading="lazy" style="background-color: #3a1a2a;">
+            <img class="portfolio-bg" src="images/parfumerka.jpg" alt="Dniprowska Parfumerka — інтернет-магазин парфумерії"
+              loading="lazy" width="1200" height="603" style="background-color: #3a1a2a;">
             <div class="portfolio-overlay"></div>
             <div class="portfolio-content">
               <span class="portfolio-tag">E-commerce · Парфумерія</span>
@@ -2093,32 +2238,16 @@
       <div class="section-label">Блог</div>
       <h2 class="section-title">Корисне для бізнесу</h2>
       <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; margin-top:2.5rem;">
-        <a href="/blog/yak-obrati-rozrobnyka/"
-          style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;"
-          onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'"
-          onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-          <div
-            style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">
-            Гайд · 8 хв</div>
-          <h3
-            style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">
-            Як обрати розробника сайту у 2026</h3>
-          <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">9 критеріїв, червоні
-            прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
+      <div class="blog-grid">
+        <a href="/blog/yak-obrati-rozrobnyka/" class="blog-card">
+          <div class="blog-card-label">Гайд · 8 хв</div>
+          <h3>Як обрати розробника сайту у 2026</h3>
+          <p>9 критеріїв, червоні прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
         </a>
-        <a href="/blog/react-vs-tilda/"
-          style="text-decoration:none; padding:2rem; background:var(--white); border-radius:16px; border:1px solid rgba(27,58,92,0.05); transition:all 0.4s; display:block;"
-          onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(27,58,92,0.08)'"
-          onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-          <div
-            style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--blue-mid); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.75rem;">
-            Порівняння · 10 хв</div>
-          <h3
-            style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem; line-height:1.3;">
-            React vs Tilda: що обрати для бізнесу</h3>
-          <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.55; font-weight:300;">Чесне порівняння з
-            таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
+        <a href="/blog/react-vs-tilda/" class="blog-card">
+          <div class="blog-card-label">Порівняння · 10 хв</div>
+          <h3>React vs Tilda: що обрати для бізнесу</h3>
+          <p>Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
         </a>
       </div>
     </div>
@@ -2158,14 +2287,15 @@
 
         <div class="chat-input-area">
           <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть повідомлення..."
+            aria-label="Повідомлення для AI-помічника"
             onkeydown="if(event.key==='Enter')sendMessage()">
           <button class="chat-send" onclick="sendMessage()" aria-label="Надіслати">↑</button>
         </div>
       </div>
 
       <div class="contact-alt" style="margin-top:2.5rem;">
-        <a href="https://t.me/+380936429885" class="contact-pill">💬 Telegram</a>
-        <a href="https://wa.me/380936429885" class="contact-pill">📱 WhatsApp</a>
+        <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer" class="contact-pill">💬 Telegram</a>
+        <a href="https://wa.me/380936429885" target="_blank" rel="noopener noreferrer" class="contact-pill">📱 WhatsApp</a>
         <a href="mailto:sashko1391@gmail.com" class="contact-pill">✉️ sashko1391@gmail.com</a>
       </div>
     </div>
@@ -2189,6 +2319,30 @@
     window.addEventListener('scroll', () => {
       document.querySelector('nav').style.boxShadow =
         window.scrollY > 40 ? '0 2px 16px rgba(27,58,92,0.05)' : 'none';
+    });
+
+    // Hamburger menu
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      const btn = document.querySelector('.hamburger');
+      const isOpen = nav.classList.toggle('open');
+      btn.classList.toggle('active');
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Закрити меню' : 'Відкрити меню');
+    }
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        const nav = document.getElementById('navLinks');
+        const btn = document.querySelector('.hamburger');
+        if (nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          btn.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Відкрити меню');
+        }
+      });
     });
 
     // ===== CHAT LOGIC =====
@@ -2248,13 +2402,20 @@
       } catch { /* localStorage unavailable */ }
     })();
 
+    function escapeHTML(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
     function addMessage(text, isUser) {
       const container = document.getElementById('chatMessages');
       const msg = document.createElement('div');
       msg.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
+      const safe = escapeHTML(text).replace(/\n/g, '<br>');
       msg.innerHTML = `
       <div class="msg-avatar">${isUser ? '👤' : 'C'}</div>
-      <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+      <div class="msg-bubble">${safe}</div>
     `;
       container.appendChild(msg);
       container.scrollTop = container.scrollHeight;

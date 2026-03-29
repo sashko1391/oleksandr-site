@@ -2,32 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.parkinsandr.tech/</loc>
-    <lastmod>2026-02-23</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.parkinsandr.tech/projects/ace/</loc>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.parkinsandr.tech/projects/agentis/</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.parkinsandr.tech/projects/slavutych/</loc>
+    <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.parkinsandr.tech/blog/react-vs-tilda/</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

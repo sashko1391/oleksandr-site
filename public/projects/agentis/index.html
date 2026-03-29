@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGENTIS — AI юридичний аналіз | Кейс розробки | Олександр Кравченко</title>
-<meta name="description" content="Як я побудував AGENTIS — AI-платформу юридичного аналізу з 5 мовними моделями, 207 законами та 15 AI-агентами. Повний кейс розробки: архітектура, рішення, результати.">
+<title>AGENTIS — AI юридичний аналіз | Кейс розробки</title>
+<meta name="description" content="Як я побудував AGENTIS — AI-платформу юридичного аналізу з 5 моделями, 207 законами та 15 агентами. Кейс: архітектура, рішення, результати.">
 <link rel="canonical" href="https://www.parkinsandr.tech/projects/agentis/">
 <meta property="og:title" content="AGENTIS — AI юридичний аналіз | Кейс розробки">
 <meta property="og:description" content="AI-платформа з 5 моделями, 207 законами, 15 агентами. Повний кейс від ідеї до запуску.">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:url" content="https://www.parkinsandr.tech/projects/agentis/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/agentis.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AGENTIS — AI юридичний аналіз | Кейс розробки">
+<meta name="twitter:description" content="AI-платформа з 5 моделями, 207 законами, 15 агентами. Повний кейс від ідеї до запуску.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/agentis.jpg">
 <meta name="author" content="Oleksandr Kravchenko">
 <meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,6 +39,7 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -116,7 +124,7 @@
     padding: 1.25rem; background: var(--white); border-radius: 12px;
     border: 1px solid rgba(27,58,92,0.06);
   }
-  .tech-card h4 {
+  .tech-card h3 {
     font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
     color: var(--blue-mid); letter-spacing: 0.05em; margin-bottom: 0.5rem; text-transform: uppercase;
   }
@@ -135,7 +143,7 @@
     display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
   }
-  .pipeline-step h4 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+  .pipeline-step h3 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
   .pipeline-step p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 0; }
 
   /* Challenge */
@@ -143,7 +151,7 @@
     padding: 1.5rem; margin: 1rem 0; background: var(--white); border-radius: 12px;
     border: 1px solid rgba(27,58,92,0.06);
   }
-  .challenge-card h4 { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .challenge-card h3 { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.5rem; }
   .challenge-card .problem { font-size: 0.88rem; color: var(--orange); margin-bottom: 0.3rem; }
   .challenge-card .solution { font-size: 0.88rem; color: var(--green); }
 
@@ -184,7 +192,7 @@
     <div class="case-tag">Кейс розробки</div>
     <h1>AGENTIS — <em>AI-платформа</em> юридичного аналізу</h1>
     <p class="case-hero-desc">Конвеєр з 15 AI-агентів, які аналізують юридичну ситуацію за 5 хвилин. 207 законів, 5 мовних моделей, PDF-звіти з покроковим алгоритмом дій.</p>
-    <a href="https://www.agentis.com.ua/" target="_blank" class="case-link">Відкрити AGENTIS →</a>
+    <a href="https://www.agentis.com.ua/" target="_blank" rel="noopener noreferrer" class="case-link">Відкрити AGENTIS →</a>
   </div>
 </section>
 
@@ -231,49 +239,49 @@
     <div class="pipeline-step">
       <div class="pipeline-num">01</div>
       <div>
-        <h4>Класифікація ситуації</h4>
+        <h3>Класифікація ситуації</h3>
         <p>AI визначає галузь права, юрисдикцію, тип правовідносин. Фільтрує нерелевантне.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">02</div>
       <div>
-        <h4>Семантичний пошук у законах</h4>
+        <h3>Семантичний пошук у законах</h3>
         <p>Серед 207 законів і 22 000+ зв'язків знаходить релевантні статті. Не просто keyword-search, а розуміння контексту.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">03</div>
       <div>
-        <h4>Правова кваліфікація</h4>
+        <h3>Правова кваліфікація</h3>
         <p>Визначає конкретні порушення, статті, на які можна спиратись, і формулює юридичну позицію.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">04</div>
       <div>
-        <h4>Аналіз ризиків</h4>
+        <h3>Аналіз ризиків</h3>
         <p>Окремий агент шукає слабкі місця: строки давності, проблеми з доказами, зустрічні вимоги.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">05</div>
       <div>
-        <h4>Шляхи вирішення</h4>
+        <h3>Шляхи вирішення</h3>
         <p>Генерує 2–4 конкретні варіанти: від досудового врегулювання до позову. З оцінкою ймовірності успіху.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">06</div>
       <div>
-        <h4>Перехресна перевірка</h4>
+        <h3>Перехресна перевірка</h3>
         <p>Інша модель перевіряє висновки першої. Знаходить суперечності, неточні посилання, логічні помилки.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">07</div>
       <div>
-        <h4>Звіт у PDF</h4>
+        <h3>Звіт у PDF</h3>
         <p>Структурований документ з покроковим алгоритмом: що, коли, де, скільки коштує, які документи зібрати.</p>
       </div>
     </div>
@@ -283,19 +291,19 @@
 
   <div class="tech-grid">
     <div class="tech-card">
-      <h4>Frontend</h4>
+      <h3>Frontend</h3>
       <p>Next.js, React, TypeScript, Tailwind CSS. SSR для SEO, оптимістичний UI для швидкості.</p>
     </div>
     <div class="tech-card">
-      <h4>AI / LLM</h4>
+      <h3>AI / LLM</h3>
       <p>5 моделей: Claude (Anthropic), GPT-4 (OpenAI), Gemini (Google) — кожна зі своєю спеціалізацією. Перехресна перевірка між моделями.</p>
     </div>
     <div class="tech-card">
-      <h4>База знань</h4>
+      <h3>База знань</h3>
       <p>207 законів та кодексів, розбиті на семантичні чанки. 22 151 зв'язок між статтями. Vector database для пошуку за змістом.</p>
     </div>
     <div class="tech-card">
-      <h4>Інфраструктура</h4>
+      <h3>Інфраструктура</h3>
       <p>Vercel (хостинг + edge functions), PostgreSQL, serverless architecture. Автоскейлинг під навантаження.</p>
     </div>
   </div>
@@ -303,25 +311,25 @@
   <h2>Ключові виклики</h2>
 
   <div class="challenge-card">
-    <h4>Галюцинації AI</h4>
+    <h3>Галюцинації AI</h3>
     <p class="problem">⚠ Проблема: мовні моделі вигадують статті законів, яких не існує</p>
     <p class="solution">✓ Рішення: RAG-архітектура — модель відповідає тільки на основі реальних текстів законів з бази + перехресна перевірка іншою моделлю</p>
   </div>
 
   <div class="challenge-card">
-    <h4>Актуальність законодавства</h4>
+    <h3>Актуальність законодавства</h3>
     <p class="problem">⚠ Проблема: закони змінюються, база швидко застаріває</p>
     <p class="solution">✓ Рішення: автоматичний парсинг оновлень з Верховної Ради + система версіонування — кожна стаття має дату актуальності</p>
   </div>
 
   <div class="challenge-card">
-    <h4>Зрозумілість для людей</h4>
+    <h3>Зрозумілість для людей</h3>
     <p class="problem">⚠ Проблема: юридична мова незрозуміла 90% людей</p>
     <p class="solution">✓ Рішення: спеціальний агент-перекладач, який переписує висновки простою мовою, зберігаючи юридичну точність</p>
   </div>
 
   <div class="challenge-card">
-    <h4>Час очікування</h4>
+    <h3>Час очікування</h3>
     <p class="problem">⚠ Проблема: 15 агентів працюють 3–5 хвилин — це довго для вебу</p>
     <p class="solution">✓ Рішення: стрімінг результатів — користувач бачить прогрес кожного етапу в реальному часі, а не чекає мовчки</p>
   </div>

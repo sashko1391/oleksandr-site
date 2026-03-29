@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ресторан Славутич — Кейс розробки | Олександр Кравченко</title>
-<meta name="description" content="Розробка сучасного сайту для ресторану української кухні «Славутич». Інтерактивне меню, замовлення, доставка та зручна панель (онлайн оновлення цін в 2 кліки). Next.js">
+<meta name="description" content="Сайт для ресторану «Славутич» на Next.js. Інтерактивне меню, замовлення, доставка та оновлення цін в 2 кліки.">
 <link rel="canonical" href="https://www.parkinsandr.tech/projects/slavutych/">
 <meta property="og:title" content="Сайт ресторану «Славутич» — Кейс розробки">
 <meta property="og:description" content="Сучасна Next.js платформа для ресторану: онлайн-бронювання, доставка, інтерактивне меню та миттєве оновлення цін.">
@@ -12,8 +12,14 @@
 <meta property="og:locale" content="uk_UA">
 <meta property="og:url" content="https://www.parkinsandr.tech/projects/slavutych/">
 <meta property="og:image" content="https://www.parkinsandr.tech/images/slavutych.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Сайт ресторану «Славутич» — Кейс розробки">
+<meta name="twitter:description" content="Next.js платформа для ресторану: бронювання, доставка, інтерактивне меню та оновлення цін.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/slavutych.jpg">
 <meta name="author" content="Oleksandr Kravchenko">
 <meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0f16">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,6 +39,7 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -105,7 +112,7 @@
   }
   .feature-card:hover { border-color: rgba(212, 164, 74, 0.4); }
   .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; display: inline-block; padding: 0.5rem; background: rgba(212, 164, 74, 0.1); border-radius: 8px; }
-  .feature-card h4 { font-size: 1rem; font-weight: 500; color: var(--accent-gold); margin-bottom: 0.5rem; }
+  .feature-card h3 { font-size: 1rem; font-weight: 500; color: var(--accent-gold); margin-bottom: 0.5rem; }
   .feature-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
 
   /* Pipeline (How it works) */
@@ -121,7 +128,7 @@
     display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
   }
-  .pipeline-step h4 { font-size: 1rem; font-weight: 500; color: var(--text-main); margin-bottom: 0.4rem; }
+  .pipeline-step h3 { font-size: 1rem; font-weight: 500; color: var(--text-main); margin-bottom: 0.4rem; }
   .pipeline-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
 
   .img-showcase {
@@ -172,7 +179,7 @@
 
 <div class="case-body">
 
-  <img src="/images/slavutych.jpg" alt="Сайт ресторану Славутич" class="img-showcase">
+  <img src="/images/slavutych.jpg" alt="Сайт ресторану Славутич" class="img-showcase" width="1200" height="603" loading="lazy">
 
   <h2>Задача</h2>
 
@@ -189,22 +196,22 @@
   <div class="feature-grid">
     <div class="feature-card">
       <div class="feature-icon">🍲</div>
-      <h4>Інтерактивне меню</h4>
+      <h3>Інтерактивне меню</h3>
       <p>Цифрове меню, поділене на категорії з якісними фотографіями страв, описом інгредієнтів та актуальними цінами.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🛵</div>
-      <h4>Замовлення та доставка</h4>
+      <h3>Замовлення та доставка</h3>
       <p>Інтегрований кошик. Відвідувач може обрати страви, вказати адресу і зробити замовлення на доставку або самовивіз без дзвінка.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⚡</div>
-      <h4>Оновлення в 2 кліки</h4>
+      <h3>Оновлення в 2 кліки</h3>
       <p>Кастомна адмін-панель: менеджер закладу може миттєво змінити ціну на борщ або поставити стоп-лист на десерт без допомоги ІТ-спеціаліста.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📅</div>
-      <h4>Бронювання столиків</h4>
+      <h3>Бронювання столиків</h3>
       <p>Зручна форма для резерву столиків, банкетного залу або тераси на обрану дату та час.</p>
     </div>
   </div>
@@ -217,21 +224,21 @@
     <div class="pipeline-step">
       <div class="pipeline-num">01</div>
       <div>
-        <h4>Зменшення витрат на поліграфію</h4>
+        <h3>Зменшення витрат на поліграфію</h3>
         <p>Завдяки зручному онлайн-меню за QR-кодом, ресторан може рідше друкувати фізичні меню при зміні цін.</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">02</div>
       <div>
-        <h4>Зростання середнього чеку доставки</h4>
+        <h3>Зростання середнього чеку доставки</h3>
         <p>Візуально привабливе меню стимулює клієнтів замовляти більше страв (апетитні фото працюють краще, ніж текст у телефонній розмові).</p>
       </div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num">03</div>
       <div>
-        <h4>SEO та локальний пошук</h4>
+        <h3>SEO та локальний пошук</h3>
         <p>SSR (Server-Side Rendering) на базі Next.js гарантує, що всі позиції меню чудово індексуються Google. Коли хтось в місті шукає «доставка борщу», сайт буде на перших позиціях.</p>
       </div>
     </div>

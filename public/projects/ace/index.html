@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Академія сучасних освітян — Кейс розробки | Олександр Кравченко</title>
+    <title>Академія сучасних освітян — Кейс розробки</title>
     <meta name="description"
-        content="Як я побудував сучасний сайт для Академії сучасних освітян (www.ace.org.ua) — Next.js, реєстр сертифікатів, програми ПК, блог та SEO-оптимізація. Повний кейс редизайну.">
+        content="Сайт для Академії сучасних освітян на Next.js — реєстр сертифікатів, програми ПК, блог та SEO. Повний кейс редизайну.">
     <link rel="canonical" href="https://www.parkinsandr.tech/projects/ace/">
     <meta property="og:title" content="Академія сучасних освітян — Кейс розробки сайту">
     <meta property="og:description"
@@ -15,8 +15,14 @@
     <meta property="og:locale" content="uk_UA">
     <meta property="og:url" content="https://www.parkinsandr.tech/projects/ace/">
     <meta property="og:image" content="https://www.parkinsandr.tech/images/ace.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Академія сучасних освітян — Кейс розробки сайту">
+    <meta name="twitter:description" content="Редизайн освітньої платформи на Next.js. 8700+ випускників, реєстр сертифікатів, SEO-оптимізація.">
+    <meta name="twitter:image" content="https://www.parkinsandr.tech/images/ace.jpg">
     <meta name="author" content="Oleksandr Kravchenko">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1B3A5C">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,6 +42,7 @@
 }
 </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
@@ -303,7 +310,7 @@
             border: 1px solid rgba(26, 92, 92, 0.08);
         }
 
-        .tech-card h4 {
+        .tech-card h3 {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
             color: var(--teal);
@@ -343,17 +350,17 @@
             border-left: 3px solid var(--green);
         }
 
-        .ba-card h4 {
+        .ba-card h3 {
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
         }
 
-        .ba-before h4 {
+        .ba-before h3 {
             color: #c44;
         }
 
-        .ba-after h4 {
+        .ba-after h3 {
             color: var(--green);
         }
 
@@ -384,7 +391,7 @@
             margin-bottom: 0.6rem;
         }
 
-        .feature-card h4 {
+        .feature-card h3 {
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--ink);
@@ -430,7 +437,7 @@
             font-weight: 500;
         }
 
-        .pipeline-step h4 {
+        .pipeline-step h3 {
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--ink);
@@ -597,12 +604,12 @@
 
         <div class="before-after">
             <div class="ba-card ba-before">
-                <h4>✗ Було</h4>
+                <h3>✗ Було</h3>
                 <p>Застарілий дизайн, повільне завантаження, відсутня мобільна адаптація, немає реєстру сертифікатів,
                     контент складно оновлювати, SEO не оптимізований</p>
             </div>
             <div class="ba-card ba-after">
-                <h4>✓ Стало</h4>
+                <h3>✓ Стало</h3>
                 <p>Сучасна платформа на Next.js, миттєве завантаження, повна адаптивність, реєстр сертифікатів, зручне
                     управління контентом, повна SEO-оптимізація</p>
             </div>
@@ -613,34 +620,34 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feature-icon">📚</div>
-                <h4>Каталог програм ПК</h4>
+                <h3>Каталог програм ПК</h3>
                 <p>Структурований каталог з фільтрацією: курси, вебінари, тренінги. Картки з описом, тривалістю та
                     кредитами ЄКТС.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🏆</div>
-                <h4>Реєстр сертифікатів</h4>
+                <h3>Реєстр сертифікатів</h3>
                 <p>Онлайн-верифікація виданих сертифікатів — для атестаційних комісій та самих педагогів.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📝</div>
-                <h4>Блог «Методінфо»</h4>
+                <h3>Блог «Методінфо»</h3>
                 <p>Розділ із методичними статтями, порадами та новинами для вчителів. SEO-оптимізований контент.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">👩‍🏫</div>
-                <h4>Сторінка «Про Академію»</h4>
+                <h3>Сторінка «Про Академію»</h3>
                 <p>Історія організації, команда, документи — все для формування довіри з першого візиту.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
-                <h4>Повна адаптивність</h4>
+                <h3>Повна адаптивність</h3>
                 <p>Ідеальне відображення на телефонах, планшетах та десктопах. Вчителі часто шукають курси з телефону.
                 </p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h4>Швидкість</h4>
+                <h3>Швидкість</h3>
                 <p>Next.js із SSR та статичною генерацією. Сторінки завантажуються миттєво, навіть на повільному
                     мобільному інтернеті.</p>
             </div>
@@ -652,7 +659,7 @@
             <div class="pipeline-step">
                 <div class="pipeline-num">01</div>
                 <div>
-                    <h4>Аналіз аудиторії</h4>
+                    <h3>Аналіз аудиторії</h3>
                     <p>Вивчив потреби цільової аудиторії — вчителів ЗЗСО. Головне: довіра до офіційності, простота
                         вибору програми, мобільний доступ.</p>
                 </div>
@@ -660,7 +667,7 @@
             <div class="pipeline-step">
                 <div class="pipeline-num">02</div>
                 <div>
-                    <h4>Дизайн та UX</h4>
+                    <h3>Дизайн та UX</h3>
                     <p>Створив дизайн-систему з «академічними» кольорами: стриманий teal + золотий акцент. Фокус на
                         довірі: сертифікати, цифри, відгуки — одразу на першому екрані.</p>
                 </div>
@@ -668,7 +675,7 @@
             <div class="pipeline-step">
                 <div class="pipeline-num">03</div>
                 <div>
-                    <h4>Архітектура та розробка</h4>
+                    <h3>Архітектура та розробка</h3>
                     <p>Next.js 14 з App Router, TypeScript, Tailwind CSS. Окремі модулі: каталог програм, реєстр
                         сертифікатів, блог, контактна форма.</p>
                 </div>
@@ -676,7 +683,7 @@
             <div class="pipeline-step">
                 <div class="pipeline-num">04</div>
                 <div>
-                    <h4>SEO та оптимізація</h4>
+                    <h3>SEO та оптимізація</h3>
                     <p>Schema.org розмітка, семантична структура H1–H6, мета-теги для кожної сторінки, sitemap.xml,
                         robots.txt. Оптимізація зображень у WebP.</p>
                 </div>
@@ -684,7 +691,7 @@
             <div class="pipeline-step">
                 <div class="pipeline-num">05</div>
                 <div>
-                    <h4>Деплой на Railway</h4>
+                    <h3>Деплой на Railway</h3>
                     <p>CI/CD через GitHub → Railway. Автоматичний білд при кожному пуші. Node.js 22, npm ci, next build
                         & start.</p>
                 </div>
@@ -695,21 +702,21 @@
 
         <div class="tech-grid">
             <div class="tech-card">
-                <h4>Frontend</h4>
+                <h3>Frontend</h3>
                 <p>Next.js 14, React, TypeScript, Tailwind CSS. SSR для SEO, оптимізація зображень через next/image.</p>
             </div>
             <div class="tech-card">
-                <h4>Стилі та анімації</h4>
+                <h3>Стилі та анімації</h3>
                 <p>Tailwind CSS з кастомною дизайн-системою. Framer Motion для плавних анімацій та мікровзаємодій.</p>
             </div>
             <div class="tech-card">
-                <h4>Хостинг</h4>
+                <h3>Хостинг</h3>
                 <p>Railway — автоматичний деплой з GitHub, Node.js 22, CI/CD, автоскейлинг. Домен www.ace.org.ua через
                     DNS.
                 </p>
             </div>
             <div class="tech-card">
-                <h4>SEO & Analytics</h4>
+                <h3>SEO & Analytics</h3>
                 <p>Повна Schema.org розмітка (Organization, Course, BreadcrumbList), Open Graph, структуровані дані для
                     пошуку.</p>
             </div>
