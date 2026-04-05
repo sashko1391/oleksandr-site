@@ -73,6 +73,7 @@
       "name": "Київський національний університет імені Тараса Шевченка"
     }
   },
+  "priceRange": "20000-40000 UAH",
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Послуги веб-розробки",
@@ -81,37 +82,37 @@
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Розробка сайту з нуля",
-          "description": "Повний цикл розробки на React/Next.js для малого та середнього бізнесу"
-        }
+          "name": "Стартовий — Лендінг або візитка",
+          "description": "1–3 сторінки, адаптивний дизайн, базовий SEO, форма зворотного зв'язку, Google Analytics"
+        },
+        "price": "20000",
+        "priceCurrency": "UAH"
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Лендінг під рекламу",
-          "description": "Односторінковий сайт з аналітикою та A/B тестуванням"
-        }
+          "name": "Оптимальний — Бізнес-сайт",
+          "description": "5–10 сторінок, унікальний дизайн у Figma, CMS, розширений SEO, блог, інтеграція з Telegram/CRM"
+        },
+        "price": "30000",
+        "priceCurrency": "UAH"
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "AI-інтеграції та Legal Tech",
-          "description": "Чат-боти, аналіз документів, автоматизація на базі Claude та OpenAI"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Редизайн і перезапуск",
-          "description": "UX-аудит, редизайн та міграція на сучасний стек"
-        }
+          "name": "Максимальний — Складний проєкт",
+          "description": "10+ сторінок, AI-інтеграція, особистий кабінет, платіжна система, мультимовність, A/B тести"
+        },
+        "price": "40000",
+        "priceCurrency": "UAH"
       }
     ]
   },
-  "sameAs": []
+  "sameAs": [
+    "https://github.com/sashko1391"
+  ]
 }
 </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1641,6 +1642,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
       margin-top: 2.5rem;
+      align-items: start;
     }
 
     .blog-card {
@@ -2412,6 +2414,16 @@
           <div class="blog-card-label">Порівняння · 10 хв</div>
           <h3>React vs Tilda: що обрати для бізнесу</h3>
           <p>Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
+        </a>
+        <a href="/blog/skilky-koshtuye-sajt/" class="blog-card">
+          <div class="blog-card-label">Гайд · 8 хв</div>
+          <h3>Скільки коштує сайт у 2026</h3>
+          <p>Реальні ціни на розробку: лендінг, бізнес-сайт, магазин. Що входить і за що переплачуєте.</p>
+        </a>
+        <a href="/blog/devlog-business-empire-idle/" class="blog-card">
+          <div class="blog-card-label">Devlog · 12 хв</div>
+          <h3>Як я роблю idle-гру на SvelteKit</h3>
+          <p>Від лимонадного кіоску до міжпланетної торгівлі. SvelteKit, 13 бізнесів, prestige, тести.</p>
         </a>
       </div>
     </div>

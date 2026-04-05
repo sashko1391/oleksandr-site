@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devlog: як я роблю idle-гру на SvelteKit</title>
+<meta name="description" content="Девлог розробки Business Empire Idle — від ванільного JS до SvelteKit, 13 бізнесів, prestige-система, AI-зображення. Процес, рішення, код.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/devlog-business-empire-idle/">
+<meta property="og:title" content="Devlog: як я роблю idle-гру на SvelteKit">
+<meta property="og:description" content="Девлог розробки idle-гри: від ідеї до 13 бізнесів, prestige-системи та 71 тесту.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/devlog-business-empire-idle/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Devlog: як я роблю idle-гру на SvelteKit">
+<meta name="twitter:description" content="Девлог розробки idle-гри: від ідеї до 13 бізнесів, prestige-системи та 71 тесту.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Devlog: як я роблю idle-гру на SvelteKit",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-04-05",
+  "dateModified": "2026-04-05",
+  "publisher": {"@type": "Person", "name": "Олександр Кравченко"},
+  "description": "Девлог розробки Business Empire Idle — від ванільного JS до SvelteKit, 13 бізнесів, prestige-система, AI-зображення.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/devlog-business-empire-idle/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.5rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+  .article-body ul { margin: 0.5rem 0 1.5rem 1.25rem; }
+  .article-body li { font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 0.4rem; font-weight: 300; }
+  .article-body code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    background: rgba(27,58,92,0.06); padding: 0.15rem 0.4rem; border-radius: 4px;
+  }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .callout-orange { background: var(--orange-pale); color: #8B5E3C; border-left: 3px solid var(--orange); }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0;
+  }
+  .stat-box {
+    text-align: center; padding: 1.25rem; background: var(--white);
+    border-radius: 12px; border: 1px solid rgba(27,58,92,0.06);
+  }
+  .stat-box .num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--blue-deep); }
+  .stat-box .lbl { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.25rem; }
+
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<article>
+  <header class="article-header">
+    <div class="article-tag">Devlog</div>
+    <h1>Як я роблю idle-гру на SvelteKit: від лимонадного кіоску до міжпланетної торгівлі</h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Квітень 2026</span>
+      <span>12 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <p>Це девлог — чесна розповідь про те, як я створюю гру <strong>Business Empire Idle</strong>. Idle-гра, де ви будуєте бізнес-імперію від лимонадного кіоску до міжпланетної торгівлі. Розробка ще тривакє, але я хочу зафіксувати процес, поки він свіжий.</p>
+
+    <p>Чому idle-гра? Тому що це ідеальний полігон: реактивний стейт, складна математика, система прогресії, анімації, PWA. І головне — зробити гру, в яку самому хочеться грати.</p>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="num">13</div>
+        <div class="lbl">бізнесів</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">23</div>
+        <div class="lbl">досягнення</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">71</div>
+        <div class="lbl">тест</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">14</div>
+        <div class="lbl">компонентів</div>
+      </div>
+    </div>
+
+    <h2>Стек і чому саме такий</h2>
+
+    <p>Гра побудована на <strong>SvelteKit 2</strong> з <strong>Svelte 5</strong> (Runes). Не React, не Vue — Svelte. Ось чому:</p>
+
+    <ul>
+      <li><strong>Реактивність без зусиль</strong> — <code>$state</code>, <code>$derived</code>, <code>$effect</code> замість useState/useEffect. Немає stale closures, немає ре-рендерів</li>
+      <li><strong>Маленький бандл</strong> — Svelte компілюється в чистий JS, без рантайм-бібліотеки</li>
+      <li><strong>Вбудовані анімації</strong> — <code>tweened</code> для плавного лічильника грошей, <code>spring</code> для пружинного ефекту кнопки</li>
+      <li><strong>Static adapter</strong> — деплой на GitHub Pages однією командою</li>
+    </ul>
+
+    <p>TypeScript у strict mode з першого дня. Vitest для тестів. Vite для збірки. Мінімум залежностей — все працює на стандартних інструментах.</p>
+
+    <h2>Архітектура: один стор на все</h2>
+
+    <p>Серце гри — файл <code>store.svelte.ts</code> на 650+ рядків. Це єдине джерело правди для всього ігрового стану: гроші, бізнеси, апгрейди, досягнення, престиж.</p>
+
+    <p>Ключове рішення — розділити <strong>дані</strong> і <strong>логіку</strong>. Конфігурації бізнесів, апгрейдів, досягнень лежать окремо в <code>src/lib/data/</code>. Стор тільки маніпулює станом. Це дозволяє змінювати баланс гри без правок логіки.</p>
+
+    <div class="callout callout-blue">
+      <strong>Технічна деталь:</strong> <code>totalIncomePerSecond</code> — це один <code>$derived.by()</code>, який автоматично перераховується, коли змінюються бізнеси, синергії, перки або денні події. Жодного ручного інвалідування. Svelte 5 Runes — це магія.
+    </div>
+
+    <h2>13 бізнесів: від $10 до $5 млрд</h2>
+
+    <p>Прогресія — серце idle-гри. Гравець починає з лимонадного кіоску за $10 і поступово відкриває нові бізнеси аж до міжпланетної торгівлі за $5 000 000 000. Кожен наступний бізнес коштує в тисячі разів більше, але й приносить відповідно.</p>
+
+    <p>Кожен бізнес має <strong>3 тіри</strong>: базовий (1 одиниця), масштабований (10 одиниць, бонус ×2–2.5) і максимальний (25 одиниць, бонус ×4–20). Тіри — це причина продовжувати купувати один бізнес, а не тільки розблоковувати нові.</p>
+
+    <h3>Система синергій</h3>
+
+    <p>8 пар бізнесів дають бонуси, коли працюють разом. Лимонад + Кава = «Caffeine Hustle» (+20%). IT + Медіа = «Digital Empire» (+30%). Космічний видобуток + Міжпланетна торгівля = «Galactic Corp» (+40%). Це підштовхує гравця розвивати бізнеси парами, а не тільки найприбутковіший.</p>
+
+    <h2>Клік-система з комбо</h2>
+
+    <p>Idle-гра без кліків — це просто числа на екрані. Тому я додав комбо-систему: 5 кліків за 3 секунди — множник ×2, 10 кліків — множник ×5. Візуально це підкріплюється SVG-кільцем, яке заповнюється навколо кнопки, і «floating numbers», що вилітають з кожного кліку.</p>
+
+    <p>Кнопка «WORK» еволюціонує разом з гравцем: від «Hustle Hard» до «Run Operations», «Command Empire» і, нарешті, «Dominate Galaxy». Маленька деталь, але вона створює відчуття прогресії навіть без нових механік.</p>
+
+    <h2>Prestige: скидаємо все, але стаємо сильнішими</h2>
+
+    <p>Коли гравець заробив $1M за всю гру, відкривається можливість «престижу» — скинути гроші та бізнеси, але отримати <strong>Reputation Points (RP)</strong>. Формула: <code>floor(sqrt(totalEarned / 1_000_000))</code>. Тобто чим більше заробив — тим більше RP, але з diminishing returns.</p>
+
+    <p>RP витрачаються в <strong>престиж-магазині</strong> на перманентні бонуси: +25% до доходу, стартовий капітал $25K, автоматичний менеджер, який скуповує найдешевший бізнес кожні 30 секунд. Ці бонуси зберігаються між прогонами — і кожен новий прогон стає швидшим.</p>
+
+    <div class="callout callout-green">
+      <strong>Баланс:</strong> спочатку престиж-бонуси були мультиплікативними (×1.75 × ×1.5 = ×2.625). Це зламало прогресію — після 3 престижів гравець проходив все за хвилини. Перейшов на адитивну систему (+75%, +50% = +125%). Тепер баланс відчувається правильно.
+    </div>
+
+    <h2>Juiciness: як зробити числа відчутними</h2>
+
+    <p>Це була окрема фаза розробки — «juiciness». Ціль: зробити так, щоб кожна дія давала тактильний фідбек.</p>
+
+    <ul>
+      <li><strong>Tweened money counter</strong> — гроші не стрибають з 1000 до 2000, а плавно наростають</li>
+      <li><strong>Spring-анімація кнопки</strong> — кнопка «стискається» при натисканні і «відскакує» назад</li>
+      <li><strong>Конфетті</strong> — 80 Canvas-частинок на кожен milestone ($1K, $10K, $100K, $1M, $1B)</li>
+      <li><strong>Screen shake</strong> — 500ms тремтіння екрану при великих покупках</li>
+      <li><strong>Тоасти синергій</strong> — коли активується синергія, спливає повідомлення з назвою та бонусом</li>
+      <li><strong>Epoch backgrounds</strong> — фон змінюється з гаража на корпоративний офіс і далі на пентхаус. З плавним fade-переходом за 1.2 секунди</li>
+    </ul>
+
+    <p>Без цього гра технічно працювала. Але відчувалась як Excel-таблиця. Після «juiciness»-фази — як гра, в яку хочеться повертатись.</p>
+
+    <h2>Денні події та контракти</h2>
+
+    <p>Щодня (за UTC) гра генерує випадкову подію: +50% до доходу всіх бізнесів, або -25% до вартості покупок, або бонус конкретній категорії. Рандом — детермінований через <code>Math.sin(dayIndex)</code>. Тобто всі гравці бачать одну й ту саму подію в один день — без серверу.</p>
+
+    <p>Плюс 3 денні контракти: заробити X грошей, зробити Y кліків, купити Z бізнесів. Цілі масштабуються з престижем — на рівні 0 це «заробити $2K», на рівні 5 — «заробити $200K».</p>
+
+    <h2>71 тест і 6 знайдених багів</h2>
+
+    <p>Я написав тести не «бо так треба», а тому що баланс idle-гри — це математика, і одна помилка в формулі ламає всю прогресію. Ось реальні баги, які знайшли тести:</p>
+
+    <ul>
+      <li><strong>Денні модифікатори не застосовувались</strong> — подія казала «+50% до ресторанів», але дохід не змінювався</li>
+      <li><strong>Offline-дохід ігнорував тір-бонуси</strong> — гравець повертався через 8 годин і отримував в 5 разів менше, ніж мав</li>
+      <li><strong>Click power не зберігався через престиж</strong> — після скидання клік-сила повертались до базової, навіть якщо в магазині були куплені бонуси</li>
+      <li><strong>Контракти не платили нагороду</strong> — прогрес-бар заповнювався, анімація грала, але гроші не нараховувались</li>
+      <li><strong>Night Owl ачівка перевіряла не ту змінну</strong> — дивилась на апгрейди замість престиж-магазину</li>
+      <li><strong>Cost Freeze подія збільшувала ціни замість зменшення</strong> — множник був > 1 замість < 1</li>
+    </ul>
+
+    <p>Кожен з цих багів зламав би гру для реального гравця. Тести — це не бюрократія, це страховка.</p>
+
+    <h2>AI-згенеровані сцени</h2>
+
+    <p>Кожен бізнес має реалістичне зображення, згенероване через Midjourney: лимонадний кіоск, кав'ярня, IT-офіс, космічна станція. 13 унікальних сцен. Гравець може переглянути їх, натиснувши іконку ока на картці бізнесу.</p>
+
+    <p>Це не впливає на геймплей, але створює емоційний зв'язок. Коли бачиш свою «кав'ярню» — вона відчувається більш реальною, ніж рядок тексту.</p>
+
+    <h2>Що далі</h2>
+
+    <p>Гра живе, розробка продовжується. В планах:</p>
+
+    <ul>
+      <li>Нові бізнеси та рівні прогресії</li>
+      <li>Розширення престиж-магазину</li>
+      <li>Соціальні фічі — порівняння з друзями</li>
+      <li>Більше «wow-моментів» і візуального фідбеку</li>
+      <li>Мобільна оптимізація та покращення PWA</li>
+    </ul>
+
+    <div class="callout callout-blue">
+      <strong>Далі буде.</strong> Цей девлог — перший із серії. Слідкуйте за оновленнями — наступний буде про конкретні технічні рішення та балансування idle-прогресії.
+    </div>
+
+    <h2>Чому це важливо для моїх клієнтів</h2>
+
+    <p>Може здатись, що idle-гра не має стосунку до бізнес-сайтів. Але подивіться на список технологій: SvelteKit, TypeScript, анімації, PWA, тестування, деплой на GitHub Pages. Це ті самі інструменти і підходи, які я використовую в комерційних проєктах.</p>
+
+    <p>Різниця в тому, що гру я роблю для себе — і можу дозволити собі експериментувати. А потім кращі рішення потрапляють у ваші проєкти. Вашому ресторану точно не потрібна система престижу. Але анімації, реактивний стейт і архітектура — потрібні.</p>
+  </div>
+</article>
+
+<div class="cta-banner">
+  <h3>Хочете такий самий підхід у вашому проєкті?</h3>
+  <p>Якість коду, тести, анімації — все це доступно і для вашого сайту.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>
