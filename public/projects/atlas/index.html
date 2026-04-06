@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas — E-commerce для нішевого ринку</title>
+<meta name="description" content="Повний інтернет-магазин за 4 дні: Next.js 16, Medusa.js, Нова Пошта, накладений платіж. Кейс розробки для нішевого бізнесу без реклами.">
+<link rel="canonical" href="https://www.parkinsandr.tech/projects/atlas/">
+<meta property="og:title" content="Atlas — E-commerce для нішевого ринку">
+<meta property="og:description" content="Повний інтернет-магазин за 4 дні: Next.js, Medusa.js, НП, накладений платіж. Кейс розробки.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/projects/atlas/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atlas — E-commerce для нішевого ринку">
+<meta name="twitter:description" content="Повний інтернет-магазин за 4 дні: Next.js, Medusa.js, НП, накладений платіж.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1A1A18">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Atlas — E-commerce для нішевого ринку",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06",
+  "publisher": {"@type": "Person", "name": "Олександр Кравченко"},
+  "description": "Кейс розробки повного інтернет-магазину за 4 дні: Next.js 16, Medusa.js, Нова Пошта, накладений платіж.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/projects/atlas/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #1A1A18; --bg-card: #242420; --text-main: #F0EDE8;
+    --text-muted: #9A9790; --accent: #C4841D; --accent-hover: #D9A040;
+    --border-color: rgba(196, 132, 29, 0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--text-main); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(26, 26, 24, 0.88);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--text-main); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-back { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--accent); }
+  .case-hero {
+    padding: 8rem 2rem 3rem; text-align: center;
+    background: radial-gradient(circle at top, #2a2418 0%, var(--bg-dark) 70%);
+  }
+  .case-hero-inner { max-width: 800px; margin: 0 auto; }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .case-tag::before, .case-tag::after { content: ''; width: 20px; height: 1px; background: var(--accent); }
+  .case-hero h1 {
+    font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--text-main); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .case-hero h1 em { font-style: italic; color: var(--accent); }
+  .case-hero-desc { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; }
+  .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+  .case-body p { font-size: 1.02rem; line-height: 1.75; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 300; }
+  .case-body h2 {
+    font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--text-main);
+    margin: 3.5rem 0 1.5rem; line-height: 1.3; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+  }
+  .case-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--text-main); margin: 2rem 0 0.75rem; }
+  .case-body strong { font-weight: 500; color: var(--text-main); }
+  .case-body ul { margin: 0 0 1.5rem 1.5rem; }
+  .case-body li { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); font-weight: 300; margin-bottom: 0.4rem; }
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; }
+  .callout-accent { background: rgba(196, 132, 29, 0.05); color: var(--text-main); border-left: 3px solid var(--accent); }
+  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0; }
+  .feature-card {
+    padding: 1.5rem; background: var(--bg-card); border-radius: 12px;
+    border: 1px solid var(--border-color); transition: border-color 0.3s;
+  }
+  .feature-card:hover { border-color: rgba(196, 132, 29, 0.4); }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; display: inline-block; padding: 0.5rem; background: rgba(196, 132, 29, 0.1); border-radius: 8px; }
+  .feature-card h3 { font-size: 1rem; font-weight: 500; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2.5rem 0; }
+  .stat-box {
+    text-align: center; padding: 1.25rem; background: var(--bg-card);
+    border-radius: 12px; border: 1px solid var(--border-color);
+  }
+  .stat-box .num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--accent); }
+  .stat-box .lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .pipeline { margin: 2.5rem 0; }
+  .pipeline-step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.5rem 0; border-bottom: 1px dashed var(--border-color);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+  .pipeline-num {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
+  }
+  .pipeline-step h3 { font-size: 1rem; font-weight: 500; color: var(--text-main); margin-bottom: 0.4rem; }
+  .pipeline-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 3rem 2.5rem;
+    background: radial-gradient(circle at center, #2a2418 0%, var(--bg-card) 100%);
+    border-radius: 16px; text-align: center; border: 1px solid var(--border-color);
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.75rem; }
+  .cta-banner p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem; background: transparent; color: var(--accent);
+    border-radius: 100px; text-decoration: none; font-weight: 500; border: 1px solid var(--accent);
+    font-size: 0.88rem; transition: all 0.3s;
+  }
+  .cta-btn:hover { background: var(--accent); color: #000; }
+  footer { padding: 2.5rem 3rem; border-top: 1px solid var(--border-color); text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+  footer a { color: var(--accent); text-decoration: none; }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .case-hero { padding: 6rem 1.5rem 3rem; }
+    .case-body { padding: 3rem 1.5rem 3rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-tag">Кейс: E-commerce</div>
+    <h1>Інтернет-магазин <em>Atlas</em></h1>
+    <p class="case-hero-desc">Повноцінний e-commerce за 4 дні для нішевого ринку, де заблоковані всі рекламні канали. Headless архітектура, Нова Пошта, накладений платіж.</p>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="num">4</div>
+      <div class="lbl">дні розробки</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">31+</div>
+      <div class="lbl">сторінок</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">10K+</div>
+      <div class="lbl">рядків коду</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">119</div>
+      <div class="lbl">тестів</div>
+    </div>
+  </div>
+
+  <h2>Задача</h2>
+
+  <p>Клієнт — ФОП, продавав товари через Prom.ua. Акаунт заблокували через обмеження платформи для цієї ніші. Google Ads, Facebook, Instagram — теж заблоковані. Єдиний стабільний канал залучення клієнтів — <strong>SEO</strong>.</p>
+
+  <p>Потрібен був повноцінний інтернет-магазин з каталогом 15+ товарів, кошиком, оформленням замовлення через Нову Пошту, оплатою накладеним платежем та передоплатою на картку. І все це — якнайшвидше.</p>
+
+  <div class="callout callout-accent">
+    <strong>Обмеження:</strong> жодної реклами. Сайт має продавати через органічний пошук — тому SEO-оптимізація була не «бонусом», а ключовою вимогою з першого дня.
+  </div>
+
+  <h2>Рішення</h2>
+
+  <p>Headless e-commerce: <strong>Next.js 16</strong> (фронтенд) + <strong>Medusa.js 2</strong> (бекенд). Це не Shopify і не WooCommerce — повний контроль над кодом, дизайном і SEO. Жодних обмежень платформи.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <h3>Каталог і кошик</h3>
+      <p>Категорії з фільтрами, сортування, картки товарів з фото, старою/новою ціною, бейджами наявності. Zustand для кліентського кошика.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Нова Пошта</h3>
+      <p>Інтеграція з API: автокомпліт міст, вибір відділення/поштомату/адреси. 3 варіанти доставки.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💳</div>
+      <h3>Оплата</h3>
+      <p>Накладений платіж (НП) або передоплата на картку (IBAN). Кастомні payment-провайдери в Medusa.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Telegram-нотифікації</h3>
+      <p>Замовлення миттєво падає в Telegram власнику: товари, сума, контакти клієнта, спосіб оплати.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>SEO з першого дня</h3>
+      <p>JSON-LD (Product, Organization, FAQ), динамічний sitemap, ISR кешування, мета-теги на кожній сторінці.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⭐</div>
+      <h3>Відгуки з модерацією</h3>
+      <p>Гостьові відгуки без реєстрації. Rate-limiting 5/год. Адмін-панель модерації для власника.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Калькулятор економії</h3>
+      <p>Інтерактивний віджет на головній: показує місячну/річну економію в реальному часі.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔞</div>
+      <h3>Вікова перевірка</h3>
+      <p>Age gate 18+ на вході. Не блокує SEO-краулери — Google індексує контент нормально.</p>
+    </div>
+  </div>
+
+  <h2>Технічний стек</h2>
+
+  <ul>
+    <li><strong>Frontend:</strong> Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui, Zustand</li>
+    <li><strong>Backend:</strong> Medusa.js 2.13, PostgreSQL 15, Redis 7</li>
+    <li><strong>Кастомні модулі:</strong> Nova Poshta fulfillment, COD payment, Card prepayment</li>
+    <li><strong>Інтеграції:</strong> Telegram Bot API, GA4, Microsoft Clarity, Cloudflare R2</li>
+    <li><strong>Тести:</strong> Vitest + Testing Library (119 assertions)</li>
+    <li><strong>Деплой:</strong> Vercel (фронтенд, безкоштовно) + Hetzner VPS (бекенд, €4.51/міс)</li>
+  </ul>
+
+  <h2>Конверсійна стратегія</h2>
+
+  <p>Кожна секція головної побудована за моделлю <strong>AIDA</strong>:</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num">A</div>
+      <div>
+        <h3>Attention — біль клієнта</h3>
+        <p>Hero з конкретною проблемою: «Чому платити 85 грн за пачку, коли можна 15?»</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">I</div>
+      <div>
+        <h3>Interest — калькулятор</h3>
+        <p>Інтерактивний калькулятор економії. Клієнт бачить цифру — скільки зекономить за місяць і рік.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">D</div>
+      <div>
+        <h3>Desire — довіра</h3>
+        <p>Trust-блоки: Нова Пошта, гарантія повернення, відгуки, покрокова інструкція для новачків.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">A</div>
+      <div>
+        <h3>Action — CTA</h3>
+        <p>Кнопки «Додати в кошик», стартові набори, cross-sell на сторінках товарів.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Чому не Shopify</h2>
+
+  <p>Shopify — це чудово для звичайних магазинів. Але тут інша ситуація:</p>
+
+  <ul>
+    <li><strong>Ніша з обмеженнями</strong> — Shopify може заблокувати акаунт за порушення їхніх Terms of Service</li>
+    <li><strong>Нова Пошта</strong> — кастомна інтеграція, а не плагін з обмеженнями</li>
+    <li><strong>SEO-контроль</strong> — повний контроль над meta-тегами, structured data, sitemap, robots.txt</li>
+    <li><strong>Вартість</strong> — €4.51/міс проти $29+/міс за Shopify, без комісії з транзакцій</li>
+    <li><strong>Власність</strong> — код 100% клієнта, не залежить від платформи</li>
+  </ul>
+
+  <div class="callout callout-accent">
+    <strong>Результат:</strong> повноцінний інтернет-магазин за 4 дні розробки. 31+ сторінка, мобільна адаптація, SEO-оптимізація, тести — все готове до запуску.
+  </div>
+
+</div>
+
+<div class="cta-banner">
+  <h3>Потрібен інтернет-магазин?</h3>
+  <p>Headless e-commerce без обмежень платформ. Від каталогу до checkout — під ключ.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити ваш проєкт</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>
