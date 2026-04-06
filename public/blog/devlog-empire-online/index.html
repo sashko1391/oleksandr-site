@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devlog: Empire Online — браузерна бізнес-MMO</title>
+<meta name="description" content="Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами. Next.js 16, Supabase, 150+ модулів ігрової логіки.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/devlog-empire-online/">
+<meta property="og:title" content="Devlog: Empire Online — браузерна бізнес-MMO">
+<meta property="og:description" content="Мультиплеєрна бізнес-симуляція з політикою, коаліціями та сезонами. Next.js, Supabase.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/devlog-empire-online/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/empire-online.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Devlog: Empire Online — браузерна бізнес-MMO">
+<meta name="twitter:description" content="Мультиплеєрна бізнес-симуляція з політикою, коаліціями та сезонами.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/empire-online.webp">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Devlog: Empire Online — браузерна бізнес-MMO",
+  "author": {"@type": "Person", "name": "Олександр Кравченко", "url": "https://www.parkinsandr.tech"},
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06",
+  "publisher": {"@type": "Person", "name": "Олександр Кравченко"},
+  "description": "Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/devlog-empire-online/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.5rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+  .article-body ul { margin: 0.5rem 0 1.5rem 1.25rem; }
+  .article-body li { font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 0.4rem; font-weight: 300; }
+  .article-body code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    background: rgba(27,58,92,0.06); padding: 0.15rem 0.4rem; border-radius: 4px;
+  }
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .callout-orange { background: var(--orange-pale); color: #8B5E3C; border-left: 3px solid var(--orange); }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
+  .stat-box {
+    text-align: center; padding: 1.25rem; background: var(--white);
+    border-radius: 12px; border: 1px solid rgba(27,58,92,0.06);
+  }
+  .stat-box .num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--blue-deep); }
+  .stat-box .lbl { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.25rem; }
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<article>
+  <header class="article-header">
+    <div class="article-tag">Devlog</div>
+    <h1>Empire Online: як я будую браузерну бізнес-MMO з нуля</h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Квітень 2026</span>
+      <span>15 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <p><strong>Empire Online</strong> — це мультиплеєрна браузерна гра, де гравці будують бізнес-імперії, обирають мерів і президентів, формують коаліції та змагаються за лідерство в сезонних рейтингах. Все — прямо в браузері, без встановлення.</p>
+
+    <p>Це мій найамбітніший проєкт: 150+ модулів ігрової логіки, 95 міграцій бази даних, 2 182 тести. І розробка продовжується. Цей девлог — фіксація процесу: що зроблено, як влаштовано, і куди рухається проєкт.</p>
+
+    <img src="/images/empire-online.webp" alt="Empire Online — дашборд гри: виклики, стартові набори, панель керування" width="1440" height="810" loading="lazy" style="width:100%; height:auto; border-radius:12px; margin:1.5rem 0; border:1px solid rgba(27,58,92,0.08);">
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="num">150+</div>
+        <div class="lbl">модулів логіки</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">2 182</div>
+        <div class="lbl">тестів</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">95</div>
+        <div class="lbl">міграцій БД</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">15</div>
+        <div class="lbl">індустрій</div>
+      </div>
+    </div>
+
+    <h2>Що це за гра</h2>
+
+    <p>Уявіть суміш Capitalism (бізнес-симуляція), Democracy (політика), Eve Online (коаліційні війни) та Cookie Clicker (щоденний ігровий цикл). Гравець починає з $10 у маленькому селі і будує імперію до трильйонів — через бізнес, політику та стратегію.</p>
+
+    <h3>Ключові механіки</h3>
+
+    <ul>
+      <li><strong>Бізнес</strong> — 15 індустрій на 5 рівнях поселень (село → мегаполіс). Кожна має свої умови відкриття, рівні прокачки, синергії</li>
+      <li><strong>Політика</strong> — реальні вибори мерів і президентів. Закони, укази, парламент, корупція, імпічмент. Все вирішують гравці, не NPC</li>
+      <li><strong>Коаліції</strong> — об'єднання з іншими гравцями: спільна казна, проєкти, війни між групами</li>
+      <li><strong>Сезони</strong> — 30-денні цикли з трьома фазами: розширення → конфлікт → фінал. В кінці — нагороди найкращим</li>
+      <li><strong>Економіка</strong> — двоступеневе оподаткування, кредити, банкрутство, ринок попиту/пропозиції</li>
+    </ul>
+
+    <h2>Стек і архітектура</h2>
+
+    <p>Фронтенд — <strong>Next.js 16</strong> з React 19 і TypeScript в strict-режимі. Бекенд — <strong>Supabase</strong>: PostgreSQL, авторизація, Realtime-підписки, Edge Functions на Deno. Хостинг — Vercel (фронт) + Supabase Cloud (бек).</p>
+
+    <div class="callout callout-blue">
+      <strong>Ключове рішення:</strong> ігровий стан змінюється <em>тільки</em> через Edge Functions — ніколи напряму з клієнта. Кожна таблиця має Row-Level Security (RLS) політики. Це виключає цілий клас багів і читів.
+    </div>
+
+    <h3>Ігровий тік</h3>
+
+    <p>Кожні 15 хвилин Vercel Cron запускає «тік» — один ігровий місяць. За цей час: нараховується дохід, списуються витрати, нараховуються відсотки по кредитах, змінюється індекс CPI міста, перевіряються умови виборів і криз. 16 кроків за один запуск.</p>
+
+    <p>Для масштабування тік розділений на три пріоритети:</p>
+    <ul>
+      <li><strong>Критичний</strong> (кожен тік) — дохід, витрати, кредити</li>
+      <li><strong>Середній</strong> (кожен 4-й тік) — події, CPI, лояльність</li>
+      <li><strong>Ледачий</strong> (кожен 24-й тік) — лідерборд, патенти, очищення</li>
+    </ul>
+
+    <h2>Бізнес-система: від кафе до енергетичної компанії</h2>
+
+    <p>5 рівнів поселень × 3 індустрії = 15 унікальних бізнесів:</p>
+
+    <ul>
+      <li><strong>Село:</strong> Кафе, Фермерство, Магазин</li>
+      <li><strong>Містечко:</strong> Автосервіс, Будівництво, Аптека</li>
+      <li><strong>Місто:</strong> IT-компанія, Юридична фірма, Логістика</li>
+      <li><strong>Столиця:</strong> Фінанси, Медіа, Девелопмент</li>
+      <li><strong>Мегаполіс:</strong> Технологічна корпорація, Банк, Енергетика</li>
+    </ul>
+
+    <p>Кожен бізнес має 4 рівні. Дохід рахується через трирівневу формулу: ринковий шар (CPI, спеціалізація міста, сезонні модифікатори), операційний шар (HR, менеджмент, синергії) та стратегічний шар (лояльність, контракти, репутація). Кожен шар обмежений окремо — неможливо «зламати» гру, прокачавши лише один параметр.</p>
+
+    <h2>Політична система</h2>
+
+    <p>Це не NPC-правителі, які змінюють правила. Тут <strong>гравці голосують за лідерів, які приймають рішення</strong>. Мер встановлює податкову ставку міста (5–15%), видає укази, розпоряджається міською казною. Президент контролює державний податок (10–18%) і приймає закони.</p>
+
+    <h3>Корупція — видима і підзвітна</h3>
+
+    <p>Кожна корупційна дія (розкрадання, шахрайство, хабарництво) підвищує публічний лічильник корупції. На 150+ — автоматичне розслідування. На 200+ — автоматичний імпічмент з конфіскацією 50% майна. Аудитори бачать все. Це створює справжню гру навколо відповідальності.</p>
+
+    <div class="callout callout-green">
+      <strong>Емерджентний геймплей:</strong> коли 5 гравців об'єднуються, щоб імпічнути корумпованого мера — це не скрипт. Це реальна політична подія, яка сталася через ігрові механіки.
+    </div>
+
+    <h2>PvP з захистом від абузу</h2>
+
+    <p>PvP — реальний: можна шпигувати, саботажити бізнеси, красти працівників. Але з обмеженнями:</p>
+
+    <ul>
+      <li><strong>Денний ліміт шкоди</strong> — максимум 15% від статку цілі за добу</li>
+      <li><strong>Серійні атаки</strong> — ефективність падає на 50% після першої</li>
+      <li><strong>Кулдаун</strong> — 6 тіків між атаками на одну ціль</li>
+      <li><strong>Пісочниця новачка</strong> — 72 години повного захисту від PvP</li>
+      <li><strong>Відновлення</strong> — жертва отримує +5% ефективності на 12 тіків</li>
+    </ul>
+
+    <h2>Сезони: 30 днів, три фази, один переможець</h2>
+
+    <p>Гра живе сезонами по 720 тіків (≈30 днів):</p>
+
+    <ul>
+      <li><strong>Розширення</strong> (1–240 тік) — ніякого PvP, +50% буст новачкам, менше подій. Час будувати</li>
+      <li><strong>Конфлікт</strong> (241–600 тік) — PvP увімкнено, коаліційні війни, вибори</li>
+      <li><strong>Фінал</strong> (601–720 тік) — подвійні нагороди, ×1.5 PvP-шкода, глобальна криза, заморозка лідерборду</li>
+    </ul>
+
+    <p>В кінці сезону — скидання 50% грошей. Але <strong>предмети розкоші</strong> (яхти, приватні літаки, колекції мистецтва) залишаються назавжди. Це створює довгострокову мотивацію поза межами одного сезону.</p>
+
+    <h2>Тестування: 2 182 тести і 6 знайдених багів</h2>
+
+    <p>Баланс MMO-гри — це математика. Одна неправильна формула — і економіка ламається. Тому 100% ігрової логіки покрито тестами.</p>
+
+    <p>Реальні баги з тестів:</p>
+    <ul>
+      <li><strong>Престиж-бонуси були мультиплікативними</strong> — ×1.75 × ×1.5 = ×2.625 замість +125%. Це зламало прогресію після 3 сезонів</li>
+      <li><strong>Денні події не застосовувались до конкретних бізнесів</strong> — подія «+50% до ресторанів» впливала на все</li>
+      <li><strong>Коефіцієнт Джині</strong> стартував на 0.78 (крайня нерівність). Після балансування — 0.39</li>
+    </ul>
+
+    <div class="callout callout-orange">
+      <strong>Інфраструктура тестів:</strong> Husky + lint-staged (pre-commit), GitHub Actions CI (lint → format → test → build). Поріг покриття — 80% для ігрової логіки. Коміт не проходить, якщо тести падають.
+    </div>
+
+    <h2>Монетизація</h2>
+
+    <p>Гра free-to-play з преміум-підпискою через <strong>Monobank Acquiring</strong> (український процесинг). Підписка дає бонуси (+20% дохід, +15% R&D), але не ламає баланс. Основний геймплей — безкоштовний.</p>
+
+    <h2>Що зроблено</h2>
+
+    <ul>
+      <li>27+ сторінок ігрового інтерфейсу</li>
+      <li>80+ перевикористовуваних компонентів</li>
+      <li>150+ модулів ігрової логіки з тестами</li>
+      <li>95 SQL-міграцій з RLS-політиками</li>
+      <li>Повна система виборів, законів, корупції</li>
+      <li>Коаліції з казною, проєктами, війнами</li>
+      <li>Калькулятор «що-якщо» для прогнозу доходу</li>
+      <li>AI-порадник з контекстними підказками</li>
+      <li>Щоденні квести, бонуси, досягнення</li>
+      <li>Інтеграція з Monobank для платежів</li>
+    </ul>
+
+    <h2>Що далі</h2>
+
+    <p>Розробка активна. В планах:</p>
+
+    <ul>
+      <li>Розширення системи предметів розкоші (12+ позицій)</li>
+      <li>Бета-тестування з реальними гравцями</li>
+      <li>Оптимізація тіку для 500+ одночасних гравців</li>
+      <li>Компонентне тестування (зараз 12% покриття UI)</li>
+      <li>Балансування на основі реальних даних</li>
+    </ul>
+
+    <div class="callout callout-blue">
+      <strong>Далі буде.</strong> Цей девлог — перший із серії про Empire Online. Наступний буде про те, як працює політична система зсередини, і чому корупція — це фіча, а не баг.
+    </div>
+
+    <h2>Чому це важливо</h2>
+
+    <p>Empire Online — це полігон, де я тестую все: авторизацію, Realtime-підписки, складні SQL-міграції, Edge Functions, Cron-джоби, інтеграцію з платіжними системами. Ті самі технології, які потім використовую в комерційних проєктах — тільки тут я можу дозволити собі піти глибше.</p>
+
+    <p>Якщо вашому бізнесу потрібен не просто сайт, а <strong>платформа</strong> з авторизацією, реальним часом, платежами і складною логікою — цей досвід працює на вас.</p>
+  </div>
+</article>
+
+<div class="cta-banner">
+  <h3>Потрібна складна веб-платформа?</h3>
+  <p>Авторизація, Realtime, платежі, складна бізнес-логіка — все під ключ.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>
