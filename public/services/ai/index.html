@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-інтеграції для сайту — чат-бот, форми, CRM | Олександр Кравченко</title>
+<meta name="description" content="Підключаю AI до вашого сайту: чат-боти на Claude/GPT, розумні форми, автоматизація заявок у CRM і Telegram. Від MVP до продакшену.">
+<link rel="canonical" href="https://www.parkinsandr.tech/services/ai/">
+<meta property="og:title" content="AI-інтеграції для сайту — чат-бот, форми, CRM | Олександр Кравченко">
+<meta property="og:description" content="Підключаю AI до вашого сайту: чат-боти на Claude/GPT, розумні форми, автоматизація заявок у CRM і Telegram. Від MVP до продакшену.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/services/ai/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI-інтеграції для сайту — чат-бот, форми, CRM | Олександр Кравченко">
+<meta name="twitter:description" content="Підключаю AI до вашого сайту: чат-боти на Claude/GPT, розумні форми, автоматизація заявок у CRM і Telegram.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "AI-інтеграції для сайту",
+  "description": "Підключення AI-чат-ботів, розумних форм та автоматизації до бізнес-сайтів. Claude, GPT, Telegram-боти, CRM.",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Олександр Кравченко",
+    "url": "https://www.parkinsandr.tech"
+  },
+  "areaServed": {"@type": "Country", "name": "Ukraine"},
+  "serviceType": "AI Integration"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Послуги", "item": "https://www.parkinsandr.tech/#scenarios"},
+    {"@type": "ListItem", "position": 3, "name": "AI-інтеграції", "item": "https://www.parkinsandr.tech/services/ai/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Яку AI-модель ви використовуєте?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude (Anthropic) та GPT (OpenAI), залежно від задачі. Claude краще працює з довгими текстами і аналізом, GPT — з генерацією та класифікацією. Підбираємо оптимальну модель під ваш кейс."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Скільки коштує AI-бот щомісяця?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "API-виклики зазвичай $5-30/міс для малого бізнесу. Залежить від кількості запитів та моделі. Налаштовуємо ліміти, щоб не було сюрпризів."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи може AI повністю замінити менеджера?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ні, але зніме 80% рутини. AI відповідає на типові питання, кваліфікує ліди, збирає інформацію — менеджер підключається тільки до складних кейсів."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А якщо AI відповідає неправильно?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Налаштовуємо guardrails: обмеження тем, fallback на живого оператора, моніторинг відповідей. Регулярно аналізуємо логи і коригуємо промпти."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Скільки часу на розробку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MVP чат-бота — 1-2 тижні. Telegram-бот з автоматизацією — 2-3 тижні. Складне рішення з RAG і обробкою документів — 3-6 тижнів."
+      }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+
+  /* Hero */
+  .case-hero {
+    padding: 8rem 2rem 3rem; text-align: center;
+    background: linear-gradient(180deg, var(--milk) 0%, var(--blue-pale) 100%);
+  }
+  .case-hero-inner { max-width: 800px; margin: 0 auto; }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .case-tag::before, .case-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .case-hero h1 {
+    font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
+    color: var(--blue-deep); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .case-hero h1 em { font-style: italic; color: var(--blue-mid); }
+  .case-hero-desc { font-size: 1.1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; }
+  .case-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--blue-deep); color: var(--milk);
+    border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem;
+    transition: all 0.3s;
+  }
+  .case-link:hover { background: var(--blue-mid); transform: translateY(-2px); }
+
+  /* Body */
+  .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+  .case-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .case-body h2 {
+    font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep);
+    margin: 3rem 0 1rem; line-height: 1.3;
+  }
+  .case-body h2:first-child { margin-top: 0; }
+  .case-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .case-body strong { font-weight: 500; color: var(--ink); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+
+  /* Feature Grid */
+  .feature-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;
+  }
+  .feature-card {
+    padding: 1.25rem; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06); transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,58,92,0.08); }
+  .feature-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .feature-card h3 {
+    font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem;
+  }
+  .feature-card p { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 0; }
+
+  /* Pipeline */
+  .pipeline { margin: 2rem 0; }
+  .pipeline-step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.25rem 0; border-bottom: 1px solid rgba(27,58,92,0.06);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+  .pipeline-num {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue-deep); color: var(--milk);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
+  }
+  .pipeline-step h3 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+  .pipeline-step p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 0; }
+
+  /* Case highlight */
+  .case-highlight {
+    padding: 2rem; margin: 2rem 0; background: var(--white); border-radius: 16px;
+    border: 1px solid rgba(27,58,92,0.06); box-shadow: 0 4px 20px rgba(27,58,92,0.05);
+  }
+  .case-highlight .stats {
+    display: flex; gap: 1.5rem; margin: 1rem 0 1.25rem; flex-wrap: wrap;
+  }
+  .case-highlight .stat {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0.75rem 1.25rem; background: var(--blue-pale); border-radius: 10px;
+  }
+  .case-highlight .stat .num {
+    font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); line-height: 1;
+  }
+  .case-highlight .stat .lbl { font-size: 0.68rem; color: var(--ink-muted); margin-top: 0.2rem; }
+  .case-highlight p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 0.75rem; }
+  .case-highlight p:last-of-type { margin-bottom: 0; }
+  .case-highlight a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--blue-mid); text-decoration: none; font-weight: 500; font-size: 0.88rem;
+    margin-top: 1rem; transition: color 0.3s;
+  }
+  .case-highlight a:hover { color: var(--blue-deep); }
+
+  /* Pricing */
+  .pricing { margin: 1.5rem 0; }
+  .pricing-tier {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 1.5rem; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06); margin-bottom: 0.75rem;
+    transition: transform 0.2s;
+  }
+  .pricing-tier:hover { transform: translateX(4px); }
+  .pricing-tier h3 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
+  .pricing-tier .desc { font-size: 0.82rem; color: var(--ink-muted); }
+  .pricing-price {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    color: var(--blue-deep); font-weight: 500; white-space: nowrap;
+  }
+
+  /* FAQ */
+  .faq { margin: 1.5rem 0; }
+  .faq details {
+    background: var(--white); border-radius: 12px; margin-bottom: 0.5rem;
+    border: 1px solid rgba(27,58,92,0.06); overflow: hidden;
+  }
+  .faq summary {
+    padding: 1.25rem 1.5rem; cursor: pointer; font-weight: 500; font-size: 0.95rem;
+    color: var(--ink); list-style: none; display: flex; justify-content: space-between;
+    align-items: center; transition: color 0.3s;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; font-size: 1.2rem; color: var(--blue-mid); transition: transform 0.3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq summary:hover { color: var(--blue-deep); }
+  .faq .faq-answer { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; }
+
+  /* CTA Banner */
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .case-hero { padding: 6rem 1.5rem 3rem; }
+    .case-body { padding: 3rem 1.5rem 3rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .pricing-tier { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .case-highlight .stats { gap: 0.75rem; }
+  }
+</style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-tag">Послуга</div>
+    <h1>AI-інтеграції, які <em>працюють</em> на ваш бізнес</h1>
+    <p class="case-hero-desc">Чат-боти, розумні форми, автоматизація — не іграшки, а реальні інструменти, що економлять час і збільшують конверсії.</p>
+    <a href="/#chat-section" class="case-link">Зробити MVP →</a>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <h2>Що AI реально може для вашого сайту</h2>
+
+  <p>Не хайп — конкретні задачі. AI-чат-бот, який відповідає на питання клієнтів 24/7. Розумні форми, що кваліфікують ліди ще до того, як ви побачите заявку. Автоматизація, яка миттєво відправляє дані в CRM або Telegram.</p>
+
+  <p>Це не «ми додали ChatGPT на сайт». Це інтеграція, яка вирішує конкретну бізнес-задачу: зменшує навантаження на менеджерів, прискорює обробку заявок, підвищує якість лідів.</p>
+
+  <div class="callout callout-blue">
+    <strong>Приклад:</strong> AI-помічник на цьому сайті відповідає на питання про послуги та допомагає оцінити проєкт. Спробуйте — він працює прямо зараз.
+  </div>
+
+  <h2>Рішення, які я будую</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3>AI чат-бот</h3>
+      <p>Claude/GPT, відповідає на FAQ, кваліфікує ліди, працює 24/7 без вихідних.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>Розумні форми</h3>
+      <p>AI валідує, класифікує та маршрутизує заявки автоматично.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Telegram-боти</h3>
+      <p>Сповіщення, обробка замовлень, підтримка клієнтів у месенджері.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <h3>CRM-автоматизація</h3>
+      <p>Заявки автоматично потрапляють у CRM, без ручного вводу.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>Обробка документів</h3>
+      <p>Аналіз PDF, витяг даних, генерація звітів за шаблоном.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>RAG-системи</h3>
+      <p>AI з базою знань вашого бізнесу — відповідає точно, а не «в цілому».</p>
+    </div>
+  </div>
+
+  <h2>Як це працює</h2>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num">01</div>
+      <div>
+        <h3>Аналіз</h3>
+        <p>Розуміємо, яку задачу AI вирішить найефективніше. Не все потребує AI — іноді простий скрипт працює краще.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">02</div>
+      <div>
+        <h3>MVP</h3>
+        <p>Мінімальний робочий прототип за 1-2 тижні. Тестуємо на реальних даних, збираємо фідбек.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">03</div>
+      <div>
+        <h3>Інтеграція</h3>
+        <p>Підключаємо до сайту, CRM, месенджерів. Все працює як єдина система, не як окремий віджет.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">04</div>
+      <div>
+        <h3>Навчання + підтримка</h3>
+        <p>Показуємо як керувати, моніторимо якість відповідей, коригуємо промпти за потреби.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Кейс: AGENTIS</h2>
+
+  <div class="case-highlight">
+    <p>AGENTIS — AI-платформа юридичного аналізу, яку я побудував з нуля. Конвеєр з 15 AI-агентів аналізує юридичну ситуацію за 5 хвилин: від класифікації до PDF-звіту з покроковим алгоритмом дій.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="num">5</div>
+        <div class="lbl">AI-моделей</div>
+      </div>
+      <div class="stat">
+        <div class="num">207</div>
+        <div class="lbl">Законів у базі</div>
+      </div>
+      <div class="stat">
+        <div class="num">15</div>
+        <div class="lbl">AI-агентів</div>
+      </div>
+    </div>
+    <p>Якщо AI може аналізувати 207 законів — уявіть, що він зробить для вашого бізнесу.</p>
+    <a href="/projects/agentis/">Детальний кейс AGENTIS →</a>
+  </div>
+
+  <h2>Вартість AI-інтеграцій</h2>
+
+  <div class="pricing">
+    <div class="pricing-tier">
+      <div>
+        <h3>Чат-бот для сайту</h3>
+        <div class="desc">Базова конфігурація, FAQ, лід-кваліфікація</div>
+      </div>
+      <div class="pricing-price">від 15 000 ₴</div>
+    </div>
+    <div class="pricing-tier">
+      <div>
+        <h3>Telegram-бот + автоматизація</h3>
+        <div class="desc">Сповіщення, обробка замовлень, інтеграція з CRM</div>
+      </div>
+      <div class="pricing-price">від 20 000 ₴</div>
+    </div>
+    <div class="pricing-tier">
+      <div>
+        <h3>Кастомне AI-рішення</h3>
+        <div class="desc">RAG, обробка документів, складна логіка</div>
+      </div>
+      <div class="pricing-price">від 30 000 ₴</div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>Ціна залежить від складності.</strong> MVP — завжди перший крок. Починаємо з мінімального рішення, доводимо що працює, потім масштабуємо.
+  </div>
+
+  <h2>Часті питання</h2>
+
+  <div class="faq">
+    <details>
+      <summary>Яку AI-модель ви використовуєте?</summary>
+      <div class="faq-answer">Claude (Anthropic) та GPT (OpenAI), залежно від задачі. Claude краще працює з довгими текстами і аналізом, GPT — з генерацією та класифікацією. Підбираємо оптимальну модель під ваш кейс.</div>
+    </details>
+    <details>
+      <summary>Скільки коштує AI-бот щомісяця?</summary>
+      <div class="faq-answer">API-виклики зазвичай $5-30/міс для малого бізнесу. Залежить від кількості запитів та моделі. Налаштовуємо ліміти, щоб не було сюрпризів.</div>
+    </details>
+    <details>
+      <summary>Чи може AI повністю замінити менеджера?</summary>
+      <div class="faq-answer">Ні, але зніме 80% рутини. AI відповідає на типові питання, кваліфікує ліди, збирає інформацію — менеджер підключається тільки до складних кейсів.</div>
+    </details>
+    <details>
+      <summary>А якщо AI відповідає неправильно?</summary>
+      <div class="faq-answer">Налаштовуємо guardrails: обмеження тем, fallback на живого оператора, моніторинг відповідей. Регулярно аналізуємо логи і коригуємо промпти.</div>
+    </details>
+    <details>
+      <summary>Скільки часу на розробку?</summary>
+      <div class="faq-answer">MVP чат-бота — 1-2 тижні. Telegram-бот з автоматизацією — 2-3 тижні. Складне рішення з RAG і обробкою документів — 3-6 тижнів.</div>
+    </details>
+  </div>
+
+</div>
+
+<div class="cta-banner">
+  <h3>Хочете AI, який працює?</h3>
+  <p>Не демо, не презентація — робочий MVP за 2 тижні.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити задачу →</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>

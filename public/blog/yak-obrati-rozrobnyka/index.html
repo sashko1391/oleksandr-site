@@ -40,6 +40,17 @@
   "mainEntityOfPage": "https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "Як обрати розробника сайту", "item": "https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/"}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -171,6 +182,35 @@
   }
   footer a { color: var(--blue-mid); text-decoration: none; }
 
+  /* Related posts */
+  .related-posts {
+    max-width: 720px; margin: 2rem auto 0; padding: 2rem 0;
+    border-top: 1px solid var(--milk-warm);
+  }
+  .related-posts h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem;
+  }
+  .related-posts-list {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .related-posts-list a {
+    display: block; padding: 1rem 1.2rem;
+    background: var(--white); border-radius: 10px;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--milk-warm);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .related-posts-list a:hover {
+    border-color: var(--blue-sky); transform: translateY(-2px);
+  }
+  .related-posts-list .rp-title {
+    font-weight: 500; font-size: 0.95rem; color: var(--blue-deep);
+  }
+  .related-posts-list .rp-desc {
+    font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem;
+  }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .article-header { padding: 6rem 1.5rem 2rem; }
@@ -178,6 +218,7 @@
     .numbered-item { flex-direction: column; gap: 0.5rem; }
   }
 </style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </head>
@@ -254,7 +295,7 @@
       <div class="num">6</div>
       <div>
         <h3>AI як інструмент, а не як загроза</h3>
-        <p>У 2026 році розробник, який не використовує AI — це як столяр, який принципово не використовує електроінструменти. Можна, але навіщо? Якщо розробник активно працює з Claude, GPT, Copilot — це не означає, що він «не справжній». Це означає, що він ефективний. Один розробник з AI може робити роботу маленької команди. І це напряму економить ваш бюджет.</p>
+        <p>У 2026 році розробник, який не використовує AI — це як столяр, який принципово не використовує електроінструменти. Можна, але навіщо? Якщо розробник активно працює з Claude, GPT, Copilot — це не означає, що він «не справжній». Це означає, що він ефективний. Один розробник з AI може робити роботу маленької команди. І це напряму економить ваш бюджет. Подивіться, як я <a href="/services/ai/">інтегрую AI у бізнес-сайти</a>.</p>
       </div>
     </div>
 
@@ -301,6 +342,24 @@
     <p>І так, я теж шукаю клієнтів, яким з часом ця стаття допоможе знайти правильного розробника. Навіть якщо це буду не я — мені важливо, щоб ви зробили правильний вибір.</p>
   </div>
 </article>
+
+<section class="related-posts">
+  <h3>Читайте також</h3>
+  <div class="related-posts-list">
+    <a href="/blog/skilky-koshtuye-sajt/">
+      <div class="rp-title">Скільки коштує сайт у 2026 — чесний розклад</div>
+      <div class="rp-desc">Реальні ціни на лендінги, бізнес-сайти та платформи. Без маркетингового туману.</div>
+    </a>
+    <a href="/blog/react-vs-tilda/">
+      <div class="rp-title">React vs Tilda: що обрати для бізнесу у 2026</div>
+      <div class="rp-desc">Порівняння конструктора і кастомної розробки — коли що працює.</div>
+    </a>
+    <a href="/projects/agentis/">
+      <div class="rp-title">Кейс: AGENTIS — AI юридичний аналіз</div>
+      <div class="rp-desc">Як я побудував AI-платформу з 5 моделями, 207 законами та 15 агентами.</div>
+    </a>
+  </div>
+</section>
 
 <div class="cta-banner">
   <h3>Потрібен сайт?</h3>

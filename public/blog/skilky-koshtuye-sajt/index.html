@@ -33,6 +33,17 @@
   "mainEntityOfPage": "https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "Скільки коштує сайт у 2026", "item": "https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/"}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -112,6 +123,35 @@
   footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
   footer a { color: var(--blue-mid); text-decoration: none; }
 
+  /* Related posts */
+  .related-posts {
+    max-width: 720px; margin: 2rem auto 0; padding: 2rem 0;
+    border-top: 1px solid var(--milk-warm);
+  }
+  .related-posts h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem;
+  }
+  .related-posts-list {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .related-posts-list a {
+    display: block; padding: 1rem 1.2rem;
+    background: var(--white); border-radius: 10px;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--milk-warm);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .related-posts-list a:hover {
+    border-color: var(--blue-sky); transform: translateY(-2px);
+  }
+  .related-posts-list .rp-title {
+    font-weight: 500; font-size: 0.95rem; color: var(--blue-deep);
+  }
+  .related-posts-list .rp-desc {
+    font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem;
+  }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .article-header { padding: 6rem 1.5rem 2rem; }
@@ -120,6 +160,7 @@
     .compare-table th, .compare-table td { padding: 0.6rem 0.75rem; }
   }
 </style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </head>
@@ -161,9 +202,9 @@
       </tr>
       <tr>
         <td>Ціна</td>
-        <td>20 000 ₴</td>
-        <td>30 000 ₴</td>
-        <td>40 000 ₴</td>
+        <td><a href="/services/landing/">20 000 ₴</a></td>
+        <td><a href="/services/nextjs/">30 000 ₴</a></td>
+        <td><a href="/services/nextjs/">40 000 ₴</a></td>
       </tr>
       <tr>
         <td>Сторінок</td>
@@ -299,7 +340,7 @@
 
     <ul>
       <li><strong>Домен</strong> — 200–500 ₴/рік (ви купуєте самі, я допомагаю обрати)</li>
-      <li><strong>Хостинг</strong> — 0 ₴ на Vercel/Netlify (для 90% сайтів вистачає безкоштовного плану)</li>
+      <li><strong>Хостинг</strong> — 0 ₴ на Vercel/Netlify (для 90% сайтів вистачає безкоштовного плану). Дивіться <a href="/services/nextjs/">що входить у розробку на Next.js</a></li>
       <li><strong>Контент</strong> — тексти та фото. Якщо є — чудово. Якщо немає — це окрема робота</li>
       <li><strong>Підтримка після</strong> — дрібні зміни безкоштовно в межах підтримки. Глобальні доробки — за домовленістю</li>
     </ul>
@@ -325,6 +366,24 @@
     <p>Головне — не переплачувати за те, що вам не потрібно. І не економити на тому, від чого залежить результат.</p>
   </div>
 </article>
+
+<section class="related-posts">
+  <h3>Читайте також</h3>
+  <div class="related-posts-list">
+    <a href="/blog/yak-obrati-rozrobnyka/">
+      <div class="rp-title">Як обрати розробника сайту — 9 критеріїв</div>
+      <div class="rp-desc">Практичний гайд: на що дивитись, про що питати, і коли тікати.</div>
+    </a>
+    <a href="/blog/react-vs-tilda/">
+      <div class="rp-title">React vs Tilda: що обрати для бізнесу у 2026</div>
+      <div class="rp-desc">Порівняння конструктора і кастомної розробки — коли що працює.</div>
+    </a>
+    <a href="/projects/atlas/">
+      <div class="rp-title">Кейс: Atlas — інтернет-магазин за 4 дні</div>
+      <div class="rp-desc">Next.js 16, Medusa.js, Нова Пошта, накладений платіж. Повний кейс.</div>
+    </a>
+  </div>
+</section>
 
 <div class="cta-banner">
   <h3>Хочете дізнатись вартість вашого проєкту?</h3>

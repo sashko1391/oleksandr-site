@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Розробка сайтів на Next.js для бізнесу | Олександр Кравченко</title>
+<meta name="description" content="Розробляю швидкі бізнес-сайти на Next.js з SEO та аналітикою. Лендінги, магазини, платформи. Портфоліо з кейсами й цифрами. Оцінка за 24 години.">
+<link rel="canonical" href="https://www.parkinsandr.tech/services/nextjs/">
+<meta property="og:title" content="Розробка сайтів на Next.js для бізнесу | Олександр Кравченко">
+<meta property="og:description" content="Розробляю швидкі бізнес-сайти на Next.js з SEO та аналітикою. Лендінги, магазини, платформи.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/services/nextjs/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Розробка сайтів на Next.js для бізнесу | Олександр Кравченко">
+<meta name="twitter:description" content="Розробляю швидкі бізнес-сайти на Next.js з SEO та аналітикою. Лендінги, магазини, платформи.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Розробка сайтів на Next.js",
+  "description": "Розробка швидких бізнес-сайтів на Next.js з SEO-оптимізацією, аналітикою та AI-інтеграціями.",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Олександр Кравченко",
+    "url": "https://www.parkinsandr.tech"
+  },
+  "areaServed": {"@type": "Country", "name": "Ukraine"},
+  "serviceType": "Web Development"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Послуги", "item": "https://www.parkinsandr.tech/#scenarios"},
+    {"@type": "ListItem", "position": 3, "name": "Розробка на Next.js", "item": "https://www.parkinsandr.tech/services/nextjs/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Скільки часу займає розробка сайту на Next.js?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Лендінг — 1-2 тижні, бізнес-сайт — 2-4 тижні. Точні терміни залежать від складності проєкту та обсягу контенту."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чому Next.js, а не WordPress?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Next.js дає кращу швидкість завантаження, вбудований SEO, вищу безпеку (немає вразливостей плагінів) та необмежену масштабованість без додаткових витрат на сервер."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи потрібен мені хостинг?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vercel (платформа від творців Next.js) безкоштовна для більшості бізнес-сайтів. Ви платите тільки за домен."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А якщо мені потрібні зміни після запуску?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Підтримка включена в перший місяць після запуску. Також навчу вас або вашу команду керувати контентом самостійно."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ви робите дизайн?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Так, повний цикл — від макету до продакшену. Дизайн, розробка, тестування та запуск в одному пакеті."
+      }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #7A7A7A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-header .subtitle { font-size: 1.05rem; color: var(--ink-soft); font-weight: 300; line-height: 1.6; margin-bottom: 2rem; }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 1.8rem; background: var(--blue-deep); color: var(--milk);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.92rem; transition: transform 0.3s, background 0.3s;
+  }
+  .hero-cta:hover { transform: translateY(-2px); background: var(--blue-mid); }
+
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 3rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+
+  /* Feature Grid */
+  .feature-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 2rem;
+  }
+  .feature-card {
+    padding: 1.5rem; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06); transition: border-color 0.3s, transform 0.3s;
+  }
+  .feature-card:hover { border-color: var(--blue-sky); transform: translateY(-2px); }
+  .feature-card .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .feature-card h3 { font-size: 0.95rem; font-weight: 500; color: var(--blue-deep); margin: 0 0 0.4rem; }
+  .feature-card p { font-size: 0.85rem; line-height: 1.5; color: var(--ink-muted); margin: 0; }
+
+  /* Pipeline */
+  .pipeline { margin: 1.5rem 0 2rem; }
+  .pipeline-step {
+    display: flex; gap: 1.25rem; padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(27,58,92,0.06);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0; width: 36px; height: 36px;
+    background: var(--blue-deep); color: var(--milk); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 500;
+  }
+  .step-content h3 { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin: 0 0 0.25rem; }
+  .step-content p { font-size: 0.88rem; color: var(--ink-muted); margin: 0; line-height: 1.5; }
+
+  /* Case Cards */
+  .case-cards { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0 2rem; }
+  .case-card {
+    display: block; padding: 1.25rem 1.5rem; background: var(--white); border-radius: 12px;
+    text-decoration: none; color: var(--ink); border: 1px solid rgba(27,58,92,0.06);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .case-card:hover { border-color: var(--blue-sky); transform: translateY(-2px); }
+  .case-card .case-title { font-weight: 500; font-size: 0.95rem; color: var(--blue-deep); }
+  .case-card .case-desc { font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  /* Pricing */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0 1rem; }
+  .pricing-card {
+    padding: 1.5rem; background: var(--white); border-radius: 12px;
+    border: 1px solid rgba(27,58,92,0.06); text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .pricing-card:hover { border-color: var(--blue-sky); transform: translateY(-2px); }
+  .pricing-card.featured { border: 2px solid var(--blue-mid); background: var(--blue-pale); }
+  .pricing-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.15rem; color: var(--blue-deep); margin-bottom: 0.5rem; }
+  .pricing-card .price { font-size: 1.3rem; font-weight: 600; color: var(--blue-deep); margin-bottom: 0.25rem; }
+  .pricing-card .scope { font-size: 0.82rem; color: var(--ink-muted); }
+  .pricing-note { font-size: 0.88rem; color: var(--ink-muted); text-align: center; margin-top: 0.5rem; font-style: italic; }
+
+  /* FAQ */
+  .faq { margin: 1.5rem 0 2rem; }
+  .faq details {
+    background: var(--white); border-radius: 12px; margin-bottom: 0.5rem;
+    border: 1px solid rgba(27,58,92,0.06); overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .faq details:hover { border-color: var(--blue-sky); }
+  .faq details[open] { border-color: var(--blue-mid); }
+  .faq summary {
+    padding: 1.1rem 1.5rem; font-size: 0.95rem; font-weight: 500; color: var(--blue-deep);
+    cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; font-size: 1.2rem; color: var(--blue-mid); transition: transform 0.3s; }
+  .faq details[open] summary::after { content: '−'; }
+  .faq .faq-answer { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; line-height: 1.65; color: var(--ink-soft); }
+
+  /* CTA Banner */
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<header class="article-header">
+  <div class="article-tag">Послуга</div>
+  <h1>Розробка сайту на Next.js, який приносить клієнтів</h1>
+  <p class="subtitle">Сучасний фреймворк для бізнес-сайтів, які швидко вантажаться, індексуються пошуковиками та масштабуються разом з бізнесом.</p>
+  <a href="/#chat-section" class="hero-cta">Оцінити проєкт безкоштовно →</a>
+</header>
+
+<div class="article-body">
+
+  <h2>Коли бізнесу потрібен Next.js</h2>
+  <p>Конструктори сайтів працюють, поки бізнес маленький. Але коли вам потрібна кастомна логіка, швидкість завантаження впливає на конверсію, а пошуковий трафік стає каналом продажів — обмеження конструкторів починають коштувати грошей.</p>
+  <p>Next.js — це React-фреймворк від Vercel, який використовують Netflix, Nike, Notion та тисячі бізнесів по всьому світу. Він дає серверний рендеринг для SEO, статичну генерацію для швидкості та API-роути для будь-яких інтеграцій — від платіжних систем до CRM.</p>
+  <p>Якщо ваш сайт — це не просто візитка, а інструмент залучення клієнтів, Next.js дасть вам технічну перевагу, яку конструктори забезпечити не можуть.</p>
+
+  <h2>Що ви отримуєте</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon">⚡</div>
+      <h3>Швидкість</h3>
+      <p>LCP < 2.5s завдяки SSR/SSG та CDN. Google любить швидкі сайти — і ваші клієнти теж.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔍</div>
+      <h3>SEO з першого дня</h3>
+      <p>Мета-теги, JSON-LD розмітка, sitemap, серверний рендеринг — все для пошукових систем.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📱</div>
+      <h3>Адаптивний дизайн</h3>
+      <p>Mobile-first підхід. Ваш сайт ідеально виглядає на будь-якому пристрої.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🤖</div>
+      <h3>AI-інтеграції</h3>
+      <p>Чат-боти, розумні форми, персоналізація контенту — сучасні рішення для бізнесу.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📊</div>
+      <h3>Аналітика</h3>
+      <p>GA4, Microsoft Clarity, відстеження конверсій — бачите, що працює, а що ні.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🛡️</div>
+      <h3>Безпека</h3>
+      <p>HTTPS, security headers, захист форм від спаму. Без вразливостей плагінів.</p>
+    </div>
+  </div>
+
+  <h2>Процес роботи</h2>
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Брифінг</h3>
+        <p>Розуміємо задачу, цільову аудиторію та бізнес-цілі. Визначаємо структуру та функціонал.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Прототип</h3>
+        <p>Структура сторінок, навігація та user flow. Ви бачите каркас сайту до початку дизайну.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Дизайн + розробка</h3>
+        <p>Код і візуал одночасно. Ніяких макетів, які неможливо реалізувати — все працює в браузері.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Тестування</h3>
+        <p>Кросбраузерне тестування, мобільні пристрої, швидкість завантаження, SEO-аудит.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>Запуск + підтримка</h3>
+        <p>Деплой на Vercel, підключення аналітики, навчання вашої команди керувати контентом.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Кейси на Next.js</h2>
+  <div class="case-cards">
+    <a href="/projects/ace/" class="case-card">
+      <div class="case-title">Академія сучасних освітян</div>
+      <div class="case-desc">Освітня платформа — реєстр сертифікатів, програми ПК, блог. 8700+ випускників.</div>
+    </a>
+    <a href="/projects/atlas/" class="case-card">
+      <div class="case-title">Atlas інтернет-магазин</div>
+      <div class="case-desc">E-commerce платформа з каталогом, кошиком та оплатою. Запуск за 4 дні.</div>
+    </a>
+    <a href="/projects/slavutych/" class="case-card">
+      <div class="case-title">Ресторан Славутич</div>
+      <div class="case-desc">Сайт ресторану з інтерактивним меню, бронюванням столиків та галереєю.</div>
+    </a>
+  </div>
+
+  <h2>Вартість</h2>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <h3>Лендінг</h3>
+      <div class="price">від 20 000 ₴</div>
+      <div class="scope">1-3 сторінки</div>
+    </div>
+    <div class="pricing-card featured">
+      <h3>Бізнес-сайт</h3>
+      <div class="price">від 30 000 ₴</div>
+      <div class="scope">5-10 сторінок</div>
+    </div>
+    <div class="pricing-card">
+      <h3>Платформа</h3>
+      <div class="price">від 40 000 ₴</div>
+      <div class="scope">кастомний функціонал</div>
+    </div>
+  </div>
+  <p class="pricing-note">Точну вартість назву після брифінгу</p>
+
+  <h2>Часті питання</h2>
+  <div class="faq">
+    <details>
+      <summary>Скільки часу займає розробка?</summary>
+      <div class="faq-answer">Лендінг — 1-2 тижні, бізнес-сайт — 2-4 тижні. Точні терміни залежать від складності проєкту та обсягу контенту.</div>
+    </details>
+    <details>
+      <summary>Чому Next.js, а не WordPress?</summary>
+      <div class="faq-answer">Next.js дає кращу швидкість завантаження, вбудований SEO, вищу безпеку (немає вразливостей плагінів) та необмежену масштабованість. WordPress потребує постійних оновлень, плагінів та потужнішого хостингу.</div>
+    </details>
+    <details>
+      <summary>Чи потрібен мені хостинг?</summary>
+      <div class="faq-answer">Vercel (платформа від творців Next.js) безкоштовна для більшості бізнес-сайтів. Ви платите тільки за домен — це приблизно 300-500 ₴ на рік.</div>
+    </details>
+    <details>
+      <summary>А якщо мені потрібні зміни після запуску?</summary>
+      <div class="faq-answer">Підтримка включена в перший місяць після запуску. Також навчу вас або вашу команду керувати контентом самостійно. Для подальших змін — домовляємося окремо.</div>
+    </details>
+    <details>
+      <summary>Ви робите дизайн?</summary>
+      <div class="faq-answer">Так, повний цикл — від макету до продакшену. Дизайн, розробка, тестування та запуск в одному пакеті. Не потрібно наймати окремого дизайнера.</div>
+    </details>
+  </div>
+
+</div>
+
+<div class="cta-banner">
+  <h3>Готові обговорити проєкт?</h3>
+  <p>Розкажіть про задачу — оціню безкоштовно за 24 години.</p>
+  <a href="/#chat-section" class="cta-btn">Поговорити з AI →</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+</body>
+</html>

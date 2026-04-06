@@ -33,6 +33,17 @@
   "mainEntityOfPage": "https://www.parkinsandr.tech/blog/devlog-empire-online/"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "Devlog: Empire Online", "item": "https://www.parkinsandr.tech/blog/devlog-empire-online/"}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -102,6 +113,36 @@
   .cta-btn:hover { transform: translateY(-2px); }
   footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
   footer a { color: var(--blue-mid); text-decoration: none; }
+
+  /* Related posts */
+  .related-posts {
+    max-width: 720px; margin: 2rem auto 0; padding: 2rem 0;
+    border-top: 1px solid var(--milk-warm);
+  }
+  .related-posts h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem;
+  }
+  .related-posts-list {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .related-posts-list a {
+    display: block; padding: 1rem 1.2rem;
+    background: var(--white); border-radius: 10px;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--milk-warm);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .related-posts-list a:hover {
+    border-color: var(--blue-sky); transform: translateY(-2px);
+  }
+  .related-posts-list .rp-title {
+    font-weight: 500; font-size: 0.95rem; color: var(--blue-deep);
+  }
+  .related-posts-list .rp-desc {
+    font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem;
+  }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .article-header { padding: 6rem 1.5rem 2rem; }
@@ -109,6 +150,7 @@
     .stats-row { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </head>
@@ -296,6 +338,24 @@
     <p>Якщо вашому бізнесу потрібен не просто сайт, а <strong>платформа</strong> з авторизацією, реальним часом, платежами і складною логікою — цей досвід працює на вас.</p>
   </div>
 </article>
+
+<section class="related-posts">
+  <h3>Читайте також</h3>
+  <div class="related-posts-list">
+    <a href="/blog/devlog-business-empire-idle/">
+      <div class="rp-title">Devlog: як я роблю idle-гру на SvelteKit</div>
+      <div class="rp-desc">13 бізнесів, 71 тест, AI-зображення. Технічний розбір архітектури.</div>
+    </a>
+    <a href="/blog/skilky-koshtuye-sajt/">
+      <div class="rp-title">Скільки коштує сайт у 2026 — чесний розклад</div>
+      <div class="rp-desc">Реальні ціни на лендінги, бізнес-сайти та платформи.</div>
+    </a>
+    <a href="/projects/agentis/">
+      <div class="rp-title">Кейс: AGENTIS — AI юридичний аналіз</div>
+      <div class="rp-desc">AI-платформа з 5 моделями, 207 законами та 15 агентами.</div>
+    </a>
+  </div>
+</section>
 
 <div class="cta-banner">
   <h3>Потрібна складна веб-платформа?</h3>
