@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
+# AI search bots — explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GoogleBot
+Allow: /
+
 Sitemap: https://www.parkinsandr.tech/sitemap.xml
