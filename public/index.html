@@ -121,9 +121,13 @@
 </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
   <style>
     :root {
       --milk: #F5F0EA;
@@ -136,7 +140,7 @@
       --blue-pale: #D6EAF5;
       --ink: #1A1A1A;
       --ink-soft: #4A4A4A;
-      --ink-muted: #7A7A7A;
+      --ink-muted: #6A6A6A;
       --white: #FFFFFF;
       --green: #3A8C5C;
       --green-pale: #E8F5EE;
@@ -150,25 +154,12 @@
       box-sizing: border-box;
     }
 
-    /* Skip link for accessibility */
     .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      z-index: 999;
-      padding: 0.75rem 1.5rem;
-      background: var(--blue-deep);
-      color: var(--milk);
-      border-radius: 0 0 8px 8px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: top 0.2s;
+      position: absolute; top: -40px; left: 0; padding: 8px 16px;
+      background: var(--blue-deep); color: var(--white); z-index: 200;
+      font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
     }
-
-    .skip-link:focus {
-      top: 0;
-    }
+    .skip-link:focus { top: 0; }
 
     /* Focus visible for keyboard navigation */
     :focus-visible {
@@ -1948,16 +1939,13 @@
       }
     }
   </style>
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </head>
 
 <body>
 
-  <a href="#main-content" class="skip-link">Перейти до контенту</a>
+  <a href="#main-content" class="skip-link">Перейти до змісту</a>
 
-  <nav role="navigation" aria-label="Головна навігація">
+  <nav aria-label="Основна навігація">
     <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
     <button class="hamburger" aria-label="Відкрити меню" aria-expanded="false" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -2442,57 +2430,55 @@
       </div>
     </section>
 
-  </main>
-
-  <!-- v7 -->
-  <div class="quote-banner reveal">
-    <blockquote>«Гарний сайт — це коли клієнт натискає "Замовити", а не "Назад".»</blockquote>
-    <div class="quote-attr">— Олександр, десь між третьою та четвертою кавою</div>
-  </div>
-
-  <!-- ===== BLOG ===== -->
-  <section id="blog" style="padding:5rem 0;">
-    <div class="container">
-      <div class="section-label">Блог</div>
-      <h2 class="section-title">Корисне для бізнесу</h2>
-      <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
-      <div class="blog-grid">
-        <a href="/blog/yak-obrati-rozrobnyka/" class="blog-card">
-          <div class="blog-card-label">Гайд · 8 хв</div>
-          <h3>Як обрати розробника сайту у 2026</h3>
-          <p>9 критеріїв, червоні прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
-        </a>
-        <a href="/blog/react-vs-tilda/" class="blog-card">
-          <div class="blog-card-label">Порівняння · 10 хв</div>
-          <h3>React vs Tilda: що обрати для бізнесу</h3>
-          <p>Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
-        </a>
-        <a href="/blog/skilky-koshtuye-sajt/" class="blog-card">
-          <div class="blog-card-label">Гайд · 8 хв</div>
-          <h3>Скільки коштує сайт у 2026</h3>
-          <p>Реальні ціни на розробку: лендінг, бізнес-сайт, магазин. Що входить і за що переплачуєте.</p>
-        </a>
-        <a href="/blog/devlog-business-empire-idle/" class="blog-card">
-          <div class="blog-card-label">Devlog · 12 хв</div>
-          <h3>Як я роблю idle-гру на SvelteKit</h3>
-          <p>Від лимонадного кіоску до міжпланетної торгівлі. SvelteKit, 13 бізнесів, prestige, тести.</p>
-        </a>
-        <a href="/blog/devlog-empire-online/" class="blog-card">
-          <div class="blog-card-label">Devlog · 15 хв</div>
-          <h3>Empire Online: браузерна бізнес-MMO</h3>
-          <p>Мультиплеєрна симуляція з політикою, коаліціями та сезонами. 150+ модулів, 2 182 тести.</p>
-        </a>
-        <a href="/blog/jarvis-ai-assistant/" class="blog-card">
-          <div class="blog-card-label">AI · 8 хв</div>
-          <h3>Як я створив свого Джарвіса</h3>
-          <p>Персональний AI-помічник із фільму в реальність: 30+ інструментів, голос, трекер здоров'я.</p>
-        </a>
-      </div>
+    <!-- v7 -->
+    <div class="quote-banner reveal">
+      <blockquote>«Гарний сайт — це коли клієнт натискає "Замовити", а не "Назад".»</blockquote>
+      <div class="quote-attr">— Олександр, десь між третьою та четвертою кавою</div>
     </div>
-  </section>
 
-  <!-- ===== CHAT SECTION ===== -->
-  <section class="chat-section" id="chat-section">
+    <!-- ===== BLOG ===== -->
+    <section id="blog" style="padding:5rem 0;">
+      <div class="container">
+        <div class="section-label">Блог</div>
+        <h2 class="section-title">Корисне для бізнесу</h2>
+        <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
+        <div class="blog-grid">
+          <a href="/blog/yak-obrati-rozrobnyka/" class="blog-card">
+            <div class="blog-card-label">Гайд · 8 хв</div>
+            <h3>Як обрати розробника сайту у 2026</h3>
+            <p>9 критеріїв, червоні прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
+          </a>
+          <a href="/blog/react-vs-tilda/" class="blog-card">
+            <div class="blog-card-label">Порівняння · 10 хв</div>
+            <h3>React vs Tilda: що обрати для бізнесу</h3>
+            <p>Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
+          </a>
+          <a href="/blog/skilky-koshtuye-sajt/" class="blog-card">
+            <div class="blog-card-label">Гайд · 8 хв</div>
+            <h3>Скільки коштує сайт у 2026</h3>
+            <p>Реальні ціни на розробку: лендінг, бізнес-сайт, магазин. Що входить і за що переплачуєте.</p>
+          </a>
+          <a href="/blog/devlog-business-empire-idle/" class="blog-card">
+            <div class="blog-card-label">Devlog · 12 хв</div>
+            <h3>Як я роблю idle-гру на SvelteKit</h3>
+            <p>Від лимонадного кіоску до міжпланетної торгівлі. SvelteKit, 13 бізнесів, prestige, тести.</p>
+          </a>
+          <a href="/blog/devlog-empire-online/" class="blog-card">
+            <div class="blog-card-label">Devlog · 15 хв</div>
+            <h3>Empire Online: браузерна бізнес-MMO</h3>
+            <p>Мультиплеєрна симуляція з політикою, коаліціями та сезонами. 150+ модулів, 2 182 тести.</p>
+          </a>
+          <a href="/blog/jarvis-ai-assistant/" class="blog-card">
+            <div class="blog-card-label">AI · 8 хв</div>
+            <h3>Як я створив свого Джарвіса</h3>
+            <p>Персональний AI-помічник із фільму в реальність: 30+ інструментів, голос, трекер здоров'я.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CHAT SECTION ===== -->
+    <section class="chat-section" id="chat-section">
     <div class="container">
       <div class="section-label">Помічник</div>
       <h2 class="section-title">Поспілкуйтесь з моїм AI-колегою</h2>
@@ -2537,7 +2523,9 @@
         <a href="mailto:sashko1391@gmail.com" class="contact-pill">✉️ sashko1391@gmail.com</a>
       </div>
     </div>
-  </section>
+    </section>
+
+  </main>
 
   <footer>
     <div class="footer-inner">
@@ -2812,6 +2800,9 @@
     }
   </script>
 
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </body>
 
 </html>

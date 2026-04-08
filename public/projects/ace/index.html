@@ -30,7 +30,7 @@
   "headline": "Академія сучасних освітян — Кейс оновлення сайту",
   "author": {"@id": "https://www.parkinsandr.tech/#author"},
   "datePublished": "2026-03-07",
-  "dateModified": "2026-03-07",
+  "dateModified": "2026-04-08",
   "publisher": {"@id": "https://www.parkinsandr.tech/#author"},
   "description": "Повний кейс оновлення сайту для Академії сучасних освітян: від застарілого рішення до сучасної платформи на Next.js.",
   "mainEntityOfPage": "https://www.parkinsandr.tech/projects/ace/",
@@ -55,9 +55,9 @@
 </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
     <style>
         :root {
             --milk: #F5F0EA;
@@ -69,7 +69,7 @@
             --blue-pale: #D6EAF5;
             --ink: #1A1A1A;
             --ink-soft: #4A4A4A;
-            --ink-muted: #7A7A7A;
+            --ink-muted: #6A6A6A;
             --white: #FFFFFF;
             --green: #3A8C5C;
             --green-pale: #E8F5EE;
@@ -91,6 +91,13 @@
         html {
             scroll-behavior: smooth;
         }
+
+        .skip-link {
+            position: absolute; top: -40px; left: 0; padding: 8px 16px;
+            background: var(--blue-deep); color: var(--white); z-index: 200;
+            font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
+        }
+        .skip-link:focus { top: 0; }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -541,17 +548,19 @@
             }
         }
     </style>
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </head>
 
 <body>
 
-    <nav>
+    <a href="#main-content" class="skip-link">Перейти до змісту</a>
+
+    <nav aria-label="Основна навігація">
         <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
         <a href="/" class="nav-back">← На головну</a>
     </nav>
+
+    <main id="main-content">
+    <article>
 
     <section class="case-hero">
         <div class="case-hero-inner">
@@ -748,7 +757,10 @@
 
     </div>
 
-    <div class="cta-banner">
+    </article>
+    </main>
+
+    <div class="cta-banner" role="complementary" aria-label="Заклик до дії">
         <h3>Потрібен сайт для освітнього проєкту?</h3>
         <p>Платформи для навчальних закладів, курсів, академій — з реєстрами, каталогами та SEO.</p>
         <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
@@ -758,6 +770,9 @@
         <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
     </footer>
 
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 </body>
 
 </html>
