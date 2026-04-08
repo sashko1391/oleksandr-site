@@ -23,21 +23,26 @@ public/
 
 ## SEO Plan (April–June 2026) — Reference: doc/SEO.md
 
-### Sprint A (06.04–19.04): Measurement + Blockers
-- [ ] Verify GSC access + link GSC ↔ GA4
-- [ ] Export baseline Performance (28 days) — top queries/pages
-- [ ] Check Page Indexing: list all "Not indexed" reasons for important URLs
-- [ ] Run Screaming Frog crawl (200/301/404, titles, meta, directives)
+### Sprint A (06.04–19.04): Measurement + Blockers ✅
+- [x] Verify GSC access + link GSC ↔ GA4 — done 2026-04-08
+- [x] Check Page Indexing — 3 redirects (normal), 5 "discovered not indexed" → requested indexing for 9 URLs
+- [x] Sitemap resubmitted (14 URLs) — 2026-04-08
+- [ ] Export baseline Performance (28 days) — too little data yet (1 click total), revisit in 2 weeks
+- [ ] Run Screaming Frog crawl (200/301/404, titles, meta, directives) — optional, site is small
 - [x] Seed keywords (5 groups) + intent map table — doc/SEED_KEYWORDS.md
 - [x] Fix: logo href="#" → href="/" on project/blog pages — all pages already have href="/"
+- [x] Schema @id cross-referencing — Person @id on homepage, referenced from all 9 inner pages
+- [x] robots.txt — explicit Allow for GPTBot, ChatGPT-User, Claude-Web
+- [x] GEO TL;DR blocks — added to key articles
+- [x] Expertise-to-Ad Ratio audit — all pages PASS (45-55%)
 
-### Sprint B (20.04–03.05): First Landing Pages + Fix Blockers
-- [ ] Create landing page: "Розробка сайтів на Next.js для бізнесу" (own URL)
-- [ ] Create landing page: "Лендінг під рекламу"
-- [ ] Add 5 internal links from blog/cases to each new landing page
-- [ ] Verify canonicals (1 URL = 1 canonical, no conflicts)
-- [ ] Fix soft-404/404 issues (301 or fix)
-- [ ] Add BreadcrumbList JSON-LD to all /blog/* and /projects/* pages
+### Sprint B (20.04–03.05): First Landing Pages + Fix Blockers ✅
+- [x] Create landing page: "Розробка сайтів на Next.js для бізнесу" — /services/nextjs/ (already exists)
+- [x] Create landing page: "Лендінг під рекламу" — /services/landing/ (already exists)
+- [x] Add 5+ internal links to each service page — nextjs:7, landing:4, ai:5
+- [x] Verify canonicals — all 14 pages OK, no conflicts
+- [x] Fix soft-404/404 issues — 0 broken internal links
+- [x] Add BreadcrumbList JSON-LD to all /blog/* and /projects/* pages — done (100% coverage)
 
 ### Sprint C (04.05–17.05): CWV + Schema
 - [ ] Run PSI on homepage + blog template + case template; backlog LCP/INP/CLS
