@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AGENTIS — AI юридичний аналіз | Кейс розробки</title>
-<meta name="description" content="Як я побудував AGENTIS — AI-платформу юридичного аналізу з 5 моделями, 207 законами та 15 агентами. Кейс: архітектура, рішення, результати.">
+<meta name="description" content="AGENTIS — AI Legal Tech платформа: 15 агентів, 300+ законів, генерація документів, монетизація Plata by Mono. Повний кейс від MVP до продукту.">
 <link rel="canonical" href="https://www.parkinsandr.tech/projects/agentis/">
 <meta property="og:title" content="AGENTIS — AI юридичний аналіз | Кейс розробки">
-<meta property="og:description" content="AI-платформа з 5 моделями, 207 законами, 15 агентами. Повний кейс від ідеї до запуску.">
+<meta property="og:description" content="AI Legal Tech: 15 агентів, 300+ законів, генерація документів, Plata by Mono. Кейс від MVP до платформи.">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:url" content="https://www.parkinsandr.tech/projects/agentis/">
-<meta property="og:image" content="https://www.parkinsandr.tech/images/agentis.webp">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/agentis-v2.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AGENTIS — AI юридичний аналіз | Кейс розробки">
-<meta name="twitter:description" content="AI-платформа з 5 моделями, 207 законами, 15 агентами. Повний кейс від ідеї до запуску.">
-<meta name="twitter:image" content="https://www.parkinsandr.tech/images/agentis.webp">
+<meta name="twitter:description" content="AI-платформа з 5 моделями, 300+ законами, 15 агентами. Повний кейс від ідеї до запуску.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/agentis-v2.webp">
 <meta name="author" content="Oleksandr Kravchenko">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#1B3A5C">
@@ -108,6 +108,14 @@
     transition: all 0.3s;
   }
   .case-link:hover { background: var(--blue-mid); transform: translateY(-2px); }
+  .case-screenshot {
+    max-width: 900px; margin: 2.5rem auto 0; padding: 0 2rem;
+  }
+  .case-screenshot img {
+    width: 100%; border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(27,58,92,0.15);
+    border: 1px solid rgba(27,58,92,0.08);
+  }
 
   /* Stats */
   .stats-row {
@@ -216,10 +224,14 @@
   <div class="case-hero-inner">
     <div class="case-tag">Кейс розробки</div>
     <h1>AGENTIS — <em>AI-платформа</em> юридичного аналізу</h1>
-    <p class="case-hero-desc">Конвеєр з 15 AI-агентів, які аналізують юридичну ситуацію за 5 хвилин. 207 законів, 5 мовних моделей, PDF-звіти з покроковим алгоритмом дій.</p>
+    <p class="case-hero-desc">Конвеєр з 15 AI-агентів, які аналізують юридичну ситуацію за 5 хвилин. 300+ законів, 5 мовних моделей, генерація документів, PDF-звіти — повноцінна Legal Tech платформа з монетизацією.</p>
     <a href="https://www.agentis.com.ua/" target="_blank" rel="noopener noreferrer" class="case-link">Відкрити AGENTIS →</a>
   </div>
 </section>
+
+<div class="case-screenshot">
+  <img src="/images/agentis-v2.webp" alt="AGENTIS — інтерфейс AI-платформи юридичного аналізу: темна тема, стрімінг результатів, 300+ законів" width="1200" height="675" loading="eager">
+</div>
 
 <div class="stats-row">
   <div class="stat-card">
@@ -227,12 +239,12 @@
     <div class="lbl">AI-моделей</div>
   </div>
   <div class="stat-card">
-    <div class="num">207</div>
+    <div class="num">300+</div>
     <div class="lbl">Законів у базі</div>
   </div>
   <div class="stat-card">
-    <div class="num">22k+</div>
-    <div class="lbl">Семантичних зв'язків</div>
+    <div class="num">2</div>
+    <div class="lbl">Модулі (аналіз + документи)</div>
   </div>
   <div class="stat-card">
     <div class="num">15</div>
@@ -272,7 +284,7 @@
       <div class="pipeline-num">02</div>
       <div>
         <h3>Семантичний пошук у законах</h3>
-        <p>Серед 207 законів і 22 000+ зв'язків знаходить релевантні статті. Не просто keyword-search, а розуміння контексту.</p>
+        <p>Серед 300+ законів і 144 000+ семантичних блоків знаходить релевантні статті. Не просто keyword-search, а розуміння контексту.</p>
       </div>
     </div>
     <div class="pipeline-step">
@@ -325,11 +337,11 @@
     </div>
     <div class="tech-card">
       <h3>База знань</h3>
-      <p>207 законів та кодексів, розбиті на семантичні чанки. 22 151 зв'язок між статтями. Vector database для пошуку за змістом.</p>
+      <p>300+ законів та кодексів, розбиті на 144 000+ семантичних блоків. Vector database (Pinecone) для пошуку за змістом, а не за ключовими словами.</p>
     </div>
     <div class="tech-card">
       <h3>Інфраструктура</h3>
-      <p>Vercel (хостинг + edge functions), PostgreSQL, serverless architecture. Автоскейлинг під навантаження.</p>
+      <p>Railway (хостинг + CI/CD з GitHub), PostgreSQL (Supabase), Plata by Mono (платежі). Node.js 22, автоскейлинг під навантаження.</p>
     </div>
   </div>
 
@@ -358,6 +370,25 @@
     <p class="problem">⚠ Проблема: 15 агентів працюють 3–5 хвилин — це довго для вебу</p>
     <p class="solution">✓ Рішення: стрімінг результатів — користувач бачить прогрес кожного етапу в реальному часі, а не чекає мовчки</p>
   </div>
+
+  <h2>Що нового: від MVP до платформи</h2>
+
+  <p>Після запуску першої версії AGENTIS продовжив активно розвиватись. Ось ключові оновлення:</p>
+
+  <h3>Повний редизайн інтерфейсу</h3>
+  <p>UI повністю перероблений — нова дизайн-система, покращена навігація, стрімінг результатів у реальному часі. Користувач бачить прогрес кожного етапу аналізу, а не чекає мовчки 5 хвилин.</p>
+
+  <h3>Модуль генерації документів</h3>
+  <p>Другий модуль — <strong>Document Generation</strong> — 7-фазний pipeline, який створює юридичні документи на основі аналізу ситуації. Cross-module інтеграція: результати Situation Analysis автоматично передаються в генератор документів як контекст.</p>
+
+  <h3>Монетизація</h3>
+  <p>Інтегровано <strong>Plata by Mono</strong> для оплати. Три тарифи аналізу: Starter (249 грн), Pro (599 грн), Expert (899 грн). Модуль генерації документів працює в режимі навчання зі знижкою 67%. Комісія платіжної системи — 1.3% для українських карт.</p>
+
+  <h3>SEO та індексація</h3>
+  <p>Налаштовано автогенерацію sitemap.xml та robots.txt через Next.js App Router. Google Search Console — верифіковано, sitemap сабмічено. OpenGraph зображення для соціальних мереж.</p>
+
+  <h3>Плани розвитку</h3>
+  <p>У проектуванні три нових модулі: <strong>SEO Machine</strong> (programmatic SEO, 120+ юридичних сторінок), <strong>legAIl News</strong> (автоматичні юридичні новини з верифікацією через .gov.ua), та <strong>Discussion Rooms</strong> (кімнати обговорень з AI-асистентом). Порядок підтверджений крос-модельним аналізом (GPT-4o, Grok, Gemini, DeepSeek).</p>
 
   <h2>Що я виніс з цього проєкту</h2>
 

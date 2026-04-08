@@ -45,11 +45,14 @@ public/
 - [x] Add BreadcrumbList JSON-LD to all /blog/* and /projects/* pages — done (100% coverage)
 
 ### Sprint C (04.05–17.05): CWV + Schema
-- [ ] Run PSI on homepage + blog template + case template; backlog LCP/INP/CLS
+- [x] Run PSI on homepage + blog template + case template — react-vs-tilda: P93/A79/LCP2.6s, ace: P75/A81/LCP5.1s
+- [x] Accessibility fixes on all 14 pages: skip-link, aria-labels, main landmark, contrast, table semantics
+- [x] LCP optimization: analytics to body end, font preload split
 - [ ] Verify/add Article schema on all blog posts (check dateModified accuracy)
 - [ ] Create landing page: "AI-інтеграції для сайту"
 - [ ] Update AGENTIS case study with SEO/indexing results
 - [ ] 5 outreach emails to clients for credit links
+- [ ] Re-run PSI after deploy to verify improvements
 
 ### Sprint D (18.05–31.05): Cluster Structure
 - [ ] Create landing page: "Редизайн і перезапуск"
