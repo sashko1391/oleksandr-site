@@ -338,5 +338,25 @@
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+// GA4 conversion tracking — contact clicks & CTA
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (!a) return;
+  var href = a.href || '';
+  if (href.includes('t.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href});
+  }
+  else if (href.includes('wa.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href});
+  }
+  else if (href.startsWith('mailto:')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href});
+  }
+  else if (a.classList.contains('cta-btn') || a.classList.contains('nav-cta') || a.classList.contains('btn-primary') || href.includes('#chat-section')) {
+    gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href});
+  }
+});
+</script>
 </body>
 </html>
