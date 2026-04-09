@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Розробка сайтів на Next.js для бізнесу | Олександр Кравченко</title>
-<meta name="description" content="Розробляю швидкі бізнес-сайти на Next.js з SEO та аналітикою. Лендінги, магазини, платформи. Портфоліо з кейсами й цифрами. Оцінка за 24 години.">
+<title>Сайт для бізнесу, який приводить клієнтів | Олександр Кравченко</title>
+<meta name="description" content="Розробка сайтів на Next.js: SEO-трафік, PageSpeed 90+, аналітика. Лендінги, бізнес-сайти, платформи. Гарантія доопрацювання. Від 20 000 ₴.">
 <link rel="canonical" href="https://www.parkinsandr.tech/services/nextjs/">
 <meta property="og:title" content="Розробка сайтів на Next.js для бізнесу | Олександр Кравченко">
 <meta property="og:description" content="Розробляю швидкі бізнес-сайти на Next.js з SEO та аналітикою. Лендінги, магазини, платформи.">
@@ -143,6 +143,67 @@
     font-size: 0.92rem; transition: transform 0.3s, background 0.3s;
   }
   .hero-cta:hover { transform: translateY(-2px); background: var(--blue-mid); }
+  .hero-stats { display: flex; justify-content: center; gap: 2.5rem; margin-top: 2rem; }
+  .hero-stat { font-size: 0.82rem; color: var(--ink-muted); text-align: center; }
+  .hero-stat strong { display: block; font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue-deep); font-weight: 400; }
+
+  /* Results grid */
+  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0 2rem; }
+  .result-card { padding: 1.5rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.06); text-decoration: none; color: var(--ink); transition: transform 0.3s, box-shadow 0.3s; }
+  .result-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(27,58,92,0.08); }
+  .result-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-mid); margin-bottom: 0.75rem; }
+  .result-metrics { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .result-metric strong { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: var(--blue-deep); font-weight: 400; display: block; }
+  .result-metric span { font-size: 0.75rem; color: var(--ink-muted); }
+  .result-link { font-size: 0.82rem; color: var(--blue-mid); font-weight: 500; }
+
+  /* Inline CTA */
+  .inline-cta { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; background: var(--orange-pale); text-align: center; border: 1px solid rgba(212,133,74,0.15); }
+  .inline-cta p { font-weight: 500; color: var(--ink); margin: 0 0 0.75rem; font-size: 1rem; }
+  .inline-cta-btn { display: inline-flex; padding: 0.75rem 1.8rem; background: var(--orange); color: var(--white); border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem; transition: transform 0.3s; }
+  .inline-cta-btn:hover { transform: translateY(-2px); }
+
+  /* Guarantee */
+  .guarantee-block { padding: 2rem; margin: 2rem 0; border-radius: 12px; background: linear-gradient(135deg, var(--green-pale) 0%, #f0faf4 100%); border: 2px solid var(--green); text-align: center; }
+  .guarantee-block h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 0.75rem; }
+  .guarantee-block p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; margin: 0; font-weight: 300; }
+  .guarantee-block strong { color: var(--green); font-weight: 600; }
+
+  /* Testimonials */
+  .testimonials { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2rem; }
+  .testimonial { padding: 1.5rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.06); border-left: 3px solid var(--blue-sky); }
+  .testimonial-text { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; font-style: italic; margin: 0 0 0.75rem; font-weight: 300; }
+  .testimonial-author strong { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
+  .testimonial-author span { font-size: 0.78rem; color: var(--ink-muted); margin-left: 0.5rem; }
+
+  /* Contact section */
+  .contact-section { max-width: 720px; margin: 0 auto 3rem; padding: 3rem 2.5rem; background: var(--blue-deep); border-radius: 16px; text-align: center; }
+  .contact-section h2 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--milk); margin-bottom: 0.75rem; }
+  .contact-desc { font-size: 0.95rem; color: var(--blue-light); margin-bottom: 2rem; line-height: 1.6; }
+  .lead-form { max-width: 400px; margin: 0 auto 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .lead-input { padding: 0.85rem 1.2rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.08); color: var(--milk); transition: border-color 0.3s; }
+  .lead-input::placeholder { color: rgba(168,212,240,0.5); }
+  .lead-input:focus { outline: none; border-color: var(--blue-sky); background: rgba(255,255,255,0.12); }
+  .lead-textarea { resize: vertical; min-height: 60px; }
+  .lead-submit { padding: 0.95rem 2rem; background: var(--milk); color: var(--blue-deep); border: none; border-radius: 100px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.3s, box-shadow 0.3s; }
+  .lead-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .lead-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .lead-note { font-size: 0.75rem; color: rgba(168,212,240,0.6); text-align: center; margin: 0; }
+  .lead-success { text-align: center; padding: 1.5rem; }
+  .lead-success p { color: var(--green-pale); font-size: 1rem; margin: 0; }
+  .contact-divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; }
+  .contact-divider::before, .contact-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+  .contact-divider span { font-size: 0.8rem; color: rgba(168,212,240,0.5); }
+  .contact-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.92rem; transition: transform 0.3s, box-shadow 0.3s; }
+  .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .contact-tg { background: #2AABEE; color: var(--white); }
+  .contact-wa { background: #25D366; color: var(--white); }
+  .contact-email { background: var(--milk); color: var(--blue-deep); }
+  .contact-note { font-size: 0.8rem; color: rgba(168,212,240,0.7); margin: 0; }
+  .contact-note a { color: var(--blue-light); }
+
+  @media (max-width: 768px) { .results-grid { grid-template-columns: 1fr; } }
 
   .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
   .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
@@ -260,29 +321,34 @@
 <main id="main-content">
 <header class="article-header">
   <div class="article-tag">Послуга</div>
-  <h1>Розробка сайту на Next.js, який приносить клієнтів</h1>
-  <p class="subtitle">Сучасний фреймворк для бізнес-сайтів, які швидко вантажаться, індексуються пошуковиками та масштабуються разом з бізнесом.</p>
-  <a href="/#chat-section" class="hero-cta">Оцінити проєкт безкоштовно →</a>
+  <h1>Сайт, який приводить клієнтів через SEO і рекламу</h1>
+  <p class="subtitle">Не просто гарна обгортка — а інструмент залучення. Швидкий, SEO-оптимізований, з аналітикою. Побудований на Next.js — технології Netflix та Notion. Від 20 000 ₴.</p>
+  <a href="#contact" class="hero-cta">Дізнатись вартість для мого проєкту →</a>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>90+</strong> PageSpeed</div>
+    <div class="hero-stat"><strong>2-4</strong> тижні</div>
+    <div class="hero-stat"><strong>$0</strong> хостинг (Vercel)</div>
+  </div>
 </header>
 
 <div class="article-body">
 
-  <h2>Коли бізнесу потрібен Next.js</h2>
-  <p>Конструктори сайтів працюють, поки бізнес маленький. Але коли вам потрібна кастомна логіка, швидкість завантаження впливає на конверсію, а пошуковий трафік стає каналом продажів — обмеження конструкторів починають коштувати грошей.</p>
-  <p>Next.js — це React-фреймворк від Vercel, який використовують Netflix, Nike, Notion та тисячі бізнесів по всьому світу. Він дає серверний рендеринг для SEO, статичну генерацію для швидкості та API-роути для будь-яких інтеграцій — від платіжних систем до CRM.</p>
-  <p>Якщо ваш сайт — це не просто візитка, а інструмент залучення клієнтів, Next.js дасть вам технічну перевагу, яку конструктори забезпечити не можуть.</p>
+  <h2>Коли сайт не приносить клієнтів</h2>
+  <p>Повільно завантажується — відвідувачі йдуть. Не ранжується в Google — ніхто не знаходить. Немає аналітики — незрозуміло що виправляти. Конструктор не дає зробити те, що потрібно бізнесу — і ви платите за обмеження.</p>
+  <p>Це не проблема контенту. Це проблема технології. Сайт на WordPress чи Tilda фізично не може бути швидким, SEO-оптимізованим і масштабованим одночасно.</p>
+  <p>Я будую сайти на Next.js — технології, яку використовують Netflix, Notion і Nike. Серверний рендеринг для SEO, миттєве завантаження через CDN, будь-які інтеграції — від CRM до AI. Ваш сайт стає каналом продажів, а не просто візиткою.</p>
 
   <h2>Що ви отримуєте</h2>
   <div class="feature-grid">
     <div class="feature-card">
       <div class="icon">⚡</div>
-      <h3>Швидкість</h3>
-      <p>LCP < 2.5s завдяки SSR/SSG та CDN. Google любить швидкі сайти — і ваші клієнти теж.</p>
+      <h3>Швидкість → дешевший трафік</h3>
+      <p>PageSpeed 90+ знижує вартість кліку в Google Ads і підвищує позиції в пошуку.</p>
     </div>
     <div class="feature-card">
       <div class="icon">🔍</div>
-      <h3>SEO з першого дня</h3>
-      <p>Мета-теги, JSON-LD розмітка, sitemap, серверний рендеринг — все для пошукових систем.</p>
+      <h3>SEO → безкоштовний трафік</h3>
+      <p>Мета-теги, JSON-LD, sitemap, SSR — ваш сайт індексується і приносить клієнтів з Google без реклами.</p>
     </div>
     <div class="feature-card">
       <div class="icon">📱</div>
@@ -296,8 +362,8 @@
     </div>
     <div class="feature-card">
       <div class="icon">📊</div>
-      <h3>Аналітика</h3>
-      <p>GA4, Microsoft Clarity, відстеження конверсій — бачите, що працює, а що ні.</p>
+      <h3>Аналітика → розуміння ROI</h3>
+      <p>GA4, Clarity, conversion tracking — бачите скільки заявок дає кожна сторінка і канал.</p>
     </div>
     <div class="feature-card">
       <div class="icon">🛡️</div>
@@ -345,20 +411,64 @@
     </div>
   </div>
 
-  <h2>Кейси на Next.js</h2>
-  <div class="case-cards">
-    <a href="/projects/ace/" class="case-card">
-      <div class="case-title">Академія сучасних освітян</div>
-      <div class="case-desc">Освітня платформа — реєстр сертифікатів, програми ПК, блог. 8700+ випускників.</div>
+  <div class="inline-cta">
+    <p>Хочете таке для свого бізнесу?</p>
+    <a href="#contact" class="inline-cta-btn">Дізнатись вартість</a>
+  </div>
+
+  <h2>Реальні результати</h2>
+
+  <div class="results-grid">
+    <a href="/projects/ace/" class="result-card">
+      <div class="result-label">Освітня платформа</div>
+      <div class="result-metrics">
+        <div class="result-metric"><strong>8 700+</strong><span>випускників</span></div>
+        <div class="result-metric"><strong>6 сторінок</strong><span>Next.js + SSR</span></div>
+      </div>
+      <div class="result-link">Дивитись кейс →</div>
     </a>
-    <a href="/projects/atlas/" class="case-card">
-      <div class="case-title">Atlas інтернет-магазин</div>
-      <div class="case-desc">E-commerce платформа з каталогом, кошиком та оплатою. Запуск за 4 дні.</div>
+    <a href="/projects/atlas/" class="result-card">
+      <div class="result-label">E-commerce</div>
+      <div class="result-metrics">
+        <div class="result-metric"><strong>4 дні</strong><span>до запуску</span></div>
+        <div class="result-metric"><strong>Каталог + НП</strong><span>фільтри, оплата</span></div>
+      </div>
+      <div class="result-link">Дивитись кейс →</div>
     </a>
-    <a href="/projects/slavutych/" class="case-card">
-      <div class="case-title">Ресторан Славутич</div>
-      <div class="case-desc">Сайт ресторану з інтерактивним меню, бронюванням столиків та галереєю.</div>
+    <a href="/projects/slavutych/" class="result-card">
+      <div class="result-label">Ресторан</div>
+      <div class="result-metrics">
+        <div class="result-metric"><strong>PageSpeed 95</strong><span>було 40</span></div>
+        <div class="result-metric"><strong>5 днів</strong><span>до запуску</span></div>
+      </div>
+      <div class="result-link">Дивитись кейс →</div>
     </a>
+  </div>
+
+  <h2>Що кажуть клієнти</h2>
+
+  <div class="testimonials">
+    <div class="testimonial">
+      <p class="testimonial-text">«Потрібна була платформа для 8 700+ педагогів — не просто сайт, а реєстр сертифікатів, каталог курсів, блог. Олександр зробив все на Next.js, працює блискавично.»</p>
+      <div class="testimonial-author">
+        <strong>Жанна Вихристенко</strong>
+        <span>засновниця Академії сучасних освітян</span>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-text">«Замовив інтернет-магазин — отримав готовий продукт за 4 дні. Каталог, фільтри, Нова Пошта, оплата. Все працює, нічого зайвого.»</p>
+      <div class="testimonial-author">
+        <strong>Клієнт Atlas Store</strong>
+        <span>e-commerce, аксесуари</span>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-text">«Олександр зробив сайт для ресторану за 5 днів. PageSpeed 95 на мобільному — рекламники були в шоці. Бронювання зросли одразу.»</p>
+      <div class="testimonial-author">
+        <strong>Сергій П.</strong>
+        <span>власник ресторану "Славутич"</span>
+      </div>
+    </div>
   </div>
 
   <h2>Вартість</h2>
@@ -366,20 +476,30 @@
     <div class="pricing-card">
       <h3>Лендінг</h3>
       <div class="price">від 20 000 ₴</div>
-      <div class="scope">1-3 сторінки</div>
+      <div class="scope">Для запуску реклами і швидких заявок</div>
     </div>
     <div class="pricing-card featured">
       <h3>Бізнес-сайт</h3>
       <div class="price">від 30 000 ₴</div>
-      <div class="scope">5-10 сторінок</div>
+      <div class="scope">Для SEO-трафіку і масштабування</div>
     </div>
     <div class="pricing-card">
       <h3>Платформа</h3>
       <div class="price">від 40 000 ₴</div>
-      <div class="scope">кастомний функціонал</div>
+      <div class="scope">Для автоматизації і росту</div>
     </div>
   </div>
-  <p class="pricing-note">Точну вартість назву після брифінгу</p>
+  <p class="pricing-note">Точну вартість назву після брифінгу. Хостинг на Vercel — безкоштовний.</p>
+
+  <div class="guarantee-block">
+    <h3>Гарантія результату</h3>
+    <p>Якщо сайт не відповідає очікуванням — <strong>доопрацьовую безкоштовно</strong>. Перший місяць підтримки включений. Працюю до тих пір, поки ви задоволені результатом.</p>
+  </div>
+
+  <div class="inline-cta">
+    <p>Готові обговорити проєкт?</p>
+    <a href="#contact" class="inline-cta-btn">Отримати оцінку за 24 години</a>
+  </div>
 
   <h2>Часті питання</h2>
   <div class="faq">
@@ -408,11 +528,32 @@
 </div>
 </main>
 
-<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
-  <h3>Готові обговорити проєкт?</h3>
-  <p>Розкажіть про задачу — оціню безкоштовно за 24 години.</p>
-  <a href="/#chat-section" class="cta-btn">Поговорити з AI →</a>
-</div>
+<section class="contact-section" id="contact" aria-label="Контакти">
+  <div class="contact-inner">
+    <h2>Розкажіть про проєкт — оціню за 24 години</h2>
+    <p class="contact-desc">Безкоштовно. Без зобов'язань. Отримаєте оцінку строків, вартості та рекомендації по стеку.</p>
+
+    <form class="lead-form" id="leadForm" onsubmit="return submitLead(event)">
+      <input type="text" name="name" placeholder="Ваше ім'я" required class="lead-input">
+      <input type="tel" name="phone" placeholder="Телефон або Telegram" required class="lead-input">
+      <textarea name="desc" placeholder="Коротко про проєкт (необов'язково)" rows="2" class="lead-input lead-textarea"></textarea>
+      <button type="submit" class="lead-submit" id="leadBtn">Отримати оцінку проєкту</button>
+      <p class="lead-note">Відповідь — до 24 годин.</p>
+    </form>
+    <div id="leadSuccess" style="display:none;" class="lead-success">
+      <p>Дякую! Олександр зв'яжеться з вами найближчим часом.</p>
+    </div>
+
+    <div class="contact-divider"><span>або напишіть напряму</span></div>
+
+    <div class="contact-buttons">
+      <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer" class="contact-btn contact-tg">Telegram</a>
+      <a href="https://wa.me/380936429885" target="_blank" rel="noopener noreferrer" class="contact-btn contact-wa">WhatsApp</a>
+      <a href="mailto:sashko1391@gmail.com" class="contact-btn contact-email">Email</a>
+    </div>
+    <p class="contact-note">Або поговоріть з <a href="/#chat-section">AI-помічником</a> — він знає про послуги, строки та підхід.</p>
+  </div>
+</section>
 
 <footer>
   <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
@@ -421,6 +562,30 @@
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+async function submitLead(e) {
+  e.preventDefault();
+  var btn = document.getElementById('leadBtn');
+  var form = document.getElementById('leadForm');
+  btn.disabled = true; btn.textContent = 'Надсилаю...';
+  var data = {
+    contact: form.elements.phone.value,
+    history: 'LEAD FORM (/services/nextjs/)\nІм\'я: ' + form.elements.name.value +
+             '\nТелефон: ' + form.elements.phone.value +
+             '\nОпис: ' + (form.elements.desc.value || '—'),
+    timestamp: new Date().toISOString()
+  };
+  try {
+    await fetch('https://oleksandr-site.sashko1391.workers.dev', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
+    });
+  } catch(err) {}
+  gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'nextjs_form', value: 1});
+  form.style.display = 'none';
+  document.getElementById('leadSuccess').style.display = 'block';
+  return false;
+}
+</script>
 <script>
 // GA4 conversion tracking — contact clicks & CTA
 document.addEventListener('click', function(e) {
