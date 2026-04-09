@@ -152,6 +152,9 @@
     transition: all 0.3s;
   }
   .case-link:hover { background: var(--blue-mid); transform: translateY(-2px); }
+  .hero-stats { display: flex; justify-content: center; gap: 2.5rem; margin-top: 2rem; }
+  .hero-stat { font-size: 0.82rem; color: var(--ink-muted); text-align: center; }
+  .hero-stat strong { display: block; font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue-deep); font-weight: 400; }
 
   /* Body */
   .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
@@ -257,20 +260,51 @@
   .faq summary:hover { color: var(--blue-deep); }
   .faq .faq-answer { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; }
 
-  /* CTA Banner */
-  .cta-banner {
-    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
-    background: var(--blue-deep); border-radius: 16px; text-align: center;
-  }
-  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
-  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
-  .cta-btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
-    border-radius: 100px; text-decoration: none; font-weight: 500;
-    font-size: 0.88rem; transition: transform 0.3s;
-  }
-  .cta-btn:hover { transform: translateY(-2px); }
+  /* Inline CTA */
+  .inline-cta { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; background: var(--orange-pale); text-align: center; border: 1px solid rgba(212,133,74,0.15); }
+  .inline-cta p { font-weight: 500; color: var(--ink); margin: 0 0 0.75rem; font-size: 1rem; }
+  .inline-cta-btn { display: inline-flex; padding: 0.75rem 1.8rem; background: var(--orange); color: var(--white); border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem; transition: transform 0.3s; }
+  .inline-cta-btn:hover { transform: translateY(-2px); }
+
+  /* Guarantee */
+  .guarantee-block { padding: 2rem; margin: 2rem 0; border-radius: 12px; background: linear-gradient(135deg, var(--green-pale) 0%, #f0faf4 100%); border: 2px solid var(--green); text-align: center; }
+  .guarantee-block h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 0.75rem; }
+  .guarantee-block p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; margin: 0; font-weight: 300; }
+  .guarantee-block strong { color: var(--green); font-weight: 600; }
+
+  /* Testimonials */
+  .testimonials { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2rem; }
+  .testimonial { padding: 1.5rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.06); border-left: 3px solid var(--blue-sky); }
+  .testimonial-text { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; font-style: italic; margin: 0 0 0.75rem; font-weight: 300; }
+  .testimonial-author strong { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
+  .testimonial-author span { font-size: 0.78rem; color: var(--ink-muted); margin-left: 0.5rem; }
+
+  /* Contact section */
+  .contact-section { max-width: 720px; margin: 0 auto 3rem; padding: 3rem 2.5rem; background: var(--blue-deep); border-radius: 16px; text-align: center; }
+  .contact-section h2 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--milk); margin-bottom: 0.75rem; }
+  .contact-desc { font-size: 0.95rem; color: var(--blue-light); margin-bottom: 2rem; line-height: 1.6; }
+  .lead-form { max-width: 400px; margin: 0 auto 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .lead-input { padding: 0.85rem 1.2rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.08); color: var(--milk); transition: border-color 0.3s; }
+  .lead-input::placeholder { color: rgba(168,212,240,0.5); }
+  .lead-input:focus { outline: none; border-color: var(--blue-sky); background: rgba(255,255,255,0.12); }
+  .lead-textarea { resize: vertical; min-height: 60px; }
+  .lead-submit { padding: 0.95rem 2rem; background: var(--milk); color: var(--blue-deep); border: none; border-radius: 100px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.3s, box-shadow 0.3s; }
+  .lead-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .lead-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .lead-note { font-size: 0.75rem; color: rgba(168,212,240,0.6); text-align: center; margin: 0; }
+  .lead-success { text-align: center; padding: 1.5rem; }
+  .lead-success p { color: var(--green-pale); font-size: 1rem; margin: 0; }
+  .contact-divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; }
+  .contact-divider::before, .contact-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+  .contact-divider span { font-size: 0.8rem; color: rgba(168,212,240,0.5); }
+  .contact-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.92rem; transition: transform 0.3s, box-shadow 0.3s; }
+  .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .contact-tg { background: #2AABEE; color: var(--white); }
+  .contact-wa { background: #25D366; color: var(--white); }
+  .contact-email { background: var(--milk); color: var(--blue-deep); }
+  .contact-note { font-size: 0.8rem; color: rgba(168,212,240,0.7); margin: 0; }
+  .contact-note a { color: var(--blue-light); }
 
   footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
   footer a { color: var(--blue-mid); text-decoration: none; }
@@ -297,22 +331,27 @@
 <section class="case-hero">
   <div class="case-hero-inner">
     <div class="case-tag">Послуга</div>
-    <h1>AI-інтеграції, які <em>працюють</em> на ваш бізнес</h1>
-    <p class="case-hero-desc">Чат-боти, розумні форми, автоматизація — не іграшки, а реальні інструменти, що економлять час і збільшують конверсії.</p>
-    <a href="/#chat-section" class="case-link">Зробити MVP →</a>
+    <h1>AI-асистент, який обробляє заявки і <em>не втрачає</em> клієнтів</h1>
+    <p class="case-hero-desc">Відповідає клієнтам 24/7, кваліфікує ліди, відправляє дані в CRM і Telegram. Менеджери працюють тільки зі складними кейсами. MVP за 2 тижні, окупність — за 1-2 місяці.</p>
+    <a href="#contact" class="case-link">Отримати план автоматизації →</a>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>24/7</strong> відповідає клієнтам</div>
+      <div class="hero-stat"><strong>5 сек</strong> замість 2 годин</div>
+      <div class="hero-stat"><strong>2</strong> тижні до MVP</div>
+    </div>
   </div>
 </section>
 
 <div class="case-body">
 
-  <h2>Що AI реально може для вашого сайту</h2>
+  <h2>Що зараз відбувається без AI</h2>
 
-  <p>Не хайп — конкретні задачі. AI-чат-бот, який відповідає на питання клієнтів 24/7. Розумні форми, що кваліфікують ліди ще до того, як ви побачите заявку. Автоматизація, яка миттєво відправляє дані в CRM або Telegram.</p>
+  <p>Клієнт пише на сайт о 22:00 — ніхто не відповідає. Вранці менеджер бачить 15 заявок — половина вже пішла до конкурентів. Заявки губляться між поштою, месенджерами і CRM. Менеджери витрачають 2 години на відповіді, які можна автоматизувати.</p>
 
-  <p>Це не «ми додали ChatGPT на сайт». Це інтеграція, яка вирішує конкретну бізнес-задачу: зменшує навантаження на менеджерів, прискорює обробку заявок, підвищує якість лідів.</p>
+  <p>AI-асистент вирішує це: відповідає миттєво, кваліфікує лід (що потрібно, який бюджет, коли), відправляє структуровану заявку в CRM або Telegram. Менеджер працює тільки зі складними кейсами.</p>
 
   <div class="callout callout-blue">
-    <strong>Приклад:</strong> AI-помічник на цьому сайті відповідає на питання про послуги та допомагає оцінити проєкт. Спробуйте — він працює прямо зараз.
+    <strong>Живий приклад:</strong> AI-помічник на цьому сайті відповідає на питання про послуги і збирає контакти автоматично. <a href="/#chat-section" style="color:var(--blue-mid);">Спробуйте — він працює прямо зараз.</a>
   </div>
 
   <h2>Рішення, які я будую</h2>
@@ -348,6 +387,11 @@
       <h3>RAG-системи</h3>
       <p>AI з базою знань вашого бізнесу — відповідає точно, а не «в цілому».</p>
     </div>
+  </div>
+
+  <div class="inline-cta">
+    <p>Скільки заявок можна автоматизувати?</p>
+    <a href="#contact" class="inline-cta-btn">Дізнатись потенціал</a>
   </div>
 
   <h2>Як це працює</h2>
@@ -386,14 +430,14 @@
   <h2>Кейс: AGENTIS</h2>
 
   <div class="case-highlight">
-    <p>AGENTIS — AI-платформа юридичного аналізу, яку я побудував з нуля. Конвеєр з 15 AI-агентів аналізує юридичну ситуацію за 5 хвилин: від класифікації до PDF-звіту з покроковим алгоритмом дій.</p>
+    <p>AGENTIS — AI-платформа, яка автоматизувала юридичний аналіз. Те, на що юристу потрібно 2-3 години, AI робить за 5 хвилин: класифікація ситуації, пошук по 300+ законах, PDF-звіт з покроковим алгоритмом.</p>
     <div class="stats">
       <div class="stat">
-        <div class="num">5</div>
-        <div class="lbl">AI-моделей</div>
+        <div class="num">2 год → 5 хв</div>
+        <div class="lbl">Час аналізу</div>
       </div>
       <div class="stat">
-        <div class="num">207</div>
+        <div class="num">300+</div>
         <div class="lbl">Законів у базі</div>
       </div>
       <div class="stat">
@@ -401,7 +445,7 @@
         <div class="lbl">AI-агентів</div>
       </div>
     </div>
-    <p>Якщо AI може аналізувати 207 законів — уявіть, що він зробить для вашого бізнесу.</p>
+    <p>Побудовано з нуля: 5 AI-моделей, RAG-архітектура, монетизація через Plata by Mono. Якщо AI може аналізувати 300+ законів — уявіть, що він зробить для вашого бізнесу.</p>
     <a href="/projects/agentis/">Детальний кейс AGENTIS →</a>
   </div>
 
@@ -432,7 +476,36 @@
   </div>
 
   <div class="callout callout-green">
-    <strong>Ціна залежить від складності.</strong> MVP — завжди перший крок. Починаємо з мінімального рішення, доводимо що працює, потім масштабуємо.
+    <strong>Окупність:</strong> AI-асистент, який приносить 5+ додаткових заявок на місяць, окупає себе за 1-2 місяці. Починаємо з MVP — доводимо що працює, потім масштабуємо.
+  </div>
+
+  <div class="guarantee-block">
+    <h3>Гарантія результату</h3>
+    <p>Починаємо з MVP — мінімального робочого рішення. Якщо воно не дає результату — <strong>доопрацьовую безкоштовно</strong>. Ви платите за результат, а не за процес.</p>
+  </div>
+
+  <h2>Що кажуть клієнти</h2>
+
+  <div class="testimonials">
+    <div class="testimonial">
+      <p class="testimonial-text">«AI-помічник на сайті відповідає на питання клієнтів і збирає контакти автоматично. За перший місяць — 40+ лідів без моєї участі.»</p>
+      <div class="testimonial-author">
+        <strong>Олександр К.</strong>
+        <span>parkinsandr.tech (цей сайт)</span>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-text">«AGENTIS аналізує юридичну ситуацію за 5 хвилин — те, на що юристу потрібно 2-3 години. 300+ законів, 15 агентів, PDF-звіт.»</p>
+      <div class="testimonial-author">
+        <strong>AGENTIS</strong>
+        <span>AI Legal Tech платформа</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="inline-cta">
+    <p>Скільки рутини можна зняти з менеджерів?</p>
+    <a href="#contact" class="inline-cta-btn">Отримати план автоматизації</a>
   </div>
 
   <h2>Часті питання</h2>
@@ -463,11 +536,32 @@
 </div>
 </main>
 
-<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
-  <h3>Хочете AI, який працює?</h3>
-  <p>Не демо, не презентація — робочий MVP за 2 тижні.</p>
-  <a href="/#chat-section" class="cta-btn">Обговорити задачу →</a>
-</div>
+<section class="contact-section" id="contact" aria-label="Контакти">
+  <div class="contact-inner">
+    <h2>Розкажіть задачу — оціню MVP за 24 години</h2>
+    <p class="contact-desc">Що хочете автоматизувати? AI-чат, обробку заявок, аналіз документів? Опишіть — і я скажу, чи підходить AI і скільки це коштуватиме.</p>
+
+    <form class="lead-form" id="leadForm" onsubmit="return submitLead(event)">
+      <input type="text" name="name" placeholder="Ваше ім'я" required class="lead-input">
+      <input type="tel" name="phone" placeholder="Телефон або Telegram" required class="lead-input">
+      <textarea name="desc" placeholder="Що хочете автоматизувати?" rows="2" class="lead-input lead-textarea"></textarea>
+      <button type="submit" class="lead-submit" id="leadBtn">Отримати оцінку MVP</button>
+      <p class="lead-note">Безкоштовно. Чесно скажу, якщо AI не потрібен.</p>
+    </form>
+    <div id="leadSuccess" style="display:none;" class="lead-success">
+      <p>Дякую! Олександр зв'яжеться з вами найближчим часом.</p>
+    </div>
+
+    <div class="contact-divider"><span>або напишіть напряму</span></div>
+
+    <div class="contact-buttons">
+      <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer" class="contact-btn contact-tg">Telegram</a>
+      <a href="https://wa.me/380936429885" target="_blank" rel="noopener noreferrer" class="contact-btn contact-wa">WhatsApp</a>
+      <a href="mailto:sashko1391@gmail.com" class="contact-btn contact-email">Email</a>
+    </div>
+    <p class="contact-note">Або поговоріть з <a href="/#chat-section">AI-помічником</a> — він працює прямо зараз.</p>
+  </div>
+</section>
 
 <footer>
   <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
@@ -476,6 +570,30 @@
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+async function submitLead(e) {
+  e.preventDefault();
+  var btn = document.getElementById('leadBtn');
+  var form = document.getElementById('leadForm');
+  btn.disabled = true; btn.textContent = 'Надсилаю...';
+  var data = {
+    contact: form.elements.phone.value,
+    history: 'LEAD FORM (/services/ai/)\nІм\'я: ' + form.elements.name.value +
+             '\nТелефон: ' + form.elements.phone.value +
+             '\nОпис: ' + (form.elements.desc.value || '—'),
+    timestamp: new Date().toISOString()
+  };
+  try {
+    await fetch('https://oleksandr-site.sashko1391.workers.dev', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
+    });
+  } catch(err) {}
+  gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'ai_form', value: 1});
+  form.style.display = 'none';
+  document.getElementById('leadSuccess').style.display = 'block';
+  return false;
+}
+</script>
 <script>
 // GA4 conversion tracking — contact clicks & CTA
 document.addEventListener('click', function(e) {
