@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Внутрішня перелінковка сайту: як побудувати кластерну структуру | Олександр Кравченко</title>
+<meta name="description" content="Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами. Як зв'язати сторінки, щоб Google краще індексував і ранжував.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/internal-linking/">
+<meta property="og:title" content="Внутрішня перелінковка сайту: як побудувати кластерну структуру">
+<meta property="og:description" content="Покрокова інструкція: як зв'язати сторінки сайту, щоб Google краще індексував і ранжував.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/internal-linking/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Внутрішня перелінковка сайту: як побудувати кластерну структуру">
+<meta name="twitter:description" content="Покрокова інструкція: як зв'язати сторінки сайту, щоб Google краще індексував і ранжував.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Внутрішня перелінковка сайту: як побудувати кластерну структуру",
+  "author": {"@id": "https://www.parkinsandr.tech/#author"},
+  "datePublished": "2026-04-13",
+  "dateModified": "2026-04-13",
+  "publisher": {"@id": "https://www.parkinsandr.tech/#author"},
+  "description": "Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/internal-linking/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "Внутрішня перелінковка", "item": "https://www.parkinsandr.tech/blog/internal-linking/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Скільки внутрішніх посилань потрібно на одній сторінці?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Оптимально 3-10 внутрішніх посилань на сторінку залежно від обсягу контенту. Кожне посилання має бути природним і корисним для читача. Google не штрафує за кількість, але штрафує за нерелевантні або маніпулятивні посилання."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Що таке Hub & Spoke модель?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hub & Spoke — це кластерна структура, де одна головна сторінка (hub/pillar) посилається на кілька підтем (spoke), і кожна підтема посилається назад на головну. Це допомагає Google зрозуміти тематичну авторитетність сайту та краще ранжувати весь кластер."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи впливає внутрішня перелінковка на SEO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Так, внутрішня перелінковка — один з найсильніших on-page SEO факторів. Вона розподіляє PageRank між сторінками, допомагає Google знаходити та індексувати контент, і сигналізує про тематичну структуру сайту. Правильна перелінковка може підвищити позиції без зовнішніх посилань."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Як перевірити внутрішню перелінковку свого сайту?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Використовуйте Google Search Console → Посилання → Внутрішні посилання. Там видно скільки внутрішніх посилань має кожна сторінка. Сторінки з 0-1 посиланнями — це сироти, які Google погано індексує. Screaming Frog і Ahrefs також показують повну карту перелінковки."
+      }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #6A6A6A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  .skip-link {
+    position: absolute; top: -40px; left: 0; padding: 8px 16px;
+    background: var(--blue-deep); color: var(--white); z-index: 200;
+    font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus { top: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.5rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.5rem 1.25rem; }
+  .article-body li { font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 0.4rem; font-weight: 300; }
+  .article-body a { color: var(--blue-mid); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .callout-orange { background: var(--orange-pale); color: #7A5230; border-left: 3px solid var(--orange); }
+
+  .cluster-diagram {
+    margin: 2rem 0; padding: 2rem; background: var(--white); border-radius: 16px;
+    border: 1px solid rgba(27,58,92,0.08); text-align: center;
+  }
+  .cluster-hub {
+    display: inline-block; padding: 1rem 2rem; background: var(--blue-deep); color: var(--milk);
+    border-radius: 12px; font-weight: 500; font-size: 0.95rem; margin-bottom: 1rem;
+  }
+  .cluster-arrow { color: var(--blue-mid); font-size: 1.5rem; margin: 0.5rem 0; display: block; }
+  .cluster-spokes {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.5rem;
+  }
+  .cluster-spoke {
+    padding: 0.6rem 1.2rem; background: var(--blue-pale); color: var(--blue-deep);
+    border-radius: 8px; font-size: 0.82rem; font-weight: 500;
+  }
+
+  .checklist { list-style: none; margin: 1rem 0 2rem; padding: 0; }
+  .checklist li {
+    padding: 0.75rem 1rem 0.75rem 2.5rem; position: relative;
+    font-size: 0.92rem; color: var(--ink-soft); line-height: 1.6;
+    border-bottom: 1px solid rgba(27,58,92,0.04); font-weight: 300;
+  }
+  .checklist li::before {
+    content: '\2713'; position: absolute; left: 0.75rem; color: var(--green); font-weight: 600; font-size: 1rem;
+  }
+
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin: 2rem 0;
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(27,58,92,0.08);
+  }
+  .compare-table th {
+    padding: 0.75rem 1rem; text-align: left;
+    font-size: 0.85rem; font-weight: 500;
+    background: var(--blue-deep); color: var(--milk);
+  }
+  .compare-table td {
+    padding: 0.75rem 1rem; font-size: 0.88rem; color: var(--ink-soft);
+    border-bottom: 1px solid rgba(27,58,92,0.05); line-height: 1.5; font-weight: 300;
+  }
+  .compare-table td:first-child { font-weight: 500; color: var(--ink); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .td-bad { color: #C0392B; }
+  .td-good { color: var(--green); font-weight: 500; }
+
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  .related-posts {
+    max-width: 720px; margin: 2rem auto 0; padding: 2rem 0;
+    border-top: 1px solid var(--milk-warm);
+  }
+  .related-posts h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem;
+  }
+  .related-posts-list {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .related-posts-list a {
+    display: block; padding: 1rem 1.2rem;
+    background: var(--white); border-radius: 10px;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--milk-warm);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .related-posts-list a:hover {
+    border-color: var(--blue-sky); transform: translateY(-2px);
+  }
+  .related-posts-list .rp-title {
+    font-weight: 500; font-size: 0.95rem; color: var(--blue-deep);
+  }
+  .related-posts-list .rp-desc {
+    font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .compare-table { font-size: 0.8rem; }
+    .compare-table th, .compare-table td { padding: 0.5rem 0.6rem; }
+    .cluster-spokes { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Перейти до змісту</a>
+
+<nav aria-label="Основна навігація">
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<main id="main-content">
+<article>
+  <header class="article-header">
+    <div class="article-tag">Блог</div>
+    <h1>Внутрішня перелінковка сайту: як побудувати кластерну структуру</h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Квітень 2026</span>
+      <span>12 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>Внутрішня перелінковка — це спосіб зв'язати сторінки вашого сайту між собою через гіперпосилання. Правильна перелінковка допомагає Google зрозуміти структуру сайту, розподілити "вагу" між сторінками і підвищити позиції без жодного зовнішнього посилання. У цій статті — покрокова інструкція з реальним прикладом на сайті фрілансера.</p>
+
+    <div class="callout callout-blue">
+      <strong>TL;DR:</strong> Внутрішня перелінковка — один з найнедооцінених SEO-інструментів. Кластерна структура (Hub & Spoke) підвищує тематичну авторитетність сайту і допомагає Google індексувати глибокі сторінки. Побудувати її можна за 1-2 години навіть на маленькому сайті.
+    </div>
+
+    <h2>Чому внутрішня перелінковка впливає на ранжування</h2>
+
+    <p>Google використовує посилання для двох речей: знаходити нові сторінки та розуміти їхню важливість. Зовнішні посилання (backlinks) передають авторитетність від інших сайтів. Внутрішні посилання розподіляють цю авторитетність між вашими власними сторінками.</p>
+
+    <p>Сторінка, на яку посилаються 10 інших сторінок вашого сайту, отримує більше "ваги", ніж сторінка-сирота з 0 посилань. Google буквально може не знайти сторінку, якщо на неї нічого не посилається — навіть якщо вона в sitemap.</p>
+
+    <h3>3 функції внутрішніх посилань</h3>
+
+    <ol>
+      <li><strong>Навігація для Google:</strong> бот переходить по посиланнях від сторінки до сторінки. Чим менше кліків до контенту — тим швидше він буде проіндексований.</li>
+      <li><strong>Розподіл PageRank:</strong> кожне посилання передає частину "ваги" сторінки. Сторінки з найбільшою кількістю внутрішніх посилань отримують найбільше ваги.</li>
+      <li><strong>Тематичний контекст:</strong> текст посилання (anchor text) підказує Google, про що цільова сторінка. Це сильніший сигнал, ніж багато хто думає.</li>
+    </ol>
+
+    <div class="callout callout-orange">
+      <strong>Статистика:</strong> За дослідженням Ahrefs (2024), 66.5% сторінок в інтернеті мають 0 зовнішніх посилань. Для таких сторінок внутрішня перелінковка — єдиний спосіб отримати PageRank. Якщо ваш сайт малий і новий — це ваш головний важіль. А якщо у вас є сторінки-сироти (0 внутрішніх посилань) — ви вже втрачаєте трафік.
+    </div>
+
+    <p style="text-align:center; margin: 1.5rem 0;"><a href="/services/nextjs/" style="color: var(--blue-mid); font-weight: 500;">Замовити сайт з правильною кластерною структурою з першого дня →</a></p>
+
+    <h2>Що таке кластерна структура Hub & Spoke</h2>
+
+    <p>Hub & Spoke — це модель організації контенту, де одна головна сторінка (hub, pillar) посилається на кілька підтем (spoke), і кожна підтема посилається назад на головну. Google бачить цю структуру і розуміє: "цей сайт глибоко покриває тему X".</p>
+
+    <div class="cluster-diagram">
+      <div class="cluster-hub">Hub: Розробка сайтів</div>
+      <span class="cluster-arrow">&#8595; &#8593;</span>
+      <div class="cluster-spokes">
+        <div class="cluster-spoke">Лендінг під рекламу</div>
+        <div class="cluster-spoke">Бізнес-сайт на Next.js</div>
+        <div class="cluster-spoke">AI-інтеграції</div>
+        <div class="cluster-spoke">Редизайн сайту</div>
+      </div>
+      <span class="cluster-arrow">&#8595; &#8593;</span>
+      <div class="cluster-spokes">
+        <div class="cluster-spoke">Кейс: Славутич</div>
+        <div class="cluster-spoke">Кейс: ACE</div>
+        <div class="cluster-spoke">React vs Tilda</div>
+        <div class="cluster-spoke">Скільки коштує сайт</div>
+      </div>
+    </div>
+
+    <p>У цій структурі головна сторінка (або сторінка послуг) — це hub. Сервісні сторінки та статті блогу — spoke. Кожен spoke посилається на hub і на 2-3 інші spoke. Результат: Google бачить зв'язану тематичну мережу, а не набір розрізнених сторінок.</p>
+
+    <h3>Чому це працює краще ніж плоска структура</h3>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th scope="col">Параметр</th><th scope="col">Плоска структура</th><th scope="col">Hub & Spoke</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Тематичний сигнал</td><td class="td-bad">Слабкий — сторінки ізольовані</td><td class="td-good">Сильний — кластер = авторитетність</td></tr>
+        <tr><td>Глибина кліку</td><td class="td-bad">3-5 кліків до контенту</td><td class="td-good">1-2 кліки з будь-якої сторінки</td></tr>
+        <tr><td>Розподіл PageRank</td><td class="td-bad">Розмитий, нерівномірний</td><td class="td-good">Концентрований на важливих сторінках</td></tr>
+        <tr><td>Індексація</td><td class="td-bad">Повільна для глибоких сторінок</td><td class="td-good">Швидка — все зв'язано</td></tr>
+        <tr><td>UX / час на сайті</td><td class="td-bad">Користувач тупикує</td><td class="td-good">Природна навігація між темами</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Як побудувати кластерну структуру: 5 кроків</h2>
+
+    <h3>Крок 1: Визначте теми кластерів</h3>
+
+    <p>Кластер = одна тема, яку ви хочете "закрити" повністю. Для сайту веб-розробника це може бути:</p>
+
+    <ul>
+      <li><strong>Кластер "Розробка сайтів"</strong> — лендінги, бізнес-сайти, <a href="/services/redesign/">редизайн</a>, вибір технології</li>
+      <li><strong>Кластер "Ціна і процес"</strong> — <a href="/blog/skilky-koshtuye-sajt/">скільки коштує сайт</a>, <a href="/blog/yak-obrati-rozrobnyka/">як обрати розробника</a>, етапи розробки</li>
+      <li><strong>Кластер "AI і автоматизація"</strong> — <a href="/services/ai/">AI-інтеграції</a>, чат-боти, <a href="/blog/jarvis-ai-assistant/">AI-помічники</a></li>
+    </ul>
+
+    <h3>Крок 2: Визначте hub-сторінку для кожного кластера</h3>
+
+    <p>Hub — це найважливіша сторінка кластера. Зазвичай це сервісна або pillar-сторінка. Вона повинна:</p>
+
+    <ul>
+      <li>Охоплювати тему широко (overview)</li>
+      <li>Мати посилання на всі spoke-сторінки кластера</li>
+      <li>Таргетувати найбільш конкурентний ключовий запит</li>
+    </ul>
+
+    <p>Наприклад, для кластера "Розробка сайтів" hub — це <a href="/services/nextjs/">сторінка бізнес-сайту на Next.js</a>, бо вона найширша за охопленням. Для "AI" — <a href="/services/ai/">AI-інтеграції для сайту</a>.</p>
+
+    <h3>Крок 3: Створіть spoke-контент</h3>
+
+    <p>Spoke — це статті та сторінки, які глибоко розкривають підтеми кластера. Кожен spoke повинен:</p>
+
+    <ul>
+      <li>Відповідати на конкретне питання або таргетувати конкретний long-tail запит</li>
+      <li>Мати мінімум 1 посилання на hub-сторінку з описовим anchor text</li>
+      <li>Мати 2-3 посилання на інші spoke в тому ж кластері</li>
+    </ul>
+
+    <div class="callout callout-green">
+      <strong>Правило anchor text:</strong> Ніколи не пишіть "натисніть тут" або "детальніше". Використовуйте описові анкори: "<a href="/services/landing/">лендінг під рекламу</a>" замість "дізнатись більше". Це підказує Google тематику цільової сторінки і покращує ранжування.
+    </div>
+
+    <h3>Крок 4: Зв'яжіть сторінки між собою</h3>
+
+    <p>Після створення контенту пройдіться по кожній сторінці і додайте посилання. Ось матриця перелінковки для прикладу:</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th scope="col">Сторінка</th><th scope="col">Посилається на</th><th scope="col">Кількість</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Лендінг під рекламу</td><td>Next.js, AI, кейс Славутич, кейс ACE</td><td>4</td></tr>
+        <tr><td>Бізнес-сайт Next.js</td><td>Лендінг, AI, Редизайн, React vs Tilda</td><td>4</td></tr>
+        <tr><td>AI-інтеграції</td><td>Next.js, Лендінг, кейс AGENTIS, Jarvis</td><td>4</td></tr>
+        <tr><td>Редизайн</td><td>Лендінг, Next.js, AI</td><td>3</td></tr>
+        <tr><td>React vs Tilda</td><td>Як обрати, Скільки коштує, кейс ACE</td><td>3</td></tr>
+        <tr><td>Кожна стаття</td><td>2 landing pages + 1-2 інші статті</td><td>3-4</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Крок 5: Перевірте і підтримуйте</h3>
+
+    <ul class="checklist">
+      <li>Перевірте Google Search Console → Посилання → Внутрішні — кожна важлива сторінка має 3+ внутрішніх посилань</li>
+      <li>Знайдіть сторінки-сироти (0-1 посилань) і додайте на них посилання з релевантного контенту</li>
+      <li>Кожна нова стаття повинна отримати мінімум 3 inbound links з існуючих сторінок</li>
+      <li>Перевіряйте відсутність битих посилань після кожного редизайну або видалення сторінок</li>
+      <li>Оновлюйте anchor text, якщо сторінка змінила фокус або ключові слова</li>
+    </ul>
+
+    <h2>Реальний приклад: як я перелінкував цей сайт</h2>
+
+    <p>На сайті parkinsandr.tech 15 сторінок: 4 сервісних, 4 кейси, 6 статей блогу, 1 головна. До перелінковки кожна сторінка мала 1-2 внутрішніх посилання (тільки з навігації). Після — мінімум 5.</p>
+
+    <h3>Що зробив:</h3>
+
+    <ol>
+      <li><strong>Визначив 2 кластери:</strong> "Розробка сайтів" (hub: <a href="/services/nextjs/">Next.js</a>) та "AI і автоматизація" (hub: <a href="/services/ai/">AI-інтеграції</a>)</li>
+      <li><strong>Додав related posts</strong> в кожну статтю блогу — 3-4 посилання на тематично близькі сторінки</li>
+      <li><strong>Додав "Пов'язані послуги"</strong> в кожну сервісну сторінку — перехресні посилання між послугами</li>
+      <li><strong>Вставив контекстні посилання</strong> в тіло статей — <a href="/blog/react-vs-tilda/">React vs Tilda</a> посилається на <a href="/blog/skilky-koshtuye-sajt/">скільки коштує сайт</a>, і навпаки</li>
+      <li><strong>Кейси посилаються на послуги:</strong> кейс <a href="/projects/ace/">ACE</a> посилається на <a href="/services/nextjs/">Next.js розробку</a>, кейс <a href="/projects/agentis/">AGENTIS</a> — на <a href="/services/ai/">AI-інтеграції</a></li>
+    </ol>
+
+    <div class="callout callout-green">
+      <strong>Результат:</strong> Після перелінковки середня глибина кліку впала з 3 до 1.8. Google проіндексував 5 сторінок, які раніше були в статусі "Discovered — not indexed". Час на сайті зріс на 40% — відвідувачі переходять між пов'язаними сторінками замість того, щоб закривати вкладку.
+    </div>
+
+    <h2>7 помилок внутрішньої перелінковки</h2>
+
+    <ol>
+      <li><strong>Анкори "натисніть тут" та "детальніше"</strong> — Google не отримує тематичний сигнал. Пишіть описово: "послуга розробки лендінгів"</li>
+      <li><strong>Сторінки-сироти</strong> — сторінки без жодного внутрішнього посилання. Google може їх не знайти або проігнорувати</li>
+      <li><strong>Надто глибока структура</strong> — якщо до сторінки 4+ кліки від головної, Google вважає її менш важливою. Тримайте глибину до 3</li>
+      <li><strong>Всі посилання в footer/sidebar</strong> — посилання в контенті мають більше ваги, ніж навігаційні. Додавайте в тіло тексту</li>
+      <li><strong>Посилання тільки "вниз"</strong> — hub посилається на spoke, але spoke не посилаються назад. Це однонаправлена структура — PageRank не циркулює</li>
+      <li><strong>Забагато посилань на одну сторінку</strong> — якщо 80% посилань ведуть на головну, а 20% розмазані по решті — баланс порушений</li>
+      <li><strong>Биті посилання після редизайну</strong> — видалили або перейменували сторінку, а посилання на неї залишились. Перевіряйте після кожної зміни</li>
+    </ol>
+
+    <div class="callout callout-orange">
+      <strong>Ціна бездіяльності:</strong> Кожна помилка з цього списку — це сторінки, які Google не бачить або не ранжує. Якщо у вас 15+ сторінок і ви ніколи не робили аудит перелінковки — частина контенту працює на 20-30% від свого потенціалу.
+    </div>
+
+    <h2>Коли краще замовити аудит перелінковки</h2>
+
+    <p>Зробити базову перелінковку самостійно — цілком реально для сайту на 5-10 сторінок. Але є випадки, коли помилка коштує трафіку:</p>
+
+    <ul>
+      <li><strong>Після <a href="/services/redesign/">редизайну або міграції</a></strong> — змінилась URL-структура, старі посилання зламались, нові сторінки не перелінковані</li>
+      <li><strong>Сайт з 15+ сторінками</strong> — кластери складніші, потрібна карта перелінковки, а не інтуїція</li>
+      <li><strong>Просідання в Search Console</strong> — сторінки в статусі "Discovered — not indexed", падіння impressions</li>
+      <li><strong>Запуск блогу або нового розділу</strong> — контент з'являється, але не зв'язаний з рештою сайту</li>
+    </ul>
+
+    <p>Що ви отримаєте після аудиту:</p>
+
+    <ul>
+      <li>Карту кластерів вашого сайту (hub + spoke для кожної теми)</li>
+      <li>Список сторінок-сиріт з рекомендаціями куди їх перелінкувати</li>
+      <li>Матрицю перелінковки: хто на кого посилається і чого не вистачає</li>
+      <li>Anchor text рекомендації для кожного посилання</li>
+      <li>Перевірку битих внутрішніх посилань</li>
+    </ul>
+
+    <p style="text-align:center; margin: 1.5rem 0;"><a href="/services/nextjs/#contact" style="display: inline-block; padding: 0.75rem 1.8rem; background: var(--blue-deep); color: var(--milk); border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem;">Замовити аудит перелінковки →</a></p>
+
+    <h2>Часті питання про внутрішню перелінковку</h2>
+
+    <h3>Скільки внутрішніх посилань потрібно на одній сторінці?</h3>
+
+    <p>Оптимально 3-10 внутрішніх посилань на сторінку залежно від обсягу контенту. Кожне посилання має бути природним і корисним для читача. Google не штрафує за кількість, але штрафує за нерелевантні або маніпулятивні посилання.</p>
+
+    <h3>Що таке Hub & Spoke модель?</h3>
+
+    <p>Hub & Spoke — це кластерна структура, де одна головна сторінка (hub/pillar) посилається на кілька підтем (spoke), і кожна підтема посилається назад на головну. Це допомагає Google зрозуміти тематичну авторитетність сайту та краще ранжувати весь кластер.</p>
+
+    <h3>Чи впливає внутрішня перелінковка на SEO?</h3>
+
+    <p>Так, внутрішня перелінковка — один з найсильніших on-page SEO факторів. Вона розподіляє PageRank між сторінками, допомагає Google знаходити та індексувати контент, і сигналізує про тематичну структуру сайту. За даними Moz (2025), правильна перелінковка може підвищити позиції на 5-15 місць для сторінок з 0 зовнішніх посилань.</p>
+
+    <h3>Як перевірити внутрішню перелінковку свого сайту?</h3>
+
+    <p>Найпростіший спосіб — Google Search Console → Посилання → Внутрішні посилання. Там видно скільки внутрішніх посилань має кожна сторінка. Сторінки з 0-1 посиланнями — це сироти, які Google погано індексує. Для більш глибокого аналізу використовуйте Screaming Frog (безкоштовно до 500 URL) або Ahrefs Site Audit.</p>
+
+    <h2>Чеклист внутрішньої перелінковки</h2>
+
+    <p>Використовуйте цей чеклист кожного разу, коли публікуєте нову сторінку або статтю:</p>
+
+    <ul class="checklist">
+      <li>Нова сторінка має мінімум 3 inbound links з існуючого контенту</li>
+      <li>Нова сторінка посилається на hub-сторінку свого кластера</li>
+      <li>Нова сторінка посилається на 2-3 релевантні spoke-сторінки</li>
+      <li>Anchor text описовий (не "тут", не "детальніше")</li>
+      <li>Глибина кліку від головної — не більше 3</li>
+      <li>Немає битих внутрішніх посилань (перевірка після публікації)</li>
+      <li>Посилання додані в контент, а не тільки в навігацію чи footer</li>
+      <li>Sitemap оновлений з новою URL</li>
+    </ul>
+
+  </div>
+
+<section class="related-posts" aria-label="Пов'язані статті">
+  <h3>Читайте також</h3>
+  <div class="related-posts-list">
+    <a href="/blog/react-vs-tilda/">
+      <div class="rp-title">React vs Tilda: що обрати для бізнесу у 2026</div>
+      <div class="rp-desc">Чесне порівняння: коли конструктор ок, а коли потрібна кастомна розробка.</div>
+    </a>
+    <a href="/blog/skilky-koshtuye-sajt/">
+      <div class="rp-title">Скільки коштує сайт у 2026 — чесний розклад</div>
+      <div class="rp-desc">Реальні ціни на лендінги, бізнес-сайти та платформи.</div>
+    </a>
+    <a href="/services/redesign/">
+      <div class="rp-title">Редизайн сайту для бізнесу — перезапуск</div>
+      <div class="rp-desc">Редизайн без просадки SEO: міграція, швидкість, конверсія.</div>
+    </a>
+    <a href="/blog/yak-obrati-rozrobnyka/">
+      <div class="rp-title">Як обрати розробника сайту — 9 критеріїв</div>
+      <div class="rp-desc">Практичний гайд: на що дивитись, про що питати.</div>
+    </a>
+  </div>
+</section>
+
+</article>
+</main>
+
+<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
+  <h3>Скільки трафіку втрачає ваш сайт через погану перелінковку?</h3>
+  <p>Зроблю аудит внутрішніх посилань, побудую карту кластерів і видам матрицю перелінковки. Для сайтів з 10+ сторінками.</p>
+  <a href="/services/nextjs/#contact" class="cta-btn">Замовити аудит перелінковки →</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+// GA4 conversion tracking — contact clicks & CTA
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (!a) return;
+  var href = a.href || '';
+  if (href.includes('t.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href});
+  }
+  else if (href.includes('wa.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href});
+  }
+  else if (href.startsWith('mailto:')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href});
+  }
+  else if (a.classList.contains('cta-btn') || a.classList.contains('nav-cta') || a.classList.contains('btn-primary') || href.includes('#chat-section')) {
+    gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href});
+  }
+});
+</script>
+</body>
+</html>
