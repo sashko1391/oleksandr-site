@@ -5,7 +5,9 @@
 - Hosted on Vercel (vercel.json config)
 - Domain: parkinsandr.tech
 - Language: Ukrainian (uk), geo: Kyiv Oblast
-- GA4: G-Y891WWYE79
+- GA4: G-Y891WWYE79 + conversion tracking (generate_lead, contact_click, cta_click, chat_start, chat_message)
+- Microsoft Clarity: w7i1iwx0ah
+- Google Ads: акаунт створено (sashko1391@gmail.com), кампанії в підготовці
 - API: /api/send-chat.js (Vercel serverless)
 
 ## File Structure
@@ -90,28 +92,23 @@ Target cadence: 1 deep + 1 light piece per week (8-10/month)
 ### What's already good:
 - All pages have unique title + description + canonical + OG + Twitter Card
 - ProfessionalService JSON-LD on homepage with offers
-- Article JSON-LD on all blog/project pages
+- Article JSON-LD on all blog/project pages with @id cross-referencing
+- BreadcrumbList JSON-LD on all inner pages
 - robots.txt allows all bots + sitemap reference
-- sitemap.xml with 10 URLs, correct lastmod dates
-- GA4 on all pages
+- sitemap.xml with 14 URLs, correct lastmod dates
+- GA4 + Clarity on all pages + conversion tracking (5 custom events)
 - All images have descriptive alt text, WebP format
 - Proper H1→H2→H3 hierarchy on all pages
-- Skip link for accessibility
+- Skip link, aria-labels, `<main>` landmark, WCAG AA contrast on all pages
+- Analytics scripts at end of `<body>` (not `<head>`) for better LCP
+- Google Fonts preload split (DM Sans critical, rest secondary)
 - Lazy loading on images
 
 ### What needs fixing:
-- ~~Logo href="#" on project/blog pages~~ → FIXED (all pages have href="/")
-- ~~No BreadcrumbList schema on inner pages~~ → FIXED (added to new pages; older pages need update)
-- ~~No FAQPage schema anywhere~~ → FIXED (added to jarvis-ai-assistant)
-- No dedicated service landing pages → PARTIALLY FIXED (3 service pages exist: nextjs, landing, ai)
 - Homepage is one-page with #anchors — search engines can't index sections as separate entities
-- ~~No related posts on blog articles~~ → FIXED (added to all blog posts)
 - No AVIF format (only WebP + JPG)
 - preview.jpg used in OG but not confirmed to exist
-- No Schema @id cross-referencing between entities
-- No Organization/Person @id on homepage for entity linking
-- No GEO optimization (TL;DR blocks, citation strategy) on existing content
-- Expertise-to-Ad Ratio not audited on key pages
+- LCP on projects/ace still 2.9s (target <2.5s) — consider self-hosting fonts
 
 ## Technical Notes
 - All CSS is inline (in `<style>` tags) — good for performance

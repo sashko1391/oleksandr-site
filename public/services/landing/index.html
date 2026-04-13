@@ -706,6 +706,7 @@ async function submitLead(e) {
     });
   } catch(err) { /* silent fail — show success anyway */ }
   gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'landing_form', value: 1});
+  gtag('event', 'conversion_event_submit_lead_form');
   form.style.display = 'none';
   document.getElementById('leadSuccess').style.display = 'block';
   return false;

@@ -127,3 +127,124 @@
 - Analytics скрипти (Clarity + GA4) перенесені з `<head>` в кінець `<body>` — прибирає блокування парсером
 - Google Fonts preload розділено на 2 запити: DM Sans (критичний, body text) окремо від Instrument Serif + JetBrains Mono (secondary)
 - Noscript fallback залишено як один комбінований запит
+
+### PSI після оптимізації
+- projects/ace: Performance 75→90, Accessibility 81→91, LCP 5.1s→2.9s
+
+### Article schema audit
+- Оновлено dateModified на 2 blog posts: devlog-business-empire-idle (04-05→04-08), devlog-empire-online (04-06→04-08)
+- Всі 6 blog + 4 project pages мають коректний Article JSON-LD з @id автора
+
+### AGENTIS case study — оновлення контенту
+- Нова секція "Що нового: від MVP до платформи" (редизайн, генерація документів, монетизація, SEO, плани)
+- Цифри оновлені: 207→300+ законів, 22k→144k+ семантичних блоків, додано "2 модулі"
+- Tech stack: Vercel → Railway + Supabase + Plata by Mono
+- Новий скріншот `agentis-v2.webp` (темна тема, новий UI)
+- OG/Twitter image оновлені на agentis-v2.webp
+- Meta description переписано під оновлені дані
+- Скріншот на homepage portfolio grid також оновлено
+
+### GA4 Conversion Tracking (14 сторінок)
+- Homepage: 5 event types — `generate_lead` (контакт в чаті), `chat_start`, `chat_message`, `cta_click`, `contact_click`
+- 13 inner pages: `cta_click`, `contact_click` (Telegram/WhatsApp/Email)
+- Делеговане відстеження через `document.addEventListener('click')` — один скрипт на всі сторінки
+- Tracking перевірено через GA4 Realtime — всі події приходять коректно
+
+### Google Ads
+- Створено обліковий запис Google Ads (sashko1391@gmail.com)
+- Підготовлено структуру 3 кампаній: Next.js розробка, Лендінги, AI-інтеграції
+- Ключові слова, оголошення, мінус-слова — задокументовані в розмові
+
+## 2026-04-09 — CRO overhaul service pages + Google Ads launch
+
+### /services/landing/ — CRO overhaul
+- Hero переписано під ROI: "знижує вартість заявки і окупає рекламу"
+- Додано lead form (ім'я + телефон + опис) → Telegram webhook + GA4 `generate_lead`
+- 3 відгуки клієнтів (Славутич, ACE, Atlas) з іменами та нішами
+- Блок гарантії "доопрацьовую безкоштовно до результату"
+- Результати в punch-картках (PageSpeed 95, 8700+, 4 дні)
+- 2 inline CTA (помаранчеві) після ключових блоків
+- Контактна секція: форма + Telegram/WhatsApp/Email
+- Всі CTA → #contact на цій же сторінці (не на головну)
+- ABAIC council review (4 моделі) → doc/abaic_council/
+
+### /services/nextjs/ — CRO overhaul
+- Hero: "Сайт, який приводить клієнтів через SEO і рекламу" (без Next.js у заголовку)
+- Перший блок: "Коли сайт не приносить клієнтів" (біль) замість "Коли потрібен Next.js" (технологія)
+- Features перефразовані під ROI: "Швидкість → дешевший трафік", "SEO → безкоштовний трафік"
+- Пакети з результатом: "Для запуску реклами", "Для SEO і масштабування"
+- Lead form, відгуки, гарантія, inline CTA — аналогічно landing
+
+### /services/ai/ — CRO overhaul
+- Hero: "AI-асистент, який обробляє заявки і не втрачає клієнтів"
+- Перший блок: біль ("клієнт пише о 22:00, ніхто не відповідає")
+- AGENTIS кейс: "2 год → 5 хв" як головна метрика, 300+ законів
+- CTA під результат: "Скільки заявок можна автоматизувати?"
+- Lead form, відгуки, гарантія, inline CTA
+
+### Google Ads — перша кампанія "Лендінги"
+- Кампанія створена та опублікована (9 квітня 2026)
+- Тип: Search only (без медійної мережі та партнерів)
+- 11 ключових слів (exact + phrase match): замовити лендінг, лендінг під ключ тощо
+- 15 заголовків + 4 описи (Responsive Search Ad), якість 89.1%
+- 4 sitelinks (портфоліо, вартість, AI, Next.js)
+- Бюджет: 300 грн/день
+- Bidding: Maximize Conversions
+- Локація: Україна, мови: uk + ru
+- Статус: чекає поповнення балансу
+
+### ABAIC команда оновлена
+- Gemini: модель gemini-2.5-flash (оновлено)
+- Grok: grok-3-mini-fast (підтверджено)
+- GPT-4o-mini: працює після поповнення
+- Claude Haiku 4.5: підтверджено
+- Всі 4 моделі протестовані — працюють
+
+### /upd глобальна команда
+- Виконано повний upd: doc files, FULL_SOURCE.txt (9380 рядків), CLAUDE.md, jarvis.md, MEMORY.md
+
+## 2026-04-11 — Sprint C closure: Lighthouse audit + PSI verification
+
+### Lighthouse CLI
+- Встановлено Lighthouse 13.1.0 глобально через npm (user prefix `~/.npm-global`)
+- Потрібен Node 22+ (nvm use v22.22.2) — Node 18 не підтримує `import ... with { type: 'json' }`
+- PSI API квота вичерпана — використано локальний Lighthouse CLI як альтернативу
+
+### PSI результати після LCP-оптимізацій (mobile, Lighthouse CLI)
+| Сторінка | Perf | A11y | SEO | LCP | CLS | TBT |
+|----------|------|------|-----|-----|-----|-----|
+| Homepage | 97 | 96 | 100 | 1.3s | 0.004 | 180ms |
+| blog/react-vs-tilda | 100 | 91 | 100 | 1.1s | 0.004 | 40ms |
+| projects/ace | 100 | 91 | 100 | 1.0s | 0.007 | 50ms |
+
+### Порівняння до/після (Sprint C оптимізації)
+| Сторінка | Perf | LCP |
+|----------|------|-----|
+| react-vs-tilda | 93 → 100 | 2.6s → 1.1s |
+| projects/ace | 75 → 100 | 5.1s → 1.0s |
+
+### Best Practices (77 на всіх сторінках)
+- Причина: Microsoft Clarity ставить third-party cookies (CLID, SM, MUID через clarity.ms + bing.com)
+- DevTools Issues — ті самі cookies Clarity
+- Рішення: залишити як є — Clarity потрібен для heatmaps, Best Practices score не впливає на SEO ranking
+
+### Sprint C — закритий ✅
+- Credit links — вже є на сайтах клієнтів
+- PSI re-run — підтверджено покращення, всі CWV у зеленій зоні
+
+## 2026-04-12/13 — Google Ads: conversion tracking setup
+
+### Google Ads ↔ GA4 зв'язок
+- Змінено URL сайту в Google Ads з `sashko1391.substack.com` → `www.parkinsandr.tech`
+- Підключено GA4 ресурс Parkinsandr (531391243) як джерело конверсій
+- Знято "Конверсії телефонних викликів" (не використовуються)
+
+### Конверсії імпортовані з GA4
+- `generate_lead` — категорія "Надсилання форми для лідів" (primary)
+- `contact_click` — додаткова конверсія
+
+### Стан кампанії "Лендінги"
+- Оголошення на модерації (1 з 1 розглядається)
+- Всі чеклісти зелені: ✅ Оголошення, ✅ Цілі, ✅ Обліковий запис
+- Попередження "відстеження конверсій не завершено" — нормально, буде працювати після перших кліків
+- Очікується: модерація 24-48 год + поповнення рахунку

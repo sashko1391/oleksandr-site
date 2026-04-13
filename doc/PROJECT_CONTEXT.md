@@ -101,6 +101,69 @@
 | react-vs-tilda | 93 | 79 | 2.6s |
 | projects/ace | 75 | 81 | 5.1s |
 
+## PSI після оптимізації (2026-04-08)
+| Сторінка | Performance | Accessibility | LCP |
+|----------|-------------|---------------|-----|
+| projects/ace | 90 (+15) | 91 (+10) | 2.9s (-2.2s) |
+
+## GA4 Conversion Tracking (додано 2026-04-08)
+- 5 кастомних подій: `generate_lead`, `chat_start`, `chat_message`, `cta_click`, `contact_click`
+- Homepage: повний tracking (чат + CTA + контакти)
+- Inner pages: CTA + contact clicks
+- Делегований click listener на `document` — один скрипт на сторінку
+- Key events для Google Ads: `generate_lead`, `contact_click`
+
+## AGENTIS case study (оновлено 2026-04-08)
+- Нові цифри: 300+ законів, 144k+ семантичних блоків, 2 модулі
+- Новий скріншот: `agentis-v2.webp` (темна тема, оновлений UI)
+- Tech stack: Railway + Supabase + Plata by Mono (було: Vercel + PostgreSQL)
+- Монетизація: Plata by Mono, тарифи 249/599/899 грн
+
+## Google Ads (створено 2026-04-08)
+- Акаунт: sashko1391@gmail.com
+- Структура: 3 кампанії (Next.js, Лендінги, AI)
+- Landing pages: /services/nextjs/, /services/landing/, /services/ai/
+
+## Service pages CRO (оновлено 2026-04-09)
+Всі 3 service pages переписані під конверсію з реклами:
+- Hero під ROI/результат (не технологію)
+- Lead form → Telegram webhook (Cloudflare Worker) + GA4 `generate_lead`
+- Telegram/WhatsApp/Email контакти на кожній сторінці
+- Відгуки клієнтів (3 на landing, 3 на nextjs, 2 на ai)
+- Блок гарантії "доопрацьовую безкоштовно"
+- Inline CTA після ключових блоків
+- Всі CTA → `#contact` (не на головну)
+
+### Позиціонування лінійки:
+| Сторінка | Позиціонування | Ключовий меседж |
+|----------|---------------|-----------------|
+| /services/landing/ | Швидкі заявки з реклами | "знижує вартість заявки" |
+| /services/nextjs/ | SEO-трафік + масштабування | "приводить клієнтів через SEO і рекламу" |
+| /services/ai/ | Автоматизація обробки | "обробляє заявки і не втрачає клієнтів" |
+
+## Google Ads — перша кампанія (2026-04-09)
+- Кампанія "Лендінги": Search only, 11 keywords, 300 грн/день
+- RSA: 15 заголовків + 4 описи, якість 89.1%
+- Статус: на модерації (13 квітня 2026), чекає поповнення балансу
+
+## Google Ads ↔ GA4 інтеграція (2026-04-13)
+- GA4 ресурс Parkinsandr (531391243) підключений як джерело конверсій
+- Імпортовано 2 конверсії: `generate_lead` (primary), `contact_click`
+- Категорія: "Надсилання форми для лідів"
+
+## PSI після всіх оптимізацій (2026-04-11, mobile, Lighthouse CLI)
+| Сторінка | Perf | A11y | SEO | LCP | CLS |
+|----------|------|------|-----|-----|-----|
+| Homepage | 97 | 96 | 100 | 1.3s | 0.004 |
+| blog/react-vs-tilda | 100 | 91 | 100 | 1.1s | 0.004 |
+| projects/ace | 100 | 91 | 100 | 1.0s | 0.007 |
+
+Best Practices 77 на всіх — через Microsoft Clarity third-party cookies (не впливає на SEO)
+
+## Lighthouse CLI (додано 2026-04-11)
+- Lighthouse 13.1.0 встановлений глобально (`~/.npm-global/bin/lighthouse`)
+- Потребує Node 22+ (`nvm use v22.22.2`)
+
 ## Шаблон блог-статті
 Всі статті використовують однаковий шаблон:
 - Фіксована nav з логотипом + "← На головну"

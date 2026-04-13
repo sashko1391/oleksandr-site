@@ -581,6 +581,7 @@ async function submitLead(e) {
     });
   } catch(err) {}
   gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'nextjs_form', value: 1});
+  gtag('event', 'conversion_event_submit_lead_form');
   form.style.display = 'none';
   document.getElementById('leadSuccess').style.display = 'block';
   return false;
