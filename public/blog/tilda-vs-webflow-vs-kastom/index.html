@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tilda vs Webflow vs кастом: що обрати у 2026</title>
+<meta name="description" content="Чесне порівняння Tilda, Webflow і кастомної розробки: ціна, SEO, швидкість, власність коду й TCO за 3 роки. Для українського SMB на 2026.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/">
+<meta property="og:title" content="Tilda vs Webflow vs кастом: що обрати у 2026">
+<meta property="og:description" content="Decision framework: коли конструктор достатній, а коли вигідніше замовити кастомний сайт. З цифрами, кейсами і TCO за 3-5 років.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tilda vs Webflow vs кастом: що обрати у 2026">
+<meta name="twitter:description" content="Чесне порівняння для українського SMB: ціна, SEO, власність коду, міграція й TCO за 3-5 років.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Tilda vs Webflow vs кастом: що обрати у 2026",
+  "author": {"@id": "https://www.parkinsandr.tech/#author"},
+  "datePublished": "2026-04-29",
+  "dateModified": "2026-04-29",
+  "publisher": {"@id": "https://www.parkinsandr.tech/#author"},
+  "description": "Decision framework для українського SMB: коли Tilda, коли Webflow, коли кастомна розробка. З цифрами, прихованими витратами і TCO за 3-5 років.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "Tilda vs Webflow vs кастом", "item": "https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Що дешевше: Tilda, Webflow чи кастомний сайт?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На старті — Tilda ($10-25/місяць). Webflow дорожчий ($18-49/місяць, для e-commerce $42-235). Кастомний сайт в Україні фрілансером — $500-5000 одноразово, але без щомісячної підписки. За 3-5 років TCO кастомного сайту часто дорівнює або менше за Webflow Business з add-ons. Точна відповідь залежить від типу сайту і функціоналу."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи можна зробити нормальне SEO на Tilda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Технічно так, але з обмеженнями. Tilda має forced JS, lazy hydration і питання зі structured data — це впливає на INP і scoreCore Web Vitals. Для базової візитки SEO буде ок. Для конкурентних запитів і AI Overviews кастомний контроль над LCP/INP/CLS дає кращі результати. Webflow за бенчмарками 2026 має 58% сайтів, що проходять усі CWV."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Webflow кращий за Tilda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Webflow сильніший у дизайні, CMS і Core Web Vitals. Tilda простіша у вивченні і має нижчий поріг входу. Webflow дорожчий ($18-49/місяць проти $10-25), але дає більше контролю над структурою і виглядом. Для бренд-сайту, контент-проєкту або агенції — Webflow. Для швидкої візитки або тесту ідеї — Tilda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Коли не варто замовляти кастомну розробку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Коли потрібен лендінг для тесту ідеї на 1-2 місяці. Коли бюджет менший за $500 і немає планів масштабування. Коли власник готовий сам редагувати контент щодня без технічних знань. Коли сайт не є основним каналом продажів. У цих сценаріях Tilda або Webflow — раціональніший вибір."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чи можна перенести сайт із Tilda або Webflow на кастомний?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tilda Personal не дозволяє експорт коду — потрібен Business план ($25/місяць). Експортується HTML/CSS, але не CMS-логіка чи адмін-панель — їх треба переписувати. Webflow дає експорт на платних планах, але CMS-функціональність прив'язана до платформи. Найчастіше міграція = повна перебудова сайту, а не копіювання файлів."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Що краще для сайту-візитки художника або фрілансера?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Для простої візитки 1-5 сторінок без щоденних змін контенту — кастомний static HTML часто дешевший і швидший за конструктор. Кейс: сайт художниці Julia Satyr (satyr.com.ua) зроблений на чистому HTML/CSS — швидший за будь-який Tilda-аналог, без щомісячної підписки і повністю у власності замовниці. Якщо плануєте часто додавати роботи — обирайте Webflow або Tilda Business з власною CMS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Що краще для інтернет-магазину?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Webflow E-commerce коштує $42-235/місяць плюс 2% комісія на Standard плані. Tilda підтримує e-commerce у базових тарифах. Кастомний магазин на Next.js + Medusa.js (як кейс Atlas) — без комісій, повний контроль над даними і checkout, але більший upfront-бюджет. Для тесту ідеї — Tilda. Для серйозного бізнесу з масштабуванням — кастом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Скільки коштує кастомний сайт в Україні у 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Фрілансер: лендінг $500-1000 (20-30 тис. ₴), бізнес-сайт $750-1500 (30-50 тис. ₴), складний сайт з AI/інтеграціями $2000-5000 (75-200 тис. ₴). Агенція: вище у 2-5 разів. Це одноразовий бюджет — щомісячної підписки немає, тільки хостинг ($0-20/місяць на Vercel). Детальний розклад — у статті 'Скільки коштує сайт у 2026'."
+      }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<style>
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #6A6A6A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  .skip-link {
+    position: absolute; top: -40px; left: 0; padding: 8px 16px;
+    background: var(--blue-deep); color: var(--white); z-index: 200;
+    font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus { top: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
+    border-bottom: 1px solid rgba(27,58,92,0.05);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 3rem; text-align: center; }
+  .article-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.8rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.5rem 1.25rem; }
+  .article-body li { font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 0.4rem; font-weight: 300; }
+  .article-body a { color: var(--blue-mid); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.65; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .callout-orange { background: var(--orange-pale); color: #7A5230; border-left: 3px solid var(--orange); }
+
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin: 1.5rem 0;
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(27,58,92,0.08); font-size: 0.88rem;
+  }
+  .compare-table th {
+    padding: 0.9rem 1rem; text-align: left;
+    font-family: 'Instrument Serif', serif; font-size: 0.95rem;
+    background: var(--blue-deep); color: var(--milk); font-weight: 400;
+  }
+  .compare-table th:first-child { background: var(--milk-warm); color: var(--ink-soft); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; }
+  .compare-table td {
+    padding: 0.8rem 1rem; color: var(--ink-soft);
+    border-bottom: 1px solid rgba(27,58,92,0.05); line-height: 1.5;
+  }
+  .compare-table td:first-child { font-weight: 500; color: var(--ink); background: rgba(245,240,234,0.5); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .td-good { color: var(--green); }
+  .td-mid { color: var(--orange); }
+  .td-bad { color: var(--ink-muted); }
+
+  .verdict-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+  .verdict-card { padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(27,58,92,0.08); background: var(--white); }
+  .verdict-card h3 { margin-top: 0; font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--blue-deep); margin-bottom: 0.5rem; }
+  .verdict-card p { font-size: 0.88rem; line-height: 1.55; margin-bottom: 0; }
+  .verdict-tilda { background: #FFF8F0; }
+  .verdict-webflow { background: #F0F7FF; }
+  .verdict-custom { background: #F0FAF3; }
+
+  .case-grid { display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin: 1.5rem 0; }
+  .case-row {
+    display: grid; grid-template-columns: 180px 1fr;
+    background: var(--white); border-radius: 10px; padding: 1rem 1.2rem;
+    border: 1px solid rgba(27,58,92,0.06); font-size: 0.9rem; line-height: 1.55;
+    align-items: start;
+  }
+  .case-row .case-name { font-weight: 500; color: var(--blue-deep); }
+  .case-row .case-name a { text-decoration: none; color: inherit; border-bottom: 1px solid var(--blue-light); }
+  .case-row .case-desc { color: var(--ink-soft); font-weight: 300; }
+
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 2.5rem;
+    background: var(--blue-deep); border-radius: 16px; text-align: center;
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep);
+    border-radius: 100px; text-decoration: none; font-weight: 500;
+    font-size: 0.88rem; transition: transform 0.3s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+
+  .related-posts { max-width: 720px; margin: 2rem auto 0; padding: 2rem 0; border-top: 1px solid var(--milk-warm); }
+  .related-posts h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem; }
+  .related-posts-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .related-posts-list a {
+    display: block; padding: 1rem 1.2rem; background: var(--white); border-radius: 10px;
+    text-decoration: none; color: var(--ink); border: 1px solid var(--milk-warm);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .related-posts-list a:hover { border-color: var(--blue-sky); transform: translateY(-2px); }
+  .related-posts-list .rp-title { font-weight: 500; font-size: 0.95rem; color: var(--blue-deep); }
+  .related-posts-list .rp-desc { font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 2rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .compare-table th, .compare-table td { padding: 0.6rem 0.6rem; font-size: 0.78rem; }
+    .verdict-row { grid-template-columns: 1fr; }
+    .case-row { grid-template-columns: 1fr; gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Перейти до змісту</a>
+
+<nav aria-label="Основна навігація">
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<main id="main-content">
+<article>
+  <header class="article-header">
+    <div class="article-tag">Блог</div>
+    <h1>Tilda vs Webflow vs кастом: що обрати у 2026</h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Квітень 2026</span>
+      <span>14 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>Найчастіше питання від клієнтів за останній рік — не «React чи Vue», а «навіщо мені кастомний сайт, якщо є Tilda і Webflow». Це чесне питання. Конструктори у 2026 справді вміють багато: дизайн, CMS, базовий e-commerce, прийнятні Core Web Vitals. Але «достатньо для запуску» і «достатньо за 3-5 років» — це різні речі.</p>
+
+    <p>Ця стаття — не «продаж кастому». Це decision framework: чесні плюси й мінуси кожного шляху, реальні цифри 2026 року, приклади з 5 моїх кейсів і відповідь на головне питання — який ризик ви купуєте разом із дешевшим стартом.</p>
+
+    <div class="callout callout-blue">
+      <strong>TL;DR:</strong> Tilda — для швидкої візитки і тесту ідеї. Webflow — для дизайнерських маркетингових сайтів із CMS. Кастомна розробка — для бізнесу, де сайт продає, масштабується або інтегрується з процесами. Якщо рахувати не стартову ціну, а total cost of ownership за 3-5 років, найдешевший варіант не завжди має найнижчу повну вартість.
+    </div>
+
+    <h2>Коротке порівняння: Tilda vs Webflow vs кастом</h2>
+
+    <p>За один погляд: ось що ви отримуєте і що віддаєте у кожному з трьох шляхів. Деталі — нижче в тексті.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th scope="col">Критерій</th>
+          <th scope="col">Tilda</th>
+          <th scope="col">Webflow</th>
+          <th scope="col">Кастом (HTML / Next.js)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Швидкий старт</td><td class="td-good">Найкращий</td><td class="td-mid">Добрий</td><td class="td-bad">Повільніший (тиждень+)</td></tr>
+        <tr><td>Дизайн-контроль</td><td class="td-mid">Середній (блоки)</td><td class="td-good">Високий (flex/grid)</td><td class="td-good">Повний</td></tr>
+        <tr><td>SEO / CWV контроль</td><td class="td-mid">Обмежений</td><td class="td-good">Добрий</td><td class="td-good">Найвищий при оптимізації</td></tr>
+        <tr><td>Власність коду</td><td class="td-mid">Часткова (Business)</td><td class="td-mid">Обмежена</td><td class="td-good">Повна</td></tr>
+        <tr><td>Підписка / місяць</td><td>$10–25</td><td>$18–49 (+e-com $42–235)</td><td>$0 (тільки хостинг ~$0–20)</td></tr>
+        <tr><td>TCO за 3 роки</td><td class="td-mid">$360–900 + час</td><td class="td-mid">$648–8 500</td><td class="td-good">$500–5 000 одноразово</td></tr>
+        <tr><td>Для кого</td><td>Візитка, тест ідеї</td><td>Бренд, маркетинг, агенція</td><td>SMB, e-commerce, платформа</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 0.82rem; color: var(--ink-muted); margin-top: -0.5rem;">Ціни підписок — за тарифами Tilda і Webflow станом на квітень 2026. Українські фрілансерські тарифи на кастом — за дослідженням ринку <a href="https://artbrain.com.ua/en/blog/skilky-koshtuye-sayt-u-2026" target="_blank" rel="noopener noreferrer">artbrain.com.ua</a>.</p>
+
+    <h2>Коли Tilda — правильний вибір для малого бізнесу</h2>
+
+    <p>Tilda варто обирати, коли потрібна проста сторінка, швидкий запуск і можливість редагувати контент без розробника. Це нормальний вибір для тесту ніші, особистого портфоліо, події, невеликої візитки або тимчасового лендінгу. Я не маю в портфоліо сайтів на Tilda не тому, що вона погана — а тому, що мої клієнти приходять із задачами, які виходять за її межі.</p>
+
+    <h3>Сильні сторони Tilda</h3>
+    <ul>
+      <li><strong>Найнижчий поріг входу.</strong> Personal — $10–15/місяць, Business — $20–25/місяць (за тарифом 2026). Запуск за 1–3 дні без розробника.</li>
+      <li><strong>Готові блоки.</strong> Сотні шаблонів дизайну, які закривають 80% задач візитки чи лендінгу.</li>
+      <li><strong>Базовий e-commerce включено.</strong> Без додаткових тарифів і без 2% комісії, як у Webflow Standard.</li>
+      <li><strong>Простота для нерозробника.</strong> Власник може сам додати фото, змінити текст, опублікувати новину.</li>
+    </ul>
+
+    <h3>Де Tilda починає обмежувати</h3>
+    <ul>
+      <li><strong>Експорт коду тільки на Business.</strong> На Personal — ви прив'язані до платформи. Якщо захочете перенести сайт, доведеться платити Business ($25/місяць) або переписувати з нуля.</li>
+      <li><strong>Forced JS і lazy hydration.</strong> Це впливає на INP та індексацію складних сторінок. Для базової візитки незначно, для конкурентного SEO — критично.</li>
+      <li><strong>Слабкий CDN порівняно з Vercel/Cloudflare.</strong> LCP на Tilda складно вивести нижче 2.0 секунд без heavy lifting.</li>
+      <li><strong>Валютна підписка.</strong> Для українського SMB це додатковий ризик: курс плаває, способи оплати після 2022 року звузилися.</li>
+      <li><strong>Структура URL і schema.</strong> Tilda підтримує базову структуровану розмітку, але для FAQ, HowTo, Product у складних сценаріях — обмежено.</li>
+    </ul>
+
+    <div class="callout callout-orange">
+      <strong>Tilda не погана.</strong> Вона погана лише тоді, коли її беруть для задачі, яка вже вийшла за межі конструктора — каталог на 500+ позицій, складний особистий кабінет, AI-інтеграції, мультимовність, або сайт як основний канал продажів із трафіком 10k+ на місяць.
+    </div>
+
+    <p style="text-align:center; margin: 1.5rem 0;"><a href="/services/landing/" style="color: var(--blue-mid); font-weight: 500;">Якщо потрібен лендінг під рекламу — простий і швидкий →</a></p>
+
+    <h2>Коли Webflow має сенс</h2>
+
+    <p>Webflow має сенс, коли важливі дизайн, CMS і швидший запуск маркетингового сайту без повної кастомної розробки. Це сильніший інструмент за Tilda для складнішої візуальної подачі, але він теж залишається платформою з підпискою, тарифами й обмеженнями експорту.</p>
+
+    <h3>Сильні сторони Webflow</h3>
+    <ul>
+      <li><strong>Дизайн-контроль наближений до кастому.</strong> Flex/grid, custom transitions, responsive — без необхідності писати CSS вручну.</li>
+      <li><strong>Зріла CMS.</strong> Колекції, dynamic content, references — підходить для блогу, кейсів, продуктового сайту.</li>
+      <li><strong>Core Web Vitals краще за конкурентів-конструкторів.</strong> За даними бенчмарків 2026, 58% сайтів на Webflow проходять усі CWV — це у 1,4 раза краще за WordPress (42%).</li>
+      <li><strong>Експорт коду на платних тарифах.</strong> Краща портабельність, ніж у Tilda Personal.</li>
+    </ul>
+
+    <h3>Де Webflow починає дорожчати</h3>
+    <ul>
+      <li><strong>Структура тарифів складніша.</strong> Basic $18, CMS $29, Business $49 (за рік знижки). Для e-commerce окремо: Standard $42, Plus $84, Advanced $235 на місяць.</li>
+      <li><strong>Прихована комісія на Standard.</strong> 2% transaction fee + 2,9% + $0,30 платіжному провайдеру. На продажу за $100 загальна вартість — близько 5%.</li>
+      <li><strong>Шаблони не входять до тарифу.</strong> $29–129 за один раз, без можливості повернення.</li>
+      <li><strong>Інтеграції.</strong> Стандартні (HubSpot, Mailchimp) — $500–2000. Складні API — $3000–10000. Це додатковий бюджет, окрім Webflow-підписки.</li>
+      <li><strong>Експорт ≠ повна власність.</strong> CMS-функціональність прив'язана до Webflow. Експорт дає HTML/CSS, але блог чи каталог переписувати наново.</li>
+    </ul>
+
+    <div class="callout callout-blue">
+      <strong>Сильна сторона Webflow за бенчмарками:</strong> LCP у 2,3 раза швидше за WordPress, CLS на 40% кращий за Shopify, INP на 45% кращий за Squarespace — це за зібраними даними CSS Agency / launchcodex 2026. Для маркетингового сайту з акцентом на дизайн Webflow — об'єктивно добрий вибір.
+    </div>
+
+    <h2>Коли кастомний сайт вигідніший за конструктор</h2>
+
+    <p>Кастомний сайт вигідніший, коли бізнесу потрібні швидкість, контроль SEO, інтеграції, нестандартні форми, каталог, особистий кабінет, AI або e-commerce логіка. У такому сценарії ви платите більше на старті, але купуєте не шаблон, а контроль над кодом, даними й розвитком.</p>
+
+    <h3>Static HTML для сайтів-візиток і портфоліо</h3>
+    <p>Парадоксально, але для простого сайту-візитки кастомний static HTML часто <strong>дешевший і швидший</strong> за Tilda Personal у довгому горизонті. Чому: одноразовий бюджет 15–25 тис. ₴ замість підписки $10–15/місяць назавжди ($600–900 за 5 років), повна власність коду, LCP &lt; 1,5 секунд із коробки, без third-party скриптів, які тягнуть Tilda.</p>
+
+    <p>Реальний приклад — <a href="/projects/juliaart/">сайт художниці Julia Satyr</a> (satyr.com.ua). Чистий HTML/CSS, 2,5 МБ, 5 schema-блоків. Ні Tilda, ні Webflow для цієї задачі не дали б ні дешевше, ні швидше.</p>
+
+    <h3>Next.js для бізнес-сайтів, каталогів і платформ</h3>
+    <p>Коли потрібна динаміка, складні форми, інтеграція з CRM, мультимовність, e-commerce без 2% комісій або AI — це вже не зона конструктора. Next.js дає SSR/SSG/ISR, контроль над bundle size, повну свободу archi. Поганo оптимізований Next.js справді може бути гіршим за оптимізований Webflow — це чесно. Але добре зроблений Next.js перевершує і Webflow, і Tilda за CWV, SEO і конверсіями.</p>
+
+    <h3>Коли кастом не потрібен</h3>
+    <p>Я першим скажу, що кастом не потрібен у трьох випадках:</p>
+    <ul>
+      <li>Тестуєте ідею на 1–2 місяці без чітких метрик.</li>
+      <li>Бюджет менший за 15 тис. ₴ і немає планів зростання.</li>
+      <li>Власник готовий сам редагувати контент щодня без технічних знань.</li>
+    </ul>
+
+    <p style="text-align:center; margin: 1.5rem 0;"><a href="/services/nextjs/" style="color: var(--blue-mid); font-weight: 500;">Подивитись послугу: розробка сайтів на Next.js →</a></p>
+
+    <h2>Прихована вартість конструкторів за 3-5 років</h2>
+
+    <p>Повна вартість сайту складається не лише з підписки. Це підписка + шаблони + апгрейди + комісії + інтеграції + час власника + ймовірна міграція. Через 3–5 років дешевий старт може перетворитись на повторну оплату сайту з нуля.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th scope="col">Сценарій</th>
+          <th scope="col">3 роки</th>
+          <th scope="col">5 років</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Tilda Personal ($10/міс)</td><td>$360</td><td>$600</td></tr>
+        <tr><td>Tilda Business ($25/міс)</td><td>$900</td><td>$1 500</td></tr>
+        <tr><td>Webflow CMS ($29/міс)</td><td>$1 044</td><td>$1 740</td></tr>
+        <tr><td>Webflow Business ($49/міс)</td><td>$1 764</td><td>$2 940</td></tr>
+        <tr><td>Webflow E-com Standard ($42/міс) + 2% комісій</td><td>$1 512 + комісії</td><td>$2 520 + комісії</td></tr>
+        <tr><td>Webflow E-com Advanced ($235/міс)</td><td>$8 460</td><td>$14 100</td></tr>
+        <tr><td>Кастом UA фрілансер (одноразово)</td><td class="td-good">$500–5 000</td><td class="td-good">$500–5 000</td></tr>
+        <tr><td>Кастом + Vercel хостинг ($0–20/міс)</td><td>+ $0–720</td><td>+ $0–1 200</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 0.82rem; color: var(--ink-muted); margin-top: -0.5rem;">Розрахунки не враховують вартість роботи спеціаліста на конструкторі (від 10 тис. ₴ за лендінг, від 30 тис. ₴ за бізнес-сайт), шаблони, інтеграції та час власника. Це лише підписки.</p>
+
+    <p>Зверніть увагу на парадокс: <strong>кастомна розробка від фрілансера в Україні часто дешевша за Webflow Business за 3–5 років</strong>. Якщо ваш бюджет 30 тис. ₴ — за ці гроші ви або платите $1 044 за Webflow CMS і ще $500–2000 за інтеграції, або отримуєте кастомний сайт із повною власністю.</p>
+
+    <div class="callout callout-orange">
+      <strong>Найдорожчий сценарій</strong> — спочатку Tilda на 2 роки, потім термінова міграція на кастом, бо «вже не тягне». Це подвійна оплата: підписка за минуле + повна вартість нового сайту, бо експорт Tilda не замінить кастомну логіку.
+    </div>
+
+    <h2>Реальні приклади з практики parkinsandr.tech</h2>
+
+    <p>Різні задачі потребують різної технічної бази. Ось як це виглядає на 5 моїх кейсах — без шаблонної відповіді «завжди Next.js».</p>
+
+    <div class="case-grid">
+      <div class="case-row">
+        <div class="case-name"><a href="/projects/juliaart/">Juliaart</a></div>
+        <div class="case-desc">Сайт-портфоліо художниці на чистому HTML/CSS — без фреймворку. Tilda дала б ту саму візитку за $15/міс і повільніший LCP. Кастом тут <strong>дешевший і швидший</strong>.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-name"><a href="/projects/atlas/">Atlas</a></div>
+        <div class="case-desc">E-commerce за 4 дні на Next.js + Medusa.js. Webflow E-com Standard коштував би $42/міс + 2% комісій з кожного продажу. Кастом — без комісій, повна свобода checkout.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-name"><a href="/projects/agentis/">AGENTIS</a></div>
+        <div class="case-desc">AI-платформа юридичного аналізу: 300+ законів, 144k+ семантичних блоків. Це принципово не зона конструктора — потрібен Next.js + Supabase + AI-інфраструктура.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-name"><a href="/projects/slavutych/">Slavutych</a></div>
+        <div class="case-desc">Ресторанний сайт із бронюванням та інтеграцією меню. Webflow тягнув би CMS, але без switch на Standard e-com — без онлайн-замовлень. Next.js дав і те, і інше у одному рішенні.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-name"><a href="/projects/ace/">Академія сучасних освітян</a></div>
+        <div class="case-desc">Освітня платформа з реєстром учнів, блогом та SEO-структурою. Tilda не тягне реєстр; Webflow CMS — частково, але без особистого кабінету. Кастом дав повний функціонал.</div>
+      </div>
+    </div>
+
+    <h2>Як обрати: 5 питань перед рішенням</h2>
+
+    <p>Замість «Tilda чи кастом» — поставте собі ці 5 питань. Відповіді покажуть напрямок без необхідності читати ще 10 порівняльних статей.</p>
+
+    <ol>
+      <li><strong>Скільки років сайт буде працювати без переробки?</strong> Якщо 1-2 — Tilda або Webflow ок. Якщо 3-5+ — кастом виходить дешевшим.</li>
+      <li><strong>Чи буде сайт основним каналом продажів?</strong> Якщо так — кожна десята секунди LCP перетворюється на втрачені заявки. Кастом дає фінальний контроль.</li>
+      <li><strong>Чи плануєте інтеграції — CRM, AI, особистий кабінет, мультимовність?</strong> Якщо так — Webflow і Tilda стануть болем після 6 місяців.</li>
+      <li><strong>Чи є хто буде редагувати сайт щодня?</strong> Якщо так і це нерозробник — Webflow CMS або Tilda. Якщо контент стабільний — static HTML дешевший.</li>
+      <li><strong>Що ви купуєте: швидкий старт чи власність?</strong> Tilda/Webflow — це оренда. Кастом — це власність. Як з житлом: оренда зручніша на 1-2 роки, а через 5 років краще мати своє.</li>
+    </ol>
+
+    <h2>FAQ: Tilda vs Webflow vs кастом</h2>
+
+    <h3>Що дешевше: Tilda, Webflow чи кастомний сайт?</h3>
+    <p>На старті — Tilda. За 3-5 років вартість часто вирівнюється, особливо якщо порівнювати Webflow Business + add-ons із кастомним лендінгом від українського фрілансера. Деталі — у блоці про TCO вище і у статті <a href="/blog/skilky-koshtuye-sajt/">«Скільки коштує сайт у 2026»</a>.</p>
+
+    <h3>Чи можна зробити нормальне SEO на Tilda?</h3>
+    <p>Базове — так. Конкурентне у 2026 — складно. Forced JS, lazy hydration і питання зі structured data впливають на INP і CWV. Webflow тут об'єктивно сильніший. Кастом дає максимальний контроль, але вимагає роботи розробника, який розуміє SEO.</p>
+
+    <h3>Webflow кращий за Tilda?</h3>
+    <p>За CWV і дизайн-контролем — так. За простотою і ціною входу — Tilda. Tilda дешевша й простіша, Webflow — потужніший і дорожчий. Це різні інструменти для різних задач, а не «кращий/гірший».</p>
+
+    <h3>Чи можна перенести сайт із Tilda на Webflow або кастом?</h3>
+    <p>Tilda Personal не дає експорт коду — потрібен Business. Експортується HTML/CSS, але не CMS-логіка чи адмін-панель — їх переписують з нуля. Тому міграція = повна перебудова сайту, а не копіювання файлів. Це окрема послуга — <a href="/services/redesign/">редизайн сайту</a> із збереженням SEO-вартості.</p>
+
+    <h3>Що краще для сайту-візитки художника або фрілансера?</h3>
+    <p>Якщо контент рідко змінюється — кастомний static HTML. Дешевший за 5 років, швидший, без підписки. Якщо плануєте часто додавати роботи без технічних знань — Tilda Personal або Webflow CMS Lite. Кейс <a href="/projects/juliaart/">Juliaart</a> — приклад static-підходу.</p>
+
+    <h3>Що краще для інтернет-магазину?</h3>
+    <p>До 50 SKU і без складних інтеграцій — Tilda або Webflow. Від 100+ SKU, складний checkout, інтеграція з CRM/складом, або потреба у 0% комісії — кастом на Next.js + Medusa.js (як <a href="/projects/atlas/">Atlas</a>) виходить вигіднішим за Webflow E-com Plus ($84/міс) уже за рік-два.</p>
+
+    <h3>Скільки коштує кастомний сайт в Україні у 2026?</h3>
+    <p>Фрілансер: лендінг 20–30 тис. ₴, бізнес-сайт 30–50 тис. ₴, складний сайт із AI/інтеграціями 75–200 тис. ₴. Агенція: вище у 2–5 разів. Це одноразовий бюджет — щомісячної підписки немає, тільки хостинг ($0–20 на Vercel/Cloudflare).</p>
+
+    <h2>Підсумок: питання не «що краще», а «який ризик ви купуєте»</h2>
+
+    <p>Tilda, Webflow і кастомна розробка — це не градація «погано → добре». Це три різні бізнес-моделі: оренда базового конструктора, оренда потужного конструктора, або власний сайт. Кожен варіант раціональний у своїй ніші. Помилка — обирати по «дешевше на старті», не подумавши про 3-5 років.</p>
+
+    <div class="callout callout-green">
+      <strong>Як я раджу клієнтам:</strong> якщо ви не впевнені — зробіть на Tilda за тиждень і перевірте гіпотезу. Якщо запрацює — переписуйте на кастом. Якщо не запрацює — ви не втратили 30 тис. ₴ на сайт, який ніхто не побачив. Кастом потрібен, коли ви точно знаєте, що сайт буде працювати на бізнес роками.
+    </div>
+
+  </div>
+
+<section class="related-posts" aria-label="Пов'язані статті">
+  <h3>Читайте також</h3>
+  <div class="related-posts-list">
+    <a href="/blog/react-vs-tilda/">
+      <div class="rp-title">React vs Tilda: що обрати для бізнесу у 2026</div>
+      <div class="rp-desc">Глибше порівняння двох технологій із прикладами та цифрами.</div>
+    </a>
+    <a href="/blog/skilky-koshtuye-sajt/">
+      <div class="rp-title">Скільки коштує сайт у 2026 — чесний розклад</div>
+      <div class="rp-desc">Реальні ціни на лендінги, бізнес-сайти та платформи.</div>
+    </a>
+    <a href="/services/redesign/">
+      <div class="rp-title">Редизайн сайту для бізнесу — перезапуск</div>
+      <div class="rp-desc">Міграція з Tilda/Webflow без просадки SEO.</div>
+    </a>
+    <a href="/blog/yak-obrati-rozrobnyka/">
+      <div class="rp-title">Як обрати розробника сайту — 9 критеріїв</div>
+      <div class="rp-desc">Практичний гайд для замовника без технічних знань.</div>
+    </a>
+  </div>
+</section>
+
+</article>
+</main>
+
+<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
+  <h3>Не впевнені, який варіант для вашого бізнесу?</h3>
+  <p>Розкажу за 15 хвилин, які з 3 шляхів підходить саме вам — без продажу. Безкоштовно, без зобов'язань.</p>
+  <a href="/services/nextjs/#contact" class="cta-btn">Обговорити проєкт →</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (!a) return;
+  var href = a.href || '';
+  if (href.includes('t.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href});
+  }
+  else if (href.includes('wa.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href});
+  }
+  else if (href.startsWith('mailto:')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href});
+  }
+  else if (a.classList.contains('cta-btn') || a.classList.contains('nav-cta') || a.classList.contains('btn-primary') || href.includes('#chat-section')) {
+    gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href});
+  }
+});
+</script>
+</body>
+</html>
