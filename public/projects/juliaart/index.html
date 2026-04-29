@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julia Satyr Art — сайт-візитка для художниці</title>
+<meta name="description" content="Сайт-портфоліо для української художниці Юлії Сатир: 15 олійних картин, 5 JSON-LD схем, custom domain satyr.com.ua. Чистий HTML/CSS/JS без фреймворків, бюджет 4000 грн.">
+<link rel="canonical" href="https://www.parkinsandr.tech/projects/juliaart/">
+<meta property="og:title" content="Julia Satyr Art — сайт-візитка для художниці">
+<meta property="og:description" content="Портфоліо олійного живопису: 15 робіт, masonry-галерея, lightbox, 5 JSON-LD блоків, AI-боти дозволені. Кейс розробки.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/projects/juliaart/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/juliaart.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Julia Satyr Art — сайт-візитка для художниці">
+<meta name="twitter:description" content="Портфоліо олійного живопису: 15 робіт, masonry-галерея, lightbox, 5 JSON-LD блоків.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/juliaart.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6a6a6a">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Julia Satyr Art — сайт-візитка для художниці",
+  "author": {"@id": "https://www.parkinsandr.tech/#author"},
+  "datePublished": "2026-04-29",
+  "dateModified": "2026-04-29",
+  "publisher": {"@id": "https://www.parkinsandr.tech/#author"},
+  "description": "Кейс розробки сайту-портфоліо для художниці Юлії Сатир: 15 олійних картин, 5 JSON-LD схем, masonry-галерея, lightbox, GitHub Pages з custom domain.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/projects/juliaart/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Портфоліо", "item": "https://www.parkinsandr.tech/#portfolio"},
+    {"@type": "ListItem", "position": 3, "name": "Julia Satyr Art", "item": "https://www.parkinsandr.tech/projects/juliaart/"}
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<style>
+  :root {
+    --bg-dark: #1c1b18; --bg-card: #26241f; --text-main: #f3ede4;
+    --text-muted: #9e978c; --accent: #d9c8b8; --accent-hover: #efe5d8;
+    --border-color: rgba(217, 200, 184, 0.18);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  .skip-link {
+    position: absolute; top: -40px; left: 0; padding: 8px 16px;
+    background: var(--accent); color: #000; z-index: 200;
+    font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus { top: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--text-main); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(28, 27, 24, 0.88);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--text-main); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-back { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--accent); }
+  .case-hero {
+    padding: 8rem 2rem 3rem; text-align: center;
+    background: radial-gradient(circle at top, #2a2620 0%, var(--bg-dark) 70%);
+  }
+  .case-hero-inner { max-width: 800px; margin: 0 auto; }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .case-tag::before, .case-tag::after { content: ''; width: 20px; height: 1px; background: var(--accent); }
+  .case-hero h1 {
+    font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--text-main); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .case-hero h1 em { font-style: italic; color: var(--accent); }
+  .case-hero-desc { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; }
+  .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+  .case-body p { font-size: 1.02rem; line-height: 1.75; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 300; }
+  .case-body h2 {
+    font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--text-main);
+    margin: 3.5rem 0 1.5rem; line-height: 1.3; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+  }
+  .case-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--text-main); margin: 2rem 0 0.75rem; }
+  .case-body strong { font-weight: 500; color: var(--text-main); }
+  .case-body a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(217, 200, 184, 0.4); text-underline-offset: 3px; }
+  .case-body a:hover { text-decoration-color: var(--accent); }
+  .case-body ul { margin: 0 0 1.5rem 1.5rem; }
+  .case-body li { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); font-weight: 300; margin-bottom: 0.4rem; }
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; }
+  .callout-accent { background: rgba(217, 200, 184, 0.05); color: var(--text-main); border-left: 3px solid var(--accent); }
+  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0; }
+  .feature-card {
+    padding: 1.5rem; background: var(--bg-card); border-radius: 12px;
+    border: 1px solid var(--border-color); transition: border-color 0.3s;
+  }
+  .feature-card:hover { border-color: rgba(217, 200, 184, 0.4); }
+  .feature-icon { font-size: 1.6rem; margin-bottom: 1rem; display: inline-block; padding: 0.5rem; background: rgba(217, 200, 184, 0.08); border-radius: 8px; }
+  .feature-card h3 { font-size: 1rem; font-weight: 500; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2.5rem 0; }
+  .stat-box {
+    text-align: center; padding: 1.25rem; background: var(--bg-card);
+    border-radius: 12px; border: 1px solid var(--border-color);
+  }
+  .stat-box .num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--accent); }
+  .stat-box .lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .pipeline { margin: 2.5rem 0; }
+  .pipeline-step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.5rem 0; border-bottom: 1px dashed var(--border-color);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+  .pipeline-num {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 500;
+  }
+  .pipeline-step h3 { font-size: 1rem; font-weight: 500; color: var(--text-main); margin-bottom: 0.4rem; }
+  .pipeline-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+  .visit-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.4rem; margin: 0 0 2.5rem;
+    background: rgba(217, 200, 184, 0.06); color: var(--accent);
+    border: 1px solid var(--border-color); border-radius: 100px;
+    text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    transition: all 0.3s;
+  }
+  .visit-link:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+  .cta-banner {
+    max-width: 720px; margin: 0 auto 3rem; padding: 3rem 2.5rem;
+    background: radial-gradient(circle at center, #2a2620 0%, var(--bg-card) 100%);
+    border-radius: 16px; text-align: center; border: 1px solid var(--border-color);
+  }
+  .cta-banner h3 { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.75rem; }
+  .cta-banner p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem; background: transparent; color: var(--accent);
+    border-radius: 100px; text-decoration: none; font-weight: 500; border: 1px solid var(--accent);
+    font-size: 0.88rem; transition: all 0.3s;
+  }
+  .cta-btn:hover { background: var(--accent); color: #000; }
+  footer { padding: 2.5rem 3rem; border-top: 1px solid var(--border-color); text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+  footer a { color: var(--accent); text-decoration: none; }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .case-hero { padding: 6rem 1.5rem 3rem; }
+    .case-body { padding: 3rem 1.5rem 3rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Перейти до змісту</a>
+
+<nav aria-label="Основна навігація">
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<main id="main-content">
+<article>
+
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-tag">Кейс: Сайт-портфоліо</div>
+    <h1>Сайт-візитка <em>Julia Satyr Art</em></h1>
+    <p class="case-hero-desc">Портфоліо української художниці на чистому HTML/CSS/JS — без фреймворків, без build-step, без e-commerce. Тільки картини, тиша і custom domain.</p>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <img src="/images/juliaart.webp" alt="Julia Satyr Art — портфоліо української художниці олійного живопису" style="width:100%; height:auto; border-radius:16px; margin:0 0 2rem; box-shadow:0 10px 40px rgba(0,0,0,0.5); border:1px solid var(--border-color);" width="1200" height="630" loading="lazy">
+
+  <a href="https://satyr.com.ua/" target="_blank" rel="noopener noreferrer" class="visit-link">↗ Відкрити satyr.com.ua</a>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="num">15</div>
+      <div class="lbl">робіт у галереї</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">5</div>
+      <div class="lbl">JSON-LD схем</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">~2.5MB</div>
+      <div class="lbl">сумарна вага</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">4000₴</div>
+      <div class="lbl">бюджет проєкту</div>
+    </div>
+  </div>
+
+  <h2>Задача</h2>
+
+  <p>Юлія Сатир — сучасна українська художниця, олійний живопис, понад 120 робіт у портфоліо, виставки в Україні, Чехії та Італії. До цього її роботи жили лише у Facebook-альбомах і кількох публікаціях в арт-виданнях. Потрібен був <strong>власний сайт-візитка</strong> — щоб зібрати найкращі картини в одному місці, дати посилання у біо, і щоб про неї знали Google та AI-двигуни.</p>
+
+  <p>E-commerce не потрібен — продажі йдуть напряму через месенджери. Жодних кошиків, оплат, складських залишків. Тільки портфоліо, біографія, освіта, виставки, контакти.</p>
+
+  <div class="callout callout-accent">
+    <strong>Бюджет:</strong> 4000 грн фіксовано. Це означає — ніяких CMS, ніяких підписок, ніякого Webflow за $19/міс. Сайт має жити роками без правок і коштувати клієнту нуль на місяць.
+  </div>
+
+  <h2>Рішення</h2>
+
+  <p>Чистий <strong>HTML5 + CSS3 + vanilla JavaScript</strong>. Без React, без Next.js, без Webpack. Один файл <code>index.html</code>, один <code>style.css</code>, один <code>main.js</code>. Деплой — <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> з custom domain. Хостинг безкоштовний, домен ~150 грн на рік.</p>
+
+  <p>Чому такий вибір: для сайту-візитки на 1 сторінку фреймворк — це overhead без вигоди. Чистий HTML віддається з CDN, індексується миттєво, відкривається на найслабшому смартфоні і не зламається ні через рік, ні через п'ять.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🖼️</div>
+      <h3>Masonry-галерея</h3>
+      <p>15 картин у CSS columns layout (1 → 2 → 3 колонки за viewport). Vertical flow зберігає природні пропорції — без crop'у вертикальних робіт під квадрат.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Lightbox</h3>
+      <p>Картина у повний розмір, навігація стрілками + Escape, focus trap для клавіатури, mailto-CTA «Написати про цю роботу» з назвою у subject.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Hamburger overlay</h3>
+      <p>Повноекранне меню з backdrop-blur, 3-bar анімація → ✕, Escape для закриття, body-scroll lock. На десктопі — звичайна inline-навігація.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✍️</div>
+      <h3>Authentic підпис</h3>
+      <p>Витягнуто рукописний підпис «Satyr» прямо з картини «Берегиня України» (ImageMagick channel math → transparent PNG → recolor у cream). Реальний, не stock.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Canvas texture</h3>
+      <p>Subtle grayscale noise tile на body-background (4% opacity, mix-blend-mode overlay) — фізичне відчуття полотна без декоративності.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">♿</div>
+      <h3>WCAG AA</h3>
+      <p>Skip-link, semantic landmarks, focus trap у lightbox, prefers-reduced-motion, descriptive alt-тексти на 18 зображеннях, focus-visible outline.</p>
+    </div>
+  </div>
+
+  <h2>SEO та AI-видимість</h2>
+
+  <p>Найбільша частина роботи — не код, а <strong>schema markup</strong>. Сайт має 5 валідних JSON-LD блоків з cross-referencing через <code>@id</code> — щоб Google, ChatGPT, Perplexity і Claude бачили художницю як цілісну сутність, а не набір розрізнених фото.</p>
+
+  <ul>
+    <li><strong>Person</strong> (<code>#artist</code>) — Юлія Сатир, birthDate, email, телефони, sameAs (Facebook), knowsAbout, subjectOf → стаття в арт-виданні Оксамитове мистецтво (E-E-A-T сигнал)</li>
+    <li><strong>WebSite</strong> (<code>#website</code>) — inLanguage uk, datePublished, author reference</li>
+    <li><strong>BreadcrumbList</strong> — навігаційна ієрархія</li>
+    <li><strong>ItemList</strong> (<code>#gallery</code>) — 15 окремих <code>VisualArtwork</code> з <code>@id</code>-якорями (<code>#painting-berehynia</code>), <code>ImageObject</code> з width/height/caption, <code>dateCreated</code> де відомо</li>
+    <li><strong>Event</strong> — персональна виставка «Квіткова феєрія» 3–25 квітня 2026, Living Room, Київ</li>
+  </ul>
+
+  <p>Окремо — <code>robots.txt</code> з explicit <code>Allow</code> для GPTBot, ClaudeBot, PerplexityBot, Google-Extended і anthropic-ai. Sitemap.xml з <code>image:image</code> для всіх 15 картин з titles і captions — Google Image розуміє кожен файл як іменовану роботу, а не безіменний JPEG.</p>
+
+  <div class="callout callout-accent">
+    <strong>Чому це важливо:</strong> у 2026 пошуком вже керують AI Overviews (Gemini 3) і ChatGPT Search. Без structured data сайт існує лише як набір пікселів. З 5 JSON-LD типів — як сутність, яку AI може процитувати.
+  </div>
+
+  <h2>Перформанс і LCP</h2>
+
+  <p>LCP — це hero-портрет художниці. Щоб він з'являвся за &lt;2.5s навіть на 3G:</p>
+
+  <ul>
+    <li><code>&lt;link rel="preload" as="image" fetchpriority="high"&gt;</code> у <code>&lt;head&gt;</code> для hero-зображення</li>
+    <li><code>fetchpriority="high" decoding="async"</code> на самому LCP-тегу</li>
+    <li><code>loading="lazy"</code> на 15 картинах галереї — вони нижче fold</li>
+    <li>Усі зображення WebP (крім OG JPG, бо Telegram ще не дружить з WebP-превью)</li>
+    <li>Шрифти — Google Fonts через <code>preconnect</code>, тільки 2 родини (Playfair Display + Inter)</li>
+  </ul>
+
+  <p>Сумарна вага сторінки — ~2.5 MB разом з усіма 15 картинами і 3 портретами. Це менше за один Instagram-сторіс.</p>
+
+  <h2>Бренд як деталі</h2>
+
+  <p>Сайт-візитка для художника не може виглядати як шаблон. Ось що робить його <strong>її</strong> сайтом, а не просто темплейтом з ThemeForest:</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num">1</div>
+      <div>
+        <h3>Палітра з картин</h3>
+        <p>#6a6a6a (тіньовий фон), #f3ede4 (теплий cream), #efe5d8 (акценти), #d9c8b8 (лейбли) — взято з найтемнішої та найсвітлішої точок реальних робіт.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">2</div>
+      <div>
+        <h3>Типографіка</h3>
+        <p>Playfair Display (serif, italic) для H1/H2 — як підпис до картини в галереї. Inter — для body, бо читабельний на будь-якому device.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">3</div>
+      <div>
+        <h3>Орнамент-роздільник</h3>
+        <p>Вишиванко-подібний SVG над кожним H2 — тонка лінія, але одразу позиціонує сайт як український, без банальних соняшників.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">4</div>
+      <div>
+        <h3>Glassmorphism cards</h3>
+        <p>backdrop-filter: blur(12px) + border-radius 2rem на картках галереї. Сучасно, але не агресивно — картини залишаються головним героєм.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">5</div>
+      <div>
+        <h3>Логотип художниці</h3>
+        <p>Клієнтка прислала JS-monogram з ліліями. Я конвертував його у cream-варіант для темного хедера через PIL inversion — пікселі стали кремовими, прозорий фон зберігся.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Технічний стек</h2>
+
+  <ul>
+    <li><strong>Frontend:</strong> HTML5, CSS3 (CSS columns, backdrop-filter, focus-visible), vanilla JS</li>
+    <li><strong>Шрифти:</strong> Google Fonts — Playfair Display + Inter</li>
+    <li><strong>Зображення:</strong> WebP (картини, портрети, текстури), JPG (OG), SVG (favicon, орнамент)</li>
+    <li><strong>Хостинг:</strong> GitHub Pages (безкоштовний CDN, automatic HTTPS через Let's Encrypt)</li>
+    <li><strong>Домен:</strong> satyr.com.ua, apex з 4 A + 4 AAAA records на GitHub Pages IPs</li>
+    <li><strong>Тести:</strong> <code>node --test tests/</code> — мінімальний smoke-suite</li>
+    <li><strong>Pre-release audit:</strong> 5/5 JSON-LD валідні, 24/24 image src існують, 7/7 anchors resolve, 16/16 sitemap-локацій збігаються</li>
+  </ul>
+
+  <h2>Чому не Tilda або Webflow</h2>
+
+  <p>Це найчастіше питання від клієнтів-художників. Розбираю чесно:</p>
+
+  <ul>
+    <li><strong>Tilda</strong> — 750 грн/міс, lock-in на платформі, обмежений контроль над schema і robots.txt, повільніший LCP через fetched-блоки</li>
+    <li><strong>Webflow</strong> — $19/міс, англомовний інтерфейс, теж lock-in, експорт коду — додатковий тариф</li>
+    <li><strong>WordPress</strong> — безкоштовний движок, але хостинг ~$5/міс + теми + плагіни безпеки + апдейти, які регулярно щось ламають</li>
+    <li><strong>Чистий HTML на GitHub Pages</strong> — 0 грн/міс, повний контроль, працюватиме за 5 років без жодних правок</li>
+  </ul>
+
+  <p>Для бізнесу з товарами і динамічним контентом — фреймворк виправданий (див. <a href="/projects/atlas/">кейс Atlas</a>). Для сайту-візитки художника, де контент змінюється раз на рік — це overengineering.</p>
+
+  <div class="callout callout-accent">
+    <strong>Результат:</strong> сайт live на <a href="https://satyr.com.ua/" target="_blank" rel="noopener">satyr.com.ua</a>, нульовий monthly cost, 5 валідних schema-блоків, AI-боти проіндексували, клієнтка має посилання для біо у Facebook та Instagram. Бюджет 4000 грн закритий.
+  </div>
+
+</div>
+
+</article>
+</main>
+
+<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
+  <h3>Потрібен сайт-візитка?</h3>
+  <p>Чистий HTML на GitHub Pages, custom domain, повна SEO-розмітка. Без підписок і lock-in.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити ваш проєкт</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (!a) return;
+  var href = a.href || '';
+  if (href.includes('t.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href});
+  }
+  else if (href.includes('wa.me/')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href});
+  }
+  else if (href.startsWith('mailto:')) {
+    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href});
+  }
+  else if (a.classList.contains('cta-btn') || a.classList.contains('nav-cta') || a.classList.contains('btn-primary') || href.includes('#chat-section')) {
+    gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href});
+  }
+});
+</script>
+</body>
+</html>
