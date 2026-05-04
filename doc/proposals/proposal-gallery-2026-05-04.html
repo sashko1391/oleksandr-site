@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Сайт-каталог художниці — Комерційна пропозиція</title>
+
+<style>
+  @page {
+    size: A4;
+    margin: 22mm 18mm 20mm 18mm;
+    @bottom-center {
+      content: "Олександр Кравченко · Каталог художниці · стор. " counter(page) " з " counter(pages);
+      font-family: 'Inter', sans-serif;
+      font-size: 8pt;
+      color: #6B7280;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.6;
+    color: #0B1629; background: #FBFAF7; margin: 0;
+  }
+
+  /* COVER */
+  .cover {
+    page-break-after: always; min-height: 240mm;
+    display: flex; flex-direction: column;
+    justify-content: space-between; padding-top: 14mm;
+  }
+  .brand-mark { display: flex; align-items: center; gap: 14px; margin-bottom: 60px; }
+  .brand-a {
+    width: 44px; height: 44px; background: #0B1629; color: #C9A66B;
+    font-weight: 800; font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; letter-spacing: -1px;
+  }
+  .brand-text { font-weight: 700; font-size: 14pt; letter-spacing: 0.5px; color: #0B1629; }
+  .brand-text .sub {
+    display: block; font-weight: 400; font-size: 9pt;
+    letter-spacing: 2px; color: #6B7280;
+    text-transform: uppercase; margin-top: 2px;
+  }
+  .eyebrow {
+    font-size: 9pt; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 18px;
+  }
+  h1.cover-title {
+    font-size: 28pt; font-weight: 700; line-height: 1.15;
+    margin: 0 0 20px 0; color: #0B1629; letter-spacing: -0.5px;
+  }
+  .cover-lede {
+    font-size: 12pt; font-weight: 400; line-height: 1.55;
+    color: #374151; max-width: 160mm; margin-bottom: 0;
+  }
+  .ask-banner {
+    background: #0B1629; color: #FBFAF7;
+    padding: 20px 24px; border-radius: 8px;
+    margin: 30px 0 20px 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .ask-banner .ask-label {
+    font-size: 8pt; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 4px;
+  }
+  .ask-banner .ask-amount { font-size: 22pt; font-weight: 700; color: #C9A66B; letter-spacing: -1px; line-height: 1.15; }
+  .ask-banner .ask-context { font-size: 10pt; color: #D1D5DB; max-width: 95mm; line-height: 1.5; }
+  .cover-meta {
+    border-top: 2px solid #C9A66B; padding-top: 18px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px; font-size: 9pt;
+  }
+  .cover-meta .label {
+    color: #6B7280; text-transform: uppercase;
+    letter-spacing: 1.5px; font-size: 8pt; margin-bottom: 4px;
+  }
+  .cover-meta .value { color: #0B1629; font-weight: 600; font-size: 10pt; }
+
+  /* TYPOGRAPHY */
+  h2 {
+    font-size: 16pt; font-weight: 700;
+    margin: 30px 0 12px 0; color: #0B1629;
+    letter-spacing: -0.2px; padding-bottom: 8px;
+    border-bottom: 1px solid #E5E0D4;
+  }
+  h2::before {
+    content: ""; display: inline-block;
+    width: 4px; height: 18px; background: #C9A66B;
+    margin-right: 12px; vertical-align: -3px; border-radius: 2px;
+  }
+  h3 { font-size: 12pt; font-weight: 600; margin: 18px 0 8px 0; color: #0B1629; }
+  p { margin: 0 0 11px 0; }
+
+  /* TLDR */
+  .tldr {
+    background: #FFFFFF; border-left: 3px solid #C9A66B;
+    padding: 14px 18px; margin: 16px 0 22px 0;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 1px 2px rgba(11,22,41,0.04);
+  }
+  .tldr .tldr-label {
+    font-size: 8pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 6px;
+  }
+  .tldr p { margin: 0 0 10px 0; font-size: 10.5pt; color: #0B1629; line-height: 1.6; }
+  .tldr p:last-child { margin-bottom: 0; }
+
+  ul, ol { margin: 8px 0 14px 0; padding-left: 22px; }
+  li { margin-bottom: 8px; }
+
+  /* TABLES */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 12px 0 18px 0; font-size: 9.5pt; background: #FFFFFF;
+  }
+  th {
+    background: #0B1629; color: #FBFAF7;
+    text-align: left; padding: 10px 12px;
+    font-weight: 600; font-size: 9pt; letter-spacing: 0.3px;
+  }
+  td { padding: 10px 12px; border-bottom: 1px solid #E5E0D4; vertical-align: top; }
+  tr:nth-child(even) td { background: #F5F2EB; }
+  tr.highlight-dark td {
+    background: #0B1629 !important; color: #FBFAF7 !important;
+    border-bottom: 1px solid #0B1629;
+  }
+  tr.highlight-dark td.num, tr.highlight-dark td .gold { color: #C9A66B !important; }
+  tr.highlight-dark td.muted-col { color: #D1D5DB !important; }
+  tr.highlight-gold td {
+    background: #C9A66B !important; color: #0B1629 !important;
+    border-bottom: 1px solid #C9A66B;
+  }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* CALLOUTS */
+  .callout {
+    background: #0B1629; color: #FBFAF7;
+    padding: 18px 22px; border-radius: 8px; margin: 20px 0;
+  }
+  .callout .callout-label {
+    font-size: 8pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 8px;
+  }
+  .callout p { margin: 0 0 8px 0; font-size: 10.5pt; color: #FBFAF7; line-height: 1.55; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .light-callout {
+    background: #F5F2EB; border-left: 4px solid #C9A66B;
+    padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+  }
+  .light-callout .light-callout-label {
+    font-size: 8pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 6px;
+  }
+  .light-callout p { margin: 0 0 8px 0; font-size: 10.5pt; color: #0B1629; line-height: 1.55; }
+  .light-callout p:last-child { margin-bottom: 0; }
+
+  .pull-quote {
+    font-size: 14pt; font-weight: 600; line-height: 1.4;
+    color: #0B1629; letter-spacing: -0.2px;
+    border-left: 4px solid #C9A66B;
+    padding: 16px 22px; margin: 20px 0;
+    background: #FFFFFF;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 1px 2px rgba(11,22,41,0.04);
+  }
+  .pull-quote .quote-label {
+    display: block;
+    font-size: 8pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #C9A66B;
+    margin-bottom: 6px;
+  }
+
+  /* STAGE GRID */
+  .stage-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 14px 0 20px 0;
+  }
+  .stage-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .stage {
+    background: #FFFFFF; border: 1px solid #E5E0D4;
+    border-top: 3px solid #C9A66B;
+    padding: 14px 16px; border-radius: 4px;
+  }
+  .stage .stage-num {
+    font-size: 8pt; letter-spacing: 2px; color: #6B7280;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .stage .stage-name { font-size: 11pt; font-weight: 700; color: #0B1629; margin-bottom: 8px; }
+  .stage .stage-body { font-size: 9.5pt; color: #374151; line-height: 1.5; }
+  .stage.muted-stage { border-top-color: #9CA3AF; }
+  .stage.muted-stage .stage-num { color: #9CA3AF; }
+  .stage.accent { border-top-color: #0B1629; border-top-width: 4px; background: #F5F2EB; }
+
+  /* OPTION CARDS */
+  .option-card {
+    background: #FFFFFF; border: 1px solid #E5E0D4;
+    border-radius: 6px; padding: 18px 22px; margin: 14px 0;
+    box-shadow: 0 1px 3px rgba(11,22,41,0.05);
+    page-break-inside: avoid;
+  }
+  .option-card.primary {
+    border: 2px solid #C9A66B;
+    background: #FFFDF8;
+  }
+  .option-card .option-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; margin-bottom: 10px; padding-bottom: 10px;
+    border-bottom: 1px solid #E5E0D4;
+  }
+  .option-card .option-title { font-size: 13pt; font-weight: 700; color: #0B1629; line-height: 1.25; }
+  .option-card .option-sub { font-size: 9pt; color: #6B7280; margin-top: 3px; }
+  .option-card .option-price {
+    font-size: 20pt; font-weight: 700; color: #0B1629;
+    letter-spacing: -0.5px; white-space: nowrap; text-align: right; line-height: 1.1;
+  }
+  .option-card.primary .option-price { color: #C9A66B; }
+  .option-card .option-price-note { font-size: 8.5pt; color: #6B7280; font-weight: 400; letter-spacing: normal; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; padding-left: 0; margin: 8px 0; }
+  .checklist li {
+    position: relative; padding-left: 28px; margin-bottom: 6px;
+    font-size: 10pt; line-height: 1.5;
+  }
+  .checklist li::before {
+    content: "✓"; position: absolute; left: 0; top: 0;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #C9A66B; color: #0B1629;
+    font-weight: 700; font-size: 10pt;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .checklist.neg li::before { content: "✕"; background: #E5E0D4; color: #6B7280; }
+
+  /* FOOTER / SIGNOFF */
+  .footer-note {
+    margin-top: 26px; padding-top: 14px;
+    border-top: 1px solid #E5E0D4;
+    font-size: 8.5pt; color: #6B7280; line-height: 1.5;
+  }
+  .signoff {
+    margin-top: 24px; padding: 20px 24px;
+    background: #F5F2EB; border-left: 4px solid #C9A66B;
+    border-radius: 0 6px 6px 0; font-size: 11pt;
+    color: #0B1629; line-height: 1.6;
+  }
+  .signoff .signoff-label {
+    font-size: 8pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #C9A66B; margin-bottom: 8px;
+  }
+
+  /* UTILITIES */
+  .muted { color: #6B7280; }
+  .gold { color: #C9A66B; }
+  .bold { font-weight: 700; }
+  .break-before { page-break-before: always; }
+  .keep-together { page-break-inside: avoid; }
+  code {
+    font-family: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt; background: #F5F2EB;
+    padding: 1px 5px; border-radius: 3px; color: #0B1629;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div>
+    <div class="brand-mark">
+      <div class="brand-a">ОК</div>
+      <div class="brand-text">
+        Олександр Кравченко
+        <span class="sub">Web Development · AI Integration</span>
+      </div>
+    </div>
+
+    <div class="eyebrow">Комерційна пропозиція · 2026</div>
+    <h1 class="cover-title">Сайт-каталог художниці<br>з білінгвою та адмінкою</h1>
+    <p class="cover-lede">Галерея на 1000–1500 робіт із категоріями, двома мовами (UA/EN), двома ролями доступу в адмінці та масовим імпортом контенту з таблиць. Збудовано на Next.js і Sanity CMS за <b>3 тижні</b> — швидко, SEO-friendly, без щомісячних витрат на старті.</p>
+
+    <div class="ask-banner">
+      <div>
+        <div class="ask-label">Бюджет проєкту</div>
+        <div class="ask-amount">40 000 – 60 000 ₴</div>
+      </div>
+      <div class="ask-context">Дві опції: <b style="color:#C9A66B">Стандарт 40 000 ₴</b> (готовий шаблон + усі ключові фічі) або <b style="color:#C9A66B">PRO 60 000 ₴</b> (кастомний дизайн + пошук + розширені фільтри).</div>
+    </div>
+  </div>
+
+  <div class="cover-meta">
+    <div>
+      <div class="label">Документ</div>
+      <div class="value">v1.0</div>
+    </div>
+    <div>
+      <div class="label">Дата</div>
+      <div class="value">04.05.2026</div>
+    </div>
+    <div>
+      <div class="label">Проєкт</div>
+      <div class="value">Gallery Catalog</div>
+    </div>
+    <div>
+      <div class="label">Статус</div>
+      <div class="value">Чернетка</div>
+    </div>
+  </div>
+</section>
+
+<!-- 1. TL;DR -->
+<section>
+  <h2>1. Коротко про головне</h2>
+
+  <div class="tldr">
+    <div class="tldr-label">Якщо читати один абзац</div>
+    <p>Ви отримуєте повноцінний галерейний сайт-портфоліо з адмінкою, де двоє людей зможуть редагувати та поповнювати каталог із 1500 робіт двома мовами. Проєкт реалізується за <b>3 тижні</b> у режимі повного занурення, бюджет — <b>40 000 ₴ (Стандарт)</b> або <b>60 000 ₴ (PRO)</b>, оплата трьома траншами 20/40/40.</p>
+    <p>Ключове технологічне рішення — Next.js + Sanity CMS. Це означає: швидкий сайт, легка адмінка українською, ваші робочі матеріали у Excel/Sheets завантажуються одним скриптом за 1–2 дні, а не вручну за місяць. Хостинг і CMS у перший рік — безкоштовно.</p>
+  </div>
+</section>
+
+<!-- 2. ОПЦІЇ -->
+<section>
+  <h2>2. Дві опції — оберіть зручну</h2>
+
+  <p>Проєкт запропоновано у двох рівнях. Стандарт покриває 100% озвучених вимог. PRO додає функції, які роблять каталог зручнішим для відвідувачів і знімають з вас рутину.</p>
+
+  <div class="option-card">
+    <div class="option-head">
+      <div>
+        <div class="option-title">Опція 1 · Стандарт</div>
+        <div class="option-sub">Усе необхідне для запуску. Термін — 3 тижні.</div>
+      </div>
+      <div class="option-price">
+        40 000 ₴
+        <div class="option-price-note">оплата 20 / 40 / 40</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 8px;">Що входить</h3>
+    <ul class="checklist">
+      <li>5 шаблонів сторінок: Головна, Про художницю, Каталог із фільтрами, Сторінка роботи, Контакти</li>
+      <li>Дизайн на основі готового галерейного шаблону, адаптований під вас (1 моодборд на затвердження)</li>
+      <li>Білінгва UA/EN на рівні всього контенту (одна форма — обидві мови)</li>
+      <li>Адмінка Sanity CMS, повністю українською, 2 ролі: художниця (повний доступ) + контент-менеджер (тільки додавання робіт)</li>
+      <li>Bulk import 1500 робіт з Excel/Google Sheets — 1–2 дні замість місяця ручної роботи</li>
+      <li>Фільтри по 5–6 категоріях, сортування за роком</li>
+      <li>Авто-оптимізація фото: WebP/AVIF, ресайз, lazy load, blur placeholder</li>
+      <li>SEO-розмітка: hreflang UA↔EN, Schema.org VisualArtwork + Person, sitemap для 1500 робіт</li>
+      <li>Адаптивна верстка (mobile / tablet / desktop)</li>
+      <li>Деплой на Vercel + ваш домен + SSL</li>
+      <li>Onboarding-зустріч 1 година + коротка відеоінструкція по адмінці</li>
+    </ul>
+
+    <h3>Що НЕ входить (доступне в PRO)</h3>
+    <ul class="checklist neg">
+      <li>Кастомний дизайн з нуля (без шаблону)</li>
+      <li>Розширений пошук по каталогу</li>
+      <li>Множинні фільтри (рік + техніка + розмір одночасно)</li>
+      <li>Інтеграція з Instagram</li>
+      <li>Налаштування Google Analytics 4</li>
+    </ul>
+  </div>
+
+  <div class="option-card primary">
+    <div class="option-head">
+      <div>
+        <div class="option-title">Опція 2 · PRO <span class="gold" style="font-weight: 600; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase; margin-left: 8px;">Рекомендовано</span></div>
+        <div class="option-sub">Усе зі Стандарту + кастом + зручні фічі для відвідувачів. Термін — 3 тижні (full-focus режим).</div>
+      </div>
+      <div class="option-price">
+        60 000 ₴
+        <div class="option-price-note">оплата 20 / 40 / 40</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 8px;">Усе зі Стандарту, плюс:</h3>
+    <ul class="checklist">
+      <li><b>Кастомний дизайн з нуля</b> — 3 моодборди на вибір, унікальний візуал під вашу естетику (без шаблонів)</li>
+      <li><b>Розумний пошук</b> по каталогу — за назвою, роком, технікою (instant-результати)</li>
+      <li><b>Розширені фільтри</b> — комбінувати категорію + рік + техніку одночасно, з URL-станом (можна ділитись посиланням на відфільтровану добірку)</li>
+      <li><b>Share-кнопки + унікальне OG-зображення для кожної роботи</b> — красивий вигляд при репостах у соцмережах</li>
+      <li><b>Інтеграція з Instagram</b> — автоматичне підтягування останніх 6 постів у блок «Майстерня» на сайті</li>
+      <li><b>Google Analytics 4 + базова аналітика</b> — топ-роботи за переглядами, географія аудиторії, джерела трафіку</li>
+      <li><b>Розширений onboarding</b> — 2 години роботи разом по адмінці + детальна відеоінструкція (45 хв) із зразками</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3. SCOPE — що саме реалізовується -->
+<section class="break-before">
+  <h2>3. Що саме потрібно зробити (детально)</h2>
+
+  <p>Нижче — повний список задач з оцінкою часу. Це показує реальний обсяг робіт за 45–65 тис. ₴ і чому терміни саме такі.</p>
+
+  <div class="light-callout">
+    <div class="light-callout-label">Прозорість оцінок</div>
+    <p>Цифри в годинах — реалістична оцінка для проєкту такого типу на основі мого досвіду схожих робіт. Я не списую години — фінансові домовленості фіксовані за результат, не за час. Цей розклад потрібен, щоб ви бачили, на що йде ваш бюджет.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Етап / Задача</th>
+        <th style="width: 50%;">Що включає</th>
+        <th class="num">Стандарт</th>
+        <th class="num">PRO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Бриф + дослідження</b></td>
+        <td>Уточнення категорій, структури каталогу. Аналіз 5–7 референсних галерейних сайтів. Вибір технологічного стеку. Wireframes ключових сторінок (3–5 ескізів)</td>
+        <td class="num">5 год</td>
+        <td class="num">7 год</td>
+      </tr>
+      <tr>
+        <td><b>Моодборди + дизайн</b></td>
+        <td><b>Стандарт:</b> 1 моодборд на затвердження + адаптація галерейного шаблону під вас (кольори, шрифти, бренд).<br><b>PRO:</b> 3 моодборди на вибір + дизайн з нуля у Figma (5 шаблонів × desktop + mobile)</td>
+        <td class="num">10 год</td>
+        <td class="num">20 год</td>
+      </tr>
+      <tr>
+        <td><b>Frontend Next.js</b></td>
+        <td>Налаштування Next.js 16 + TypeScript. Верстка 5 шаблонів сторінок. Адаптивність. Підключення i18n (next-intl) з UA/EN routing та hreflang. Легкі hover/scroll анімації</td>
+        <td class="num">18 год</td>
+        <td class="num">22 год</td>
+      </tr>
+      <tr>
+        <td><b>CMS Sanity (адмінка)</b></td>
+        <td>Налаштування проєкту Sanity. Схеми контенту: Робота, Категорія, Художниця, Сторінка. Білінгва UA/EN на рівні полів. Налаштування 2 ролей доступу + permissions. Брендинг Studio (кольори, логотип)</td>
+        <td class="num">12 год</td>
+        <td class="num">12 год</td>
+      </tr>
+      <tr>
+        <td><b>Bulk import 1500 робіт</b></td>
+        <td>Скрипт CSV/Sheets → Sanity. Автоматичне завантаження зображень. Генерація slug, alt-текстів, mapping категорій UA→EN. Тестовий прогон на 50 роботах. Фінальний імпорт повного каталогу. Перевірка цілісності даних</td>
+        <td class="num">10 год</td>
+        <td class="num">10 год</td>
+      </tr>
+      <tr>
+        <td><b>Каталог + фільтри</b></td>
+        <td><b>Стандарт:</b> базові фільтри по категоріях, сортування за роком, infinite scroll або пагінація.<br><b>PRO:</b> + повнотекстовий пошук + множинні комбіновані фільтри + URL-стан + збереження стану скролу</td>
+        <td class="num">8 год</td>
+        <td class="num">14 год</td>
+      </tr>
+      <tr>
+        <td><b>Оптимізація зображень</b></td>
+        <td>Налаштування Sanity Image Pipeline (auto WebP/AVIF, on-the-fly resize). Інтеграція з next/image. Lazy loading + blur placeholders. CDN-кешування. Тестування швидкості при 1500 робіт</td>
+        <td class="num">5 год</td>
+        <td class="num">6 год</td>
+      </tr>
+      <tr>
+        <td><b>SEO-розмітка</b></td>
+        <td>Унікальні мета-теги UA/EN. Schema.org: VisualArtwork (для кожної роботи), Person (художниця), ImageGallery, BreadcrumbList. Динамічний sitemap.xml для 1500 робіт × 2 мови = 3000+ URL. robots.txt з дозволом для AI-ботів. OG-зображення</td>
+        <td class="num">6 год</td>
+        <td class="num">8 год</td>
+      </tr>
+      <tr>
+        <td><b>Інтеграції (PRO)</b></td>
+        <td>Share-кнопки (Facebook, Twitter, Telegram, копіювання). Унікальне динамічне OG для кожної роботи. Instagram Basic Display API → блок із 6 постами. Google Analytics 4 setup + 5 custom events</td>
+        <td class="num muted">—</td>
+        <td class="num">10 год</td>
+      </tr>
+      <tr>
+        <td><b>Деплой + домен</b></td>
+        <td>Налаштування Vercel. Підключення вашого домену + SSL. Підключення Sanity hosting. Production environment variables. Налаштування CDN та кешу</td>
+        <td class="num">3 год</td>
+        <td class="num">4 год</td>
+      </tr>
+      <tr>
+        <td><b>Тестування + bug fixes</b></td>
+        <td>Cross-browser (Chrome, Safari, Firefox, Edge). Mobile (iOS Safari, Android Chrome). PSI (Core Web Vitals). Accessibility WCAG AA. Тести bulk import на повному каталозі. Виправлення знайдених багів</td>
+        <td class="num">6 год</td>
+        <td class="num">8 год</td>
+      </tr>
+      <tr>
+        <td><b>Передача проєкту</b></td>
+        <td><b>Стандарт:</b> 1 година навчання + коротке відео (15 хв).<br><b>PRO:</b> 2 години живої роботи разом + детальне відео (45 хв) із покроковими сценаріями</td>
+        <td class="num">3 год</td>
+        <td class="num">5 год</td>
+      </tr>
+      <tr class="highlight-dark">
+        <td><b>Усього годин</b></td>
+        <td class="muted-col">Реалістичний обсяг робіт</td>
+        <td class="num"><b>≈ 86 год</b></td>
+        <td class="num"><b>≈ 126 год</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pull-quote">
+    <span class="quote-label">Чому саме ці технології</span>
+    Next.js + Sanity — це індустріальний стандарт для контентних сайтів у 2026. Швидкість, SEO-показники, легкість редагування і відсутність прив'язки до однієї платформи. Якщо ви колись захочете переїхати — ваш контент і код залишаються вашими.
+  </div>
+</section>
+
+<!-- 4. ТАЙМЛАЙН -->
+<section class="break-before">
+  <h2>4. Таймлайн — 3 тижні (спринт-режим)</h2>
+
+  <p>Стиснутий графік у режимі повного занурення. Я працюю над вашим проєктом фултайм, а ви тримаєте темп оперативними затвердженнями.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 14%;">Період</th>
+        <th style="width: 36%;">Що відбувається</th>
+        <th>Результат до кінця тижня</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Тиждень 1</b><br><span class="muted">Дні 1–7</span></td>
+        <td>Бриф (день 1) → моодборди (день 2–3) → дизайн макетів (день 4–7). Паралельно: налаштування Next.js + Sanity, схеми контенту, ролі доступу</td>
+        <td>Затверджений дизайн 5 шаблонів. Працююча адмінка з тестовими 10 роботами. <b>→ оплата траншу 1 (20%)</b> після затвердження моодборду на день 3</td>
+      </tr>
+      <tr>
+        <td><b>Тиждень 2</b><br><span class="muted">Дні 8–14</span></td>
+        <td>Frontend усіх 5 шаблонів. Підключення i18n UA/EN з hreflang. Каталог із фільтрами + пошук (PRO). Тестовий bulk import на 50 роботах. Оптимізація зображень</td>
+        <td>Робочий прототип каталогу на staging-домені. Білінгва працює. Фільтри і пошук протестовані. <b>→ оплата траншу 2 (40%)</b></td>
+      </tr>
+      <tr class="highlight-gold">
+        <td><b>Тиждень 3</b><br><span class="muted">Дні 15–21</span></td>
+        <td><b>Фінальний bulk import 1500 робіт + SEO-розмітка + інтеграції (PRO: Instagram, GA4) + cross-browser тестування + деплой на ваш домен + onboarding</b></td>
+        <td><b>Сайт у production. Доступи передано. Навчання проведено. Акт підписано. → оплата траншу 3 (40%)</b></td>
+      </tr>
+      <tr>
+        <td><b>30 днів</b><br><span class="muted">після здачі</span></td>
+        <td><span class="muted">Гарантійний період — фікс багів безкоштовно. Дрібні правки за вашими побажаннями</span></td>
+        <td><span class="muted">Стабільна робота сайту, спокійний запуск</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">Важливо · Умова для 3-тижневого терміну</div>
+    <p>3 тижні досягається при <b>оперативних затвердженнях з вашого боку</b>: моодборд — за 1 день, макети дизайну — за 1–2 дні, фідбек на staging — за 1 день. Якщо потрібен довший час на роздуми (це нормально) — кожна затримка автоматично зсуває фінал на стільки ж днів. У такому разі реалістичний термін — 4–5 тижнів.</p>
+    <p>Я починаю проєкт тільки коли впевнений, що мій графік дозволяє full-focus роботу. Тому термін стартує з дати першого траншу і блокую цей слот у календарі під вас.</p>
+  </div>
+</section>
+
+<!-- 5. ОПЛАТА -->
+<section>
+  <h2>5. Етапи оплати</h2>
+
+  <p>Оплата трьома траншами за принципом «оплата за результат, а не за час». Кожен транш прив'язаний до здавання конкретного етапу.</p>
+
+  <div class="stage-grid three">
+    <div class="stage">
+      <div class="stage-num">Транш · 1</div>
+      <div class="stage-name">20% — після моодбордів</div>
+      <div class="stage-body">
+        <b>Стандарт:</b> 8 000 ₴<br>
+        <b>PRO:</b> 12 000 ₴<br><br>
+        <i>Підстава:</i> затверджений моодборд / напрям дизайну. Старт активної фази розробки.
+      </div>
+    </div>
+    <div class="stage accent">
+      <div class="stage-num">Транш · 2</div>
+      <div class="stage-name">40% — затвердження дизайну<br>+ робочий прототип</div>
+      <div class="stage-body">
+        <b>Стандарт:</b> 16 000 ₴<br>
+        <b>PRO:</b> 24 000 ₴<br><br>
+        <i>Підстава:</i> готові макети + працюючий прототип каталогу з тестовим контентом.
+      </div>
+    </div>
+    <div class="stage">
+      <div class="stage-num">Транш · 3</div>
+      <div class="stage-name">40% — деплой і здача</div>
+      <div class="stage-body">
+        <b>Стандарт:</b> 16 000 ₴<br>
+        <b>PRO:</b> 24 000 ₴<br><br>
+        <i>Підстава:</i> сайт на вашому домені, доступи передано, onboarding проведено.
+      </div>
+    </div>
+  </div>
+
+  <div class="light-callout">
+    <div class="light-callout-label">Чому така схема</div>
+    <p>20% після моодбордів — підтверджує, що ми «співпали» по бачинню до того, як я роблю основний обсяг роботи. 40% посередині — компенсує саме найважчу фазу (дизайн + прототип). 40% при здачі — ваша гарантія, що проєкт здано в робочому стані. Перші 5–7 годин (бриф + ресерч + перший моодборд) я роблю за свій рахунок як демонстрацію наміру.</p>
+  </div>
+</section>
+
+<!-- 6. ПІСЛЯ ЗДАЧІ -->
+<section class="break-before">
+  <h2>6. Що з сайтом після здачі</h2>
+
+  <h3>6.1. Гарантія</h3>
+  <p>30 днів безкоштовного гарантійного періоду після підписання акту. У цей період я фікшу будь-які баги, які виникли через мій код, без додаткової оплати. Це не стосується нових фіч і змін після ваших правок у CMS.</p>
+
+  <h3>6.2. Хостинг і CMS — щомісячні витрати</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Сервіс</th>
+        <th>Перший рік</th>
+        <th>Після виходу за free tier</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Vercel</b> (хостинг сайту)</td>
+        <td>$0 / міс</td>
+        <td>$20 / міс (Pro plan, але вам це не потрібно для ~10 000 переглядів/міс)</td>
+      </tr>
+      <tr>
+        <td><b>Sanity</b> (CMS + сховище фото)</td>
+        <td>$0 / міс — 10 GB сховища, 100 GB трафіку</td>
+        <td>$0 → $15 / міс (залежно від трафіку)</td>
+      </tr>
+      <tr>
+        <td><b>Домен</b></td>
+        <td>~$10 / рік (продовження)</td>
+        <td>~$10 / рік</td>
+      </tr>
+      <tr class="highlight-dark">
+        <td><b>Разом перший рік</b></td>
+        <td colspan="2" class="num"><b>0–10 $ / міс</b> (≈ 0–400 ₴)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6.3. Підтримка (за бажанням)</h3>
+  <p>Після гарантійного періоду доступні два формати:</p>
+  <ul>
+    <li><b>Абонементна підтримка:</b> 5 000 ₴ / міс — до 4 годин роботи на правки, оновлення, моніторинг швидкості та SEO</li>
+    <li><b>Погодинна:</b> 800 ₴ / год — оплата за фактом виконаної роботи без зобов'язань</li>
+  </ul>
+  <p class="muted">Підтримка не нав'язується. Багато клієнтів кілька місяців не звертаються — сайт працює сам. Я завжди на зв'язку, якщо щось термінове.</p>
+</section>
+
+<!-- 7. ВІД КЛІЄНТКИ -->
+<section>
+  <h2>7. Що мені потрібно від вас на старт</h2>
+
+  <p>Що раніше ви передасте ці матеріали — то швидше старт. Збір може йти паралельно з моєю роботою над дизайном (тиждень 1–2), не блокує нас.</p>
+
+  <ul class="checklist">
+    <li><b>Excel або Google Sheets з роботами</b> — поля: фото / назва UA / назва EN / рік / техніка / категорія / опис UA / опис EN. Можна неповний — заповнюватиметься паралельно</li>
+    <li><b>Фото художниці</b> — 1–3 портретних знімки в гарній якості (для сторінки «Про художницю»)</li>
+    <li><b>Біографія UA + EN</b> — 1500–2500 знаків. Якщо є англійська біо — добре. Якщо немає — у PRO опціях є переклад</li>
+    <li><b>Логотип</b> (якщо є) у векторі (.svg, .ai) або довіра моєму типографічному рішенню</li>
+    <li><b>Брендові кольори / шрифти</b> (якщо є усталені) або теж довіра — підберу під естетику робіт</li>
+    <li><b>Контактна інформація</b> — email, телефон (опційно), соцмережі для футера</li>
+    <li><b>Доступи до домену</b> — буде потрібно на тижні 5–6 для прив'язки</li>
+  </ul>
+
+  <div class="light-callout">
+    <div class="light-callout-label">Якщо матеріалів ще немає</div>
+    <p>Це нормально — ви сказали, що каталог у процесі збирання. Запуск можна робити з частиною робіт (наприклад, 300–500 на старт), а решту додавати через адмінку самостійно або через bulk import повторно. Я роблю скрипт імпорту так, щоб його можна було запускати скільки завгодно разів — без втрати вже доданого контенту.</p>
+  </div>
+</section>
+
+<!-- 8. CALLOUT — RISKS -->
+<section>
+  <h2>8. Що НЕ входить у проєкт</h2>
+
+  <p>Чесно прописую межі, щоб не було сюрпризів пізніше.</p>
+
+  <ul class="checklist neg">
+    <li><b>Покупка робіт онлайн</b> — ви це й не просили, але уточню: каталог без e-commerce. Якщо колись захочете додати — це окремий проєкт від 50 000 ₴ (інтеграція платіжної системи, кошик, замовлення)</li>
+    <li><b>Переклад текстів UA→EN</b> — у Стандарті ви постачаєте обидві мови самі. У PRO є AI-помічник у CMS, який пропонує переклад, але фінальне редагування за вами (це швидко: 30–40 хв на 100 робіт)</li>
+    <li><b>Фотозйомка робіт або художниці</b> — не входить. Якщо потрібно професійне фото — порекомендую фотографа окремо</li>
+    <li><b>SMM, ведення Instagram, контент-маркетинг</b> — не моя зона. Сайт інтегрується з Instagram, але я його не веду</li>
+    <li><b>Хостинг доменної пошти</b> — не входить. Якщо потрібен email на @вашдомен — допоможу з налаштуванням Google Workspace ($6/міс) як окрема послуга</li>
+  </ul>
+</section>
+
+<!-- 9. РОЗРАХУНКИ -->
+<section>
+  <h2>9. Як проводимо розрахунки</h2>
+
+  <p>Два варіанти на ваш вибір — обидва легальні, обираєте за зручністю. На ціну і обсяг робіт це не впливає.</p>
+
+  <div class="stage-grid">
+    <div class="stage">
+      <div class="stage-num">Варіант · A</div>
+      <div class="stage-name">Як ФОП (офіційно)</div>
+      <div class="stage-body">
+        Я виставляю рахунок з реквізитами ФОП 3-ї групи. Ви оплачуєте з картки фізособи або з рахунку юрособи (якщо ви ФОП/ТОВ). Після кожного етапу — акт виконаних робіт.<br><br>
+        <b>Підходить:</b> якщо вам потрібні офіційні документи, ви маєте ФОП/ТОВ, або хочете формальну фіксацію.<br><br>
+        <span class="muted">Усі податки з мого боку (5% єдиний податок) — мій клопіт. Ваша сума залишається чистою — 40 000 або 60 000 ₴.</span>
+      </div>
+    </div>
+    <div class="stage accent">
+      <div class="stage-num">Варіант · B</div>
+      <div class="stage-name">Як з фізичною особою<br>(простіше для приватних клієнтів)</div>
+      <div class="stage-body">
+        Простий двосторонній договір підряду в довільній формі (підписуємо в електронному вигляді або на папері). Оплата на банківську картку фізособи (Monobank/ПриватБанк/будь-який банк).<br><br>
+        <b>Підходить:</b> якщо ви приватна особа без ФОП і не потребуєте формальних документів для обліку. Це найпростіший шлях.<br><br>
+        <span class="muted">Без актів виконаних робіт. Договір захищає обидві сторони — там зафіксовано обсяг, ціна, терміни, умови повернення на випадок форс-мажору.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-callout">
+    <div class="light-callout-label">На що звернути увагу</div>
+    <p>Якщо обираєте Варіант B (як фізособа) — за українським податковим законодавством ви як отримувач послуг від фізособи теоретично можете виступати податковим агентом. На практиці для приватних замовлень такого характеру (між двома фізособами) це не застосовується, але я рекомендую коротко проконсультуватись зі своїм бухгалтером, якщо є сумніви.</p>
+    <p>Я з юридичною освітою (магістр права, КНУ ім. Шевченка), тому шаблон договору надам сам — він короткий, зрозумілий, без юридичної води. Ви можете дати його на перевірку своєму юристу за бажанням.</p>
+  </div>
+</section>
+
+<!-- 10. SIGNOFF -->
+<section>
+  <h2>10. Наступні кроки</h2>
+
+  <ol>
+    <li><b>Ви читаєте цей документ</b> і відмічаєте все, що викликає питання</li>
+    <li><b>Ми спілкуємось 20–30 хв</b> (Google Meet або Telegram-дзвінок) — я показую 2–3 кейси схожих проєктів, відповідаю на питання, уточнюю деталі</li>
+    <li><b>Ви обираєте опцію</b> (Стандарт або PRO)</li>
+    <li><b>Я надсилаю договір + рахунок на перший транш</b> (20%)</li>
+    <li><b>Стартуємо</b> — у тиждень початку оплати йде в роботу бриф і моодборди</li>
+  </ol>
+
+  <div class="signoff">
+    <div class="signoff-label">Що потрібно від вас зараз</div>
+    Підтвердіть зручний час для дзвінка (понеділок–середа, 5–7 травня, 14:00–18:00 — або інший час за вашою пропозицією). Після дзвінка я надішлю фінальну версію цього документу з вашими правками і шаблон договору.
+  </div>
+
+  <div class="footer-note">
+    <b>Контакти:</b> Олександр Кравченко · admin@agentis.com.ua · parkinsandr.tech<br>
+    <b>Термін дії пропозиції:</b> 14 днів з дати документа (до 18.05.2026). Після цієї дати ціни і терміни можуть бути перераховані залежно від поточного завантаження.<br>
+    <b>Юридичний статус:</b> Україна. Розрахунки доступні як з ФОП 3-ї групи (з рахунком і актами), так і з фізичною особою (договір підряду, оплата на картку). Усі платежі у гривні. Деталі — у розділі 9.
+  </div>
+</section>
+
+</body>
+</html>
