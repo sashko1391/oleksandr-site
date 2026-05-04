@@ -248,3 +248,98 @@
 - Всі чеклісти зелені: ✅ Оголошення, ✅ Цілі, ✅ Обліковий запис
 - Попередження "відстеження конверсій не завершено" — нормально, буде працювати після перших кліків
 - Очікується: модерація 24-48 год + поповнення рахунку
+
+## 2026-04-22 — GSC indexing + Google Ads review escalation
+
+### GSC indexing push
+Запрошено індексацію 6 URL через URL Inspection:
+- /services/landing/, /services/nextjs/
+- /blog/skilky-koshtuye-sajt/
+- /projects/atlas/
+- /blog/devlog-business-empire-idle/, /blog/devlog-empire-online/
+
+### Google Ads review — stuck
+- Customer ID: **697-221-7708**
+- Кампанія "Parkinsandr" — статус "Заплановано" з 2026-04-09, оголошення досі Under Review
+- 2026-04-16: support (Puneet) переслав запит команді з ETA 2-3 робочих дні (case 4-6482000040785)
+- 2026-04-22: минуло 4 робочих дні → відправлено follow-up email з ескалацією
+
+### Conversion tracking — finalized
+Перевірено повний flow у Goals → Summary → "Надсилання форм для лідів":
+- 3 дії-конверсії як Primary, всі з GA4:
+  - `contact_click` (Parkinsandr web)
+  - `SUBMIT_LEAD_FORM`
+  - `generate_lead` (Подія GA4)
+- GA4 ↔ Ads зв'язано ще 2026-04-12 (персоналізована реклама увімкнена)
+- **Додано Parkinsandr до "Оптимізація на рівні кампанії"** для цілі "Надсилання форм для лідів" → кампанія тепер оптимізується під заявки, а не під залучення (кліки)
+
+### UI gotchas (зафіксовано)
+- Сповіщення "Оновлено умови використання" — passive acceptance, кнопки "Прийняти" немає навмисно, ігнорувати
+- Сповіщення "Укажіть номер телефону" — маркетинг від Google sales, не блокер
+- Діагностика "звіти про конверсії не створюються" — нормальна для нової кампанії без показів, зникне після першої заявки
+- Wizard "Рекомендації → Завершіть налаштування відстеження конверсій" пропонує створити дубль gtag-конверсії з e-commerce опціями — ігнорувати, у нас вже GA4-імпорт
+- billing.google.com/paymentsinfofinder — інформаційна сторінка без дій, не туди для ToS
+
+---
+
+## 2026-04-29 — /projects/juliaart/ кейс сайту-портфоліо для художниці
+
+### Що зроблено
+Створено п'ятий case study на сайті — `/projects/juliaart/` для проєкту Julia Satyr Art (satyr.com.ua), сайт-візитка української художниці олійного живопису. Це перший кейс у портфоліо, який не Next.js / e-commerce / AI, а навмисно мінімалістичний static HTML — щоб показати, що під різні задачі рекомендується різний стек.
+
+### Контент-структура (за шаблоном Atlas)
+- Hero з тегом «Кейс: Сайт-портфоліо», h1 з italic-акцентом
+- 4 stat-боки: 15 робіт · 5 JSON-LD · ~2.5MB · 4000₴ бюджет
+- Розділи: Задача → Рішення → SEO та AI-видимість → Перформанс → Бренд як деталі (5-step pipeline) → Технічний стек → Чому не Tilda/Webflow
+- 6 feature cards: masonry-галерея, lightbox, hamburger overlay, authentic підпис, canvas texture, WCAG AA
+- Внутрішнє посилання на `/projects/atlas/` як контраст («коли потрібен фреймворк»)
+- Зовнішнє live-посилання на satyr.com.ua (visit-link button + 5 inline посилань у тексті)
+
+### Бренд-палітра (інша за всі попередні кейси)
+Cream/sand замість золотого Atlas / синього AGENTIS:
+- `--bg-dark: #1c1b18`, `--bg-card: #26241f`
+- `--text-main: #f3ede4`, `--text-muted: #9e978c`
+- `--accent: #d9c8b8`, `--accent-hover: #efe5d8`
+- `--border-color: rgba(217, 200, 184, 0.18)`
+
+### Schema
+- Article (`@type`) з referenced `author: {"@id": "https://www.parkinsandr.tech/#author"}` — Person визначається на homepage, тут лише посилання
+- BreadcrumbList: Головна → Портфоліо → Julia Satyr Art
+
+### Зображення
+- `public/images/juliaart.jpg` (74 KB) — копія OG-картинки satyr.com.ua (1200×630)
+- `public/images/juliaart.webp` (36 KB) — конвертовано через PIL (`Image.save WEBP quality=85`), бо `cwebp` не встановлений
+
+### Інтеграції з рештою сайту
+- Картка у `public/index.html` після Atlas, з reveal-d2 анімацією, теги «Портфоліо · Мистецтво», метрики `HTML · CSS · JS` / `5 schema-блоків` / `satyr.com.ua`
+- `public/sitemap.xml` — додано URL з lastmod 2026-04-29, priority 0.8
+- Alt-тексти описові («Julia Satyr Art — сайт-портфоліо української художниці олійного живопису»)
+
+### Commit
+`33dee6b feat: /projects/juliaart/ — кейс сайту-портфоліо для художниці Julia Satyr` (5 files, 428 insertions). Запушено на main → Vercel автодеплой.
+
+### Lessons / нюанси для наступних кейсів-портфоліо
+- Шаблон Atlas універсальний для будь-якого кейсу: hero → stats → callout → задача → рішення → feature-grid → pipeline → tech stack → comparison → result callout
+- Палітру варто адаптувати під реальний бренд проєкту, а не повторювати золотий Atlas — інакше всі кейси злипаються візуально
+- `visit-link` button (зовнішнє посилання на live-сайт) краще ставити одразу після hero-зображення, не у footer — це primary CTA для відвідувача кейсу
+- «Чому не Tilda/Webflow» розділ — корисний для clients, які приходять з установкою «візьму конструктор». Чесне порівняння цін у місяць.
+
+## 2026-04-30 — /pricing/ smoke-test + GA4 events verification
+
+### Що зроблено
+- Проведено end-to-end smoke-test сторінки `/pricing/` (utility-сторінка з 6 пакетами + брифом)
+- Підтверджено реєстрацію всіх 6 кастомних GA4 events у звіті "Події":
+  - `pricing_view` (page load)
+  - `pricing_view_tier` (картка 50% у viewport, IntersectionObserver)
+  - `pricing_select_tier` (CTA «Обговорити такий сайт» → autofill site_type у формі)
+  - `pricing_compare_view` (comparison-таблиця у viewport)
+  - `pricing_form_submit_attempt` (натискання submit)
+  - `pricing_form_submit` (успішний webhook → Telegram)
+- Telegram-нотифікація з форми приходить ✅
+- Позначено як conversions (⭐): `pricing_form_submit`, `pricing_select_tier`
+- `generate_lead` — вже була позначена раніше
+
+### Висновки
+- /pricing/ повністю робочий: events → GA4 + форма → Telegram webhook
+- Реалістичний smoke-test через Realtime + 28-day report показав, що JS-tracking, IntersectionObserver-based view events і form submission flow працюють як заплановано
+- Можна закривати таску /pricing/ і переходити до Sprint C (CWV + cluster expansion)

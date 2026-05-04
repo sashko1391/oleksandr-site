@@ -171,3 +171,78 @@ Best Practices 77 на всіх — через Microsoft Clarity third-party coo
 - `.article-body` (max-width 720px) з h2/h3, callouts (blue/green/orange), таблиці
 - `.cta-banner` з посиланням на AI-чат
 - Footer
+
+## Google Ads — поточний стан (оновлено 2026-04-22)
+
+### Ідентифікатори
+- Account: sashko1391@gmail.com
+- Customer ID: **697-221-7708**
+- GA4 property: Parkinsandr (531391243), measurement ID G-Y891WWYE79
+- Support case: 4-6482000040785 (Puneet)
+
+### Конверсійна модель
+Ціль "Надсилання форм для лідів" → 3 Primary дії з GA4:
+- `contact_click` (Parkinsandr web)
+- `SUBMIT_LEAD_FORM`
+- `generate_lead` (Подія GA4)
+
+Прив'язано до кампанії Parkinsandr на рівні campaign goals — оптимізація під заявки, не під кліки.
+
+### Відомі UI-пастки (щоб не губитися в майбутньому)
+- "Оновлено умови використання" — пасивне сповіщення без кнопки прийняти, ігнорувати
+- "Укажіть номер телефону" — маркетинг Google sales, не блокер
+- Wizard "Рекомендації → gtag конверсії" з e-commerce опціями — не використовувати, у нас GA4-імпорт
+- billing.google.com/paymentsinfofinder — довідка, не dashboard
+- Діагностика "звіти про конверсії не створюються" — норма до першої реальної заявки
+
+---
+
+## Portfolio case studies — стан на 2026-04-29
+
+### Список кейсів у `/projects/`
+1. `agentis/` — AI-платформа юридичного аналізу (featured, full-width)
+2. `ace/` — Академія сучасних освітян, освітня платформа
+3. `slavutych/` — ресторан української кухні
+4. `atlas/` — e-commerce за 4 дні (Next.js + Medusa.js)
+5. `juliaart/` — сайт-візитка для художниці Julia Satyr (satyr.com.ua) ← **доданий 2026-04-29**
+
+### Шаблон case study (Atlas-style, тепер canon)
+Всі нові кейси наслідують структуру `/projects/atlas/index.html`:
+- Hero з case-tag, h1 з italic-акцентом, desc
+- 4 stat-боки (`.stats-row`)
+- Розділи через `<h2>` з нижньою бордюр-лінією: Задача → Рішення → tech-specific блоки → Comparison → Result callout
+- 6-8 feature cards у `.feature-grid` (icon + h3 + p)
+- Pipeline зі step-нумерацією для процесу/моделі (`.pipeline-num`)
+- `.callout-accent` блоки для виділення key insights
+- CTA banner перед footer
+- GA4 + Clarity + conversion tracking inline
+
+### Бренд-палітри per case (для уникнення візуального злипання)
+- **Atlas:** `#C4841D` accent, `#1A1A18` bg — золотий
+- **Juliaart:** `#d9c8b8` accent, `#1c1b18` bg — cream/sand
+- Наступні кейси треба робити в окремих палітрах, не повторювати
+
+### Конвенції зображень
+- `public/images/{slug}.webp` (primary, ~30-40 KB)
+- `public/images/{slug}.jpg` (fallback для OG/Telegram)
+- Розмір 1200×630 для OG-сумісності
+- Якщо `cwebp` недоступний — конвертувати через PIL: `Image.open().save(out, 'WEBP', quality=85)`
+
+### Sitemap maintenance
+При створенні нового case study обов'язково:
+1. Додати `<url>` блок у `public/sitemap.xml` з priority 0.8
+2. Додати картку у `.portfolio-grid` на `public/index.html` (після Atlas, перед SVENGO)
+3. Перевірити reveal-d* класи — це animation stagger, дублі не критично
+
+### /pricing/ GA4 events (verified 2026-04-30)
+6 кастомних events зареєстровано і працює end-to-end:
+- `pricing_view`, `pricing_view_tier`, `pricing_select_tier`, `pricing_compare_view`, `pricing_form_submit_attempt`, `pricing_form_submit`
+- Conversions (⭐): `pricing_form_submit`, `pricing_select_tier`, `generate_lead`, `contact_click`
+- Form submit → Telegram webhook (через `/api/send-chat.js`) — підтверджено
+
+### Smoke-test pattern для нових інтерактивних сторінок
+1. Відкрити Realtime-звіт у GA4 (миттєва верифікація без 15-30 хв лагу)
+2. Пройти повний user flow в інкогніто (page load → view interactions → CTA → form submit)
+3. Перевірити `Адміністратор → Події` що всі custom events з'явились у списку
+4. Поставити ⭐ тільки на conversion-events (form submit, select intent), не на view-events
+5. Verify external integration (Telegram/email) окремо
