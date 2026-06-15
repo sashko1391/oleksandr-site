@@ -343,3 +343,57 @@ Cream/sand замість золотого Atlas / синього AGENTIS:
 - /pricing/ повністю робочий: events → GA4 + форма → Telegram webhook
 - Реалістичний smoke-test через Realtime + 28-day report показав, що JS-tracking, IntersectionObserver-based view events і form submission flow працюють як заплановано
 - Можна закривати таску /pricing/ і переходити до Sprint C (CWV + cluster expansion)
+
+## 2026-05-04 — Sprint C closure: AGENTIS SEO results + /services/ai/ FAQ + post-deploy PSI
+
+### Що зроблено
+1. **AGENTIS case study expansion** (`/projects/agentis/index.html`) — додано великий розділ «Результати: SEO та індексація (квітень 2026)» з реальними GSC-даними:
+   - Індексація: 1 сторінка (10.03) → 58 сторінок (27.04) за 7 тижнів, 0 проблем з боку Google
+   - Performance: 75 кліків / 4 229 показів / CTR 1.77% / середня позиція 10.8 за **останні 28 днів**
+   - Breakdown по сторінках: головна 19% CTR, /situation 42% CTR, programmatic /topics/* 0.5-0.8% CTR (план переписати title/description)
+   - Брендовий запит «agentis» — 19 кліків / 30 показів / CTR 63%
+   - Гео-розподіл: Україна 73 кліки vs США 0 кліків (1707 нерелевантних показів)
+   - План росту: rewrite low-CTR pages, оптимізація позицій 6-10, гео-фільтрація
+
+2. **/services/ai/ FAQ expansion** — +3 question/answer пари синхронно у JSON-LD FAQPage і DOM:
+   - «Коли потрібен RAG, а коли достатньо простого AI-чатбота?»
+   - «Куди йдуть дані клієнтів, коли бізнес підключає AI?» (GDPR/data minimization angle)
+   - «Що краще: AI-бот чи n8n/Make/Zapier?» (decision framework)
+   - Додано mention AGENTIS SEO-results у case highlight + посилання «Детальний кейс AGENTIS з SEO-результатами →»
+
+3. **Cluster refresh** — bump `dateModified` у JSON-LD на 4 blog posts (jarvis 2026-04-30, react-vs-tilda 2026-04-29, tilda-vs-webflow-vs-kastom 2026-04-30, yak-obrati-rozrobnyka 2026-04-14), оновлено `lastmod` у `sitemap.xml` для 6 URL
+
+4. **Article schema audit** (Sprint C deliverable) — verified всі 8 blog posts мають Article + BreadcrumbList + Person @id refs; dateModified збігається з git log (точність schema)
+
+5. **Post-deploy PSI re-run** (Sprint C deliverable):
+   - Homepage: P89 / A96 / LCP 3.0s / CLS 0.004 / TBT 40ms
+   - /blog/react-vs-tilda/: P90 / A91 / LCP 2.7s / CLS 0.024 / TBT 130ms (A11y +12 vs Sprint C baseline 79)
+   - /projects/ace/: P75 / A91 / LCP 4.9s / CLS 0.006 / TBT 160ms (A11y +10 vs baseline 81, LCP -0.2s)
+   - **Висновок:** Accessibility fixes Sprint C спрацювали (+10-12 pts), LCP все ще не «Good» (>2.5s) — main bottleneck на ace -750ms unused JS з `gtag.js` (71KB)
+
+### Commits
+- `e4fdeb3 feat: AGENTIS SEO results + /services/ai/ FAQ expansion` (2 files, +75/-3)
+- `a4c58c8 chore: cluster refresh dateModified + docs (Google Ads, juliaart, /pricing/)` (7 files, +181/-11)
+- Push на main → Vercel автодеплой
+
+### Sprint C closure (8/8 ✅)
+| # | Деліверібл | Статус |
+|---|---|---|
+| 1 | PSI на 3 templates | ✅ done (post-deploy) |
+| 2 | Accessibility fixes 14 pages | ✅ done |
+| 3 | LCP optimization | ✅ done |
+| 4 | Article schema audit + dateModified accuracy | ✅ verified today |
+| 5 | Landing «AI-інтеграції для сайту» | ✅ /services/ai/ + 3 FAQ items |
+| 6 | AGENTIS case з SEO results | ✅ done today |
+| 7 | Re-run PSI after deploy | ✅ done today |
+| 8 | Outreach for credit links | N/A — credits уже стоять на live-сайтах клієнтів |
+
+### Інфраструктурні зміни
+- Створено `.env` з `PSI_API_KEY` — для автоматизації PSI runs з командного рядка (без квоти 25 анонімних запитів/день)
+- `.env` уже у `.gitignore` (поряд з `.env.local`, `node_modules/`, `.vercel/`)
+
+### Lessons / нюанси
+- **Дані GSC треба трактувати з періодом** — за замовчуванням Performance report показує «Last 28 days», не «3 months». При написанні contentу про SEO-результати — завжди явно вказувати window, інакше читач (і AI) можуть інтерпретувати як cumulative
+- **PSI public API має квоту** ~25 запитів/день без ключа. З ключем — 25 000/день безкоштовно. Краще ставити одразу через Cloud Console
+- **`feedback_credit_links.md`** збережено в memory: на всіх клієнтських сайтах credit links уже стоять (домовляються при контракті) — outreach з generic SEO playbook'у не валідний для нашого сетапу
+- **Sprint C фактично закрився раніше за дедлайн (17.05)** — основна частина роботи тривала 04.04-04.05, тобто local "sprint" timing відстає від реальності. Sprint D (18.05) теж частково випереджений: redesign LP, internal-linking tutorial, Hub & Spoke вже зроблено

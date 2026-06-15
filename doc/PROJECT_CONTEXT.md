@@ -246,3 +246,46 @@ Best Practices 77 на всіх — через Microsoft Clarity third-party coo
 3. Перевірити `Адміністратор → Події` що всі custom events з'явились у списку
 4. Поставити ⭐ тільки на conversion-events (form submit, select intent), не на view-events
 5. Verify external integration (Telegram/email) окремо
+
+## Sprint C closure — стан на 2026-05-04
+
+**Status:** Sprint C (CWV + Schema, 04.05–17.05) закрито 100% — 8/8 деліверіблів. Реально робота тривала з 04.04 до 04.05 (паралельно з Sprint A/B), тобто sprint-timing у CLAUDE.md відстає від real-world delivery — більшість Sprint D items також уже готові.
+
+### Post-deploy PSI baseline (mobile, 2026-05-04)
+| Сторінка | Performance | Accessibility | LCP | CLS | TBT |
+|---|---:|---:|---:|---:|---:|
+| `/` (homepage) | 89 | 96 | 3.0s | 0.004 | 40ms |
+| `/blog/react-vs-tilda/` | 90 | 91 | 2.7s | 0.024 | 130ms |
+| `/projects/ace/` | 75 | 91 | 4.9s | 0.006 | 160ms |
+
+**Знано:** LCP > 2.5s на всіх → не «Good» у lab. Основний bottleneck на ace — 750ms unused JS (gtag.js 71KB). Field-data CrUX може бути кращим. План тюнінгу LCP — defer GA4 через requestIdleCallback + self-host критичних шрифтів — у backlog Sprint D/E.
+
+## AGENTIS SEO data (28 днів, 2026-04-06 → 2026-05-04)
+
+Перші GSC-дані для AGENTIS (опубліковано на `/projects/agentis/` як SEO-результати):
+
+| Метрика | Value |
+|---|---:|
+| Indexed pages | 58 (з 1 за 7 тижнів) |
+| Clicks (28 днів) | 75 |
+| Impressions (28 днів) | 4 229 |
+| CTR | 1.77% |
+| Avg position | 10.8 |
+
+**Top performers:** головна (CTR 19%, поз 3.13), /situation (CTR 42%, поз 2.86), брендовий запит «agentis» (CTR 63%, поз 1.23).
+
+**Underperformers:** programmatic /topics/* — 525 показів CTR 0.57%, 387 показів CTR 0.78%. План — переписати title + meta description.
+
+**Гео:** Україна 73 кліки / 1769 показів (CTR 4.13%); США 0 кліків / 1707 показів — нерелевантні покази, занижують avg CTR.
+
+## Інфраструктура: PSI automation
+
+Додано `.env` з `PSI_API_KEY` — для автоматизації PSI runs через CLI:
+
+```bash
+curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<URL>&strategy=mobile&category=performance&category=accessibility&key=$PSI_API_KEY"
+```
+
+Без ключа — 25 анонімних запитів/день. З ключем — 25 000/день безкоштовно.
+
+`.env` у `.gitignore` поряд з `.env.local`, `node_modules/`, `.vercel/`.

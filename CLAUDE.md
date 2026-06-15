@@ -46,15 +46,15 @@ public/
 - [x] Fix soft-404/404 issues — 0 broken internal links
 - [x] Add BreadcrumbList JSON-LD to all /blog/* and /projects/* pages — done (100% coverage)
 
-### Sprint C (04.05–17.05): CWV + Schema
+### Sprint C (04.05–17.05): CWV + Schema ✅
 - [x] Run PSI on homepage + blog template + case template — react-vs-tilda: P93/A79/LCP2.6s, ace: P75/A81/LCP5.1s
 - [x] Accessibility fixes on all 14 pages: skip-link, aria-labels, main landmark, contrast, table semantics
 - [x] LCP optimization: analytics to body end, font preload split
-- [ ] Verify/add Article schema on all blog posts (check dateModified accuracy)
-- [ ] Create landing page: "AI-інтеграції для сайту"
-- [ ] Update AGENTIS case study with SEO/indexing results
-- [ ] 5 outreach emails to clients for credit links
-- [ ] Re-run PSI after deploy to verify improvements
+- [x] Article schema audit — all 8 blog posts have Article + BreadcrumbList + Person @id refs; dateModified matches git log (verified 2026-05-04)
+- [x] Landing page "AI-інтеграції для сайту" — /services/ai/ exists, expanded with 3 FAQ items (RAG vs simple bot, GDPR/data, AI vs n8n) on 2026-05-04
+- [x] Update AGENTIS case study with SEO/indexing results — done 2026-05-04 (commit e4fdeb3): GSC data 1→58 indexed, 75 clicks / 4 229 impressions / CTR 1.77% / pos 10.8 over 28 days
+- [x] Re-run PSI after deploy — homepage P89/A96/LCP3.0s, blog P90/A91/LCP2.7s, ace P75/A91/LCP4.9s; accessibility +10-12 points across templates
+- [N/A] 5 outreach emails for credit links — credits already live on all client sites (Atlas, AGENTIS, Slavutych, ACE, Julia), no outreach needed
 
 ### Sprint D (18.05–31.05): Cluster Structure
 - [ ] Create landing page: "Редизайн і перезапуск"
@@ -101,18 +101,17 @@ Target cadence: 1 deep + 1 light piece per week (8-10/month)
 - Proper H1→H2→H3 hierarchy on all pages
 - Skip link, aria-labels, `<main>` landmark, WCAG AA contrast on all pages
 - Analytics scripts at end of `<body>` (not `<head>`) for better LCP
-- Google Fonts preload split (DM Sans critical, rest secondary)
+- Self-hosted fonts in `/public/fonts/` (woff2, inline @font-face) — Playfair Display (headings), Manrope (body), JetBrains Mono (mono); all with Cyrillic subset
 - Lazy loading on images
 
 ### What needs fixing:
 - Homepage is one-page with #anchors — search engines can't index sections as separate entities
 - No AVIF format (only WebP + JPG)
 - preview.jpg used in OG but not confirmed to exist
-- LCP on projects/ace still 2.9s (target <2.5s) — consider self-hosting fonts
 
 ## Technical Notes
 - All CSS is inline (in `<style>` tags) — good for performance
-- Google Fonts via preconnect
+- Fonts self-hosted in `/public/fonts/` (no Google Fonts dependency); @font-face inline, critical Cyrillic woff2 preloaded; `vercel.json` sets immutable cache on `/fonts/*`
 - No external CSS/JS files except GA4
 - deploy.sh and update.sh for SSH deployment
 - vercel.json for routing config
