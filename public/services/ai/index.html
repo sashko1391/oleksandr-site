@@ -118,12 +118,36 @@
   ]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/Playfair-400-normal-cyrillic.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/Manrope-400-normal-cyrillic.woff2" crossorigin>
 <style>
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+
   :root {
     --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
     --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
@@ -139,14 +163,14 @@
     font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
   }
   .skip-link:focus { top: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--milk); color: var(--ink); }
+  body { font-family: 'Manrope', sans-serif; background: var(--milk); color: var(--ink); }
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
     backdrop-filter: blur(20px); background: rgba(245,240,234,0.88);
     border-bottom: 1px solid rgba(27,58,92,0.05);
   }
-  .logo { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
   .logo span { color: var(--blue-sky); }
   .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
   .nav-back:hover { color: var(--blue-deep); }
@@ -164,7 +188,7 @@
   }
   .case-tag::before, .case-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
   .case-hero h1 {
-    font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
     color: var(--blue-deep); line-height: 1.15; margin-bottom: 1rem;
   }
   .case-hero h1 em { font-style: italic; color: var(--blue-mid); }
@@ -178,13 +202,13 @@
   .case-link:hover { background: var(--blue-mid); transform: translateY(-2px); }
   .hero-stats { display: flex; justify-content: center; gap: 2.5rem; margin-top: 2rem; }
   .hero-stat { font-size: 0.82rem; color: var(--ink-muted); text-align: center; }
-  .hero-stat strong { display: block; font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue-deep); font-weight: 400; }
+  .hero-stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blue-deep); font-weight: 400; }
 
   /* Body */
   .case-body { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 5rem; }
   .case-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
   .case-body h2 {
-    font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep);
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep);
     margin: 3rem 0 1rem; line-height: 1.3;
   }
   .case-body h2:first-child { margin-top: 0; }
@@ -239,7 +263,7 @@
     padding: 0.75rem 1.25rem; background: var(--blue-pale); border-radius: 10px;
   }
   .case-highlight .stat .num {
-    font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue-deep); line-height: 1;
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); line-height: 1;
   }
   .case-highlight .stat .lbl { font-size: 0.68rem; color: var(--ink-muted); margin-top: 0.2rem; }
   .case-highlight p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 0.75rem; }
@@ -292,7 +316,7 @@
 
   /* Guarantee */
   .guarantee-block { padding: 2rem; margin: 2rem 0; border-radius: 12px; background: linear-gradient(135deg, var(--green-pale) 0%, #f0faf4 100%); border: 2px solid var(--green); text-align: center; }
-  .guarantee-block h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 0.75rem; }
+  .guarantee-block h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 0.75rem; }
   .guarantee-block p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; margin: 0; font-weight: 300; }
   .guarantee-block strong { color: var(--green); font-weight: 600; }
 
@@ -305,14 +329,14 @@
 
   /* Contact section */
   .contact-section { max-width: 720px; margin: 0 auto 3rem; padding: 3rem 2.5rem; background: var(--blue-deep); border-radius: 16px; text-align: center; }
-  .contact-section h2 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--milk); margin-bottom: 0.75rem; }
+  .contact-section h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--milk); margin-bottom: 0.75rem; }
   .contact-desc { font-size: 0.95rem; color: var(--blue-light); margin-bottom: 2rem; line-height: 1.6; }
   .lead-form { max-width: 400px; margin: 0 auto 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
-  .lead-input { padding: 0.85rem 1.2rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.08); color: var(--milk); transition: border-color 0.3s; }
+  .lead-input { padding: 0.85rem 1.2rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; font-size: 0.9rem; font-family: 'Manrope', sans-serif; background: rgba(255,255,255,0.08); color: var(--milk); transition: border-color 0.3s; }
   .lead-input::placeholder { color: rgba(168,212,240,0.5); }
   .lead-input:focus { outline: none; border-color: var(--blue-sky); background: rgba(255,255,255,0.12); }
   .lead-textarea { resize: vertical; min-height: 60px; }
-  .lead-submit { padding: 0.95rem 2rem; background: var(--milk); color: var(--blue-deep); border: none; border-radius: 100px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.3s, box-shadow 0.3s; }
+  .lead-submit { padding: 0.95rem 2rem; background: var(--milk); color: var(--blue-deep); border: none; border-radius: 100px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'Manrope', sans-serif; transition: transform 0.3s, box-shadow 0.3s; }
   .lead-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
   .lead-submit:disabled { opacity: 0.6; cursor: not-allowed; }
   .lead-note { font-size: 0.75rem; color: rgba(168,212,240,0.6); text-align: center; margin: 0; }

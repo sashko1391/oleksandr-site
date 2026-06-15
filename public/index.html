@@ -119,16 +119,36 @@
   ]
 }
 </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/Playfair-400-normal-cyrillic.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/Manrope-400-normal-cyrillic.woff2" crossorigin>
   <style>
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/JetBrainsMono-500-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+
     :root {
       --milk: #F5F0EA;
       --milk-warm: #EDE7DE;
@@ -178,7 +198,7 @@
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       background-color: var(--milk);
       color: var(--ink);
       overflow-x: hidden;
@@ -210,7 +230,7 @@
     }
 
     .logo {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--blue-deep);
       text-decoration: none;
@@ -293,7 +313,7 @@
     }
 
     .hero-text h1 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2.6rem, 4.8vw, 3.8rem);
       line-height: 1.15;
       color: var(--blue-deep);
@@ -626,7 +646,7 @@
     }
 
     .section-title {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.8rem, 3vw, 2.5rem);
       color: var(--blue-deep);
       line-height: 1.2;
@@ -697,7 +717,7 @@
     }
 
     .scenario-card h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--blue-deep);
       margin-bottom: 0.35rem;
@@ -800,7 +820,7 @@
     }
 
     .portfolio-content h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       color: var(--white);
       margin-bottom: 0.4rem;
@@ -858,7 +878,7 @@
     }
 
     .about-card h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--blue-deep);
       margin-bottom: 0.75rem;
@@ -979,7 +999,7 @@
     }
 
     .stat-mini .num {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
       color: var(--blue-deep);
       line-height: 1;
@@ -1025,7 +1045,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.25rem;
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--blue-deep);
       position: relative;
@@ -1040,7 +1060,7 @@
     }
 
     .process-step h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
       color: var(--blue-deep);
       margin-bottom: 0.35rem;
@@ -1079,7 +1099,7 @@
 
     .testimonial-card::before {
       content: '"';
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
       color: var(--blue-light);
       line-height: 1;
@@ -1154,7 +1174,7 @@
     }
 
     .quote-banner blockquote {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.3rem, 2.2vw, 1.8rem);
       color: var(--milk);
       font-style: italic;
@@ -1168,7 +1188,7 @@
 
     .quote-banner .quote-attr {
       color: var(--blue-light);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-style: normal;
       font-size: 0.8rem;
       margin-top: 1.25rem;
@@ -1218,7 +1238,7 @@
       padding: 0.75rem 1rem;
       border: 1.5px solid rgba(27, 58, 92, 0.12);
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.9rem;
       color: var(--ink);
       background: var(--milk);
@@ -1251,7 +1271,7 @@
       color: var(--milk);
       border: none;
       border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
@@ -1496,7 +1516,7 @@
       padding: 0.7rem 1rem;
       border: 1.5px solid rgba(27, 58, 92, 0.1);
       border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.85rem;
       color: var(--ink);
       background: var(--white);
@@ -1545,7 +1565,7 @@
       border: 1px solid rgba(27, 58, 92, 0.12);
       border-radius: 100px;
       background: var(--white);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.75rem;
       color: var(--blue-deep);
       cursor: pointer;
@@ -1666,7 +1686,7 @@
     }
 
     .blog-card h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--blue-deep);
       margin-bottom: 0.5rem;
@@ -1721,14 +1741,14 @@
     }
 
     .pricing-card h3 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--blue-deep);
       margin-bottom: 0.5rem;
     }
 
     .pricing-price {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
       color: var(--ink);
       margin-bottom: 0.25rem;
@@ -1737,7 +1757,7 @@
     .pricing-price span {
       font-size: 0.85rem;
       color: var(--ink-muted);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
     }
 
     .pricing-desc {
