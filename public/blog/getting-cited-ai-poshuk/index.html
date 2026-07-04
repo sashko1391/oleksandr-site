@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-пошук: 60% Share of Voice за 5 тижнів | Кейс</title>
+<meta name="description" content="Як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних UA legal-брендів в AI-пошуку: методологія виміру та висновки для GEO.">
+<link rel="canonical" href="https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/">
+<meta property="og:title" content="AI-пошук: 60% Share of Voice за 5 тижнів | Кейс">
+<meta property="og:description" content="Виміряний GEO-кейс: 0.49%→60% Share of Voice серед відстежуваних UA legal-брендів. Метод виміру і що спрацювало.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI-пошук: 60% Share of Voice за 5 тижнів | Кейс">
+<meta name="twitter:description" content="Виміряний GEO-кейс: 0.49%→60% Share of Voice. Метод виміру і що спрацювало.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI-пошук: 60% Share of Voice за 5 тижнів",
+  "author": {"@id": "https://www.parkinsandr.tech/#author"},
+  "datePublished": "2026-07-04",
+  "dateModified": "2026-07-04",
+  "publisher": {"@id": "https://www.parkinsandr.tech/#author"},
+  "description": "Data-driven GEO-кейс: як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних українських legal-брендів в AI-пошуку — з методологією виміру та висновками.",
+  "mainEntityOfPage": "https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
+    {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.parkinsandr.tech/#blog"},
+    {"@type": "ListItem", "position": 3, "name": "60% Share of Voice в AI-пошуку", "item": "https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Що таке Share of Voice в AI-пошуку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Share of Voice (SoV) в AI-пошуку — це частка згадок вашого бренду серед усіх згадок у відповідях AI-систем (ChatGPT, Perplexity, Google AI Overviews, Bing) на набір відстежуваних запитів. Якщо на 15 запитів AI згадав бренди 187 разів, і ваш бренд згадано 112 разів — ваш SoV близько 60%. Це метрика видимості в AI, а не в класичній органіці."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чим міряти AI-цитування бренду?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Двома інструментами: спеціалізованим трекером AI-згадок (наприклад, Otterly AI Brand Report — задаєте набір запитів, країну й движки, отримуєте SoV, coverage, sentiment і середню позицію) та Bing Webmaster Tools → AI Performance, який показує покази й кліки з AI-відповідей Bing/Copilot. Google повноцінного звіту по AI Overviews поки не дає, тож трекери-третьосторонні закривають цю прогалину."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI-видимість замінює класичне SEO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ні. Google прямо каже, що базові SEO-практики лишаються релевантними для AI Overviews і AI Mode — окремої «магічної» оптимізації під AI-фічі немає. Правильніше розглядати цитованість в AI як окремий KPI поруч із ранжуванням: ви оптимізуєте той самий якісний контент, але додатково вимірюєте, чи AI-системи беруть вас як джерело."
+      }
+    }
+  ]
+}
+</script>
+<style>
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/Manrope-300-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Manrope-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/Manrope-500-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/Manrope-600-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #6A6A6A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  .skip-link { position: absolute; top: -40px; left: 0; padding: 8px 16px; background: var(--blue-deep); color: var(--white); z-index: 200; font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0; }
+  .skip-link:focus { top: 0; }
+  body { font-family: 'Manrope', sans-serif; background: var(--milk); color: var(--ink); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); background: rgba(245,240,234,0.88); border-bottom: 1px solid rgba(27,58,92,0.05); }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s; }
+  .nav-back:hover { color: var(--blue-deep); }
+  .article-header { max-width: 720px; margin: 0 auto; padding: 8rem 2rem 2rem; text-align: center; }
+  .article-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-mid); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .article-tag::before, .article-tag::after { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); }
+  .article-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 1rem; }
+  .article-header h1 em { font-style: italic; color: var(--blue-mid); }
+  .article-meta { font-size: 0.82rem; color: var(--ink-muted); display: flex; justify-content: center; gap: 1.5rem; }
+  .article-body { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article-body p { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.5rem; font-weight: 300; }
+  .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); margin: 2.5rem 0 1rem; line-height: 1.3; }
+  .article-body h3 { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin: 2rem 0 0.75rem; }
+  .article-body strong { font-weight: 500; color: var(--ink); }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.5rem 1.25rem; }
+  .article-body li { font-size: 0.98rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 0.5rem; font-weight: 300; }
+  .article-body a { color: var(--blue-mid); }
+  .article-body code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--milk-warm); padding: 0.1rem 0.35rem; border-radius: 4px; }
+
+  .tldr { background: var(--milk-warm); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1rem 0 2rem; font-size: 0.95rem; line-height: 1.65; color: var(--ink-soft); }
+  .tldr strong { color: var(--blue-deep); }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0 2rem; }
+  .stat-box { text-align: center; padding: 1.1rem 0.75rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.07); }
+  .stat-box strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); font-weight: 400; }
+  .stat-box span { font-size: 0.72rem; color: var(--ink-muted); }
+
+  .callout { padding: 1.5rem; margin: 2rem 0; border-radius: 12px; font-size: 0.92rem; line-height: 1.6; }
+  .callout-blue { background: var(--blue-pale); color: var(--blue-deep); border-left: 3px solid var(--blue-mid); }
+  .callout-orange { background: var(--orange-pale); color: #7A5230; border-left: 3px solid var(--orange); }
+  .callout-green { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid rgba(27,58,92,0.08); font-size: 0.9rem; }
+  .compare-table th { padding: 0.8rem 1rem; text-align: left; background: var(--blue-deep); color: var(--milk); font-weight: 500; font-size: 0.82rem; }
+  .compare-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(27,58,92,0.05); color: var(--ink-soft); font-weight: 300; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td.win { color: var(--blue-deep); font-weight: 600; }
+
+  /* CSS bar chart */
+  .chart { margin: 1.5rem 0 2rem; padding: 1.5rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.08); }
+  .chart-title { font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue-mid); margin-bottom: 1rem; }
+  .bar-row { display: grid; grid-template-columns: 120px 1fr 46px; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; font-size: 0.85rem; }
+  .bar-row .bar-label { color: var(--ink-soft); }
+  .bar-track { background: var(--milk-warm); border-radius: 100px; height: 18px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; background: var(--blue-sky); }
+  .bar-fill.lead { background: var(--blue-deep); }
+  .bar-row .bar-val { text-align: right; font-weight: 500; color: var(--blue-deep); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+  .chart-cap { font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.75rem; }
+
+  .author-box { display: flex; gap: 1rem; align-items: flex-start; margin: 2.5rem 0 0; padding: 1.5rem; background: var(--white); border-radius: 12px; border: 1px solid rgba(27,58,92,0.08); }
+  .author-box .ab-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-deep); color: var(--milk); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; flex-shrink: 0; }
+  .author-box h3 { font-size: 0.95rem; font-weight: 600; color: var(--blue-deep); margin: 0 0 0.3rem; }
+  .author-box p { font-size: 0.86rem; color: var(--ink-muted); line-height: 1.55; margin: 0; font-weight: 300; }
+  .author-box a { color: var(--blue-mid); }
+
+  .cta-banner { max-width: 720px; margin: 2.5rem auto 3rem; padding: 2.5rem; background: var(--blue-deep); border-radius: 16px; text-align: center; }
+  .cta-banner h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--milk); margin-bottom: 0.5rem; }
+  .cta-banner p { font-size: 0.88rem; color: var(--blue-light); margin-bottom: 1.5rem; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.6rem; background: var(--milk); color: var(--blue-deep); border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.88rem; transition: transform 0.3s; }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  .faq-list { margin: 1.5rem 0 2rem; }
+  .faq-list details { border-bottom: 1px solid rgba(27,58,92,0.06); }
+  .faq-list summary { padding: 1rem 0; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after { content: '+'; font-size: 1.2rem; color: var(--blue-mid); }
+  .faq-list details[open] summary::after { content: '\2212'; }
+  .faq-list details p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; padding: 0 0 1rem; margin: 0; font-weight: 300; }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(27,58,92,0.06); text-align: center; font-size: 0.75rem; color: var(--ink-muted); }
+  footer a { color: var(--blue-mid); text-decoration: none; }
+  .related-posts { max-width: 720px; margin: 2rem auto 0; padding: 2rem 0; border-top: 1px solid var(--milk-warm); }
+  .related-posts h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 1rem; }
+  .related-posts-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .related-posts-list a { display: block; padding: 1rem 1.2rem; background: var(--white); border-radius: 10px; text-decoration: none; color: var(--ink); border: 1px solid var(--milk-warm); transition: border-color 0.3s, transform 0.3s; }
+  .related-posts-list a:hover { border-color: var(--blue-sky); transform: translateY(-2px); }
+  .related-posts-list .rp-title { font-weight: 500; font-size: 0.95rem; color: var(--blue-deep); }
+  .related-posts-list .rp-desc { font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .article-header { padding: 6rem 1.5rem 1.5rem; }
+    .article-body { padding: 0 1.5rem 3rem; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .bar-row { grid-template-columns: 90px 1fr 42px; font-size: 0.8rem; }
+    .compare-table { font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Перейти до змісту</a>
+
+<nav aria-label="Основна навігація">
+  <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
+  <a href="/" class="nav-back">← На головну</a>
+</nav>
+
+<main id="main-content">
+<article>
+  <header class="article-header">
+    <div class="article-tag">GEO-кейс</div>
+    <h1>60% Share of Voice в AI-пошуку за <em>5 тижнів</em></h1>
+    <div class="article-meta">
+      <span>Олександр Кравченко</span>
+      <span>Липень 2026</span>
+      <span>11 хв читання</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <p>Щоб бренд почав з'являтися у відповідях ChatGPT, Perplexity і Google AI Overviews, треба оптимізувати не лише позиції в Google, а й <strong>цитованість</strong> — те, як часто AI-системи беруть вас за джерело. Ось виміряний кейс: мій AI-продукт AGENTIS за 5 тижнів вийшов з 0.49% до <strong>60% Share of Voice серед відстежуваних українських legal-брендів</strong> в AI-пошуку. Нижче — цифри, метод виміру і що спрацювало.</p>
+
+    <div class="callout callout-orange">
+      <strong>Чесно про межі:</strong> результати відображають кореляцію дій і специфіку ніші (український legal-tech у момент формування ринку), а не гарантовану причинність для будь-якого проєкту. Це один виміряний кейс, не універсальна формула.
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-box"><strong>0.49%→60%</strong><span>Share of Voice</span></div>
+      <div class="stat-box"><strong>#1</strong><span>серед відстежуваних брендів</span></div>
+      <div class="stat-box"><strong>5 тижнів</strong><span>між замірами</span></div>
+      <div class="stat-box"><strong>1.09</strong><span>середня позиція в цитаті</span></div>
+    </div>
+
+    <h2>Getting Cited — окремий KPI поруч із Ranking</h2>
+
+    <div class="tldr"><strong>Коротко:</strong> AI-системи будують відповіді з джерел, які цитують. Потрапити в цитату — це окремий шар видимості поряд із класичним ранжуванням, а не його заміна.</div>
+
+    <p>Класичне SEO відповідає на питання «на якій позиції ми в Google». Нове питання — «чи згадує нас AI, коли користувач питає його напряму». Це різні речі: можна мати скромні органічні позиції й водночас часто потрапляти в AI-відповіді (і навпаки).</p>
+
+    <p>Важливо не впасти в хайп: <strong>Google прямо каже, що базові SEO-практики лишаються релевантними</strong> для AI Overviews і AI Mode — окремої «магічної» оптимізації під AI немає. Тому правильна рамка — не «AI замінив SEO», а «з'явився новий вимір видимості, який варто вимірювати окремо». Ви робите той самий якісний контент, але додатково стежите, чи беруть вас AI-системи за джерело.</p>
+
+    <h2>Кейс: 5 тижнів у цифрах</h2>
+
+    <div class="tldr"><strong>Коротко:</strong> між двома замірами (15.05 і 22.06) бренд пройшов шлях від 0.49% цитованості й відставання від лідера у ~7 разів до першого місця з 60% Share of Voice серед відстежуваних брендів.</div>
+
+    <p>Перший замір (15 травня) був невтішним: citation rate 0.49% — бренд згадувався у ~5 випадках з 1030, а тодішній лідер випереджав у рази. Другий замір (22 червня) показав інверсію картини.</p>
+
+    <div class="chart" role="img" aria-label="Share of Voice: AGENTIS 60 відсотків, Конкурент A 20, Конкурент B 14, інші 6">
+      <div class="chart-title">Share of Voice у відстежуваних AI-запитах (22.06)</div>
+      <div class="bar-row"><span class="bar-label">AGENTIS</span><div class="bar-track"><div class="bar-fill lead" style="width:100%"></div></div><span class="bar-val">60%</span></div>
+      <div class="bar-row"><span class="bar-label">Конкурент A</span><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><span class="bar-val">20%</span></div>
+      <div class="bar-row"><span class="bar-label">Конкурент B</span><div class="bar-track"><div class="bar-fill" style="width:23%"></div></div><span class="bar-val">14%</span></div>
+      <div class="bar-row"><span class="bar-label">Інші</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><span class="bar-val">6%</span></div>
+      <div class="chart-cap">Джерело: Otterly AI Brand Report, 15 запитів, Україна, усі движки, 14 днів. Конкуренти анонімізовано.</div>
+    </div>
+
+    <table class="compare-table">
+      <thead><tr><th scope="col">Метрика</th><th scope="col">15.05</th><th scope="col">22.06</th></tr></thead>
+      <tbody>
+        <tr><td>Citation rate / SoV</td><td>0.49%</td><td class="win">60%</td></tr>
+        <tr><td>Позиція серед брендів</td><td>позаду лідера ~7×</td><td class="win">#1 (єдиний «Leader»)</td></tr>
+        <tr><td>Згадок</td><td>~5</td><td class="win">112</td></tr>
+        <tr><td>Sentiment</td><td>—</td><td class="win">+49</td></tr>
+        <tr><td>Середня позиція в цитаті</td><td>—</td><td class="win">1.09</td></tr>
+      </tbody>
+    </table>
+
+    <p>Найчастіше бренд цитувався на прикладних запитах — наприклад, про <strong>перевірку договорів для ФОП</strong> та <strong>оформлення спадщини</strong>. Тобто AI тягнув сторінки, які прямо відповідають на конкретну ситуацію користувача, а не загальні «про нас».</p>
+
+    <h2>Як це виміряти</h2>
+
+    <div class="tldr"><strong>Коротко:</strong> два інструменти — трекер AI-згадок (Otterly) для Share of Voice і Bing Webmaster AI Performance для кліків з AI-відповідей. Google повного звіту по AI Overviews поки не дає.</div>
+
+    <p>Framework виміру, який я використовував:</p>
+
+    <ul>
+      <li><strong>Otterly AI Brand Report</strong> — задаєте набір запитів, країну і движки, отримуєте Share of Voice, coverage, sentiment, середню позицію і топ-запити/URL, де вас цитують.</li>
+      <li><strong>Bing Webmaster Tools → AI Performance (BETA)</strong> — покази й кліки з AI-відповідей Bing/Copilot; єдиний «офіційний» сигнал від пошуковика.</li>
+    </ul>
+
+    <p>Що трекати щомісяця: <strong>Share of Voice, coverage, sentiment, середню позицію</strong> в цитаті, а також <strong>топ-запити й топ-URL</strong>, які AI тягне найчастіше. Параметри мого заміру: 15 запитів, країна — Україна, усі движки, вікно 14 днів. Повний набір запитів — це вже стратегія конкретного проєкту; для старту достатньо 10-15 запитів, що покривають ваші ключові сценарії.</p>
+
+    <h2>Чому AI-видимість ≠ Google-органіка</h2>
+
+    <div class="tldr"><strong>Коротко:</strong> у той самий період, коли росла AI-цитованість, органічний трафік з Google просідав. Тобто GSC-органіка вже не описує повну картину видимості.</div>
+
+    <p>Найцікавіше — зростання цитованості сталося <strong>попри</strong> падіння органічного трафіку в Google за той самий проміжок. Якби я дивився лише на Search Console, висновок був би «стало гірше». Насправді бренд виграв інший канал — AI-пошук, — який GSC не показує.</p>
+
+    <p>Практичний висновок: у 2026 <strong>CTR і органічні позиції вже не єдиний proxy попиту</strong>. Варто сегментувати трафік на AIO/no-AIO і вести окрему щомісячну метрику AI Share of Voice — інакше ви оптимізуєте картину, яка не бачить половини гри. Глибше про звʼязування сторінок у систему — у гайді про <a href="/blog/internal-linking/">внутрішню перелінковку та кластери</a>.</p>
+
+    <h2>Що працює для цитування</h2>
+
+    <div class="tldr"><strong>Коротко:</strong> AI тягне сторінки, які дають чітку відповідь на початку, покривають конкретні запити й мають узгоджену сутність бренду. Це той самий якісний контент, що й для людей.</div>
+
+    <ul>
+      <li><strong>Answer-first перші абзаци.</strong> AI-системи читають початок сторінки для формування відповіді — перші 2-3 речення мають прямо відповідати на запит.</li>
+      <li><strong>Сторінки під конкретні ситуації</strong> (topic/QA), а не загальні. Найкраще цитувалися прикладні теми (ФОП-договори, спадщина), бо вони відповідають на реальний запит.</li>
+      <li><strong>Цитатопридатні короткі факти.</strong> Чіткі твердження, які легко вирвати в цитату, працюють краще за розмиті абзаци.</li>
+      <li><strong>Узгоджена сутність</strong> (entity-consistency): однакове ім'я бренду й автора на сайті, у schema і зовнішніх згадках — щоб AI бачив вас як одну сутність.</li>
+      <li><strong>Structured data (JSON-LD).</strong> <code>Article</code>, <code>FAQPage</code>, <code>Organization</code>, <code>BreadcrumbList</code> дають машині явну структуру фактів.</li>
+    </ul>
+
+    <h2>З чого почати</h2>
+
+    <ol>
+      <li>Зняти baseline: 10-15 запитів у трекері (Otterly) + підключити Bing AI Performance.</li>
+      <li>Переписати перші абзаци топ-сторінок у answer-first формат.</li>
+      <li>Створити сторінки під конкретні запити ваших клієнтів, а не загальні.</li>
+      <li>Додати/перевірити structured data.</li>
+      <li>Раз на місяць знімати Share of Voice і дивитися динаміку, а не разовий зріз.</li>
+    </ol>
+
+    <p>Якщо потрібен сайт, який від початку будується під таку видимість — це моя <a href="/services/nextjs/">розробка на Next.js</a> з <a href="/services/ai/">AI-інтеграціями</a>. А як усе це виглядає на реальному продукті — у <a href="/projects/agentis/">кейсі AGENTIS</a>.</p>
+
+    <div class="author-box">
+      <div class="ab-avatar">ОК</div>
+      <div>
+        <h3>Олександр Кравченко</h3>
+        <p>Веб-розробник (React/Next.js + AI-інтеграції) і юрист за освітою, засновник AI-продукту AGENTIS. Будую сайти й системи, які знаходять у Google і цитує AI. <a href="/#chat-section">Обговорити проєкт →</a></p>
+      </div>
+    </div>
+
+    <h2>Часті питання</h2>
+    <div class="faq-list">
+      <details>
+        <summary>Що таке Share of Voice в AI-пошуку?</summary>
+        <p>Це частка згадок вашого бренду серед усіх згадок у відповідях AI-систем (ChatGPT, Perplexity, Google AI Overviews, Bing) на набір відстежуваних запитів. Якщо на 15 запитів AI згадав бренди 187 разів, а ваш бренд — 112, ваш SoV близько 60%. Метрика видимості в AI, а не в класичній органіці.</p>
+      </details>
+      <details>
+        <summary>Чим міряти AI-цитування бренду?</summary>
+        <p>Трекером AI-згадок (наприклад, Otterly AI Brand Report — задаєте запити, країну й движки, отримуєте SoV, coverage, sentiment, середню позицію) та Bing Webmaster Tools → AI Performance (покази й кліки з AI-відповідей Bing/Copilot). Google повноцінного звіту по AI Overviews поки не дає.</p>
+      </details>
+      <details>
+        <summary>AI-видимість замінює класичне SEO?</summary>
+        <p>Ні. Google прямо каже, що базові SEO-практики лишаються релевантними для AI Overviews і AI Mode. Розглядайте цитованість в AI як окремий KPI поруч із ранжуванням: оптимізуєте той самий якісний контент, але додатково вимірюєте, чи AI-системи беруть вас за джерело.</p>
+      </details>
+    </div>
+  </div>
+
+<section class="related-posts" aria-label="Пов'язані матеріали">
+  <h2>Читайте далі</h2>
+  <div class="related-posts-list">
+    <a href="/projects/agentis/">
+      <div class="rp-title">Кейс: AGENTIS — AI-платформа правового аналізу</div>
+      <div class="rp-desc">Продукт, на даних якого побудований цей GEO-кейс.</div>
+    </a>
+    <a href="/blog/internal-linking/">
+      <div class="rp-title">Внутрішня перелінковка сайту: кластерна структура 2026</div>
+      <div class="rp-desc">Як зв'язати сторінки, щоб Google краще індексував і ранжував.</div>
+    </a>
+    <a href="/services/ai/">
+      <div class="rp-title">AI-інтеграції для сайту</div>
+      <div class="rp-desc">Чат-боти й автоматизація з human-in-the-loop.</div>
+    </a>
+  </div>
+</section>
+
+</article>
+</main>
+
+<div class="cta-banner" role="complementary" aria-label="Заклик до дії">
+  <h3>Хочете, щоб вас знаходив Google і цитував AI?</h3>
+  <p>Побудую сайт під сучасну видимість — від структури й schema до вимірювання AI Share of Voice.</p>
+  <a href="/#chat-section" class="cta-btn">Обговорити проєкт →</a>
+</div>
+
+<footer>
+  <p>© 2026 <a href="/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені</p>
+</footer>
+
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script>
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (!a) return;
+  var href = a.href || '';
+  if (href.includes('t.me/')) { gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href}); }
+  else if (href.includes('wa.me/')) { gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href}); }
+  else if (href.startsWith('mailto:')) { gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href}); }
+  else if (a.classList.contains('cta-btn') || href.includes('#chat-section')) { gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href}); }
+});
+</script>
+</body>
+</html>
