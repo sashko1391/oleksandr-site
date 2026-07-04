@@ -188,7 +188,30 @@ All JSON-LD blocks must use `@id` to link entities across the site:
 - **AI Citation Frequency:** How often domain is cited as source by AI platforms
 - **Generative Referral Traffic:** Traffic from AI-generated links (GA4 referral)
 
+## 2026 SEO/GEO/CWV Policy Sync
+> Source of truth: `~/Dashboard/knowledge/` (SEO/GEO/sites master guides). Global policy in `~/.claude/CLAUDE.md` governs behavior; this block mirrors the mid-2026 deltas most relevant to this static content-led site. Synced from Dashboard knowledge as of 2026-06-14. Re-sync when `~/Dashboard/knowledge/_refresh-manifest.json` shows a newer `last_refresh`.
+
+### Search/GEO landscape (mid-2026)
+- **"Getting Cited" replaces "Ranking":** AI reads top-of-page + H2 blocks → answer-first перші абзаци + чіткі H2/списки прямо корелюють з частотою цитування в ChatGPT/Perplexity/Gemini. E-E-A-T author blocks = "нові беклінки" для source selection.
+- **AI Mode 5 (May 2026):** inline citations *всередині* AI-тексту (не в кінці) → потрібні короткі цитатопридатні речення з marked facts; "explore more" chain; site previews on hover → клікабельні title/OG-title критичні.
+- **May 2026 Core Update:** crackdown на scaled/hyperscaled AI-контент. Commodity thin content deprecated (Google explicit). Priority: unique data, own research, кейси, high entity density, first-hand signals.
+- **AI Overviews CTR:** informational CTR впав ~65% де показано AIO. CTR більше не надійний proxy — сегментувати by AIO/no-AIO, дивитись downstream (lead capture, repeat visit, activation).
+- **Cluster: adaptive depth > symmetric** — scale winners (high intent + performance), weaker subtopics лишати minimal. Smaller intent-dense > mass programmatic.
+
+### Schema (2026)
+- Focus: **Article, FAQPage, HowTo, BreadcrumbList, Organization/ProfessionalService, LocalBusiness**. Quiz/Practice Problems schema **deprecated** (Jan 2026). Aim 4+ unique JSON-LD types/page. Truthful data only.
+
+### CWV targets (2026 gold)
+- LCP <2.5s · **INP <200ms** (measures ALL interactions across page lifecycle, FID gone) · CLS <0.1 · TTFB optimal.
+- **JS budget ≤300-400 KB gzipped/route** (было 500KB+). HTTP/3 + Brotli standard. **Priority Hints:** `fetchpriority="high"` на LCP-зображенні, explicit preconnect/dns-prefetch для third-party, `fetchpriority="low"` для below-fold. Edge target sub-50ms.
+- Site-specific урок: **НЕ додавати `<link rel="preload" as="font">`** — text-LCP сторінки, self-hosted шрифти + `font-display:swap` рендерять fallback миттєво; font-preload конкурував з документом і піднімав FCP (див. [[project_site_stack]]).
+
+### Trust signals (для YMYL/expert контенту)
+- Порядок сили: посилання на закони/норми → чіткий дисклеймер (у видимій зоні, не футер) → прозорість методології → зовнішні джерела → кейси → команда з credentials. Human-in-the-loop framing: "готуємо до [professional], не замінюємо".
+
 ## Reference Documents
+- `~/Dashboard/knowledge/` — **источник правди** для SEO/GEO/coding/marketing політик (master guides + `_refresh-manifest.json` з consumers та `last_refresh`)
+- `~/Dashboard/prompts/coding_standards.md` (CODING_STANDARDS_2026) + `coding_specs.md` (PAGE_STANDARD_2026)
 - `doc/SEO.md` — Full 3-month SEO plan with editorial calendar
 - `doc/SEED_KEYWORDS.md` — 5 keyword groups + intent map
 - `~/.claude/doc/Audit.md` — 3 audit prompts (quick/full/pre-release) for JS/TS projects
