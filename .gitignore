@@ -1,4 +1,18 @@
-node_modules/
-.vercel/
+# tooling / editor
+.codex
+*.code-workspace
+.DS_Store
+
+# secrets / deps
 .env
-.env.local
+.env.*
+node_modules/
+
+# generated dumps & working research drafts (not for repo)
+doc/FULL_SOURCE.txt
+doc/SOURCE_DUMP.md
+doc/abaic_council/
+doc/research/
+doc/prompts/
+doc/overviews/
+doc/jarvis.md
