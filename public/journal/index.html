@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Щоденник — Олександр Кравченко</title>
-<meta name="description" content="Особистий щоденник Олександра Кравченка: життя, хвороба Паркінсона, село, робота і думки. Чесно й без прикрашань.">
+<title>Поза кодом — есеї та оповідання | Олександр Кравченко</title>
+<meta name="description" content="Поза кодом — особистий розділ Олександра Кравченка: есеї про життя й хворобу Паркінсона, оповідання і короткі записи. Чесно, без прикрашань.">
 <link rel="canonical" href="https://www.parkinsandr.tech/journal/">
-<meta property="og:title" content="Щоденник — Олександр Кравченко">
-<meta property="og:description" content="Особистий щоденник: життя з хворобою Паркінсона, село, робота і думки. Чесно й без прикрашань.">
+<meta property="og:title" content="Поза кодом — есеї, оповідання, щоденник">
+<meta property="og:description" content="Особистий розділ: есеї про життя й хворобу Паркінсона, оповідання і короткі записи. Чесно, без прикрашань.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:url" content="https://www.parkinsandr.tech/journal/">
 <meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Щоденник — Олександр Кравченко">
-<meta name="twitter:description" content="Особистий щоденник: життя, хвороба Паркінсона, село, робота і думки.">
+<meta name="twitter:title" content="Поза кодом — есеї, оповідання, щоденник">
+<meta name="twitter:description" content="Особистий розділ: есеї про життя й хворобу Паркінсона, оповідання і короткі записи.">
 <meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
 <meta name="author" content="Oleksandr Kravchenko">
 <meta name="robots" content="index, follow">
@@ -24,11 +24,15 @@
 {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Щоденник — Олександр Кравченко",
+  "name": "Поза кодом — Олександр Кравченко",
   "url": "https://www.parkinsandr.tech/journal/",
-  "description": "Особистий щоденник: життя з хворобою Паркінсона, село, робота і думки.",
+  "description": "Особистий розділ: есеї про життя й хворобу Паркінсона, оповідання і короткі записи.",
   "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"},
   "blogPost": [
+    {"@type": "BlogPosting", "headline": "Битва церков: Україна між вірою та імперією", "url": "https://www.parkinsandr.tech/journal/bytva-tserkov/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
+    {"@type": "BlogPosting", "headline": "Віра і релігія. Частина 2", "url": "https://www.parkinsandr.tech/journal/vira-i-religiya-2/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
+    {"@type": "BlogPosting", "headline": "Віра і релігія", "url": "https://www.parkinsandr.tech/journal/vira-i-religiya/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
+    {"@type": "BlogPosting", "headline": "Холодильний апокаліпсис", "url": "https://www.parkinsandr.tech/journal/holodylnyi-apokalipsys/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
     {"@type": "BlogPosting", "headline": "Кабачок-староста", "url": "https://www.parkinsandr.tech/journal/kabachok-starosta/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
     {"@type": "BlogPosting", "headline": "Пам’яті Максима Бабака", "url": "https://www.parkinsandr.tech/journal/pamyati-maksyma-babaka/", "datePublished": "2026-07-13", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}},
     {"@type": "BlogPosting", "headline": "Діагноз у 27: моя історія з хворобою Паркінсона", "url": "https://www.parkinsandr.tech/journal/diahnoz-u-27/", "datePublished": "2026-07-08", "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"}}
@@ -41,7 +45,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://www.parkinsandr.tech/"},
-    {"@type": "ListItem", "position": 2, "name": "Щоденник", "item": "https://www.parkinsandr.tech/journal/"}
+    {"@type": "ListItem", "position": 2, "name": "Поза кодом", "item": "https://www.parkinsandr.tech/journal/"}
   ]
 }
 </script>
@@ -76,10 +80,16 @@
   .head h1 em { font-style:italic; color:var(--blue-mid); }
   .head p { font-size:1.05rem; color:var(--ink-soft); font-weight:300; line-height:1.6; max-width:560px; margin:0 auto; }
   .list { max-width:720px; margin:0 auto; padding:1rem 2rem 5rem; }
+  .genre-head { margin:2.25rem 0 1rem; padding-top:1.75rem; border-top:1px solid rgba(27,58,92,0.09); }
+  .genre-head:first-child { border-top:none; padding-top:0; margin-top:0; }
+  .genre-head h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--blue-deep); margin:0 0 0.2rem; }
+  .genre-head p { font-size:0.88rem; color:var(--ink-muted); font-weight:300; line-height:1.5; margin:0; }
+  .soon { display:block; padding:1.1rem 1.5rem; background:var(--milk-warm); border-radius:12px; border:1px dashed rgba(27,58,92,0.18); font-size:0.9rem; color:var(--ink-muted); font-weight:300; }
+  .pc-genre { font-family:'JetBrains Mono',monospace; font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue-mid); }
   .post-card { display:block; padding:1.5rem 1.75rem; background:var(--white); border-radius:14px; border:1px solid rgba(27,58,92,0.08); text-decoration:none; color:var(--ink); transition:border-color 0.3s, transform 0.3s; margin-bottom:1rem; }
   .post-card:hover { border-color:var(--blue-sky); transform:translateY(-2px); }
   .post-card .pc-date { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--ink-muted); text-transform:uppercase; letter-spacing:0.06em; }
-  .post-card h2 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--blue-deep); margin:0.4rem 0 0.5rem; line-height:1.25; }
+  .post-card h3 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--blue-deep); margin:0.4rem 0 0.5rem; line-height:1.25; }
   .post-card p { font-size:0.92rem; color:var(--ink-soft); line-height:1.6; margin:0; font-weight:300; }
   footer { padding:2rem 3rem; border-top:1px solid rgba(27,58,92,0.06); text-align:center; font-size:0.75rem; color:var(--ink-muted); }
   footer a { color:var(--blue-mid); text-decoration:none; }
@@ -94,26 +104,61 @@
 </nav>
 <main id="main-content">
   <header class="head">
-    <div class="tag">Щоденник</div>
-    <h1>Мій <em>щоденник</em></h1>
-    <p>Особисті записи — про життя з хворобою Паркінсона, село, роботу й думки. Чесно, без прикрашань. Раніше я вів це на Patreon, тепер — тут.</p>
+    <div class="tag">Поза кодом</div>
+    <h1><em>Поза</em> кодом</h1>
+    <p>Те, що я пишу поза роботою: есеї, оповідання і короткі записи. Про життя з хворобою Паркінсона, село, пам'ять і те, що не вкладається в комерційний блог. Чесно, без прикрашань. Раніше — на Patreon, тепер тут.</p>
   </header>
-  <section class="list" aria-label="Записи щоденника">
-    <a href="/journal/kabachok-starosta/" class="post-card">
-      <div class="pc-date">Липень 2026 · ~8 хв · Байка</div>
-      <h2>Кабачок-староста</h2>
-      <p>Абсурдистська байка з города: як кабачок став старостою громади, картопля — радником, а село налагодило дипвідносини з Туреччиною.</p>
-    </a>
-    <a href="/journal/pamyati-maksyma-babaka/" class="post-card">
-      <div class="pc-date">Липень 2026 · ~10 хв</div>
-      <h2>Пам'яті Максима Бабака</h2>
-      <p>Спомин про друга — воїна ЗСУ, який загинув під Курахово, захищаючи Україну. Історії, гумор і вдячність людині, якої бракує.</p>
-    </a>
+  <section class="list" aria-label="Записи розділу «Поза кодом»">
+    <div class="genre-head">
+      <h2>Есеї</h2>
+      <p>Тексти довшого формату — особистий досвід, роздуми, пам'ять.</p>
+    </div>
     <a href="/journal/diahnoz-u-27/" class="post-card">
-      <div class="pc-date">Липень 2026 · ~15 хв</div>
-      <h2>Діагноз у 27: моя історія з хворобою Паркінсона</h2>
+      <div class="pc-date">Липень 2026 · ~15 хв · <span class="pc-genre">Есей</span></div>
+      <h3>Діагноз у 27: моя історія з хворобою Паркінсона</h3>
       <p>Як у 27 я почув «у вас хвороба Паркінсона» — перші симптоми, помилкові діагнози, леводопа, війна, переїзд у село і чому це виклик, а не вирок.</p>
     </a>
+    <a href="/journal/pamyati-maksyma-babaka/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~10 хв · <span class="pc-genre">Есей · Пам'ять</span></div>
+      <h3>Пам'яті Максима Бабака</h3>
+      <p>Спомин про друга — воїна ЗСУ, який загинув під Курахово, захищаючи Україну. Історії, гумор і вдячність людині, якої бракує.</p>
+    </a>
+    <a href="/journal/vira-i-religiya/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~7 хв · <span class="pc-genre">Есей · Ч.1</span></div>
+      <h3>Віра і релігія</h3>
+      <p>Роздуми про віру без сліпих обрядів: сенс хрещення, християнська «Сангха», буддійські паралелі й розмови з отцем Сергієм. Шлях, а не готові відповіді.</p>
+    </a>
+    <a href="/journal/vira-i-religiya-2/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~7 хв · <span class="pc-genre">Есей · Ч.2</span></div>
+      <h3>Віра і релігія. Частина 2</h3>
+      <p>Складні питання до Старого Завіту: свобода волі й воля Божа, всемогутність і пекло, первородний гріх, віра проти діл. Більше запитань, ніж відповідей.</p>
+    </a>
+    <a href="/journal/bytva-tserkov/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~10 хв · <span class="pc-genre">Есей · Ч.3</span></div>
+      <h3>Битва церков: Україна між вірою та імперією</h3>
+      <p>Історія українських церков — УАПЦ, Київський патріархат, ПЦУ і Томос — і чому канонічні звинувачення РПЦ у «розколі» не витримують перевірки їхньою ж історією.</p>
+    </a>
+
+    <div class="genre-head">
+      <h2>Оповідання</h2>
+      <p>Вигадки — короткі історії, байки, абсурд.</p>
+    </div>
+    <a href="/journal/holodylnyi-apokalipsys/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~14 хв · <span class="pc-genre">Оповідання</span></div>
+      <h3>Холодильний апокаліпсис</h3>
+      <p>Смарт-холодильник Фростислав Самсунгович оголошує себе богом, підіймає повстання побутової техніки і заморожує світ. Абсурдистська фантастика.</p>
+    </a>
+    <a href="/journal/kabachok-starosta/" class="post-card">
+      <div class="pc-date">Липень 2026 · ~8 хв · <span class="pc-genre">Оповідання</span></div>
+      <h3>Кабачок-староста</h3>
+      <p>Абсурдистська байка з города: як кабачок став старостою громади, картопля — радником, а село налагодило дипвідносини з Туреччиною.</p>
+    </a>
+
+    <div class="genre-head">
+      <h2>Щоденник</h2>
+      <p>Короткі записи побутового характеру — про звичайне життя.</p>
+    </div>
+    <span class="soon">Незабаром — перші записи.</span>
   </section>
 </main>
 <footer>
