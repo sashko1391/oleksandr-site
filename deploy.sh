@@ -38,7 +38,6 @@ declare -A FILES=(
   ["robots.txt"]="robots.txt"
   ["update.sh"]="update.sh"
   ["deploy.sh"]="deploy.sh"
-  ["worker.js"]="api/send-chat.js"
 
   # Блог та проєкти (з підпапок Downloads)
   ["blog-yak-obrati/index.html"]="blog/yak-obrati-rozrobnyka/index.html"
@@ -80,8 +79,9 @@ if [ -f "$ZIP_FILE" ] && [ "$(find "$ZIP_FILE" -mmin -240 2>/dev/null)" ]; then
   unzip -qo "$ZIP_FILE" -d oleksandr-site-unzip
 
   # Копіюємо все крім images і .git
+  # (api/send-chat.js видалено 2026-07-14 — не воскрешати зі старих архівів)
   cd oleksandr-site-unzip/oleksandr-site 2>/dev/null || cd oleksandr-site-unzip
-  find . -type f ! -path '*/public/images/*' ! -path '*/.git/*' | while read -r f; do
+  find . -type f ! -path '*/public/images/*' ! -path '*/.git/*' ! -path '*/api/send-chat.js' | while read -r f; do
     dst="$REPO_DIR/$f"
     mkdir -p "$(dirname "$dst")"
     cp "$f" "$dst"

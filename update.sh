@@ -31,7 +31,6 @@ declare -A FILE_MAP=(
   ["index.html"]="index.html"
   ["sitemap.xml"]="sitemap.xml"
   ["robots.txt"]="robots.txt"
-  ["worker.js"]="api/send-chat.js"
 )
 
 COPIED=0

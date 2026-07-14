@@ -397,3 +397,41 @@ Cream/sand замість золотого Atlas / синього AGENTIS:
 - **PSI public API має квоту** ~25 запитів/день без ключа. З ключем — 25 000/день безкоштовно. Краще ставити одразу через Cloud Console
 - **`feedback_credit_links.md`** збережено в memory: на всіх клієнтських сайтах credit links уже стоять (домовляються при контракті) — outreach з generic SEO playbook'у не валідний для нашого сетапу
 - **Sprint C фактично закрився раніше за дедлайн (17.05)** — основна частина роботи тривала 04.04-04.05, тобто local "sprint" timing відстає від реальності. Sprint D (18.05) теж частково випереджений: redesign LP, internal-linking tutorial, Hub & Spoke вже зроблено
+
+---
+
+## 2026-07-13/14 — «Поза кодом», система коментарів, фото-лонгрід, Patreon-імпорт
+
+### Silo «Поза кодом» (/journal/)
+- Ребренд особистого силосу з «Щоденник» на **«Поза кодом»** — три жанри на індексі: Есеї · Оповідання · Щоденник.
+- Нові пости: серія «Віра і релігія» Ч.1–3 (`vira-i-religiya`, `-2`, `bytva-tserkov`, крос-лінки prev/next), оповідання `kabachok-starosta` + `holodylnyi-apokalipsys` (fiction, 4 Midjourney-ілюстрації), меморіал `pamyati-maksyma-babaka`.
+- **Category filter tabs** на індексі: sticky `.genre-tabs` (Всі/Подорож/Есеї/Оповідання/Щоденник), кожен жанр обгорнуто в `.genre-group[data-genre]`, JS-фільтр з hash deep-link (`#podorozh` тощо), `aria-pressed`.
+- Homepage: trust-блок «Поза кодом» (варіант B) у секції ABOUT + лінк у nav.
+
+### Система коментарів (commit ab633c7 + 6064558 + eb9507f)
+- Власна система під journal+blog (18 стор.): Supabase Postgres (porsager `postgres`, **IPv4 transaction pooler :6543**, `prepare:false, ssl:'require'`), Cloudflare Turnstile, Upstash KV rate-limit, **Telegram-премодерація** (HMAC-signed callback_data, chat allowlist, secret token).
+- Backend: `api/comments.js` (GET approved / POST з Zod+CSRF+rate-limit), `api/tg-webhook.js`, `api/cron/comments-retention.js` (ip_hash cleanup >30d).
+- Frontend: `public/js/comments.v1.js` — lazy IntersectionObserver, textContent-only (XSS-safe), 1-рівневі треди.
+- `lib/` — db.js, kv.js, security.js, telegram.js, schema.js. Тести: `tests/security.test.js` + `schema.test.js` (16 vitest, всі green).
+- `/privacy/` — GDPR-політика (15 секцій, за власним шаблоном `~/Documents/contracts_templates`), фізособа-блогер реквізити.
+
+### Фото-лонгрід велоподорожі (commit c1c9536)
+- `/journal/velozaizd/` — «Велосипедом навколо України», 16 секцій, 54 webp, **права scrollspy-навігація по днях** (desktop) → горизонтальні пігулки (mobile). Жанр «Подорож».
+
+### Patreon-імпорт (commit 0d0ff55)
+- Playwright-пайплайн: `scripts/patreon-login.mjs` (headed логін google-chrome, сесія→`patreon-auth.json`) + `scripts/patreon-fetch.mjs <url>` (текст+фото у `~/patreon_posts/`).
+- Пости: `velyke-budivnytstvo` (build-diary, 29 фото, жанр «Щоденник») + `zhyly-buly` (спогад про дідусів, Есеї·Пам'ять).
+
+### Дрібні правки (commits a008116 + 3941833)
+- `/privacy/` тепер лінкується з футера **всіх 37 сторінок** (homepage — `.footer-copy` div-варіант, правився окремо). Orphans → 0.
+- `zhyly-buly`: фото дідусів поміняно місцями (мамині→dida/3 з онуками, татові→dida/2).
+
+### Commits
+`ff17a20 · cd40f38 · 398501d · e3b648c · ab633c7 · 6064558 · eb9507f · c1c9536 · 0d0ff55 · 79e0cb5 · a008116 · 3941833`
+
+### Lessons / нюанси
+- **Supabase DIRECT connection = IPv6-only** → `ENOTFOUND` на Vercel. Треба **Transaction pooler + "Use IPv4 connection" toggle** (aws-0-eu-central-1.pooler.supabase.com:6543). Pooler вимагає `ssl:'require'`.
+- **Env-only зміна у Vercel не тригерить redeploy** — потрібен empty commit (eb9507f) щоб підхопити TELEGRAM_BOT_TOKEN/CHAT_ID.
+- **Bulk sed по футерах пропускає варіантну розмітку** — homepage мав `<div class="footer-copy">` замість `<p>`, довелось окремим комітом.
+- **codex exec gpt-5-codex** не працює на ChatGPT-акаунтах → default model.
+- Конкатенація Patreon .md з кириличними іменами через bash тайм-аутить → Python-конвертер (`build_*.py` у scratchpad).

@@ -25,7 +25,7 @@
 - `/favicon.svg` — SVG favicon з ініціалами "OK"
 
 ### API
-- `/api/send-chat.js` — Vercel serverless function → Telegram Bot API
+- `/api/send-chat.js` — Vercel serverless function → Telegram Bot API *(видалено 2026-07-14: осиротілий — чат і лід-форми давно шлють на Cloudflare Worker; був незахищеним flood-вектором)*
 
 ### Зображення
 - Всі в WebP форматі (`/images/*.webp`)
@@ -238,7 +238,7 @@ Best Practices 77 на всіх — через Microsoft Clarity third-party coo
 6 кастомних events зареєстровано і працює end-to-end:
 - `pricing_view`, `pricing_view_tier`, `pricing_select_tier`, `pricing_compare_view`, `pricing_form_submit_attempt`, `pricing_form_submit`
 - Conversions (⭐): `pricing_form_submit`, `pricing_select_tier`, `generate_lead`, `contact_click`
-- Form submit → Telegram webhook (через `/api/send-chat.js`) — підтверджено
+- Form submit → Telegram webhook (через Cloudflare Worker; історично згадувався `/api/send-chat.js`, видалений 2026-07-14) — підтверджено
 
 ### Smoke-test pattern для нових інтерактивних сторінок
 1. Відкрити Realtime-звіт у GA4 (миттєва верифікація без 15-30 хв лагу)
@@ -289,3 +289,39 @@ curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<URL>&st
 Без ключа — 25 анонімних запитів/день. З ключем — 25 000/день безкоштовно.
 
 `.env` у `.gitignore` поряд з `.env.local`, `node_modules/`, `.vercel/`.
+
+---
+
+## Система коментарів (2026-07-13)
+
+Власна система під journal+blog (18 стор.) — replace для disqus/сторонніх.
+
+**Stack:** Supabase Postgres (porsager `postgres`, IPv4 transaction pooler :6543, `prepare:false, ssl:'require', max:1`) + Cloudflare Turnstile + Upstash KV rate-limit + Telegram-премодерація (HMAC callback_data, chat allowlist, secret token).
+
+**Файли:**
+- `lib/` — db.js, kv.js, security.js (IP hash /64, HMAC signAction, CSRF X-Requested-With), telegram.js, schema.js (Zod CommentInput)
+- `api/comments.js` (GET approved by slug / POST) · `api/tg-webhook.js` · `api/cron/comments-retention.js`
+- `public/js/comments.v1.js` — lazy IntersectionObserver, textContent-only, 1-рівневі треди, Site Key вбудований
+- `tests/security.test.js` + `schema.test.js` (16 vitest)
+- `vercel.json` — cron `0 3 * * *` + immutable cache на comments.v1.js
+- `package.json` — deps postgres/@upstash/redis/zod, devDeps vitest/playwright, `"type":"module"`
+
+**Критичні env (Vercel):** DATABASE_URL (IPv4 pooler!), TURNSTILE_SECRET, TG_WEBHOOK_SECRET, IP_SALT, CALLBACK_HMAC_SECRET, CRON_SECRET, UPSTASH_*, TELEGRAM_BOT_TOKEN/CHAT_ID.
+
+**Supabase проєкт:** parkinsandr (qmpsnjovsaapzeujcpmi). Старий проєкт «опс» видалено.
+
+## /privacy/ + GDPR (2026-07-13)
+
+`/privacy/` — політика приватності (15 секцій, за власним шаблоном `~/Documents/contracts_templates/templates/privacy-policy`, фізособа-блогер). Залінковано у футер усіх 37 сторінок.
+
+## Patreon-імпорт (2026-07-13)
+
+Playwright-пайплайн для переносу постів «Поза кодом» з Patreon:
+- `scripts/patreon-login.mjs` — headed логін (channel:'chrome'), сесія→`patreon-auth.json` (gitignored)
+- `scripts/patreon-fetch.mjs <url>` — headless витяг тексту+фото у `~/patreon_posts/`
+- Далі верстка тим самим патерном (клон article-шаблону або `build_*.py` конвертер у scratchpad)
+- Редполітика: голос дослівно, прибрати лише реквізити зборів (картки/monobank/linktr/patreon-CTA/телефони)
+
+## Фото-лонгрід (2026-07-13)
+
+`/journal/velozaizd/` — інтерактивний патерн: секції по днях + права **scrollspy-навігація** (desktop, IntersectionObserver highlight) → горизонтальні пігулки (mobile). Переюзабельний для майбутніх фото-лонгрідів.

@@ -16,8 +16,8 @@ describe('CommentInput', () => {
   it('accepts a valid reply with positive parent_id', () => {
     expect(CommentInput.safeParse({ ...base, parent_id: 5 }).success).toBe(true);
   });
-  it('rejects a filled honeypot', () => {
-    expect(CommentInput.safeParse({ ...base, hp: 'bot' }).success).toBe(false);
+  it('lets a filled honeypot through the schema (rejected + logged at handler level)', () => {
+    expect(CommentInput.safeParse({ ...base, hp: 'bot' }).success).toBe(true);
   });
   it('requires consent === true', () => {
     expect(CommentInput.safeParse({ ...base, consent: false }).success).toBe(false);

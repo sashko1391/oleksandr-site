@@ -8,7 +8,7 @@
 - GA4: G-Y891WWYE79 + conversion tracking (generate_lead, contact_click, cta_click, chat_start, chat_message)
 - Microsoft Clarity: w7i1iwx0ah
 - Google Ads: акаунт створено (sashko1391@gmail.com), кампанії в підготовці
-- API: /api/send-chat.js (Vercel serverless)
+- API: /api/comments.js + /api/tg-webhook.js + /api/cron/comments-retention.js (Vercel serverless); чат/ліди → Cloudflare Worker (oleksandr-site.sashko1391.workers.dev). `/api/send-chat.js` видалено 2026-07-14 (осиротілий, без викликачів)
 
 ## File Structure
 ```
