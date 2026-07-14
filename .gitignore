@@ -17,3 +17,6 @@ doc/prompts/
 doc/overviews/
 doc/jarvis.md
 .vercel/
+
+# Patreon session (playwright storageState)
+patreon-auth.json
