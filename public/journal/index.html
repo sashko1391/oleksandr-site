@@ -97,6 +97,12 @@
   footer { padding:2rem 3rem; border-top:1px solid rgba(27,58,92,0.06); text-align:center; font-size:0.75rem; color:var(--ink-muted); }
   footer a { color:var(--blue-mid); text-decoration:none; }
   @media (max-width:768px){ nav{padding:1rem 1.5rem;} .head{padding:6rem 1.5rem 1.5rem;} .list{padding:1rem 1.5rem 3rem;} }
+  .genre-tabs{position:sticky;top:3.7rem;z-index:60;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;padding:.85rem 1rem;background:rgba(245,240,234,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(27,58,92,0.07);margin:0 0 1.5rem;}
+  .gt{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;background:var(--white);border:1px solid rgba(27,58,92,0.12);border-radius:20px;padding:.45rem 1rem;color:var(--ink-soft);cursor:pointer;transition:border-color .2s,background .2s,color .2s;}
+  .gt:hover{border-color:var(--blue-sky);color:var(--blue-deep);}
+  .gt.active{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff;}
+  .genre-group.hidden{display:none;}
+  @media(max-width:768px){.genre-tabs{top:3.2rem;gap:.35rem;padding:.6rem .5rem;}.gt{font-size:.66rem;padding:.4rem .7rem;}}
 </style>
 </head>
 <body>
@@ -111,7 +117,15 @@
     <h1><em>Поза</em> кодом</h1>
     <p>Те, що я пишу поза роботою: есеї, оповідання і короткі записи. Про життя з хворобою Паркінсона, село, пам'ять і те, що не вкладається в комерційний блог. Чесно, без прикрашань. Раніше — на Patreon, тепер тут.</p>
   </header>
+  <nav class="genre-tabs" aria-label="Категорії записів">
+    <button class="gt active" data-filter="all" aria-pressed="true">Всі</button>
+    <button class="gt" data-filter="podorozh" aria-pressed="false">Подорож</button>
+    <button class="gt" data-filter="eseyi" aria-pressed="false">Есеї</button>
+    <button class="gt" data-filter="opovidannya" aria-pressed="false">Оповідання</button>
+    <button class="gt" data-filter="shchodennyk" aria-pressed="false">Щоденник</button>
+  </nav>
   <section class="list" aria-label="Записи розділу «Поза кодом»">
+    <div class="genre-group" data-genre="podorozh">
     <div class="genre-head">
       <h2>Подорож</h2>
       <p>Великий фото-лонгрід — день за днем.</p>
@@ -121,7 +135,9 @@
       <h3>Велосипедом навколо України</h3>
       <p>20 днів у дорозі на e-bike з хворобою Паркінсона — від Троїцького через південь до Карпат. Люди, церкви, кавуни й ≈2350 км. Із фото та навігацією по днях.</p>
     </a>
+    </div>
 
+    <div class="genre-group" data-genre="eseyi">
     <div class="genre-head">
       <h2>Есеї</h2>
       <p>Тексти довшого формату — особистий досвід, роздуми, пам'ять.</p>
@@ -156,7 +172,9 @@
       <h3>Битва церков: Україна між вірою та імперією</h3>
       <p>Історія українських церков — УАПЦ, Київський патріархат, ПЦУ і Томос — і чому канонічні звинувачення РПЦ у «розколі» не витримують перевірки їхньою ж історією.</p>
     </a>
+    </div>
 
+    <div class="genre-group" data-genre="opovidannya">
     <div class="genre-head">
       <h2>Оповідання</h2>
       <p>Вигадки — короткі історії, байки, абсурд.</p>
@@ -171,7 +189,9 @@
       <h3>Кабачок-староста</h3>
       <p>Абсурдистська байка з города: як кабачок став старостою громади, картопля — радником, а село налагодило дипвідносини з Туреччиною.</p>
     </a>
+    </div>
 
+    <div class="genre-group" data-genre="shchodennyk">
     <div class="genre-head">
       <h2>Щоденник</h2>
       <p>Записи про звичайне життя й побут — «Щоденник молодого діда».</p>
@@ -181,6 +201,7 @@
       <h3>Велике будівництво</h3>
       <p>Як я з нуля, без навичок і з хворобою Паркінсона, збудував у дворі бесідку з сауною — від пічки й фундаменту до даху. З фотографіями та дідами-консультантами.</p>
     </a>
+    </div>
   </section>
 </main>
 <footer>
@@ -190,5 +211,19 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.gt'));
+  var groups=[].slice.call(document.querySelectorAll('.genre-group'));
+  function apply(fl){
+    groups.forEach(function(g){g.classList.toggle('hidden', fl!=='all' && g.getAttribute('data-genre')!==fl);});
+    tabs.forEach(function(t){var on=t.getAttribute('data-filter')===fl;t.classList.toggle('active',on);t.setAttribute('aria-pressed',on?'true':'false');});
+    try{history.replaceState(null,'',fl==='all'?location.pathname:('#'+fl));}catch(e){}
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){apply(t.getAttribute('data-filter'));});});
+  var h=(location.hash||'').replace('#','');
+  if(h && document.querySelector('.genre-group[data-genre="'+h+'"]')) apply(h);
+})();
+</script>
 </body>
 </html>
