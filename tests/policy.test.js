@@ -64,9 +64,11 @@ describe('policy: stable @id', () => {
     const allowed = new Set([`${SITE}/#business`, LADOMYR_ID]);
     expect(all.filter((x) => x.id.endsWith('#business') && !allowed.has(x.id))).toEqual([]);
   });
-  it('the Ladomyr case keeps its client entity @id', () => {
-    const page = indexable.find((p) => p.rel === 'projects/ladomyr/index.html');
-    expect(ldIds(page.html)).toContain(LADOMYR_ID);
+  it('the Ladomyr client entity @id stays exactly as is: twice, only in its case', () => {
+    expect(all.filter((x) => x.id === LADOMYR_ID).map((x) => x.rel)).toEqual([
+      'projects/ladomyr/index.html',
+      'projects/ladomyr/index.html',
+    ]);
   });
 });
 

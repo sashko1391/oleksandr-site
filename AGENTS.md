@@ -21,7 +21,7 @@
 | Документ | Статус |
 |---|---|
 | `doc/PERSONAL_SITE_PLAN.md` | 🟢 головний план переробки, фази Ф0–Ф7 |
-| `doc/SERVICES_HUB_PLAN.md` | 🟡 Ф1 — план v2 після рев'ю, чекає відповідей власника |
+| `doc/SERVICES_HUB_PLAN.md` | 🟡 Ф1 у роботі: крок 1 (валідатор посилань) ✅, далі крок 2 — сторінка `/services/` |
 | `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
@@ -31,7 +31,7 @@
 
 ## Правила
 1. **URL постів не переносимо.** Розділи — хаби поверх наявних URL; один пост = один self-canonical, може бути в кількох
-   добірках. Перенесення — лише 1:1 через 301/308. `[advisory; з Ф1 — tests/links.test.js]`
+   добірках. Перенесення — лише 1:1 через 301/308. `[advisory; биті внутрішні посилання ловить tests/links.test.js]`
 2. **Комерційні сторінки не видаляємо** (`/services/*`, `/pricing/`, `/projects/*`, статті для замовників). `[advisory]`
 3. **`@id` сутностей стабільні:** Person — `https://www.parkinsandr.tech/pro-mene/#author` (старий `/#author` заборонено);
    ProfessionalService — `https://www.parkinsandr.tech/#business` (не змінюється, навіть коли вузол переїде на `/services/`);
@@ -48,7 +48,16 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — tests/handlers, security, schema, feed, policy]`
+    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, journal-index]`
+12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
+    `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
+    `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
+    percent-encoding), фрагмент — на наявний `id` HTML-сторінки (зовнішні SVG-спрайти не підтримуються). URL-властивості
+    JSON-LD — лише абсолютні; `id` на сторінці унікальні; `<base>` заборонено; кожна indexable сторінка має рівно один
+    canonical = її URL. Політика фази (`scripts/link-policy.mjs`, `CURRENT_PHASE`): дозволені якорі головної, маніфест
+    CTA й «напишіть мені» (за текстом посилання), breadcrumbs position 2, точна к-сть `@id #business`; покриття,
+    повноту й цілі маніфесту тести перевіряють незалежно від нього; фазу перемикає коміт, що виконує міграцію.
+    Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
 
 ## Структура (2026-09)
 ```
@@ -69,6 +78,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
+- `npm run check:links [-- --phase f1-done]` — валідатор посилань (цілісність + політика фази); `--phase` — пробний
+  прогін наступної фази: показує, що ще треба перепривʼязати
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
 - `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push
