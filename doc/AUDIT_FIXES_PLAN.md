@@ -1,5 +1,7 @@
 # Audit Fixes Plan — comments backend (v2, post-review)
 
+> **Статус (2026-09-18):** ✅ виконано — коміт `0c7343a` (2026-07-14); у проді, живий smoke 11/11.
+
 > Джерело: production-readiness аудит 2026-07-14 + рев'ю плану (7 findings враховано).
 > Рішення власника: **send-chat — видалити**; **flood circuit-breaker — прибрати**.
 > Verdict аудиту: Ready with conditions, 0 блокерів. Тести: `npm test` (vitest). Деплой: git push → Vercel.

@@ -1,219 +1,168 @@
-# oleksandr-site — Project Rules
+# oleksandr-site (parkinsandr.tech) — Project Rules
 
-## Project Context
-- Static HTML site (no framework, no build step)
-- Hosted on Vercel (vercel.json config)
-- Domain: parkinsandr.tech
-- Language: Ukrainian (uk), geo: Kyiv Oblast
-- GA4: G-Y891WWYE79 + conversion tracking (generate_lead, contact_click, cta_click, chat_start, chat_message)
-- Microsoft Clarity: w7i1iwx0ah
-- Google Ads: акаунт створено (sashko1391@gmail.com), кампанії в підготовці
-- API: /api/comments.js + /api/tg-webhook.js + /api/cron/comments-retention.js (Vercel serverless); чат/ліди → Cloudflare Worker (oleksandr-site.sashko1391.workers.dev). `/api/send-chat.js` видалено 2026-07-14 (осиротілий, без викликачів)
+## Що це за проєкт (з 2026-09-18 — у процесі переробки)
+Особистий сайт Олександра Кравченка — автора і розробника: щоденник, програмування, творчість (оповідання, музика,
+кліпи), життя з хворобою Паркінсона. Розробка сайтів на замовлення — окремий комерційний хаб `/services/` (активний дохід).
+Квітень–серпень 2026 сайт будувався як lead-generation сайт веб-розробника; переробку описано в `doc/PERSONAL_SITE_PLAN.md`.
 
-## File Structure
+- Static HTML без build step (перехід на Astro — фаза Ф6 плану); хостинг Vercel (`vercel.json`); деплой = `git push` у `main`.
+- Домен parkinsandr.tech; мова uk; гео — Київська область.
+- Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
+- Vercel Functions: `api/comments.js`, `api/tg-webhook.js`, `api/cron/comments-retention.js` + `lib/` (Supabase через
+  IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). AI-чат і лід-форми → Cloudflare Worker
+  `oleksandr-site.sashko1391.workers.dev` (код воркера не в репо). `/api/send-chat.js` видалено 2026-07-14.
+- RSS: `public/feed.xml` (генерує `scripts/build-feed.mjs`). Тести: `npm test` (vitest).
+
+## Поточні плани й статус
+| Документ | Статус |
+|---|---|
+| `doc/PERSONAL_SITE_PLAN.md` | 🟢 головний план переробки, фази Ф0–Ф7 |
+| `doc/SERVICES_HUB_PLAN.md` | 🟡 Ф1 — план v2 (після рев'ю Codex), чекає відповідей власника на відкриті питання |
+| `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
+| `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
+
+Фази: Ф0 ✅ baseline · Ф1 `/services/` · Ф2 хаби `/code/`, `/creative/`, `/parkinson/` + оновлений `/journal/` ·
+Ф3 нова головна + меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Паралельно: 🔴 **індексація — пріоритет №1**.
+
+## Незмінні правила переробки
+1. **URL постів не переносимо.** Розділи — хаби поверх наявних URL; один пост = один self-canonical, але може бути
+   в кількох добірках. Якщо колись переносити — лише 1:1 через 301/308.
+2. **Комерційні сторінки не видаляємо** (`/services/*`, `/pricing/`, `/projects/*`, статті для замовників).
+3. **`@id` сутностей стабільні:** Person — `https://www.parkinsandr.tech/pro-mene/#author`; ProfessionalService —
+   `https://www.parkinsandr.tech/#business` (не змінюється, навіть коли вузол переїде на `/services/` у Ф3).
+   `@id` клієнта `https://www.ladomyr.kiev.ua/#business` у кейсі Ладомир — не чіпати ніколи.
+4. **Рубрика Паркінсон = «досвід пацієнта»** (рецензента-невролога немає): дисклеймер у видимій зоні, джерела,
+   «перевірено: дата», журнал виправлень; завжди поза пейволом.
+5. **Одна велика зміна за раз;** перевірки функціональні — обсяги трафіку замалі для статистичного контролю.
+6. **Репо публічне:** у `doc/`, `CLAUDE.md`, комітах — жодних сирих метрик, фінансових, юридичних чи особистих
+   деталей. Сирі дані — лише в gitignored `doc/baseline/`.
+7. **Коміт/пуш — лише на явне «коміт»/«пуш».** Робочий цикл: план у `doc/*_PLAN.md` → рев'ю (gemini/glm/codex) →
+   код + тести → рев'ю діфа → пуш.
+
+## File Structure (2026-09)
 ```
 public/
-├── index.html              ← homepage (one-page with sections)
-├── 404.html                ← error page (noindex)
-├── robots.txt
-├── sitemap.xml
-├── services/{slug}/index.html  ← service landing pages (3 pages)
-├── projects/{slug}/index.html  ← case studies (4 pages)
-├── blog/{slug}/index.html      ← blog posts (6 pages)
-└── images/                     ← WebP + JPG fallbacks
+├── index.html            ← головна (поки комерційна; переробка у Ф3)
+├── 404.html (noindex) · robots.txt · sitemap.xml (44 URL) · feed.xml (RSS)
+├── journal/              ← «Поза кодом»: index (хронологічна стрічка + фільтр жанрів) + 16 постів
+├── blog/{slug}/          ← 12 статей: 6 для замовників, devlog-и, AI/SEO-кейси
+├── services/{slug}/      ← 5 лендингів: nextjs, landing, ai, redesign, kyiv
+├── projects/{slug}/      ← 6 кейсів
+├── pricing/ · pro-mene/ (author page) · privacy/
+├── js/comments.v1.js · fonts/ (self-hosted woff2) · images/ (WebP + JPG)
+api/ · lib/ · scripts/ · tests/ · doc/
 ```
+Індексів `/services/`, `/projects/`, `/blog/` поки немає (`/services/` — у Ф1).
 
-## SEO Plan (April–June 2026) — Reference: doc/SEO.md
+## Scripts
+- `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
+- `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
+- `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
+- `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
+- `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
+- `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push
 
-### Sprint A (06.04–19.04): Measurement + Blockers ✅
-- [x] Verify GSC access + link GSC ↔ GA4 — done 2026-04-08
-- [x] Check Page Indexing — 3 redirects (normal), 5 "discovered not indexed" → requested indexing for 9 URLs
-- [x] Sitemap resubmitted (14 URLs) — 2026-04-08
-- [ ] Export baseline Performance (28 days) — too little data yet (1 click total), revisit in 2 weeks
-- [ ] Run Screaming Frog crawl (200/301/404, titles, meta, directives) — optional, site is small
-- [x] Seed keywords (5 groups) + intent map table — doc/SEED_KEYWORDS.md
-- [x] Fix: logo href="#" → href="/" on project/blog pages — all pages already have href="/"
-- [x] Schema @id cross-referencing — Person @id on homepage, referenced from all 9 inner pages
-- [x] robots.txt — explicit Allow for GPTBot, ChatGPT-User, Claude-Web
-- [x] GEO TL;DR blocks — added to key articles
-- [x] Expertise-to-Ad Ratio audit — all pages PASS (45-55%)
-
-### Sprint B (20.04–03.05): First Landing Pages + Fix Blockers ✅
-- [x] Create landing page: "Розробка сайтів на Next.js для бізнесу" — /services/nextjs/ (already exists)
-- [x] Create landing page: "Лендінг під рекламу" — /services/landing/ (already exists)
-- [x] Add 5+ internal links to each service page — nextjs:7, landing:4, ai:5
-- [x] Verify canonicals — all 14 pages OK, no conflicts
-- [x] Fix soft-404/404 issues — 0 broken internal links
-- [x] Add BreadcrumbList JSON-LD to all /blog/* and /projects/* pages — done (100% coverage)
-
-### Sprint C (04.05–17.05): CWV + Schema ✅
-- [x] Run PSI on homepage + blog template + case template — react-vs-tilda: P93/A79/LCP2.6s, ace: P75/A81/LCP5.1s
-- [x] Accessibility fixes on all 14 pages: skip-link, aria-labels, main landmark, contrast, table semantics
-- [x] LCP optimization: analytics to body end, font preload split
-- [x] Article schema audit — all 8 blog posts have Article + BreadcrumbList + Person @id refs; dateModified matches git log (verified 2026-05-04)
-- [x] Landing page "AI-інтеграції для сайту" — /services/ai/ exists, expanded with 3 FAQ items (RAG vs simple bot, GDPR/data, AI vs n8n) on 2026-05-04
-- [x] Update AGENTIS case study with SEO/indexing results — done 2026-05-04 (commit e4fdeb3): GSC data 1→58 indexed, 75 clicks / 4 229 impressions / CTR 1.77% / pos 10.8 over 28 days
-- [x] Re-run PSI after deploy — homepage P89/A96/LCP3.0s, blog P90/A91/LCP2.7s, ace P75/A91/LCP4.9s; accessibility +10-12 points across templates
-- [N/A] 5 outreach emails for credit links — credits already live on all client sites (Atlas, AGENTIS, Slavutych, ACE, Julia), no outreach needed
-
-### Sprint D (18.05–31.05): Cluster Structure
-- [ ] Create landing page: "Редизайн і перезапуск"
-- [ ] Publish tutorial: internal linking + cluster building
-- [ ] Link all landing pages into Hub & Spoke structure
-- [ ] Verify JS SEO: key content visible in URL Inspection
-- [ ] 3 PR pitches (guide/calculator/research)
-
-### Sprint E (01.06–14.06): Local SEO
-- [ ] Create/update Google Business Profile (service area: Kyiv Oblast)
-- [ ] Create local landing page: "Розробка сайтів Київ"
-- [ ] Add LocalBusiness/ProfessionalService schema (truthful data only)
-- [ ] Publish 2 blog posts + 1 case update
-
-### Sprint F (15.06–28.06): Conversion Optimization
-- [ ] A/B test: hero headline variants → measure lead rate
-- [ ] A/B test: CTA text → measure CTR + leads
-- [ ] Update 5 key pages: rewrite title/description for CTR
-- [ ] Publish pillar guide: "Як замовити сайт і не згоріти"
-- [ ] Update all landing pages: FAQ blocks, anchor links, CTAs
-- [ ] 3-month report: clicks/impressions/leads growth, plan for Q3
-
-## Content Calendar — Reference: doc/SEO.md (full table)
-
-Priority content types:
-1. **Landing pages** (services/niches) — close commercial intent
-2. **Case studies** — proof of results + branded queries
-3. **Tutorials/guides** — capture demand you don't buy via ads
-4. **Blog posts** (guides/comparisons/devlogs) — topical authority
-
-Target cadence: 1 deep + 1 light piece per week (8-10/month)
-
-## Current SEO State (Baseline April 2026)
-
-### What's already good:
-- All pages have unique title + description + canonical + OG + Twitter Card
-- ProfessionalService JSON-LD on homepage with offers
-- Article JSON-LD on all blog/project pages with @id cross-referencing
-- BreadcrumbList JSON-LD on all inner pages
-- robots.txt allows all bots + sitemap reference
-- sitemap.xml with 14 URLs, correct lastmod dates
-- GA4 + Clarity on all pages + conversion tracking (5 custom events)
-- All images have descriptive alt text, WebP format
-- Proper H1→H2→H3 hierarchy on all pages
-- Skip link, aria-labels, `<main>` landmark, WCAG AA contrast on all pages
-- Analytics scripts at end of `<body>` (not `<head>`) for better LCP
-- Self-hosted fonts in `/public/fonts/` (woff2, inline @font-face) — Playfair Display (headings), Manrope (body), JetBrains Mono (mono); all with Cyrillic subset
-- Lazy loading on images
-
-### What needs fixing:
-- Homepage is one-page with #anchors — search engines can't index sections as separate entities
-- No AVIF format (only WebP + JPG)
-- preview.jpg used in OG but not confirmed to exist
-
-## Technical Notes
-- All CSS is inline (in `<style>` tags) — good for performance
-- Fonts self-hosted in `/public/fonts/` (no Google Fonts dependency); @font-face inline, critical Cyrillic woff2 preloaded; `vercel.json` sets immutable cache on `/fonts/*`
-- No external CSS/JS files except GA4
-- deploy.sh and update.sh for SSH deployment
-- vercel.json for routing config
+## Чек-лист нового поста
+1. Клон наявного поста того ж розділу (inline CSS, шрифти, аналітика). Title < 60, description < 155, canonical, OG/Twitter.
+2. JSON-LD: Article (author → `/pro-mene/#author`) + BreadcrumbList; FAQPage — лише для реального видимого FAQ.
+3. Коментарі: блок перед `</article>` (`inject-comments.mjs`) **+ `INSERT INTO posts(slug)` у Supabase** — інакше API 404.
+4. `sitemap.xml` (lastmod), `node scripts/build-feed.mjs && node scripts/inject-rss.mjs`, картка в індексі розділу.
+5. Щонайменше 3 вхідні внутрішні посилання; після деплою — IndexNow + GSC «Запросити індексування».
 
 ## Conventions
-- HTML files go in public/{section}/{slug}/index.html
-- Images in public/images/ as WebP (primary) + JPG (fallback)
-- JSON-LD schemas inline in `<script type="application/ld+json">`
-- Ukrainian content, English code/config
-- Meta description: keyword at start, <155 chars
-- Title: <60 chars, pattern "{Topic} | Олександр Кравченко"
+- HTML: `public/{section}/{slug}/index.html`; зображення: `public/images/` WebP (основний) + JPG (fallback), описовий `alt`.
+- JSON-LD inline у `<script type="application/ld+json">`. Контент українською, код і конфіги англійською.
+- Title < 60 символів, патерн «{Тема} | Олександр Кравченко»; meta description < 155, ключ на початку.
+- Шрифти self-hosted: Playfair Display (заголовки), Manrope (текст), JetBrains Mono (теги) — усі з кирилицею, inline
+  `@font-face`, `font-display: swap`. **НЕ додавати `<link rel="preload" as="font">`** — експеримент 2026-06-14
+  погіршив FCP/LCP (сторінки text-LCP).
+- Бренд-кольори: `#1B3A5C` (blue-deep), `#5BA4D9` (blue-sky), `#F5F0EA` (milk).
 
-## V.A.L.I.D. Framework (Algorithm Resilience)
+## Technical Notes
+- CSS inline у `<style>`. Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (лише в коментарях), `/js/comments.v1.js`.
+- `vercel.json`: rewrites Plausible; immutable-кеш `/fonts/*` і `/js/comments.v1.js`; headers `/feed.xml`; cron retention.
+- Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; зміна env у Vercel потребує редеплою.
+- Лаб-PSI цього сайту шумить (cold Vercel edge) — мірити 3–4 прогони, дивитись на медіану.
 
-Every page must pass all 5 pillars:
+## Стан SEO (2026-09, якісно — цифри в gitignored baseline)
+**Що добре:** унікальні title/description/canonical/OG на всіх сторінках; Article + BreadcrumbList з `@id`; robots.txt
+пускає AI-ботів; sitemap повний (44/44); RSS; self-hosted шрифти; a11y (skip link, `<main>`, WCAG AA контраст);
+аналітика внизу `<body>`.
 
+**Що погано:**
+- 🔴 **Індексація:** близько половини сторінок за 7 місяців без жодного показу — переважно журнал (усі пости про
+  Паркінсон, проза) і 4 з 5 сервісних лендингів; непроіндексованих стає більше.
+- Комерційні запити не вийшли в топ-30; органіку дають переважно особистий пост розробника (Джарвіс) і кейси
+  за назвами клієнтів.
+- Головна — єдиний комерційний хаб і ціль 28 CTA (`/#chat-section`) → перепривʼязка у Ф1, до зміни головної.
+
+**Контентні пріоритети:** 1) індексація наявного; 2) хаби розділів; 3) особистий контент першої руки (Паркінсон,
+проза, історії розробника); 4) `/services/` — переконливість для прямих відвідувачів, а не полювання на комерційні запити.
+
+## Schema Architecture
+| Тип сторінки | Обов'язково | Опційно |
+|---|---|---|
+| Головна (після Ф3) | Person, WebSite | — |
+| Хаб розділу | CollectionPage, ItemList, BreadcrumbList | FAQPage |
+| `/services/` | CollectionPage, ItemList(Service), BreadcrumbList, FAQPage | повний ProfessionalService — з Ф3 |
+| Пост журналу / блогу | Article, BreadcrumbList | FAQPage (лише реальний FAQ) |
+| Кейс | Article, BreadcrumbList | SoftwareApplication, LocalBusiness клієнта |
+| Сервісний лендинг | Service, BreadcrumbList, FAQPage | HowTo |
+| Паркінсон (YMYL) | Article + видимий дисклеймер, джерела, дата перевірки | — |
+
+Правила: `@id` cross-references (правило 3); лише правдиві дані; `dateModified` — коли контент реально змінився;
+Rich Results Test після змін schema; 4+ типів JSON-LD на ключових сторінках.
+
+## V.A.L.I.D. Framework
 | Pillar | Check |
-|--------|-------|
-| **V** — Verification (E-E-A-T) | Author credentials, real case studies, unique screenshots, first-person analytics |
-| **A** — Accessibility & UX | CWV in "Good" (LCP<2.5s, INP<200ms, CLS<0.1), mobile-first, skip links |
-| **L** — Logic & Structure | Schema Markup with @id cross-references, heading hierarchy H1→H2→H3 |
-| **I** — Intent Alignment | Content matches user intent (commercial→landing, info→guide, local→city page) |
-| **D** — Depth & Differentiation | Information Gain — unique data, original insights, not available elsewhere |
+|---|---|
+| **V** — Verification (E-E-A-T) | Автор і credentials, реальні кейси, унікальні скріншоти, first-person дані |
+| **A** — Accessibility & UX | CWV «Good» (LCP < 2.5s, INP < 200ms, CLS < 0.1), mobile-first, skip links |
+| **L** — Logic & Structure | Schema з `@id`, ієрархія H1→H2→H3 |
+| **I** — Intent Alignment | Контент відповідає наміру (комерційний → лендинг, інформаційний → гайд, особистий → пост) |
+| **D** — Depth & Differentiation | Information Gain — унікальні дані й досвід, яких немає деінде |
 
 ## GEO (Generative Engine Optimization)
+1. **Answer-first:** кожен H2 починається з 2 речень, що прямо відповідають на заголовок.
+2. **Модульність:** таблиці, нумеровані списки, сітки — легко витягуються AI.
+3. **Цитованість:** авторитетні джерела, конкретні числа, цитати з атрибуцією, точна термінологія.
+4. **Entity-first:** повні назви сутностей у H1 і перших абзацах; без займенників у заголовках.
+5. **Query fan-out:** покривати підпитання, а не один ключ.
+6. **Expertise-to-Ad Ratio:** верхні 800px — > 35% оригінального змісту, а не CTA.
 
-Rules for AI Overviews / AI-citation visibility:
-
-1. **TL;DR first:** Each H2 section starts with 2 sentences directly answering the heading question, then expands
-2. **Modular content:** Use comparison tables, numbered lists, feature grids — easy for AI extraction
-3. **Citation strategy:** Reference authoritative sources (+40% visibility), include specific statistics (+37%), use expert quotes with attribution (+30%), use precise technical terminology (+28%)
-4. **Entity-first headings:** Full entity names in H1 and opening paragraphs (helps NER). No pronouns in headings
-5. **Query fan-out coverage:** Cover subtopics deeply — AIO visibility depends on answering sub-questions, not ranking for one term
-6. **Expertise-to-Ad Ratio:** Top 800px of page must have >35% original expert content (not CTAs or ads)
-
-## Schema Architecture (Enhanced)
-
-### Cross-referencing with @id
-All JSON-LD blocks must use `@id` to link entities across the site:
-
-```json
-// Homepage: define the Person entity
-{"@type": "Person", "@id": "https://www.parkinsandr.tech/#author", "name": "Олександр Кравченко"}
-
-// Blog post: reference the same Person
-{"@type": "Article", "author": {"@id": "https://www.parkinsandr.tech/#author"}}
-```
-
-### Required schema per page type
-| Page type | Required schemas | Optional |
-|-----------|-----------------|----------|
-| Homepage | ProfessionalService, Person (with @id) | Organization |
-| Blog post | Article, BreadcrumbList | FAQPage (if Q&A content) |
-| Case study | Article, BreadcrumbList | — |
-| Service landing | Service, BreadcrumbList, FAQPage | HowTo |
-| Local landing | LocalBusiness, BreadcrumbList | — |
-
-### Schema quality rules
-- Use 4+ unique JSON-LD types per page for higher AI Overview inclusion (+14%)
-- Never use fake data — only truthful, verifiable information
-- Update dateModified when content actually changes
-- Test with Rich Results Test after every schema change
-
-## SEO Metrics & KPI (2026)
-
-### Traditional metrics (GSC + GA4)
-- Organic clicks/impressions/CTR by page (Search Console Performance)
-- Core Web Vitals pass rate (CWV report)
-- Indexing coverage (Page Indexing report)
-- Key events: form submit, contact click, chat interaction (GA4)
-
-### AI-era metrics (new)
-- **Share of Model (SoM):** % of brand mentions in AI responses for 20-50 target queries across ChatGPT, Perplexity, Claude, Gemini. Track monthly
-- **AI Citation Frequency:** How often domain is cited as source by AI platforms
-- **Generative Referral Traffic:** Traffic from AI-generated links (GA4 referral)
+## Метрики
+- Класичні (GSC + GA4): кліки/покази/CTR по сторінках; **індексація (Coverage) і к-сть URL з ≥ 1 показом**; CWV;
+  події GA4 (`generate_lead`, `contact_click`, `chat_start`, `cta_click`).
+- AI-ера: Share of Model (згадки бренду в ChatGPT/Perplexity/Claude/Gemini), AI Citation Frequency, реферали з AI.
 
 ## 2026 SEO/GEO/CWV Policy Sync
-> Source of truth: `~/Dashboard/knowledge/` (SEO/GEO/sites master guides). Global policy in `~/.claude/CLAUDE.md` governs behavior; this block mirrors the mid-2026 deltas most relevant to this static content-led site. Synced from Dashboard knowledge as of 2026-06-14. Re-sync when `~/Dashboard/knowledge/_refresh-manifest.json` shows a newer `last_refresh`.
+> Джерело правди: `~/Dashboard/knowledge/` (глобальна політика — `~/.claude/CLAUDE.md`). Пересинхронізувати, коли
+> `~/Dashboard/knowledge/_refresh-manifest.json` показує новіший `last_refresh`.
+- **«Getting Cited» замість «Ranking»:** AI читає верх сторінки й H2-блоки → answer-first абзаци, чіткі H2/списки;
+  E-E-A-T author-блоки — «нові беклінки» для вибору джерел.
+- **AI Mode:** inline-цитати всередині AI-тексту → короткі цитатопридатні речення з фактами; клікабельні title/OG-title.
+- **Core Updates 2026:** придушення масового AI-контенту; пріоритет — унікальні дані, кейси, first-hand сигнали.
+- **AI Overviews:** на ~48% запитів; падіння CTR 34–61% (після відскоку, не катастрофічні −65%) — AIO і не-AIO міряти
+  окремо; дивитись на downstream (підписка, повернення), а не лише CTR.
+- **Кластери:** adaptive depth > symmetric; менше, але глибше; кожна сторінка кластера лінкує на хаб + 2–3 сусідні.
+- **Schema:** Article, FAQPage, HowTo, BreadcrumbList, ProfessionalService/LocalBusiness; Quiz/Practice Problems — deprecated.
+- **CWV:** LCP < 2.5s · INP < 200ms (усі взаємодії) · CLS < 0.1; JS ≤ 300–400 KB gzipped/route; `fetchpriority="high"`
+  на LCP-зображенні.
+- **YMYL (Паркінсон):** порядок trust-сигналів — джерела → видимий дисклеймер → прозорість методології → зовнішні
+  авторитетні джерела → кейси; «не замінює лікаря».
 
-### Search/GEO landscape (mid-2026)
-- **"Getting Cited" replaces "Ranking":** AI reads top-of-page + H2 blocks → answer-first перші абзаци + чіткі H2/списки прямо корелюють з частотою цитування в ChatGPT/Perplexity/Gemini. E-E-A-T author blocks = "нові беклінки" для source selection.
-- **AI Mode 5 (May 2026):** inline citations *всередині* AI-тексту (не в кінці) → потрібні короткі цитатопридатні речення з marked facts; "explore more" chain; site previews on hover → клікабельні title/OG-title критичні.
-- **May 2026 Core Update:** crackdown на scaled/hyperscaled AI-контент. Commodity thin content deprecated (Google explicit). Priority: unique data, own research, кейси, high entity density, first-hand signals.
-- **AI Overviews CTR:** informational CTR впав ~65% де показано AIO. CTR більше не надійний proxy — сегментувати by AIO/no-AIO, дивитись downstream (lead capture, repeat visit, activation).
-- **Cluster: adaptive depth > symmetric** — scale winners (high intent + performance), weaker subtopics лишати minimal. Smaller intent-dense > mass programmatic.
+## Документація (`doc/`)
+| Файли | Статус |
+|---|---|
+| `PERSONAL_SITE_PLAN.md`, `SERVICES_HUB_PLAN.md`, `SUBSCRIPTION_PLAN.md` | див. «Поточні плани й статус» |
+| `DEVELOPMENT_LOG.md`, `PROJECT_CONTEXT.md` | журнали (лише дописувати) |
+| `COMMENTS_PLAN.md`, `AUDIT_FIXES_PLAN.md`, `AUTHOR_PAGE_PLAN.md`, `GETTING_CITED_ARTICLE_PLAN.md`, `TEPLIY_DVIR_CASE_PLAN.md`, `QUICKFIXES_PLAN.md`, `HOMEPAGE_B_PLAN.md`, `reviews/hub-spoke-changes.md` | ✅ виконані (історія) |
+| `SEO.md`, `PARKINSANDR_TECH_12_WEEK_ACTION_PLAN.md`, `SEED_KEYWORDS.md`, `seed-keywords-intent-map.md` | 🗄 історичні: комерційна SEO-стратегія квітня 2026, замінена переробкою |
+| `leads.csv` | шаблон обліку заявок |
+| `baseline/`, `research/`, `prompts/`, `overviews/`, частина `abaic_council/` | gitignored робочі матеріали |
 
-### Schema (2026)
-- Focus: **Article, FAQPage, HowTo, BreadcrumbList, Organization/ProfessionalService, LocalBusiness**. Quiz/Practice Problems schema **deprecated** (Jan 2026). Aim 4+ unique JSON-LD types/page. Truthful data only.
-
-### CWV targets (2026 gold)
-- LCP <2.5s · **INP <200ms** (measures ALL interactions across page lifecycle, FID gone) · CLS <0.1 · TTFB optimal.
-- **JS budget ≤300-400 KB gzipped/route** (было 500KB+). HTTP/3 + Brotli standard. **Priority Hints:** `fetchpriority="high"` на LCP-зображенні, explicit preconnect/dns-prefetch для third-party, `fetchpriority="low"` для below-fold. Edge target sub-50ms.
-- Site-specific урок: **НЕ додавати `<link rel="preload" as="font">`** — text-LCP сторінки, self-hosted шрифти + `font-display:swap` рендерять fallback миттєво; font-preload конкурував з документом і піднімав FCP (див. [[project_site_stack]]).
-
-### Trust signals (для YMYL/expert контенту)
-- Порядок сили: посилання на закони/норми → чіткий дисклеймер (у видимій зоні, не футер) → прозорість методології → зовнішні джерела → кейси → команда з credentials. Human-in-the-loop framing: "готуємо до [professional], не замінюємо".
-
-## Reference Documents
-- `~/Dashboard/knowledge/` — **источник правди** для SEO/GEO/coding/marketing політик (master guides + `_refresh-manifest.json` з consumers та `last_refresh`)
-- `~/Dashboard/prompts/coding_standards.md` (CODING_STANDARDS_2026) + `coding_specs.md` (PAGE_STANDARD_2026)
-- `doc/SEO.md` — Full 3-month SEO plan with editorial calendar
-- `doc/SEED_KEYWORDS.md` — 5 keyword groups + intent map
-- `~/.claude/doc/Audit.md` — 3 audit prompts (quick/full/pre-release) for JS/TS projects
-- `~/.claude/doc/SEO-стратегія*.pdf` — SEO strategy 2026: V.A.L.I.D., GEO, AI Overviews, Schema
-- `~/.claude/doc/Навчання Claude Code*.pdf` — Claude Code SEO automation guide, CLAUDE.md templates
+## Reference
+- `~/Dashboard/knowledge/` — джерело правди для SEO/GEO/coding/marketing політик
+- `~/Dashboard/prompts/coding_standards.md`, `coding_specs.md` (PAGE_STANDARD_2026), `seo_standard.md`
+- `~/.claude/doc/Audit.md` — аудит-промпти (quick/full/pre-release)

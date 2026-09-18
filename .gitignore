@@ -16,6 +16,7 @@ doc/research/
 doc/prompts/
 doc/overviews/
 doc/jarvis.md
+doc/baseline/
 .vercel/
 
 # Patreon session (playwright storageState)

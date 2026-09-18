@@ -1,5 +1,7 @@
 # План: блок коментарів для всіх статей (наявних і майбутніх)
 
+> **Статус (2026-09-18):** ✅ виконано — коміт `ab633c7` (2026-07-13); загартовано за аудитом — `0c7343a` (`doc/AUDIT_FIXES_PLAN.md`).
+
 > Статус: чернетка на погодження (v2 — враховано code-review). Ціль — коментарі під усіма статтями (/journal/, /blog/, опц. /projects/) з власним контролем даних, без шкоди для CWV і приватності. Дата: 2026-07-13.
 
 > **v2 review fixes:** робастний ланцюг якорів розкатки + fail-fast (High); повна XSS-політика для ВСІХ user-полів (High); валідація `parent_id` cross-slug/nesting (Medium); allowlist адміна + HMAC у Telegram callback (Medium); конкретний test-план під порожній `package.json` (Medium); scope за замовчуванням journal+blog, projects opt-in; Turnstile як явний виняток із «no external JS».
