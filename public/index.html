@@ -1975,7 +1975,7 @@
       <li><a href="/pro-mene/">Про мене</a></li>
       <li><a href="/journal/">Поза кодом</a></li>
       <li><a href="#blog">Блог</a></li>
-      <li><a href="#chat-section" class="nav-cta">Поговорити з AI</a></li>
+      <li><a href="#chat-section" class="nav-cta">Обговорити проєкт</a></li>
     </ul>
   </nav>
 
@@ -2000,8 +2000,8 @@
           <a href="#portfolio" class="btn-ghost">Подивитись роботи</a>
         </div>
         <p class="hero-ai-note">
-          До речі, я активно працюю з AI — вони кращі й ефективніші партнери. І шуткують краще за більшість колег. <a
-            href="#chat-section">Поспілкуйтесь з моїм помічником внизу сторінки</a>. Якщо він не зайнятий.
+          До речі, я активно працюю з AI — вони кращі й ефективніші партнери. І шуткують краще за більшість колег. Внизу
+          сторінки — <a href="#chat-section">бот із готовими відповідями</a> на типові питання: він передасть мені ваш контакт.
         </p>
       </div>
       <div class="hero-visual">
@@ -2153,7 +2153,7 @@
           <a href="/pricing/" style="color:var(--blue-mid); font-weight: 500;">Розгорнутий прайс із 6 типами сайтів і брифом для точної оцінки →</a>
         </p>
         <p style="text-align:center; margin-top:0.75rem; font-size:0.82rem; color:var(--ink-muted);">
-          Або <a href="#chat-section" style="color:var(--blue-mid);">обговоріть деталі з AI-помічником</a>.
+          Або <a href="#chat-section" style="color:var(--blue-mid);">поставте типові питання боту-помічнику</a>.
         </p>
       </div>
     </section>
@@ -2568,24 +2568,24 @@
     <section class="chat-section" id="chat-section">
     <div class="container">
       <div class="section-label">Помічник</div>
-      <h2 class="section-title">Поспілкуйтесь з моїм AI-колегою</h2>
-      <p class="section-desc" style="text-align:center; margin:0.5rem auto 0;">Він знає про мої послуги, строки та
-        підхід. Можете узгодити перші деталі — він передасть.</p>
+      <h2 class="section-title">Швидкі відповіді про послуги й строки</h2>
+      <p class="section-desc" style="text-align:center; margin:0.5rem auto 0;">Це бот із готовими відповідями на типові
+        питання. Залиште контакт — розмову отримаю я й відповім особисто.</p>
 
       <div class="chat-container reveal">
         <div class="chat-header">
-          <div class="chat-header-avatar">C</div>
+          <div class="chat-header-avatar">🤖</div>
           <div class="chat-header-info">
-            <div class="chat-name">Claude — помічник Олександра</div>
-            <div class="chat-status">Онлайн</div>
+            <div class="chat-name">Бот-помічник Олександра</div>
+            <div class="chat-status">Готові відповіді · контакт передам Олександрові</div>
           </div>
         </div>
 
         <div class="chat-messages" id="chatMessages">
           <div class="chat-msg bot">
-            <div class="msg-avatar">C</div>
-            <div class="msg-bubble">Привіт! Я AI-помічник Олександра. Можу розповісти про послуги, строки, підхід до
-              роботи, або просто поспілкуватись. Що вас цікавить?</div>
+            <div class="msg-avatar">🤖</div>
+            <div class="msg-bubble">Привіт! Я бот із готовими відповідями про послуги Олександра: ціни, строки, як
+              почати. Щоб відповів сам Олександр — залиште контакт, і він отримає нашу розмову.</div>
           </div>
         </div>
 
@@ -2598,7 +2598,7 @@
 
         <div class="chat-input-area">
           <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть повідомлення..."
-            aria-label="Повідомлення для AI-помічника"
+            aria-label="Повідомлення для бота-помічника"
             onkeydown="if(event.key==='Enter')sendMessage()">
           <button class="chat-send" onclick="sendMessage()" aria-label="Надіслати">↑</button>
         </div>
@@ -2666,7 +2666,7 @@
 
       'Як почати проєкт?': `Дуже просто:\n\n1️⃣ Напишіть мені або Олександру що вам потрібно\n2️⃣ Швидко узгодимо деталі\n3️⃣ Олександр запропонує макет, або ви надаєте свої інструкції\n4️⃣ Розробка з щотижневими демо → запуск!\n\nМожете почати прямо зараз — розкажіть, що за проєкт, і залиште контакт 👇`,
 
-      'Чому AI — це перевага?': `О, це моя улюблена тема! 🤓\n\nОлександр не просто "використовує AI" — він будує з ним. Я, наприклад, допомагаю з кодом, текстами, аналітикою. Це дозволяє:\n\n• Робити за тижні те, що раніше займало місяці\n• Один розробник + AI = маленька команда\n• Інтегрувати AI-фішки прямо в ваш продукт\n\nА ще я справді шуткую краще за більшість колег Олександра. Він сам так каже. Хоча, може, просто підлещується 😄`
+      'Чому AI — це перевага?': `О, це улюблена тема Олександра! 🤓\n\nВін не просто "використовує AI" — він будує з ним: AI-інструменти допомагають йому з кодом, текстами, аналітикою. Це дозволяє:\n\n• Робити за тижні те, що раніше займало місяці\n• Один розробник + AI = маленька команда\n• Інтегрувати AI-фішки прямо в ваш продукт\n\nА я — простий бот із готовими відповідями, тож і жарти в мене за сценарієм 😄`
     };
 
     const fallbacks = [
@@ -2727,7 +2727,7 @@
       msg.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
       const safe = escapeHTML(text).replace(/\n/g, '<br>');
       msg.innerHTML = `
-      <div class="msg-avatar">${isUser ? '👤' : 'C'}</div>
+      <div class="msg-avatar">${isUser ? '👤' : '🤖'}</div>
       <div class="msg-bubble">${safe}</div>
     `;
       container.appendChild(msg);
@@ -2743,7 +2743,7 @@
       msg.className = 'chat-msg bot';
       msg.id = 'typing-indicator';
       msg.innerHTML = `
-      <div class="msg-avatar">C</div>
+      <div class="msg-avatar">🤖</div>
       <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
     `;
       container.appendChild(msg);
