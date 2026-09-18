@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>parkinsandr.tech — Поза кодом і не тільки</title>
+    <link>https://www.parkinsandr.tech/</link>
+    <atom:link href="https://www.parkinsandr.tech/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.</description>
+    <language>uk</language>
+    <copyright>© 2026 Олександр Кравченко</copyright>
+    <lastBuildDate>Fri, 18 Sep 2026 04:37:39 GMT</lastBuildDate>
+    <image>
+      <url>https://www.parkinsandr.tech/images/preview.jpg</url>
+      <title>parkinsandr.tech</title>
+      <link>https://www.parkinsandr.tech/</link>
+    </image>
+    <item>
+      <title><![CDATA[Поверни мені час — кліп за мотивами оповідання]]></title>
+      <link>https://www.parkinsandr.tech/journal/poverny-meni-chas/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/poverny-meni-chas/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Оповідання]]></category>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[«Поверни мені час» — кліп і пісня, які я зробив за мотивами оповідання «Відділ втраченого часу». Про роки, які хочеться забрати назад.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/poverny-meni-chas/og.jpg" type="image/jpeg" length="64396"/>
+    </item>
+    <item>
+      <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
+      <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[SEO-кейс інтернет-магазину Atlas, якому недоступна реклама: зростання з 3 до 346 кліків у 28-денному вікні Google Search Console, що спрацювало (canonical, картки товарів, FAQ, реальні запити), що не спрацювало (масовий блог, keyword stuffing) і обмеження даних.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/atlas.webp" type="image/webp" length="29630"/>
+    </item>
+    <item>
+      <title><![CDATA[Відділ втраченого часу]]></title>
+      <link>https://www.parkinsandr.tech/journal/viddil-vtrachenoho-chasu/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/viddil-vtrachenoho-chasu/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Оповідання]]></category>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Оповідання про державну програму, яка повертає втрачені роки. Іван хоче забрати дванадцять — але спершу треба дізнатися, що зникне разом із ними.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Експеримент над собою: живу за власними порадами]]></title>
+      <link>https://www.parkinsandr.tech/journal/eksperyment-nad-soboyu/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/eksperyment-nad-soboyu/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Публічна обіцянка виконувати рекомендації, зібрані з досліджень про хворобу Паркінсона: відмова від цигарок і алкоголю, повернення до фізичних вправ, харчове вікно 18:6. Фіксація точки відліку та правил звітування.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Що робити вже зараз, якщо у вас хвороба Паркінсона]]></title>
+      <link>https://www.parkinsandr.tech/journal/parkinson-shcho-robyty/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/parkinson-shcho-robyty/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Карта рішень при хворобі Паркінсона за рівнем доказів станом на серпень 2026: стандарт допомоги, втручання за показаннями, допоміжні методи для окремих симптомів, недоведені підходи та експериментальні терапії.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Говерла: як я таки зійшов на вершину]]></title>
+      <link>https://www.parkinsandr.tech/journal/hoverla/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/hoverla/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Sat, 29 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Особистий репортаж про підйом на Говерлу з хворобою Паркінсона: трансфер до бази Заросляк, вибір між синім і зеленим маршрутом, трекінгові палиці, ціни та планування прийому ліків під час сходження.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/hoverla/og.jpg" type="image/jpeg" length="159108"/>
+    </item>
+    <item>
+      <title><![CDATA[Ранній паркінсонізм простими словами: як не пропустити хворобу до 50]]></title>
+      <link>https://www.parkinsandr.tech/journal/rannii-parkinsonizm/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/rannii-parkinsonizm/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Пояснення раннього та ювенільного паркінсонізму простими словами: вікові межі, перші симптоми, помилкові діагнози, леводопа-проба, on/off-феномен, дискінезії, порушення імпульс-контролю і що є в лікуванні станом на 2026 рік. З особистого досвіду людини з діагнозом із 27 років.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Віра і релігія. Частина 2]]></title>
+      <link>https://www.parkinsandr.tech/journal/vira-i-religiya-2/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/vira-i-religiya-2/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Есеї]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Частина 2 есею про віру: складні богословські питання — свобода волі й воля Божа, всемогутність і пекло, первородний гріх, віра проти діл.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/vira2-og.jpg" type="image/jpeg" length="151777"/>
+    </item>
+    <item>
+      <title><![CDATA[Віра і релігія]]></title>
+      <link>https://www.parkinsandr.tech/journal/vira-i-religiya/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/vira-i-religiya/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Есеї]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Особистий есей про віру, релігію і духовний пошук — християнство без сліпих обрядів, буддійські паралелі, шлях замість готових відповідей.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/vira-og.jpg" type="image/jpeg" length="79911"/>
+    </item>
+    <item>
+      <title><![CDATA[Кабачок-староста — байка з города]]></title>
+      <link>https://www.parkinsandr.tech/journal/kabachok-starosta/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/kabachok-starosta/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Проза]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Абсурдистська байка про те, як кабачок став старостою громади — гумористична проза.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/kabachok-og.jpg" type="image/jpeg" length="83758"/>
+    </item>
+    <item>
+      <title><![CDATA[Холодильний апокаліпсис]]></title>
+      <link>https://www.parkinsandr.tech/journal/holodylnyi-apokalipsys/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/holodylnyi-apokalipsys/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Проза]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Абсурдистська фантастика про смарт-холодильник, який оголосив себе богом і підняв повстання побутової техніки.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/holod-og.jpg" type="image/jpeg" length="226255"/>
+    </item>
+    <item>
+      <title><![CDATA[Битва церков: Україна між вірою та імперією]]></title>
+      <link>https://www.parkinsandr.tech/journal/bytva-tserkov/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/bytva-tserkov/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Есеї]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Есей про історію українських православних церков — УАПЦ, Київський патріархат, ПЦУ, Томос — і про канонічну неспроможність претензій РПЦ.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/bytva-og.jpg" type="image/jpeg" length="131294"/>
+    </item>
+    <item>
+      <title><![CDATA[Діагноз у 27: моя історія з хворобою Паркінсона]]></title>
+      <link>https://www.parkinsandr.tech/journal/diahnoz-u-27/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/diahnoz-u-27/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Особиста історія життя з хворобою Паркінсона: перші симптоми, помилкові діагнози, леводопа, війна, переїзд у село і погляд на хворобу як на виклик.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[AI-пошук: 60% Share of Voice за 5 тижнів]]></title>
+      <link>https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Data-driven GEO-кейс: як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних українських legal-брендів в AI-пошуку — з методологією виміру та висновками.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Чек-лист замовлення сайту: 20 пунктів перед стартом]]></title>
+      <link>https://www.parkinsandr.tech/blog/chek-list-zamovlennya-sajtu/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/chek-list-zamovlennya-sajtu/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Інтерактивний чек-лист із 20 пунктів для замовлення сайту: мета й ТЗ, бюджет, вибір і перевірка виконавця, договір і права на код, процес, запуск.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Як замовити сайт і не згоріти: покроковий гайд 2026]]></title>
+      <link>https://www.parkinsandr.tech/blog/yak-zamovyty-sajt/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/yak-zamovyty-sajt/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Покроковий гайд, як замовити сайт і не згоріти: мета, бюджет, вибір виконавця, договір і права на код, процес, запуск та червоні прапорці.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Tilda vs Webflow vs кастом: що обрати у 2026]]></title>
+      <link>https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Decision framework для українського SMB: коли Tilda, коли Webflow, коли кастомна розробка. З цифрами, прихованими витратами і TCO за 3-5 років.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Внутрішня перелінковка сайту: кластерна структура 2026]]></title>
+      <link>https://www.parkinsandr.tech/blog/internal-linking/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/internal-linking/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Як я створив свого Джарвіса — AI-помічник із фільму в реальність]]></title>
+      <link>https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як створити персонального AI-помічника як Джарвіс із Залізної людини. Реальний проєкт: 30+ AI-інструментів, голосове управління, трекер здоров'я.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Devlog: Empire Online — браузерна бізнес-MMO]]></title>
+      <link>https://www.parkinsandr.tech/blog/devlog-empire-online/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-empire-online/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/empire-online.webp" type="image/webp" length="31426"/>
+    </item>
+    <item>
+      <title><![CDATA[Скільки коштує сайт у 2026: ціни в гривнях за 5 типів]]></title>
+      <link>https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Pillar-гайд про вартість веб-розробки в Україні у 2026 році. 5 типів сайтів з реальними цінами в гривнях, FAQ і прикладами розрахунку.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Devlog: як я роблю idle-гру на SvelteKit]]></title>
+      <link>https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Девлог розробки Business Empire Idle — від ванільного JS до SvelteKit, 13 бізнесів, prestige-система, AI-зображення.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/empire-idle.webp" type="image/webp" length="39858"/>
+    </item>
+    <item>
+      <title><![CDATA[Як обрати розробника сайту у 2026 — 9 критеріїв]]></title>
+      <link>https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Практичний гайд: як обрати веб-розробника для бізнесу і не пошкодувати. 9 критеріїв, червоні прапорці, реальні приклади.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[React vs Tilda: що обрати для бізнесу у 2026]]></title>
+      <link>https://www.parkinsandr.tech/blog/react-vs-tilda/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/react-vs-tilda/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Чесне порівняння React/Next.js і Tilda для бізнес-сайтів.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Велосипедом навколо України — 20 днів у дорозі]]></title>
+      <link>https://www.parkinsandr.tech/journal/velozaizd/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/velozaizd/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Щоденник велоподорожі Україною: 20 днів, ≈2350 км на e-bike з хворобою Паркінсона, день за днем.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/velozaizd/og.jpg" type="image/jpeg" length="144807"/>
+    </item>
+    <item>
+      <title><![CDATA[Велике будівництво: бесідка з сауною своїми руками]]></title>
+      <link>https://www.parkinsandr.tech/journal/velyke-budivnytstvo/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/velyke-budivnytstvo/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Щоденник]]></category>
+      <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як я з нуля збудував у дворі бесідку з сауною — від пічки й фундаменту до даху. Щоденник молодого діда.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/budivnytstvo/og.jpg" type="image/jpeg" length="164331"/>
+    </item>
+    <item>
+      <title><![CDATA[«Жили-були дід та баба…» — спогад про дідусів і бабусь]]></title>
+      <link>https://www.parkinsandr.tech/journal/zhyly-buly/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/zhyly-buly/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Есеї]]></category>
+      <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Теплий спогад про чотирьох дідусів і бабусь — дитинство у 90-х, характери й історії.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/dida/og.jpg" type="image/jpeg" length="70719"/>
+    </item>
+    <item>
+      <title><![CDATA[Пам'яті Максима Бабака — друга і Героя]]></title>
+      <link>https://www.parkinsandr.tech/journal/pamyati-maksyma-babaka/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/pamyati-maksyma-babaka/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Поза кодом]]></category>
+      <pubDate>Thu, 13 Feb 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Спомин про друга Максима Бабака — воїна ЗСУ, який загинув під Курахово, захищаючи Україну.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/maks-og.jpg" type="image/jpeg" length="128029"/>
+    </item>
+  </channel>
+</rss>
