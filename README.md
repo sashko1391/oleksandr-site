@@ -39,5 +39,6 @@ scripts/indexnow.sh /journal/slug/    # IndexNow для конкретних ш�
 `git push` у `main` → Vercel збирає автоматично. Змінні середовища — у Vercel; після їх зміни потрібен редеплой.
 
 ## Документація
-- [`CLAUDE.md`](CLAUDE.md) — правила проєкту, структура, конвенції, чек-лист нового поста.
+- [`AGENTS.md`](AGENTS.md) — правила проєкту для AI-агентів (source of truth): структура, конвенції, чек-лист нового поста.
+  [`CLAUDE.md`](CLAUDE.md) — міст для Claude Code (імпортує `AGENTS.md`).
 - [`doc/`](doc/) — плани (`PERSONAL_SITE_PLAN`, `SERVICES_HUB_PLAN`, `SUBSCRIPTION_PLAN`), `DEVELOPMENT_LOG`, `PROJECT_CONTEXT`.
