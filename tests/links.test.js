@@ -307,7 +307,7 @@ describe('phases f1-pre → f1-done on a miniature site built from the manifests
     const bodies = new Map();
     const add = (rel, html) => bodies.set(rel, (bodies.get(rel) ?? '') + html);
     add('index.html', '<div id="chat-section"></div><div id="scenarios"></div><div id="portfolio"></div><div id="blog"></div>');
-    add('services/index.html', '<section id="chat"></section>');
+    add('services/index.html', '<section id="contact"></section>');
     for (const { href, files } of phase.links) {
       for (const [rel, texts] of Object.entries(files)) add(rel, texts.map((t) => `<a href="${href}">${t}</a>`).join(' '));
     }
@@ -383,7 +383,7 @@ describe('public/ (integration)', () => {
     const done = PHASES['f1-done'];
     expect(done.homeAnchors).toEqual(['blog']);
     expect(done.links.map((l) => [l.rule, l.href])).toEqual([
-      ['cta-links', 'https://www.parkinsandr.tech/services/#chat'],
+      ['cta-links', 'https://www.parkinsandr.tech/services/#contact'],
       ['contact-links', 'https://t.me/+380936429885'],
     ]);
     expect(done.breadcrumbs.map((b) => [b.name, b.item])).toEqual([

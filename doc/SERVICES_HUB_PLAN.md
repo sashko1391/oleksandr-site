@@ -1,7 +1,10 @@
-# Ф1 — Комерційний хаб `/services/` (детальний план реалізації, v2)
+# Ф1 — Комерційний хаб `/services/` (детальний план реалізації, v3)
 
-> Частина `doc/PERSONAL_SITE_PLAN.md` (фаза Ф1). Статус: **у роботі** — крок 1 ✅ (2026-09-18); рішення власника
-> прийнято (див. «Відкриті питання»); далі крок 2.
+> Частина `doc/PERSONAL_SITE_PLAN.md` (фаза Ф1). Статус: **у роботі** — крок 1 ✅ (`a40087c`); крок 2 — сторінка
+> готова локально, чекає затвердження власника (FAQ, тексти); чесні підписи бота на головній — готові, окремий коміт.
+> **v3 (2026-09-18):** чат на головній виявився **скриптовим ботом, а не AI** (готові відповіді в JS, без LLM;
+> підписаний «Claude», «Онлайн»). Рішення власника: на `/services/` — **чесна форма** (`#contact`), чат не
+> переноситься; підписи бота на головній виправлено одразу (виняток зі scope guard).
 > Мета фази: винести всю комерційну частину в окремий хаб `/services/` і перепривʼязати на нього CTA,
 > **не змінюючи головну**. Після Ф1 зміна головної (Ф3) більше не ламає заявки.
 > **Після baseline Ф0 (2026-09-18):** сайт не є суттєвим каналом заявок, комерційні запити не ранжуються →
@@ -14,6 +17,8 @@
 
 ## Scope guard — чого у Ф1 НЕ робимо
 - **Головну не чіпаємо взагалі** — ні контент, ні розмітку, ні чат. DoD: `git diff public/index.html` порожній.
+  **Єдиний виняток (рішення власника 2026-09-18):** окремий коміт із чесними підписами бота — «Бот-помічник» замість
+  «Claude», без «Онлайн» і без заяв про AI; поведінка бота не змінюється.
 - `/#blog` (12 JSON-LD breadcrumb items у `blog/*`) — **Ф2**.
 - `@id` `https://www.parkinsandr.tech/#business` — **не змінюється ніколи** (stable `@id`); у Ф3 переїжджає лише
   повний вузол ProfessionalService на `/services/` (змінюється `url`, не `@id`).
@@ -23,7 +28,7 @@
 ## Факти (звірено 2026-09-18, перевірено Codex)
 | Що | К-сть | Де | Тип | Дія у Ф1 |
 |---|---|---|---|---|
-| `href="/#chat-section"` — комерційні CTA | 25 | 22 файли: `services/*` (5), `projects/*` (6), `blog/*` (10), `pro-mene` (1) | видимий `<a>` | → `/services/#chat` |
+| `href="/#chat-section"` — комерційні CTA | 25 | 22 файли: `services/*` (5), `projects/*` (6), `blog/*` (10), `pro-mene` (1) | видимий `<a>` | → `/services/#contact` (+ текст, див. крок 3) |
 | `href="/#chat-section"` — «напишіть мені» про помилки | 3 | `journal/parkinson-shcho-robyty` (1), `journal/rannii-parkinsonizm` (2) | видимий `<a>` у блоці виправлень | → **особистий контакт**, НЕ продажний чат |
 | `"item": ".../#scenarios"` | 5 | `services/*` | JSON-LD BreadcrumbList | → `https://www.parkinsandr.tech/services/` |
 | `"item": ".../#portfolio"` | 6 | `projects/*` | JSON-LD BreadcrumbList | → `https://www.parkinsandr.tech/services/`, name «Портфоліо» → «Послуги» |
@@ -34,10 +39,12 @@
 - Поточна цілісність: усі `href` і фрагменти резолвляться (0 помилок), усі 107 JSON-LD блоків парсяться.
 - Індексів `/services/`, `/projects/`, `/blog/` не існує; посилань на них теж немає.
 - Внутрішні сторінки мають мінімальну навігацію: лого → `/` + «← На головну»; видимих breadcrumbs немає.
-- Чат ходить у Cloudflare Worker `oleksandr-site.sashko1391.workers.dev` (код воркера не в репо). Після отримання
-  контакту `sendToTelegram` (`index.html:2766`) шле `{contact, history, timestamp}` — **усю історію розмови**.
+- Чат на головній — **скриптовий бот**: відповіді зашиті в JS (4 готові + пошук за ключовими словами + заготовки),
+  жодного виклику LLM. Cloudflare Worker `oleksandr-site.sashko1391.workers.dev` (код не в репо) лише пересилає в
+  Telegram `{contact, history, timestamp}` — **усю історію розмови**, коли відвідувач залишає контакт. Лід-форми
+  лендингів шлють у той самий воркер той самий формат.
 
-### Маніфест залежностей чату (`public/index.html`, рядки на 2026-09-18)
+### Маніфест залежностей чату (`public/index.html`) — для Ф3; на `/services/` чат не переноситься (v3)
 | Шар | Що переносимо |
 |---|---|
 | HTML | секція `#chat-section` від 2568: `.chat-container`, `.chat-header`, `#chatMessages`, `#quickBtns`, `#chatInput`, `.chat-send`, блок `.contact-alt` |
@@ -65,7 +72,7 @@
 **Шар B — політика міграції (маніфест по фазах):**
 - дозволені legacy-фрагменти головної: до кроку 3 — `#chat-section`, `#scenarios`, `#portfolio`, `#blog`;
   після Ф1 — лише `#blog`; після Ф2 — жодного;
-- точні очікування Ф1: 25 комерційних CTA → `/services/#chat`; 3 journal-посилання → особистий контакт;
+- точні очікування Ф1: 25 комерційних CTA → `/services/#contact`; 3 journal-посилання → особистий контакт;
   5 breadcrumb `services/*` і 6 `projects/*` → `/services/`;
 - на всіх фазах: `@id https://www.parkinsandr.tech/#business` незмінний; `@id` Ladomyr незмінний;
 - Ф2 (заготовка): явна таблиця «стаття блогу → хаб» (`/code/` або `/services/`), без правил «за замовчуванням».
@@ -108,14 +115,14 @@ sitemap — у `tests/policy.test.js`.
   іменованих entity (~2 200 назв) — непропорційно для dev-валідатора; невідома entity дає видиму помилку, а не обхід.
 
 ### Крок 2 — Сторінка `/services/`
-База: клон `public/services/nextjs/index.html` (design system, шрифти, аналітика inline) + залежності з маніфесту.
+База: design system і шрифти з `public/services/nextjs/index.html` (аналітика inline) + чесна форма заявки (v3).
 Порядок секцій за PAGE_STANDARD (кожен H2 — самодостатнє питання з назвою сутності, перший абзац 40–60 слів):
 
 | # | Секція | id | Зміст |
 |---|---|---|---|
 | 0 | Header + **видимі breadcrumbs** | — | лого + «← На головну» + skip link; видимий шлях «Головна → Послуги» = BreadcrumbList |
-| 1 | Hero | — | один H1; answer-first ~100–150 слів; primary CTA «Обговорити проєкт» → `#chat`; ghost → `/pricing/`; фото автора `/images/oleksandr.webp` (480×480, JPG-fallback) з описовим `alt`, `width/height`, `fetchpriority="high"` |
-| 2 | Proof strip | — | рішення власника: «6+ запущених проєктів — від сайту-візитки до сайту з CRM»; назви 6 клієнтів → їхні кейси (ACE, AGENTIS, Atlas, Julia Satyr Art, Ладомир, Славутич); «юрист за освітою: договір, права на код і домен — ваші». Рейтинг AGENTIS у AI-відповідях — **не** в proof strip |
+| 1 | Hero | — | один H1; підзаголовок 1–2 речення → primary CTA «Обговорити проєкт» → `#contact`; ghost → `/pricing/`; далі абзац із цінами й наступним кроком (разом answer-first у перших 150 словах); фото автора `/images/oleksandr.webp` (480×480) з описовим `alt`, `width/height`, `fetchpriority="high"` |
+| 2 | Proof strip | — | рішення власника: «6+ запущених проєктів — від сайту-візитки до сайту з CRM»; кейси → їхні сторінки: ACE, Atlas, Julia Satyr Art, Ладомир, Славутич + **AGENTIS (власний продукт, не клієнт)**; «юрист за освітою: договір, права на код і домен — ваші». Рейтинг AGENTIS у AI-відповідях — **не** в proof strip |
 | 3 | Проблема | `problem` | «Чому сайт “як у всіх” не приводить клієнтів?» — 3–5 болів, 1 факт |
 | 4 | Рішення / послуги | `services` | «Які послуги з розробки сайтів я надаю?» — 5 карток → 5 лендингів |
 | 5 | Вигоди + **mid CTA** | `benefits` | 3–5 outcome-вигід з доказом + той самий primary CTA |
@@ -124,22 +131,24 @@ sitemap — у `tests/policy.test.js`.
 | 8 | Ціни | `pricing` | «Скільки коштує розробка сайту?» — ≤3 пакети + `/pricing/` |
 | 9 | Бібліотека | `library` | «Що прочитати перед замовленням сайту?» — 6 статей для замовників + 3 SEO/GEO-кейси |
 | 10 | FAQ | `faq` | 5–7 унікальних питань (не дублюють FAQ лендингів), H3, 50–300 слів, видимі, FAQPage = видимий текст |
-| 11 | Final CTA + чат | `chat` | той самий primary CTA; чат за маніфестом |
+| 11 | Final CTA + форма | `contact` | той самий primary CTA (кнопка форми «Обговорити проєкт») + прямі Telegram / WhatsApp / email |
 | 12 | Footer | — | як на інших сторінках (`/pro-mene/`, `/privacy/`, ©) |
 
-**Чат на `/services/` — відмінності від головної:**
-- обробники через `addEventListener`, класичний `<script>` (не module), без глобальних функцій;
-- a11y: `#chatMessages` з `role="log"` + `aria-live="polite"`; усі кнопки `type="button"`; send і quick-кнопки
-  ≥ 48×48 px; текст поля і повідомлень ≥ 16 px на мобільних; видимий `<label>` для поля;
-- **розкриття біля поля:** «Коли ви залишите контакт, історію цієї розмови буде передано Олександрові в Telegram»
-  + лінк на `/privacy/`;
-- атрибуція: у payload `source: location.pathname`; якщо воркер ігнорує невідомі поля — дописати
-  «Сторінка: /services/» на початок `history` (перевірити на тестовому ліді);
-- події GA4 (`chat_start`, `chat_message`, `generate_lead`) — ті самі імена й параметри;
-- ⚠️ тимчасовий дубль чату (головна + `/services/`) до Ф3 → до Ф3 будь-яку правку чату робити в обох місцях.
+**Форма на `/services/` (v3, замість чату):**
+- поля з видимими `<label>`: ім'я і контакт (`required` + `pattern` проти самих пробілів), повідомлення — необов'язкове;
+  приховане honeypot-поле: бот, що його заповнив, бачить «успіх», але нічого не надсилається;
+- шле у воркер той самий формат, що й чат і форми лендингів: `{contact, history, timestamp}` + `source:
+  location.pathname`; сторінка стоїть і на початку `history` («ФОРМА (/services/)») — на випадок, якщо воркер
+  ігнорує невідомі поля;
+- **чесна помилка:** успіх показується лише після 2xx від воркера; інакше — повідомлення з прямими контактами,
+  дані в полях зберігаються, можна повторити (форма `nextjs` зараз показує успіх навіть при збої — поза Ф1);
+- `generate_lead` (+ `conversion_event_submit_lead_form`, як на `nextjs`) — лише після 2xx;
+- розкриття біля кнопки: «Заявка надійде мені в Telegram» + `/privacy/`; «відповідаю я сам — не бот і не менеджер»;
+- a11y: tap targets ≥ 48 px, текст і поля ≥ 16 px, фокус на підтвердженні після надсилання; класичний `<script>`,
+  `addEventListener`, без глобальних функцій.
 
-**CTA-трекінг:** трекінг із клону `nextjs` (`nextjs:646`) не бачить нових `href="#chat"` → кожен CTA позначається
-`data-cta="<місце>"` (hero / benefits / final / library-…), один делегований слухач шле `cta_click` з `label`.
+**CTA-трекінг:** кожен CTA на форму позначається `data-cta="<місце>"` (hero / benefits / …), один делегований слухач
+шле `cta_click` з `label`; кліки Telegram / WhatsApp / email → `contact_click`, як на інших сторінках.
 
 **Метадані й розмітка:**
 - title ≤ 60: «Розробка сайтів: послуги, ціни, кейси | Олександр Кравченко» (59). Baseline: за комерційними
@@ -153,16 +162,29 @@ sitemap — у `tests/policy.test.js`.
 - `sitemap.xml`: + `/services/` (`lastmod` = дата публікації). IndexNow: `/services/`.
 
 **Контракт сторінки — автотест** (`tests/services-page.test.js`, статичний парсинг HTML):
-один H1 і один `<main>`; title ≤ 60; description 150–155; canonical; усі `<img>` з непорожнім `alt`;
-id `services`, `cases`, `chat`, `faq` існують; 5–7 FAQ-питань і тексти FAQPage = видимі H3/відповіді;
-кожен CTA має `data-cta`; присутні типи JSON-LD CollectionPage, ItemList, BreadcrumbList, FAQPage;
-видимі breadcrumbs = BreadcrumbList.
+один H1 і один `<main>`, без `<details>`; title ≤ 60; description 150–155; self-canonical; усі `<img>` з `alt`,
+`width`, `height`, лише hero — `fetchpriority="high"`, решта `lazy`; порядок секцій problem → … → faq → contact;
+кожна контентна секція — H2-питання + відповідь 40–60 слів; 5–7 FAQ = FAQPage дослівно, відповіді 50–300 слів;
+кожен CTA на форму — з унікальним `data-cta`, є в hero і посередині; JSON-LD: CollectionPage (`about` → власний
+`@id`), ItemList з 5 Service = 5 видимих карток, BreadcrumbList = видимі breadcrumbs; форма — видимі labels,
+обов'язкові поля, honeypot, лінк на `/privacy/`.
 
 **Браузерний smoke** (`scripts/smoke-services.mjs`, Playwright + системний Chrome, локальний статичний сервер;
-Worker і `gtag` підмінені через route-mock/шпигуна; окремий `npm run smoke:services`, не в `npm test`):
-чат видимий (не прихований `.reveal`); quick-кнопка надсилає повідомлення і дає `chat_start`; Enter надсилає;
-є індикатор набору; контакт → `generate_lead` і payload з `source`; computed-розміри кнопок ≥ 48 px, шрифт ≥ 16 px
-на мобільному viewport.
+воркер підмінено route-mock, решта зовнішніх запитів обірвана; події читаються з `dataLayer`;
+`npm run smoke:services [-- --screenshots <dir>]`, не в `npm test`): hero-CTA → `#contact` + `cta_click`;
+успіх → рівно один лід із контактом і `source`, `generate_lead`, форма схована, фокус на підтвердженні; порожні й
+«пробільні» поля не доходять до воркера; honeypot нічого не шле; помилка воркера → чесне повідомлення, дані
+збережено, повтор можливий, без `generate_lead`; мобільний viewport: H1, фото й CTA над згином, tap targets ≥ 48 px,
+текст ≥ 16 px, без горизонтального скролу.
+
+**✅ Реалізовано локально (2026-09-18, без коміту):** `public/services/index.html` + sitemap (+`/services/`) +
+`idCounts` (6 посилань на `#business` з хабу) + `tests/services-page.test.js` (10 тестів) +
+`scripts/smoke-services.mjs` (15 перевірок) — усе зелене; мутаційна перевірка сторінки 12/12 (помилка воркера як
+успіх, honeypot, пробільне ім'я, дрібні поля, FAQ ≠ schema, H2 не питання, img без alt, `<details>`, картка ≠
+ItemList тощо). Факти — лише з самих кейсів і `/pricing/`. Відгуки з `nextjs` не перенесено: 2 з 3 анонімні
+(стандарт забороняє). Знайдені розбіжності між сторінками (ціни 30/40 тис., строки лендингу, бюджет Julia Satyr Art,
+«Гарантія результату» vs «не гарантую», розміри `agentis-v2.webp` на головній і в кейсі, самопідписаний відгук
+«40+ лідів» на `services/ai`) — поза Ф1, у списку для власника.
 
 ### Крок 3 — Перепривʼязка: `scripts/repoint-anchors.mjs`
 Pure-функція + маніфест правил + main-guard + `--dry`; ідемпотентно; `public/index.html` пропускається.
@@ -170,15 +192,22 @@ Pure-функція + маніфест правил + main-guard + `--dry`; ід
 
 | Правило | Умова | Ціль | Очікувана к-сть |
 |---|---|---|---|
-| R1 | `<a href="/#chat-section">` у `services/*`, `projects/*`, `blog/*`, `pro-mene` | `/services/#chat` | 25 |
+| R1 | `<a href="/#chat-section">` у `services/*`, `projects/*`, `blog/*`, `pro-mene` | `/services/#contact` | 25 |
 | R2 | `<a href="/#chat-section">` з текстом «напишіть мені» — **лише за маніфестом**: `parkinson-shcho-robyty` ×1, `rannii-parkinsonizm` ×2 | `https://t.me/+380936429885` (`PERSONAL_CONTACT`; змінюється лише `href`, як і в R1) | 3 |
 | R3 | BreadcrumbList → ListItem з `item` `…/#scenarios` | `…/services/` | 5 |
 | R4 | BreadcrumbList → ListItem з `item` `…/#portfolio` і `name` «Портфоліо» | `item` → `…/services/`, `name` → «Послуги» | 6 |
 | — | `@id #business` (власний і Ladomyr), `item …/#blog` | не чіпати | 4 + 2 / 12 |
 
+⚠️ **Переглянути перед реалізацією (v3):** ціль R1 тепер форма, а не бот, тож частина CTA-текстів стає неправдою:
+«Поговорити з AI →» (4: `blog/react-vs-tilda`, `blog/yak-obrati-rozrobnyka`, `blog/yak-zamovyty-sajt`, `pro-mene`),
+«AI-помічником» (5 приміток під формами лендингів — там перехід на іншу форму зайвий: прибрати або переписати),
+«Спробуйте — він працює прямо зараз.» (`services/ai`: бот подано як живе AI-демо). Для цих CTA крок 3 міняє й
+текст — `f1-done` отримає власну мапу текстів у маніфесті. На `services/ai` також прибрати самопідписаний відгук
+«40+ лідів без моєї участі» (приписує результат скриптовому боту). Узгодити з власником до кроку 3.
+
 Запобіжники:
 - **HTML:** зміни лише в атрибуті `href` тегу `<a>` (будь-які лапки й порядок атрибутів); не в тексті, `<script>`,
-  JSON-LD-рядках, `data-*`;
+  JSON-LD-рядках, `data-*` — **крім** CTA-текстів із переліку вище (за маніфестом, точний збіг до/після);
 - **JSON-LD структурно:** блок парситься й обходиться за `@type` (BreadcrumbList → ListItem); зміна робиться точковою
   заміною рядка, після чого повторний парсинг підтверджує, що змінились **рівно** очікувані поля очікуваних
   ListItem, і нічого більше (семантичний diff до/після);
@@ -195,45 +224,46 @@ Pure-функція + маніфест правил + main-guard + `--dry`; ід
 ### Крок 4 — Перевірка перед пушем
 - `npm test` (старі + валідатор + контракт сторінки + скрипт) зелені; `npm run smoke:services` зелений.
 - Візуально локально (`python3 -m http.server -d public`): desktop/mobile.
-- `git diff public/index.html` порожній.
+- `git diff public/index.html` порожній (крім окремого коміту чесних підписів бота).
 - Рев'ю діфа (Codex).
 
 ### Крок 5 — Деплой і смоук на проді
 - push → Vercel READY; `/services/` 200, canonical, JSON-LD валідний, є в sitemap.
-- 3–5 змінених сторінок: CTA ведуть на `/services/#chat`; пости про Паркінсон — на особистий контакт.
-- Чат на `/services/`: AI відповідає (воркер приймає запити з цієї сторінки); тестовий лід із контактом
-  доходить у Telegram з позначкою сторінки (позначити як тест).
-- GA4 Realtime: `page_view` `/services/`, `chat_start` з `page_location=/services/`.
+- 3–5 змінених сторінок: CTA ведуть на `/services/#contact`; пости про Паркінсон — на особистий контакт.
+- Форма на `/services/`: воркер приймає запит із цієї сторінки (CORS); тестова заявка доходить у Telegram з
+  позначкою «ФОРМА (/services/)» (позначити як тест).
+- GA4 Realtime: `page_view` `/services/`, `generate_lead` з `page_location=/services/`.
 - Rich Results Test (FAQPage, BreadcrumbList), PSI mobile `/services/` (LCP ≤ 2.5 s, CLS < 0.1).
 - IndexNow `/services/`; GSC → URL Inspection → «Запросити індексування» для `/services/` і 4 лендингів,
   що за 7 місяців не мали жодного показу (`kyiv`, `redesign`, `nextjs`, `landing`).
 
 ### Крок 6 — Функціональні перевірки після запуску (без вікна очікування)
 - Логи Vercel: нових 404 немає; кілька змінених сторінок на проді — CTA ведуть куди треба.
-- `chat_start` / `generate_lead` з `page_location=/services/` з'являються в GA4 — як факт роботи, не статистика.
+- `cta_click` / `generate_lead` з `page_location=/services/` з'являються в GA4 — як факт роботи, не статистика.
 - Щось зламалось → матриця відкату.
 
 ## Матриця відкату
 | Проблема | Дія |
 |---|---|
-| Зламані CTA або чат на `/services/` | revert **лише коміту кроку 3** → CTA знову на `/#chat-section` (чат на головній живий увесь час) |
+| Зламані CTA або форма на `/services/` | revert **лише коміту кроку 3** → CTA знову на `/#chat-section` (бот на головній живий увесь час) |
 | Проблема з хабом (верстка/контент) | виправлення вперед; якщо терміново — revert кроку 3, хаб лишається доступним (200) |
 | Хаб треба прибрати повністю | 404/410 або тимчасовий `noindex` — **не лише** видалення із sitemap (воно не деіндексує) |
 
 ## Коміти (один логічний change на коміт)
-1. `test(links): integrity validator + migration policy manifest`
-2. `feat(services): /services/ commercial hub + page contract test + sitemap`
-3. `test(e2e): browser smoke for the /services/ chat`
-4. `feat(links): repoint homepage anchors to /services/` (скрипт + тести + застосовані зміни)
+1. ✅ `test(links): integrity validator + migration policy manifest` (`a40087c`)
+2. `fix(home): honest labels for the scripted chat bot` (виняток зі scope guard, рішення власника)
+3. `feat(services): /services/ commercial hub + contract test + browser smoke + sitemap`
+4. `feat(links): repoint homepage anchors to /services/` (скрипт + тести + застосовані зміни + CTA-тексти, v3)
 5. `docs: Ф1 статус`
 
 ## Definition of Done
 - [ ] `/services/` live, валідна розмітка, у sitemap; `/services/` і 4 лендинги подані на індексацію
-- [ ] 25 комерційних CTA → `/services/#chat`; 3 «напишіть мені» → особистий контакт; 11 breadcrumb items → `/services/`
+- [ ] 25 комерційних CTA → `/services/#contact` (тексти без обіцянок AI); 3 «напишіть мені» → особистий контакт;
+  11 breadcrumb items → `/services/`
 - [ ] Обидва `@id #business` (власний і Ladomyr) і `/#blog` не змінені
-- [ ] Валідатор (шари A+B) і контракт сторінки в тестах — зелені; smoke чату — зелений
-- [ ] Чат на `/services/`: a11y-вимоги виконані, розкриття передачі історії є, тестовий лід дійшов із позначкою сторінки
-- [ ] `git diff public/index.html` порожній
+- [ ] Валідатор (шари A+B) і контракт сторінки в тестах — зелені; smoke форми — зелений
+- [ ] Форма на `/services/`: a11y-вимоги виконані, розкриття є, тестова заявка дійшла в Telegram із позначкою сторінки
+- [ ] `git diff public/index.html` порожній, крім коміту чесних підписів бота
 
 ## Залежності
 - ✅ **Ф0 baseline** знято 2026-09-18 (`doc/baseline/`, локально). Порогу лідів немає (обсяги замалі);
@@ -244,7 +274,10 @@ Pure-функція + маніфест правил + main-guard + `--dry`; ід
    `PERSONAL_CONTACT`; той самий контакт уже стоїть у пості пам'яті Максима Бабака й на `/pro-mene/`).
 2. ✅ Hero — фото автора.
 3. ✅ Proof strip — «6+ проєктів», назви клієнтів, «юрист за освітою» (без рейтингу AGENTIS).
-4. ⏳ FAQ `/services/` — чернетку 5–7 питань (лише правдиві факти) власник затверджує разом зі сторінкою на кроці 2.
-5. ✅ Головна в Ф1 — без змін (посилання на `/services/` з'явиться в Ф3).
+4. ⏳ FAQ `/services/` — 6 питань (факти лише з `/pricing/`, `/pro-mene/` і кейсів) — на затвердженні власника.
+5. ✅ Головна в Ф1 — без змін (посилання на `/services/` з'явиться в Ф3), крім чесних підписів бота (п. 7).
+6. ✅ Чат на `/services/` → **чесна форма** (`#contact`); справжній AI-чат — окрема задача поза Ф1.
+7. ✅ Підписи бота на головній — виправити одразу: без «Claude», «Онлайн» і заяв про AI; поведінка не змінюється.
+8. ⏳ CTA-тексти про AI на інших сторінках і подача бота на `services/ai` — узгодити до кроку 3 (див. крок 3).
 
 ✅ Закрито рев'ю: breadcrumbs кейсів «Головна → Послуги → Кейс» коректні, бо `/services/` видимо містить усі 6 кейсів.

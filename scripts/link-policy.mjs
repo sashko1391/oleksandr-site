@@ -50,7 +50,12 @@ const BLOG_CRUMB = { pages: /^blog\/[^/]+\/index\.html$/, name: 'Блог', item
 
 /** Our entity @id never changes; until Ф3 moves the full node these pages keep exactly these occurrences. */
 const ID_COUNTS = {
-  [`${SITE}/#business`]: { 'index.html': 1, 'services/kyiv/index.html': 2, 'services/redesign/index.html': 1 },
+  [`${SITE}/#business`]: {
+    'index.html': 1,
+    'services/index.html': 6, // CollectionPage.about + provider of 5 services — references only
+    'services/kyiv/index.html': 2,
+    'services/redesign/index.html': 1,
+  },
 };
 
 // links: per file, the <a> elements with exactly these texts (as a multiset), every one pointing at `href`.
@@ -73,7 +78,7 @@ export const PHASES = {
   'f1-done': {
     homeAnchors: ['blog'],
     links: [
-      { rule: 'cta-links', href: `${SITE}/services/#chat`, files: CTA_FILES },
+      { rule: 'cta-links', href: `${SITE}/services/#contact`, files: CTA_FILES },
       { rule: 'contact-links', href: PERSONAL_CONTACT, files: CONTACT_FILES },
     ],
     breadcrumbs: [

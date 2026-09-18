@@ -13,15 +13,16 @@
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
 - Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
 - Vercel Functions: `api/comments.js`, `api/tg-webhook.js`, `api/cron/comments-retention.js` + `lib/` (Supabase через
-  IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). AI-чат і лід-форми → Cloudflare Worker
-  `oleksandr-site.sashko1391.workers.dev` (код воркера не в репо).
+  IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на головній — **скриптовий бот** (готові відповіді
+  в JS, без LLM); заявки з бота й лід-форм пересилає в Telegram Cloudflare Worker `oleksandr-site.sashko1391.workers.dev`
+  (код воркера не в репо).
 - RSS: `public/feed.xml` генерує `scripts/build-feed.mjs`. Тести: `npm test` (vitest).
 
 ## Плани й статус
 | Документ | Статус |
 |---|---|
 | `doc/PERSONAL_SITE_PLAN.md` | 🟢 головний план переробки, фази Ф0–Ф7 |
-| `doc/SERVICES_HUB_PLAN.md` | 🟡 Ф1 у роботі: крок 1 (валідатор посилань) ✅, далі крок 2 — сторінка `/services/` |
+| `doc/SERVICES_HUB_PLAN.md` | 🟡 Ф1 у роботі: крок 1 (валідатор посилань) ✅; крок 2 — `/services/` із формою, на затвердженні |
 | `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
@@ -48,7 +49,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, journal-index]`
+    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -58,21 +59,25 @@
     CTA й «напишіть мені» (за текстом посилання), breadcrumbs position 2, точна к-сть `@id #business`; покриття,
     повноту й цілі маніфесту тести перевіряють незалежно від нього; фазу перемикає коміт, що виконує міграцію.
     Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
+13. **Правдивість:** сайт не видає скриптового бота за AI чи людину, власний продукт — за клієнта; без анонімних
+    чи неперевірених відгуків; кожна цифра на комерційних сторінках — із кейсу або `/pricing/` (розбіжності між
+    сторінками не множити, а виправляти в джерелі). `[advisory; /services/ — tests/services-page.test.js]`
 
 ## Структура (2026-09)
 ```
 public/
 ├── index.html            ← головна (поки комерційна; переробка у Ф3)
-├── 404.html (noindex) · robots.txt · sitemap.xml (44 URL) · feed.xml (RSS)
+├── 404.html (noindex) · robots.txt · sitemap.xml (45 URL) · feed.xml (RSS)
 ├── journal/              ← «Поза кодом»: index (хронологічна стрічка + фільтр жанрів) + 16 постів
 ├── blog/{slug}/          ← 12 статей: 6 для замовників, devlog-и, AI/SEO-кейси
+├── services/             ← хаб `/services/` (Ф1: послуги, кейси, ціни, FAQ, форма `#contact`)
 ├── services/{slug}/      ← 5 лендингів: nextjs, landing, ai, redesign, kyiv
 ├── projects/{slug}/      ← 6 кейсів
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── js/comments.v1.js · fonts/ (self-hosted woff2) · images/ (WebP + JPG)
 api/ · lib/ · scripts/ · tests/ · doc/
 ```
-Індексів `/services/`, `/projects/`, `/blog/` поки немає (`/services/` — у Ф1).
+Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
 ## Скрипти
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
@@ -80,6 +85,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
 - `npm run check:links [-- --phase f1-done]` — валідатор посилань (цілісність + політика фази); `--phase` — пробний
   прогін наступної фази: показує, що ще треба перепривʼязати
+- `npm run smoke:services [-- --screenshots <dir>]` — браузерний smoke форми `/services/` (Playwright + системний
+  Chrome, воркер підмінено; не входить у `npm test`)
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
 - `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push
@@ -115,7 +122,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - 🔴 **Індексація:** близько половини сторінок за 7 місяців без жодного показу — переважно журнал (усі пости про
   Паркінсон, проза) і 4 з 5 сервісних лендингів.
 - Комерційні запити не вийшли в топ-30; органіку дають особистий пост розробника (Джарвіс) і кейси за назвами клієнтів.
-- Головна — єдиний комерційний хаб і ціль 28 CTA (`/#chat-section`) → перепривʼязка у Ф1, до зміни головної.
+- 28 CTA сайту ведуть на бот головної (`/#chat-section`) → перепривʼязка на форму `/services/#contact` у Ф1 (крок 3),
+  до зміни головної.
 - **Контентні пріоритети:** 1) індексація наявного; 2) хаби розділів; 3) особистий контент першої руки;
   4) `/services/` — переконливість для прямих відвідувачів, а не полювання на комерційні запити.
 

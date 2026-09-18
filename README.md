@@ -8,12 +8,14 @@
 - Vercel Functions (`api/`, `lib/`): коментарі — Supabase Postgres, Upstash KV, Cloudflare Turnstile, премодерація в Telegram.
 - RSS: `public/feed.xml` — генерується скриптом із метаданих постів.
 
-## AI-чат і лід-форми
+## Чат-бот і форми заявок
 ```
-Відвідувач → POST → Cloudflare Worker (oleksandr-site.sashko1391.workers.dev) → Telegram Bot API
+Відвідувач → бот на головній (готові відповіді в JS, без LLM) або форма (/services/, лендинги)
+          → POST {contact, history, timestamp} → Cloudflare Worker (oleksandr-site.sashko1391.workers.dev) → Telegram Bot API
 ```
-Токен бота — у секретах воркера (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`), не у фронтенді. При мережевій помилці
-або HTTP 4xx/5xx запит зберігається в `localStorage` і повторюється при наступному завантаженні сторінки.
+Токен бота — у секретах воркера (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`), не у фронтенді. Бот головної при
+мережевій помилці або HTTP 4xx/5xx зберігає заявку в `localStorage` і повторює при наступному завантаженні сторінки;
+форма `/services/` показує помилку з прямими контактами і дозволяє повторити.
 
 ## Структура
 ```
@@ -29,6 +31,8 @@ doc/      плани, журнали, контекст
 ```bash
 npm install
 npm test                              # vitest
+npm run check:links                   # валідатор посилань і політики фази (-- --phase f1-done — пробний прогін)
+npm run smoke:services                # браузерний smoke форми /services/ (Playwright + системний Chrome)
 node scripts/build-feed.mjs           # регенерувати public/feed.xml
 node scripts/inject-rss.mjs           # RSS <link> у <head> усіх сторінок (ідемпотентно)
 node scripts/inject-comments.mjs      # блок коментарів у journal + blog (ідемпотентно)
