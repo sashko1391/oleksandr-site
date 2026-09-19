@@ -328,7 +328,7 @@ describe('phases f1-pre → f1-done on a miniature site built from the manifests
 
   it('f1-done rejects the pre-migration state on every migrated rule', () => {
     expect(new Set(rules(mini('f1-pre'), PHASES['f1-done']))).toEqual(
-      new Set(['legacy-home-anchor', 'cta-links', 'contact-links', 'breadcrumb'])
+      new Set(['legacy-home-anchor', 'cta-links', 'hub-links', 'contact-links', 'breadcrumb'])
     );
   });
 });
@@ -341,23 +341,21 @@ describe('public/ (integration)', () => {
     expect(validate(real)).toEqual([]);
   });
 
-  it('dry run of f1-done = exactly the scope of Ф1 step 3', () => {
-    // Before step 3. The step 3 commit flips CURRENT_PHASE to f1-done and replaces this with a clean check.
-    expect(countRules(validate(real, PHASES['f1-done']))).toEqual({
-      'legacy-home-anchor': 39,
-      'cta-links': 22,
-      'contact-links': 2,
-      breadcrumb: 11,
-    });
+  it('no longer matches the pre-migration phase — exactly on the rules step 3 migrated', () => {
+    expect(Object.keys(countRules(validate(real, PHASES['f1-pre']))).sort()).toEqual(
+      ['breadcrumb', 'contact-links', 'cta-links'].sort()
+    );
   });
 
-  it('manifests match the Ф1 inventory: 25 CTAs in 22 files, 3 error-report links in 2 files', () => {
-    for (const phase of Object.values(PHASES)) {
-      const files = (rule) => phase.links.find((l) => l.rule === rule).files;
-      const size = (f) => [Object.keys(f).length, Object.values(f).flat().length];
-      expect(size(files('cta-links'))).toEqual([22, 25]);
-      expect(size(files('contact-links'))).toEqual([2, 3]);
-    }
+  it('manifests match the Ф1 inventory (plan v3: 6 of the 25 CTAs were rewritten, not repointed)', () => {
+    const size = (phase, rule) => {
+      const files = PHASES[phase].links.find((l) => l.rule === rule).files;
+      return [Object.keys(files).length, Object.values(files).flat().length];
+    };
+    expect(size('f1-pre', 'cta-links')).toEqual([22, 25]);
+    expect(size('f1-done', 'cta-links')).toEqual([17, 19]);
+    expect(size('f1-done', 'hub-links')).toEqual([5, 5]);
+    for (const phase of ['f1-pre', 'f1-done']) expect(size(phase, 'contact-links')).toEqual([2, 3]);
   });
 
   // The manifest must not be able to weaken itself: coverage, completeness and targets are checked independently.
@@ -384,6 +382,7 @@ describe('public/ (integration)', () => {
     expect(done.homeAnchors).toEqual(['blog']);
     expect(done.links.map((l) => [l.rule, l.href])).toEqual([
       ['cta-links', 'https://www.parkinsandr.tech/services/#contact'],
+      ['hub-links', 'https://www.parkinsandr.tech/services/'],
       ['contact-links', 'https://t.me/+380936429885'],
     ]);
     expect(done.breadcrumbs.map((b) => [b.name, b.item])).toEqual([

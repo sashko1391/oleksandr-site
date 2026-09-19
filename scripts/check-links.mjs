@@ -60,6 +60,11 @@ function decodeEntities(s) {
   });
 }
 
+/** Visible text of an element's inner HTML: tags removed (quote-aware), entities decoded, whitespace collapsed. */
+export function textOf(inner) {
+  return decodeEntities(inner.replace(/<(?:"[^"]*"|'[^']*'|[^'">])*>/g, '')).replace(/\s+/g, ' ').trim();
+}
+
 /** Recursively visit every object node of a JSON-LD value (arrays, @graph, nesting). */
 function walk(node, visit) {
   if (Array.isArray(node)) node.forEach((x) => walk(x, visit));
@@ -147,10 +152,7 @@ export function parsePage(html) {
     canonicals: tags
       .filter((t) => t.name === 'link' && /(^|\s)canonical(\s|$)/i.test(t.attrs.rel ?? ''))
       .map((t) => t.attrs.href ?? ''),
-    anchors: [...markup.matchAll(A_RE)].map(([, raw, inner]) => ({
-      href: attrsOf(raw).href ?? '',
-      text: decodeEntities(inner.replace(/<(?:"[^"]*"|'[^']*'|[^'">])*>/g, '')).replace(/\s+/g, ' ').trim(),
-    })),
+    anchors: [...markup.matchAll(A_RE)].map(([, raw, inner]) => ({ href: attrsOf(raw).href ?? '', text: textOf(inner) })),
     ld,
     ldErrors,
     noindex: tags.some(

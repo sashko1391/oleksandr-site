@@ -88,7 +88,7 @@
   (`#contact`) — чат не переноситься, бо це скриптовий бот (рішення власника 2026-09-18).
 - Schema: CollectionPage + ItemList(Service) + BreadcrumbList + FAQPage; ProfessionalService — **лише через `@id`**
   (повний опис лишається на головній до Ф3, щоб не було двох описів однієї сутності з різними фактами).
-- **Перепривʼязати** скриптом (ідемпотентно, test-first): комерційні CTA `/#chat-section` → `/services/#contact`
+- ✅ (2026-09-18, локально) **Перепривʼязати** скриптом (ідемпотентно, test-first): комерційні CTA `/#chat-section` → `/services/#contact`
   (тексти, що обіцяють AI, — теж змінити);
   «напишіть мені» в постах про Паркінсон → особистий контакт; breadcrumb items `#scenarios`/`#portfolio` →
   `/services/`. `@id #business` — стабільний, не змінюється ніколи; `/#blog` — Ф2.
