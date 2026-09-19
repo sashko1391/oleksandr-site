@@ -140,6 +140,7 @@
     --line: rgba(27,58,92,0.08);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; } /* author display rules (e.g. .lead-form grid) must not un-hide elements */
   html { scroll-behavior: smooth; }
   body { font-family: 'Manrope', sans-serif; font-size: 1rem; line-height: 1.65; background: var(--milk); color: var(--ink); }
   a { color: var(--blue-mid); }
@@ -604,6 +605,7 @@
 <script>
 (function () {
   var WORKER_URL = 'https://oleksandr-site.sashko1391.workers.dev';
+  var TIMEOUT_MS = 15000; // a request that never answers must end in the honest error, not an endless «Надсилаю…»
   var form = document.getElementById('leadForm');
   var status = document.getElementById('leadStatus');
   var button = form.querySelector('button[type="submit"]');
@@ -642,14 +644,18 @@
     };
     button.disabled = true;
     button.textContent = 'Надсилаю…';
-    fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
+    fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal })
       .then(function (res) {
+        clearTimeout(timer);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         track('event', 'generate_lead', { event_category: 'conversion', event_label: 'services_form', value: 1, currency: 'UAH' });
         track('event', 'conversion_event_submit_lead_form');
         succeed();
       })
       .catch(function () {
+        clearTimeout(timer);
         button.disabled = false;
         button.textContent = 'Надіслати ще раз';
         showStatus('Не вдалося надіслати заявку. Спробуйте ще раз або напишіть напряму в Telegram, WhatsApp чи на email — кнопки нижче.', true);

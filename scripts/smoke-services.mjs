@@ -39,8 +39,11 @@ function check(name, ok, detail = '') {
   console.log(`${ok ? '✓' : '✗'} ${name}${ok || !detail ? '' : ` — ${detail}`}`);
 }
 
-/** Open /services/ with the Worker answering `workerStatus`; returns the page and the payloads it received. */
-async function open(browser, base, { workerStatus = 200, viewport = DESKTOP } = {}) {
+/**
+ * Open /services/ with the Worker answering `workerStatus` (or never, with `workerHangs`); returns the page and the
+ * payloads it received. `clock` installs Playwright's fake timers so a test can fast-forward the page's timeout.
+ */
+async function open(browser, base, { workerStatus = 200, workerHangs = false, clock = false, viewport = DESKTOP } = {}) {
   const context = await browser.newContext({ viewport });
   const sent = [];
   await context.route('**/*', (route) => {
@@ -50,11 +53,13 @@ async function open(browser, base, { workerStatus = 200, viewport = DESKTOP } = 
       const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'POST' };
       if (request.method() === 'OPTIONS') return route.fulfill({ status: 204, headers: cors });
       sent.push(request.postDataJSON());
+      if (workerHangs) return undefined; // never answer: the page has to give up on its own
       return route.fulfill({ status: workerStatus, headers: cors, contentType: 'application/json', body: '{}' });
     }
     return route.abort(); // GA, Clarity, Plausible
   });
   const page = await context.newPage();
+  if (clock) await page.clock.install();
   await page.goto(`${base}/services/`, { waitUntil: 'load' });
   return { page, sent, context };
 }
@@ -84,7 +89,10 @@ async function desktopChecks(browser, base) {
   check('submits exactly one lead to the Worker', ok.sent.length === 1, `sent ${ok.sent.length}`);
   check('the lead carries the contact and the page', payload.contact === '@test_contact' && payload.source === '/services/' && payload.history?.startsWith('ФОРМА (/services/)'), JSON.stringify(payload));
   check('reports generate_lead after the Worker accepted it', (await events(ok.page)).some((e) => e.name === 'generate_lead'));
-  check('hides the form and focuses the confirmation', await ok.page.evaluate(() => document.getElementById('leadForm').hidden && document.activeElement.id === 'leadStatus'));
+  // Visibility as the visitor sees it, not the `hidden` property: author CSS can override the attribute.
+  const formVisible = await ok.page.locator('#leadForm').isVisible();
+  const confirmationFocused = await ok.page.evaluate(() => document.activeElement.id === 'leadStatus');
+  check('hides the form and focuses the confirmation', !formVisible && confirmationFocused, `formVisible=${formVisible} focused=${confirmationFocused}`);
   await ok.context.close();
 
   // Validation: empty and whitespace-only required fields never reach the Worker.
@@ -116,6 +124,21 @@ async function desktopChecks(browser, base) {
   check('on Worker error: keeps the form and its data, allows a retry', !state.hidden && !state.disabled && state.contact === '@test_contact', JSON.stringify(state));
   check('on Worker error: no generate_lead', !(await events(fail.page)).some((e) => e.name === 'generate_lead'));
   await fail.context.close();
+
+  // Worker never answers (blocked or black-holed *.workers.dev): no endless «Надсилаю…» — the timeout ends in the error.
+  const hang = await open(browser, base, { workerHangs: true, clock: true });
+  await fillForm(hang.page);
+  await hang.page.click('#leadForm button[type="submit"]');
+  const buttonText = () => hang.page.evaluate(() => document.querySelector('#leadForm button[type="submit"]').textContent);
+  const waiting = (await buttonText()) === 'Надсилаю…' && hang.sent.length === 1;
+  await hang.page.clock.fastForward(16000);
+  let gaveUp = false;
+  for (let i = 0; i < 50 && !gaveUp; i++) { // poll with Node timers: the page's timers are fake now
+    gaveUp = await hang.page.evaluate(() => document.getElementById('leadStatus').textContent.includes('Не вдалося'));
+    if (!gaveUp) await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  check('on a Worker that never answers: gives up after the timeout with the honest error', waiting && gaveUp && (await buttonText()) === 'Надіслати ще раз', `waiting=${waiting} gaveUp=${gaveUp}`);
+  await hang.context.close();
 }
 
 async function mobileChecks(browser, base) {
