@@ -74,10 +74,25 @@ describe('testimonials', () => {
     }
   });
 
-  it('the one number a case can back is backed by it', () => {
+  it('the numbers in the quotes are backed by the cases they come from', () => {
     const ace = pages.find((p) => p.rel === 'projects/ace/index.html').html;
+    const slavutych = pages.find((p) => p.rel === 'projects/slavutych/index.html').html;
     expect(ace, 'the ACE case must back «8 700+ педагогів»').toMatch(/8\s?700/);
-    // «Performance 100» (ACE) and «PageSpeed 40 → 95» / «за 5 днів» (Славутич) are the clients' words and
-    // are not in the cases; Ф1.5 P2 leaves it to the owner to back them with proof or drop them.
+    expect(ace, 'the ACE case must back «Performance 100» and say when it was measured')
+      .toMatch(/Performance 100<\/strong> на desktop|<strong>Performance 100<\/strong>/);
+    expect(ace, 'the ACE case must state the re-check').toMatch(/Перевірка \d{1,2} [\u0430-\u044f\u0456\u0457\u0454\u0491]+ 2026/);
+    expect(slavutych, 'the Slavutych case must back «PageSpeed 40 → 95» with the method')
+      .toMatch(/PageSpeed Insights[\s\S]{0,200}<strong>40<\/strong>[\s\S]{0,120}<strong>95<\/strong>/);
+    expect(slavutych, 'the Slavutych case must back «за 5 днів»').toMatch(/<strong>5 днів<\/strong>/);
+    expect(slavutych, 'the Slavutych case must state the re-check').toMatch(/Перевірка \d{1,2} [\u0430-\u044f\u0456\u0457\u0454\u0491]+ 2026/);
+  });
+
+  it('a speed number shown as a result card says when it was measured', () => {
+    for (const p of pages) {
+      for (const m of p.html.matchAll(/<div class="result-metric"><strong>([^<]+)<\/strong><span>([^<]*)<\/span>/g)) {
+        if (!/PageSpeed|Performance|Lighthouse/i.test(m[1])) continue;
+        expect(m[2], `${p.rel}: «${m[1]}» is shown without a date`).toMatch(/20\d\d/);
+      }
+    }
   });
 });
