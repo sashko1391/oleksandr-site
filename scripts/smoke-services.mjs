@@ -106,7 +106,7 @@ async function desktopChecks(browser, base) {
   // Honeypot: a filled hidden field looks like success to a bot but sends nothing.
   const bot = await open(browser, base);
   await fillForm(bot.page);
-  await bot.page.evaluate(() => { document.getElementById('lf-website').value = 'http://spam.example'; });
+  await bot.page.evaluate(() => { document.getElementById('lf-extra').value = 'http://spam.example'; });
   await bot.page.click('#leadForm button[type="submit"]');
   await bot.page.waitForFunction(() => document.getElementById('leadStatus').textContent.includes('Дякую'));
   check('honeypot: sends nothing', bot.sent.length === 0, `sent ${bot.sent.length}`);

@@ -26,12 +26,12 @@ describe('/services/ page contract', () => {
     expect(html).not.toMatch(/<details\b/);
   });
 
-  it('has a title of at most 60 and a description of 150–155 characters', () => {
+  it('has a title of at most 60 and a description of 150–154 characters', () => {
     const title = html.match(/<title>([^<]*)<\/title>/)[1];
     const description = html.match(/<meta name="description" content="([^"]*)">/)[1];
     expect([...title].length).toBeLessThanOrEqual(60);
     expect([...description].length).toBeGreaterThanOrEqual(150);
-    expect([...description].length).toBeLessThanOrEqual(155);
+    expect([...description].length).toBeLessThanOrEqual(154); // AGENTS: description < 155
   });
 
   it('is self-canonical and indexable', () => {
@@ -123,8 +123,8 @@ describe('/services/ page contract', () => {
     expect(byName('name')).toMatch(/\srequired\b/);
     expect(byName('contact')).toMatch(/\srequired\b/);
     expect(byName('message')).not.toMatch(/\srequired\b/);
-    expect(attr(byName('website'), 'tabindex')).toBe('-1');
-    expect(form).toMatch(/<div class="hp" aria-hidden="true">/);
+    expect(attr(byName('lf-extra'), 'tabindex')).toBe('-1');
+    expect(form).toMatch(/<div class="hp" aria-hidden="true" inert>/); // inert + non-semantic name: autofill must not fill it
     expect(form).toMatch(/href="\/privacy\/"/);
   });
 });

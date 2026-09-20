@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Розробка сайтів: послуги, ціни, кейси | Олександр Кравченко</title>
-<meta name="description" content="Розробка сайтів для бізнесу: лендінги, сайти на Next.js, магазини й AI-інтеграції. Ціни від 20 000 ₴, 6 кейсів із цифрами, код і домен — ваші за договором.">
+<meta name="description" content="Розробка сайтів для бізнесу: лендінги, сайти на Next.js, магазини й AI-інтеграції. Ціни від 20 000 ₴, 6 кейсів із цифрами, код і домен ваші за договором.">
 <link rel="canonical" href="https://www.parkinsandr.tech/services/">
 <link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">
 <meta property="og:title" content="Розробка сайтів: послуги, ціни, кейси — Олександр Кравченко">
@@ -30,7 +30,7 @@
       "@id": "https://www.parkinsandr.tech/services/#webpage",
       "url": "https://www.parkinsandr.tech/services/",
       "name": "Розробка сайтів: послуги, ціни, кейси",
-      "description": "Розробка сайтів для бізнесу: лендінги, сайти на Next.js, магазини й AI-інтеграції. Ціни від 20 000 ₴, 6 кейсів із цифрами, код і домен — ваші за договором.",
+      "description": "Розробка сайтів для бізнесу: лендінги, сайти на Next.js, магазини й AI-інтеграції. Ціни від 20 000 ₴, 6 кейсів із цифрами, код і домен ваші за договором.",
       "inLanguage": "uk",
       "about": {"@id": "https://www.parkinsandr.tech/#business"},
       "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"},
@@ -561,6 +561,10 @@
   <div class="contact">
     <h2>Опишіть задачу — відповім особисто</h2>
     <p class="answer">Напишіть, який у вас бізнес і який сайт потрібен: лендінг, бізнес-сайт, магазин чи AI-інтеграція. Заявка з форми надійде мені в Telegram, і відповідаю на неї я сам — не бот і не менеджер. Для точної ціни можна одразу заповнити <a href="/pricing/#brief">бриф із 5 запитань</a> на сторінці цін.</p>
+    <noscript>
+      <style>#leadForm { display: none; }</style>
+      <p class="form-note">Форма працює лише з увімкненим JavaScript. Без нього напишіть напряму — кнопки нижче.</p>
+    </noscript>
     <form id="leadForm" class="lead-form">
       <div class="field">
         <label for="lf-name">Ваше ім'я</label>
@@ -574,9 +578,9 @@
         <label for="lf-message">Коротко про проєкт <span class="optional">(необов'язково)</span></label>
         <textarea id="lf-message" name="message" rows="4" maxlength="2000"></textarea>
       </div>
-      <div class="hp" aria-hidden="true">
-        <label for="lf-website">Не заповнюйте це поле</label>
-        <input id="lf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      <div class="hp" aria-hidden="true" inert>
+        <label for="lf-extra">Не заповнюйте це поле</label>
+        <input id="lf-extra" name="lf-extra" type="text" tabindex="-1" autocomplete="off">
       </div>
       <button type="submit" class="btn-primary">Обговорити проєкт</button>
       <p class="form-note">Заявка надійде мені в Telegram — докладніше в <a href="/privacy/">політиці приватності</a>.</p>
@@ -629,7 +633,7 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     // Honeypot: people never see this field, simple bots fill every input.
-    if (form.elements.website.value) {
+    if (form.elements['lf-extra'].value) {
       succeed();
       return;
     }
