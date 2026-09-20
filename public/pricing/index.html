@@ -27,52 +27,139 @@
   "@type": "Service",
   "@id": "https://www.parkinsandr.tech/pricing/#service",
   "serviceType": "Розробка веб-сайтів",
-  "provider": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"},
-  "areaServed": {"@type": "Country", "name": "Ukraine"},
+  "provider": {
+    "@id": "https://www.parkinsandr.tech/pro-mene/#author"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Ukraine"
+  },
   "name": "Розробка сайтів від Олександра Кравченка",
   "description": "Кастомна розробка лендінгів, сайтів-візиток, бізнес-сайтів, інтернет-магазинів і AI-платформ для українського SMB. Чесні ціни, прозорі умови.",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Типи веб-сайтів і ціни",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Лендінг (1 сторінка)",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "20000", "priceCurrency": "UAH"},
-        "description": "Лендінг під рекламу або одноразову маркетингову кампанію. 1 сторінка, форма-заявка, аналітика. Термін: 5-7 днів."
-      },
-      {
-        "@type": "Offer",
-        "name": "Сайт-візитка (3-5 сторінок)",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "25000", "priceCurrency": "UAH"},
-        "description": "Static HTML-сайт-портфоліо для художника, фрілансера, фахівця. 3-5 сторінок, schema, без CMS. Термін: 5 днів."
-      },
-      {
-        "@type": "Offer",
-        "name": "Бізнес-сайт на Next.js (5-10 сторінок)",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "40000", "priceCurrency": "UAH"},
-        "description": "Бізнес-сайт з CMS-адмінкою для самостійного редагування контенту, блогом і структурою під SEO. Термін: 14 днів."
-      },
-      {
-        "@type": "Offer",
-        "name": "Інтернет-магазин fast-track (Next.js + Medusa)",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "60000", "priceCurrency": "UAH"},
-        "description": "Магазин на готовій архітектурі Atlas-кейсу: кошик, оплата, Нова Пошта, до 100 SKU. Термін: 7 днів."
-      },
-      {
-        "@type": "Offer",
-        "name": "Інтернет-магазин custom",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "80000", "priceCurrency": "UAH"},
-        "description": "Унікальний дизайн з нуля, складні фільтри, лояльність-програма, інтеграція з 1С/CRM. Термін: 21-30 днів."
-      },
-      {
-        "@type": "Offer",
-        "name": "AI-платформа або складний проєкт",
-        "priceSpecification": {"@type": "PriceSpecification", "minPrice": "80000", "priceCurrency": "UAH"},
-        "description": "Платформа з AI-інтеграцією, особистим кабінетом, складними формами або реєстром даних. Термін: від 30 днів."
-      }
-    ]
-  }
+  "hasOfferCatalog": [
+    {
+      "@type": "OfferCatalog",
+      "name": "Типи веб-сайтів і ціни",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Лендінг (1 сторінка)",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "20000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Лендінг під рекламу або одноразову маркетингову кампанію. 1 сторінка, форма-заявка, аналітика. Термін: 5-7 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Сайт-візитка (3-5 сторінок)",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "25000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Static HTML-сайт-портфоліо для художника, фрілансера, фахівця. 3-5 сторінок, schema, без CMS. Термін: 5 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Бізнес-сайт на Next.js (5-10 сторінок)",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "40000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Бізнес-сайт з CMS-адмінкою для самостійного редагування контенту, блогом і структурою під SEO. Термін: 14 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Інтернет-магазин fast-track (Next.js + Medusa)",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "60000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Магазин на готовій архітектурі Atlas-кейсу: кошик, оплата, Нова Пошта, до 100 SKU. Термін: 7 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Інтернет-магазин custom",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "80000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Унікальний дизайн з нуля, складні фільтри, лояльність-програма, інтеграція з 1С/CRM. Термін: 21-30 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "AI-платформа або складний проєкт",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "80000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Платформа з AI-інтеграцією, особистим кабінетом, складними формами або реєстром даних. Термін: від 30 днів."
+        }
+      ]
+    },
+    {
+      "@type": "OfferCatalog",
+      "name": "Додаткові послуги: боти, AI-інтеграції, редизайн",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Чат-бот для сайту",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "15000",
+            "priceCurrency": "UAH"
+          },
+          "description": "AI-чат на наявному сайті: базова конфігурація, FAQ, кваліфікація заявок. Термін: 5-7 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Telegram-бот + автоматизація",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "20000",
+            "priceCurrency": "UAH"
+          },
+          "description": "Сповіщення, обробка замовлень, інтеграція з CRM. Термін: 7-14 днів."
+        },
+        {
+          "@type": "Offer",
+          "name": "Кастомне AI-рішення",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "30000",
+            "priceCurrency": "UAH"
+          },
+          "description": "RAG, обробка документів, складна логіка поверх наявного сайту. Термін: 14-21 день."
+        },
+        {
+          "@type": "Offer",
+          "name": "Редизайн: оновлення дизайну",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "25000",
+            "priceCurrency": "UAH"
+          },
+          "description": "5-7 сторінок: новий дизайн, швидкість, SEO-міграція з редиректами. Термін: 14-21 день."
+        },
+        {
+          "@type": "Offer",
+          "name": "Редизайн: повний перезапуск",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "40000",
+            "priceCurrency": "UAH"
+          },
+          "description": "8-15 сторінок: нова структура, копірайтинг, блог, конверсійні форми, 1 місяць підтримки. Термін: 21-30 днів."
+        }
+      ]
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -95,7 +182,7 @@
       "name": "Чому ціни «від», а не фіксовані?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ціна сайту залежить від обсягу: кількості сторінок, складності дизайну, інтеграцій, наявності контенту, термінів. «Від» — це мінімум для базової реалізації проєкту такого типу. Точну вартість для вашого проєкту я даю після короткого 15-хвилинного брифу — безкоштовно і без зобов'язань."
+        "text": "Ціна сайту залежить від обсягу: кількості сторінок, складності дизайну, інтеграцій, наявності контенту, термінів. «Від» — це мінімум для базової реалізації проєкту такого типу. Точну вартість для вашого проєкту я даю після короткого брифу з 5 запитань — безкоштовно і без зобов'язань."
       }
     },
     {
@@ -556,6 +643,31 @@
   </table>
   </div>
 
+  <h2 id="dodatkovi">Додаткові послуги: боти, AI-інтеграції, редизайн</h2>
+  <p>Це не окремі типи сайтів, а роботи поверх наявного сайту: AI-інтеграція в те, що вже працює, або
+  перезапуск старого сайту. Повноцінна AI-платформа з кабінетом і базою даних — це вже «AI / складний»
+  у таблиці вище, від 80 000 ₴.</p>
+  <div style="overflow-x: auto;">
+  <table class="compare-table" id="compare-extra">
+    <thead>
+      <tr>
+        <th scope="col">Послуга</th>
+        <th scope="col">Бюджет</th>
+        <th scope="col">Термін</th>
+        <th scope="col">Що входить</th>
+        <th scope="col">Деталі</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Чат-бот для сайту</td><td>від 15 000 ₴</td><td>5-7 днів</td><td>Базова конфігурація, FAQ, кваліфікація заявок</td><td><a href="/services/ai/">ai</a></td></tr>
+      <tr><td>Telegram-бот + автоматизація</td><td>від 20 000 ₴</td><td>7-14 днів</td><td>Сповіщення, обробка замовлень, інтеграція з CRM</td><td><a href="/services/ai/">ai</a></td></tr>
+      <tr><td>Кастомне AI-рішення</td><td>від 30 000 ₴</td><td>14-21 день</td><td>RAG, обробка документів, складна логіка</td><td><a href="/services/ai/">ai</a></td></tr>
+      <tr><td>Редизайн: оновлення дизайну</td><td>від 25 000 ₴</td><td>14-21 день</td><td>5-7 сторінок, швидкість, SEO-міграція і редиректи</td><td><a href="/services/redesign/">redesign</a></td></tr>
+      <tr><td>Редизайн: повний перезапуск</td><td>від 40 000 ₴</td><td>21-30 днів</td><td>8-15 сторінок, нова структура, блог, форми, 1 місяць підтримки</td><td><a href="/services/redesign/">redesign</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
   <h2>Як формується ціна сайту</h2>
   <p>Кінцева вартість залежить від 6 факторів. На стартовій ціні «від» — мінімум для базової реалізації. Якщо проєкт виходить за ці межі — обговорюємо до старту, без «несподіванок» у фіналі.</p>
   <ul>
@@ -658,7 +770,7 @@
   <h2>Часті запитання про ціни</h2>
 
   <h3>Чому ціни «від», а не фіксовані?</h3>
-  <p>Ціна сайту залежить від обсягу: кількості сторінок, складності дизайну, інтеграцій, наявності контенту, термінів. «Від» — це мінімум для базової реалізації проєкту такого типу. Точну вартість для вашого проєкту я даю після короткого 15-хвилинного брифу — безкоштовно і без зобов'язань.</p>
+  <p>Ціна сайту залежить від обсягу: кількості сторінок, складності дизайну, інтеграцій, наявності контенту, термінів. «Від» — це мінімум для базової реалізації проєкту такого типу. Точну вартість для вашого проєкту я даю після короткого брифу з 5 запитань — безкоштовно і без зобов'язань.</p>
 
   <h3>Чи можна розбити оплату на частини?</h3>
   <p>Так. Стандартна схема: 50% передоплата перед стартом, 50% після приймання робіт. Для проєктів від 60 000 ₴ можна розбити на 3-4 етапи з оплатою після кожного milestone (дизайн, основні сторінки, інтеграції, фінал). Працюю як ФОП (3% ЄП), договір + акт + рахунок-фактура.</p>

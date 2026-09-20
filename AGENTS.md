@@ -53,7 +53,8 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, services-page, journal-index]`
+    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
+    services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -65,7 +66,11 @@
     Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
 13. **Правдивість:** сайт не видає скриптового бота за AI чи людину, власний продукт — за клієнта; без анонімних
     чи неперевірених відгуків; кожна цифра на комерційних сторінках — із кейсу або `/pricing/` (розбіжності між
-    сторінками не множити, а виправляти в джерелі). `[advisory; /services/ — tests/services-page.test.js]`
+    сторінками не множити, а виправляти в джерелі). Джерело правди для цін — `/pricing/` (модель B, рішення
+    власника 2026-09-20): ціна кожної категорії й термін лендингу 5–7 днів беруться звідти, включно з JSON-LD
+    і meta description; ринкові цифри (не мої ціни) — лише з поіменованим винятком у тесті. Відгук — одне
+    формулювання на всіх сторінках, автор названий.
+    `[enforced: tests/prices.test.js, tests/testimonials.test.js; /services/ — tests/services-page.test.js]`
 
 ## Структура (2026-09)
 ```
