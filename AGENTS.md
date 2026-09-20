@@ -54,7 +54,7 @@
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
     `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
-    services-page, journal-index]`
+    claims, faq-schema, images, services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -70,7 +70,11 @@
     власника 2026-09-20): ціна кожної категорії й термін лендингу 5–7 днів беруться звідти, включно з JSON-LD
     і meta description; ринкові цифри (не мої ціни) — лише з поіменованим винятком у тесті. Відгук — одне
     формулювання на всіх сторінках, автор названий.
-    `[enforced: tests/prices.test.js, tests/testimonials.test.js; /services/ — tests/services-page.test.js]`
+    Кожен відсоток на комерційній сторінці — або з посиланням на дослідження в тому ж абзаці, або своє
+    вимірювання зі сторінкою, де воно показане, або умова роботи з маніфесту `tests/claims.test.js`.
+    FAQPage-схема дослівно повторює видимий FAQ; заявлені `width`/`height` = пропорція самого файлу.
+    `[enforced: tests/prices.test.js, tests/testimonials.test.js, tests/claims.test.js, tests/faq-schema.test.js,
+    tests/images.test.js; /services/ — tests/services-page.test.js]`
 
 ## Структура (2026-09)
 ```
