@@ -375,6 +375,13 @@
     .compare-table th, .compare-table td { padding: 0.6rem 0.6rem; font-size: 0.78rem; }
     .form-section { padding: 2rem 1.25rem; }
   }
+
+  /* honest lead form: status message */
+  .form-status:empty { display: none; }
+  .form-status { margin: 1rem auto 0; max-width: 640px; padding: 0.85rem 1rem; border-radius: 10px;
+    background: rgba(255,255,255,0.12); color: var(--milk); font-size: 0.95rem; font-weight: 500; }
+  .form-status.error { background: rgba(212,133,74,0.3); }
+  .form-status:focus { outline: 2px solid var(--blue-sky); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -674,7 +681,11 @@
   <section class="form-section" id="brief" aria-labelledby="brief-h">
     <h2 id="brief-h">Короткий бриф для точної оцінки</h2>
     <p class="form-desc">5 запитань — дам точну ціну, термін і план роботи протягом дня. Без передзвону «з пропозицією»: просто чіткі цифри у Telegram або email.</p>
-    <form id="briefForm" class="form-grid" onsubmit="return submitBrief(event)" aria-label="Бриф-форма для розрахунку вартості">
+    <noscript>
+      <style>#briefForm { display: none; }</style>
+      <p class="form-note">Форма працює лише з увімкненим JavaScript. Без нього напишіть напряму: <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer">Telegram</a>, <a href="https://wa.me/380936429885" target="_blank" rel="noopener noreferrer">WhatsApp</a> або <a href="mailto:sashko1391@gmail.com">sashko1391@gmail.com</a>.</p>
+    </noscript>
+    <form id="briefForm" class="form-grid" data-lead-form data-label="pricing_form" data-success="#briefSuccess" data-success-class="show" aria-label="Бриф-форма для розрахунку вартості">
       <div class="form-field">
         <label for="site_type">1. Який сайт вам потрібен? <span class="req">*</span></label>
         <div class="form-radio" role="radiogroup">
@@ -723,7 +734,7 @@
     <div id="briefSuccess" class="form-success" role="alert">
       <h3>Дякую! Заявка отримана.</h3>
       <p>Я подивлюсь деталі і відповім протягом дня — у Telegram, телефон або email, як ви вказали. Якщо питання термінове — напишіть напряму:</p>
-      <a href="https://t.me/sashko1391" target="_blank" rel="noopener noreferrer" data-cta="success-telegram">Написати в Telegram →</a>
+      <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer" data-cta="success-telegram">Написати в Telegram →</a>
     </div>
   </section>
 
@@ -737,150 +748,25 @@
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script defer src="/js/lead-form.v1.js"></script>
 <script>
-// page view
-gtag('event', 'pricing_view', { page_path: '/pricing/' });
-
-// IntersectionObserver — pricing_view_tier when 50% of card visible
-(function() {
-  var seen = new Set();
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.intersectionRatio >= 0.5 && e.target.dataset.tier && !seen.has(e.target.dataset.tier)) {
-        seen.add(e.target.dataset.tier);
-        gtag('event', 'pricing_view_tier', {
-          tier: e.target.dataset.tier,
-          price_from: e.target.dataset.price
-        });
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.card[data-tier]').forEach(function(c) { io.observe(c); });
-
-  // Compare table view
-  var tio = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.intersectionRatio >= 0.5) {
-        gtag('event', 'pricing_compare_view', { table_id: e.target.id });
-        tio.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  var ct = document.getElementById('compare-types');
-  if (ct) tio.observe(ct);
-})();
-
-// Card / hero CTA click → autofill form site_type
-document.querySelectorAll('.card-cta, .hero-cta').forEach(function(btn) {
-  btn.addEventListener('click', function(e) {
-    var tier = btn.dataset.tier;
-    if (tier) {
-      gtag('event', 'pricing_select_tier', { tier: tier, price_from: btn.closest('.card') ? btn.closest('.card').dataset.price : null });
-      // Map tier name to radio value
-      var radioMap = { 'Лендінг': 'Лендінг', 'Сайт-візитка': 'Сайт-візитка', 'Бізнес-сайт': 'Бізнес-сайт', 'Магазин fast-track': 'Інтернет-магазин', 'Магазин custom': 'Інтернет-магазин', 'AI-платформа': 'AI/складна платформа' };
-      var val = radioMap[tier];
-      if (val) {
-        var radio = document.querySelector('input[name="site_type"][value="' + val + '"]');
-        if (radio) radio.checked = true;
-      }
-    } else {
-      gtag('event', 'pricing_select_tier', { tier: 'hero_cta', price_from: null });
-    }
-  });
-});
-
-// Case click tracking
-document.querySelectorAll('.case-link').forEach(function(c) {
-  c.addEventListener('click', function() {
-    gtag('event', 'pricing_case_click', { case_slug: c.dataset.case || c.getAttribute('href') });
-  });
-});
-
-// Form interaction
-var formStarted = false;
-var form = document.getElementById('briefForm');
-form.addEventListener('input', function(e) {
-  if (!formStarted) {
-    formStarted = true;
-    var selectedTier = form.elements.site_type.value || null;
-    gtag('event', 'pricing_form_start', { first_field: e.target.name, selected_tier: selectedTier });
-  }
-  // Field changes for radio (key fields)
-  if (e.target.type === 'radio' && (e.target.name === 'site_type' || e.target.name === 'budget_range')) {
-    gtag('event', 'pricing_form_field_change', { field_name: e.target.name, field_value: e.target.value });
-  }
-});
-
-// Submit
-async function submitBrief(e) {
-  e.preventDefault();
-  var btn = document.getElementById('briefSubmit');
-  var formEl = document.getElementById('briefForm');
-  var siteType = formEl.elements.site_type.value;
-  var budget = formEl.elements.budget_range.value;
-  var content = formEl.elements.content_ready.value || '—';
-  var goal = formEl.elements.project_goal.value || '—';
-  var contact = formEl.elements.contact.value;
-
-  gtag('event', 'pricing_form_submit_attempt', {
-    selected_tier: siteType, budget_range: budget
-  });
-
-  btn.disabled = true; btn.textContent = 'Надсилаю...';
-
-  // Build Telegram message
-  var historyText = 'НОВА ЗАЯВКА /pricing/\n' +
-    'Тип: ' + siteType + '\n' +
-    'Бюджет: ' + budget + '\n' +
-    'Контент: ' + content + '\n' +
-    'Задача: ' + goal + '\n' +
-    'Контакт: ' + contact + '\n' +
-    'Page: ' + window.location.href + '\n' +
-    'Referrer: ' + (document.referrer || '—') + '\n' +
-    'UA: ' + navigator.userAgent;
-
-  var data = {
-    contact: contact,
-    history: historyText,
-    timestamp: new Date().toISOString()
+// Page-specific analytics on top of the shared lead form.
+(function () {
+  var form = document.getElementById('briefForm');
+  if (!form) return;
+  var params = function () {
+    return { selected_tier: form.elements.site_type.value, budget_range: form.elements.budget_range.value };
   };
-
-  try {
-    var resp = await fetch('https://oleksandr-site.sashko1391.workers.dev', {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    });
-    if (!resp.ok) throw new Error('http ' + resp.status);
-
-    gtag('event', 'pricing_form_submit', {
-      selected_tier: siteType, budget_range: budget,
-      site_type: siteType, content_ready: content
-    });
-    gtag('event', 'generate_lead', { event_category: 'conversion', event_label: 'pricing_form', value: 1 });
-  } catch (err) {
-    gtag('event', 'pricing_form_error', { error_type: err.message || 'unknown' });
-    // Show success anyway — Telegram fallback CTA
-  }
-
-  formEl.style.display = 'none';
-  document.getElementById('briefSuccess').classList.add('show');
-  return false;
-}
-
-// Telegram CTA + contact link tracking
-document.addEventListener('click', function(e) {
-  var a = e.target.closest('a');
-  if (!a) return;
-  var href = a.href || '';
-  if (href.includes('t.me/')) {
-    gtag('event', 'pricing_telegram_click', { location: a.dataset.cta || 'inline' });
-    gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'telegram', link_url: href });
-  } else if (href.includes('wa.me/')) {
-    gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'whatsapp', link_url: href });
-  } else if (href.startsWith('mailto:')) {
-    gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'email', link_url: href });
-  }
-});
+  form.addEventListener('submit', function () {
+    if (typeof gtag === 'function') gtag('event', 'pricing_form_submit_attempt', params());
+  });
+  form.addEventListener('lead:sent', function () {
+    if (typeof gtag === 'function') gtag('event', 'pricing_form_submit', params());
+  });
+  form.addEventListener('lead:error', function (event) {
+    if (typeof gtag === 'function') gtag('event', 'pricing_form_error', { error_type: (event.detail && event.detail.error) || 'unknown' });
+  });
+})();
 </script>
 </body>
 </html>

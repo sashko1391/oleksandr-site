@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Browser smoke for /services/: the lead form, CTA tracking and mobile a11y, on a local static server.
+// Browser smoke for every lead form on the site (/services/, five landings, the /pricing/ brief) plus the
+// /services/ page specifics: CTA tracking, honeypot, timeout and mobile a11y.
 // The Worker is stubbed and every other external request is aborted — nothing leaves the machine.
-// `npm run smoke:services [-- --screenshots <dir>]` (Playwright + system Chrome; not part of `npm test`).
+// `npm run smoke:forms [-- --screenshots <dir>]` (Playwright + system Chrome; not part of `npm test`).
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { dirname, extname, join, normalize, sep } from 'node:path';
@@ -16,6 +17,26 @@ const TYPES = {
 };
 const DESKTOP = { width: 1280, height: 800 };
 const MOBILE = { width: 390, height: 844 };
+
+/** Every page that can send a lead: how to fill it and what «sent» looks like there. */
+const FORM_PAGES = [
+  { path: '/services/', label: 'services_form', form: '#leadForm', success: '#leadStatus', successText: 'Дякую',
+    fill: async (page) => { await page.fill('#lf-name', 'ТЕСТ'); await page.fill('#lf-contact', '@test_contact'); await page.fill('#lf-message', 'smoke'); } },
+  ...['ai', 'kyiv', 'landing', 'nextjs', 'redesign'].map((slug) => ({
+    path: `/services/${slug}/`, label: `${slug}_form`, form: '#leadForm', success: '#leadSuccess', successText: 'Дякую',
+    fill: async (page) => {
+      await page.fill('#leadForm input[name="name"]', 'ТЕСТ');
+      await page.fill('#leadForm input[name="phone"]', '@test_contact');
+      await page.fill('#leadForm textarea[name="desc"]', 'smoke');
+    },
+  })),
+  { path: '/pricing/', label: 'pricing_form', form: '#briefForm', success: '#briefSuccess', successText: 'Дякую',
+    fill: async (page) => {
+      await page.locator('#briefForm input[name="site_type"]').first().check();
+      await page.locator('#briefForm input[name="budget_range"]').first().check();
+      await page.fill('#briefForm [name="contact"]', '@test_contact');
+    } },
+];
 
 function serve() {
   const server = createServer(async (req, res) => {
@@ -43,8 +64,8 @@ function check(name, ok, detail = '') {
  * Open /services/ with the Worker answering `workerStatus` (or never, with `workerHangs`); returns the page and the
  * payloads it received. `clock` installs Playwright's fake timers so a test can fast-forward the page's timeout.
  */
-async function open(browser, base, { workerStatus = 200, workerHangs = false, clock = false, viewport = DESKTOP } = {}) {
-  const context = await browser.newContext({ viewport });
+async function open(browser, base, { path = '/services/', workerStatus = 200, workerHangs = false, clock = false, javaScript = true, viewport = DESKTOP } = {}) {
+  const context = await browser.newContext({ viewport, javaScriptEnabled: javaScript });
   const sent = [];
   await context.route('**/*', (route) => {
     const request = route.request();
@@ -60,12 +81,12 @@ async function open(browser, base, { workerStatus = 200, workerHangs = false, cl
   });
   const page = await context.newPage();
   if (clock) await page.clock.install();
-  await page.goto(`${base}/services/`, { waitUntil: 'load' });
+  await page.goto(base + path, { waitUntil: 'load' });
   return { page, sent, context };
 }
 
 /** gtag() of the inline GA snippet only queues into dataLayer (gtag.js is aborted) — read events from there. */
-const events = (page) =>
+const events_ = (page) =>
   page.evaluate(() => (window.dataLayer || []).map((a) => Array.from(a)).filter((a) => a[0] === 'event').map((a) => ({ name: a[1], params: a[2] })));
 
 async function fillForm(page, { name = 'Тест', contact = '@test_contact', message = 'Потрібен лендінг' } = {}) {
@@ -74,13 +95,56 @@ async function fillForm(page, { name = 'Тест', contact = '@test_contact', me
   await page.fill('#lf-message', message);
 }
 
+
+/** Every form on the site: a lead that is accepted, one that is refused, and the page without JavaScript. */
+async function formChecks(browser, base) {
+  for (const form of FORM_PAGES) {
+    const ok = await open(browser, base, { path: form.path });
+    await form.fill(ok.page);
+    await ok.page.click(`${form.form} button[type="submit"]`);
+    await ok.page.locator(form.success).filter({ hasText: form.successText }).waitFor({ state: 'visible', timeout: 10000 });
+    const payload = ok.sent[0] ?? {};
+    const events = await events_(ok.page);
+    const formVisible = await ok.page.locator(form.form).isVisible();
+    check(`${form.path} — accepted lead: one request, contact and source, form hidden, generate_lead`,
+      ok.sent.length === 1 && payload.contact === '@test_contact' && payload.source === form.path &&
+      !formVisible && events.some((e) => e.name === 'generate_lead' && e.params?.event_label === form.label),
+      JSON.stringify({ sent: ok.sent.length, contact: payload.contact, source: payload.source, formVisible, events: events.map((e) => e.name) }));
+    await ok.context.close();
+
+    const fail = await open(browser, base, { path: form.path, workerStatus: 500 });
+    await form.fill(fail.page);
+    await fail.page.click(`${form.form} button[type="submit"]`);
+    await fail.page.locator('[data-lead-status]').filter({ hasText: 'Не вдалося' }).waitFor({ state: 'visible', timeout: 10000 });
+    const failState = await fail.page.evaluate((sel) => {
+      const el = document.querySelector(sel);
+      return { visible: !!el.offsetParent, contact: (el.querySelector('[name="contact"], [name="phone"]') || {}).value };
+    }, form.form);
+    check(`${form.path} — refused lead: honest error, data kept, no generate_lead`,
+      failState.visible && failState.contact === '@test_contact' &&
+      !(await events_(fail.page)).some((e) => e.name === 'generate_lead'), JSON.stringify(failState));
+    await fail.context.close();
+
+    // Playwright's text engine cannot see inside <noscript>, so read the note through the DOM.
+    const noJs = await open(browser, base, { path: form.path, javaScript: false });
+    const hidden = !(await noJs.page.locator(form.form).isVisible());
+    const notes = noJs.page.locator('noscript p');
+    const note = await notes.first().isVisible() &&
+      (await notes.first().evaluate((el) => el.textContent)).includes('лише з увімкненим JavaScript');
+    const direct = await noJs.page.locator('a[href^="https://t.me/"]:visible').count() > 0;
+    check(`${form.path} — without JavaScript: the form is hidden, the note and the direct contacts are shown`,
+      hidden && note && direct, `hidden=${hidden} note=${note} direct=${direct}`);
+    await noJs.context.close();
+  }
+}
+
 async function desktopChecks(browser, base) {
   // Happy path.
   const ok = await open(browser, base);
   check('H1 is visible', await ok.page.locator('h1').isVisible());
   check('FAQ answers are visible without interaction', await ok.page.locator('#faq .faq-item p').first().isVisible());
   await ok.page.click('a[data-cta="hero"]');
-  const ctaEvent = (await events(ok.page)).find((e) => e.name === 'cta_click');
+  const ctaEvent = (await events_(ok.page)).find((e) => e.name === 'cta_click');
   check('hero CTA scrolls to the form and reports cta_click', ok.page.url().endsWith('#contact') && ctaEvent?.params?.event_label === 'hero', JSON.stringify(ctaEvent));
   await fillForm(ok.page);
   await ok.page.click('#leadForm button[type="submit"]');
@@ -88,7 +152,7 @@ async function desktopChecks(browser, base) {
   const payload = ok.sent[0] ?? {};
   check('submits exactly one lead to the Worker', ok.sent.length === 1, `sent ${ok.sent.length}`);
   check('the lead carries the contact and the page', payload.contact === '@test_contact' && payload.source === '/services/' && payload.history?.startsWith('ФОРМА (/services/)'), JSON.stringify(payload));
-  check('reports generate_lead after the Worker accepted it', (await events(ok.page)).some((e) => e.name === 'generate_lead'));
+  check('reports generate_lead after the Worker accepted it', (await events_(ok.page)).some((e) => e.name === 'generate_lead'));
   // Visibility as the visitor sees it, not the `hidden` property: author CSS can override the attribute.
   const formVisible = await ok.page.locator('#leadForm').isVisible();
   const confirmationFocused = await ok.page.evaluate(() => document.activeElement.id === 'leadStatus');
@@ -122,7 +186,7 @@ async function desktopChecks(browser, base) {
     return { hidden: document.getElementById('leadForm').hidden, disabled: button.disabled, contact: document.getElementById('lf-contact').value };
   });
   check('on Worker error: keeps the form and its data, allows a retry', !state.hidden && !state.disabled && state.contact === '@test_contact', JSON.stringify(state));
-  check('on Worker error: no generate_lead', !(await events(fail.page)).some((e) => e.name === 'generate_lead'));
+  check('on Worker error: no generate_lead', !(await events_(fail.page)).some((e) => e.name === 'generate_lead'));
   await fail.context.close();
 
   // Worker never answers (blocked or black-holed *.workers.dev): no endless «Надсилаю…» — the timeout ends in the error.
@@ -184,6 +248,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const base = `http://127.0.0.1:${server.address().port}`;
   const browser = await chromium.launch({ headless: true, channel: 'chrome' });
   try {
+    await formChecks(browser, base);
     await desktopChecks(browser, base);
     await mobileChecks(browser, base);
     const i = process.argv.indexOf('--screenshots');
@@ -193,6 +258,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     server.close();
   }
   const failed = results.filter((ok) => !ok).length;
-  console.log(`smoke:services — ${results.length - failed}/${results.length} passed`);
+  console.log(`smoke:forms — ${results.length - failed}/${results.length} passed`);
   process.exitCode = failed ? 1 : 0;
 }

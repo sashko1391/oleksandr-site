@@ -427,6 +427,13 @@
     .comparison-table { font-size: 0.8rem; }
     .comparison-table th, .comparison-table td { padding: 0.5rem 0.6rem; }
   }
+
+  /* honest lead form: status message */
+  .form-status:empty { display: none; }
+  .form-status { margin: 1rem auto 0; max-width: 400px; padding: 0.85rem 1rem; border-radius: 10px;
+    background: rgba(255,255,255,0.12); color: var(--milk); font-size: 0.95rem; font-weight: 500; text-align: left; }
+  .form-status.error { background: rgba(212,133,74,0.3); }
+  .form-status:focus { outline: 2px solid var(--blue-sky); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -717,7 +724,11 @@
     <h2>Отримайте оцінку проєкту за 1 годину</h2>
     <p class="contact-desc">Опишіть, який сайт потрібен — оціню обсяг, назву строки й вартість, відповім на питання. Працюю з Києвом і областю віддалено. Відповідь — до 1 години.</p>
 
-    <form class="lead-form" id="leadForm" onsubmit="return submitLead(event)">
+    <noscript>
+      <style>#leadForm { display: none; }</style>
+      <p class="form-note">Форма працює лише з увімкненим JavaScript. Без нього напишіть напряму — контакти нижче.</p>
+    </noscript>
+    <form class="lead-form" id="leadForm" data-lead-form data-label="kyiv_form" data-success="#leadSuccess">
       <input type="text" name="name" placeholder="Ваше ім'я" required class="lead-input">
       <input type="tel" name="phone" placeholder="Телефон або Telegram" required class="lead-input">
       <textarea name="desc" placeholder="Який сайт потрібен? (місто, тип бізнесу)" rows="2" class="lead-input lead-textarea"></textarea>
@@ -747,31 +758,7 @@
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
-<script>
-async function submitLead(e) {
-  e.preventDefault();
-  var btn = document.getElementById('leadBtn');
-  var form = document.getElementById('leadForm');
-  btn.disabled = true; btn.textContent = 'Надсилаю...';
-  var data = {
-    contact: form.elements.phone.value,
-    history: 'LEAD FORM (/services/kyiv/)\nІм\'я: ' + form.elements.name.value +
-             '\nТелефон: ' + form.elements.phone.value +
-             '\nОпис: ' + (form.elements.desc.value || '—'),
-    timestamp: new Date().toISOString()
-  };
-  try {
-    await fetch('https://oleksandr-site.sashko1391.workers.dev', {
-      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
-    });
-  } catch(err) {}
-  gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'kyiv_form', value: 1});
-  gtag('event', 'conversion_event_submit_lead_form');
-  form.style.display = 'none';
-  document.getElementById('leadSuccess').style.display = 'block';
-  return false;
-}
-</script>
+<script defer src="/js/lead-form.v1.js"></script>
 <script>
 document.addEventListener('click', function(e) {
   var a = e.target.closest('a');

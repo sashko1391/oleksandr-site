@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "check:links": "node scripts/check-links.mjs",
-    "smoke:services": "node scripts/smoke-services.mjs"
+    "smoke:forms": "node scripts/smoke-forms.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.34.3",

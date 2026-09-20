@@ -53,7 +53,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, services-page, journal-index]`
+    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -91,8 +91,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
   `--phase` — прогін іншої фази: показує, що ще треба перепривʼязати
 - `node scripts/repoint-anchors.mjs [--dry]` — міграція якорів головної Ф1 (крок 3, виконано): план → перевірка →
   запис усього або нічого; ідемпотентна (повторний прогін — 0 змін)
-- `npm run smoke:services [-- --screenshots <dir>]` — браузерний smoke форми `/services/` (Playwright + системний
-  Chrome, воркер підмінено; не входить у `npm test`)
+- `npm run smoke:forms [-- --screenshots <dir>]` — браузерний smoke всіх 7 лід-форм: успіх, відмова воркера,
+  без JavaScript + специфіка `/services/` (Playwright + системний Chrome, воркер підмінено; не входить у `npm test`)
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
 - `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push

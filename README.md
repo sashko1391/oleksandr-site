@@ -32,7 +32,7 @@ doc/      плани, журнали, контекст
 npm install
 npm test                              # vitest
 npm run check:links                   # валідатор посилань і політики фази (-- --phase f1-done — пробний прогін)
-npm run smoke:services                # браузерний smoke форми /services/ (Playwright + системний Chrome)
+npm run smoke:forms                   # браузерний smoke всіх лід-форм (Playwright + системний Chrome)
 node scripts/build-feed.mjs           # регенерувати public/feed.xml
 node scripts/inject-rss.mjs           # RSS <link> у <head> усіх сторінок (ідемпотентно)
 node scripts/inject-comments.mjs      # блок коментарів у journal + blog (ідемпотентно)

@@ -565,7 +565,7 @@
       <style>#leadForm { display: none; }</style>
       <p class="form-note">Форма працює лише з увімкненим JavaScript. Без нього напишіть напряму — кнопки нижче.</p>
     </noscript>
-    <form id="leadForm" class="lead-form">
+    <form id="leadForm" class="lead-form" data-lead-form data-label="services_form">
       <div class="field">
         <label for="lf-name">Ваше ім'я</label>
         <input id="lf-name" name="name" type="text" required maxlength="100" pattern=".*\S.*" autocomplete="name">
@@ -580,12 +580,12 @@
       </div>
       <div class="hp" aria-hidden="true" inert>
         <label for="lf-extra">Не заповнюйте це поле</label>
-        <input id="lf-extra" name="lf-extra" type="text" tabindex="-1" autocomplete="off">
+        <input id="lf-extra" name="lf-extra" type="text" tabindex="-1" autocomplete="off" data-hp>
       </div>
       <button type="submit" class="btn-primary">Обговорити проєкт</button>
       <p class="form-note">Заявка надійде мені в Telegram — докладніше в <a href="/privacy/">політиці приватності</a>.</p>
     </form>
-    <p id="leadStatus" class="form-status" role="status" tabindex="-1"></p>
+    <p id="leadStatus" class="form-status" role="status" tabindex="-1" data-lead-status></p>
     <div class="direct">
       <p>Або напишіть напряму:</p>
       <div class="contact-buttons">
@@ -606,77 +606,18 @@
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script defer src="/js/lead-form.v1.js"></script>
 <script>
-(function () {
-  var WORKER_URL = 'https://oleksandr-site.sashko1391.workers.dev';
-  var TIMEOUT_MS = 15000; // a request that never answers must end in the honest error, not an endless «Надсилаю…»
-  var form = document.getElementById('leadForm');
-  var status = document.getElementById('leadStatus');
-  var button = form.querySelector('button[type="submit"]');
-
-  function track() {
-    if (typeof window.gtag === 'function') window.gtag.apply(null, arguments);
-  }
-
-  function showStatus(text, isError) {
-    status.className = 'form-status' + (isError ? ' error' : '');
-    status.textContent = text;
-    status.focus();
-  }
-
-  function succeed() {
-    form.reset();
-    form.hidden = true;
-    showStatus('Дякую! Заявку отримано — відповім особисто в месенджер чи на пошту, які ви вказали.', false);
-  }
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    // Honeypot: people never see this field, simple bots fill every input.
-    if (form.elements['lf-extra'].value) {
-      succeed();
-      return;
-    }
-    var name = form.elements.name.value.trim();
-    var contact = form.elements.contact.value.trim();
-    var message = form.elements.message.value.trim();
-    var payload = {
-      contact: contact,
-      history: 'ФОРМА (' + location.pathname + ')\nІм\'я: ' + name + '\nКонтакт: ' + contact + '\nПовідомлення: ' + (message || '—'),
-      source: location.pathname,
-      timestamp: new Date().toISOString()
-    };
-    button.disabled = true;
-    button.textContent = 'Надсилаю…';
-    var controller = new AbortController();
-    var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
-    fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal })
-      .then(function (res) {
-        clearTimeout(timer);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        track('event', 'generate_lead', { event_category: 'conversion', event_label: 'services_form', value: 1, currency: 'UAH' });
-        track('event', 'conversion_event_submit_lead_form');
-        succeed();
-      })
-      .catch(function () {
-        clearTimeout(timer);
-        button.disabled = false;
-        button.textContent = 'Надіслати ще раз';
-        showStatus('Не вдалося надіслати заявку. Спробуйте ще раз або напишіть напряму в Telegram, WhatsApp чи на email — кнопки нижче.', true);
-      });
-  });
-
-  // GA4: contact clicks and CTA clicks (every CTA carries data-cta="<place>").
-  document.addEventListener('click', function (event) {
-    var link = event.target.closest('a');
-    if (!link) return;
-    var href = link.getAttribute('href') || '';
-    if (href.indexOf('t.me/') !== -1) track('event', 'contact_click', { event_category: 'conversion', event_label: 'telegram', link_url: link.href });
-    else if (href.indexOf('wa.me/') !== -1) track('event', 'contact_click', { event_category: 'conversion', event_label: 'whatsapp', link_url: link.href });
-    else if (href.indexOf('mailto:') === 0) track('event', 'contact_click', { event_category: 'conversion', event_label: 'email', link_url: link.href });
-    else if (link.dataset.cta) track('event', 'cta_click', { event_category: 'engagement', event_label: link.dataset.cta, link_url: link.href });
-  });
-})();
+// GA4: contact clicks and CTA clicks (every CTA carries data-cta="<place>").
+document.addEventListener('click', function (event) {
+  var link = event.target.closest('a');
+  if (!link || typeof window.gtag !== 'function') return;
+  var href = link.getAttribute('href') || '';
+  if (href.indexOf('t.me/') !== -1) gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'telegram', link_url: link.href });
+  else if (href.indexOf('wa.me/') !== -1) gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'whatsapp', link_url: link.href });
+  else if (href.indexOf('mailto:') === 0) gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'email', link_url: link.href });
+  else if (link.dataset.cta) gtag('event', 'cta_click', { event_category: 'engagement', event_label: link.dataset.cta, link_url: link.href });
+});
 </script>
 </body>
 </html>

@@ -2684,34 +2684,39 @@
     // Cloudflare Worker proxy — тримає Telegram bot token серверно
     const CHAT_PROXY_URL = 'https://oleksandr-site.sashko1391.workers.dev';
 
-    // Retry queued messages on page load
-    (function flushQueue() {
+    // One POST with a timeout; true only when the Worker accepted the lead.
+    async function sendToProxy(payload) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 15000);
       try {
-        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-        if (!queue.length) return;
-
-        const remaining = [];
-        queue.forEach(async (payload) => {
-          try {
-            const res = await fetch(CHAT_PROXY_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            });
-            if (!res.ok) remaining.push(payload);
-          } catch {
-            remaining.push(payload);
-          }
+        const res = await fetch(CHAT_PROXY_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
+        return res.ok;
+      } catch {
+        return false;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
 
-        // Update queue: keep only failed
-        setTimeout(() => {
-          if (remaining.length) {
-            localStorage.setItem('chat_queue', JSON.stringify(remaining));
-          } else {
-            localStorage.removeItem('chat_queue');
-          }
-        }, 5000);
+    // Retry queued leads on page load: wait for every attempt, then rewrite the queue once.
+    (async function flushQueue() {
+      let queue;
+      try {
+        queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+      } catch {
+        return; // localStorage unavailable
+      }
+      if (!Array.isArray(queue) || !queue.length) return;
+      const sent = await Promise.all(queue.map(sendToProxy));
+      const remaining = queue.filter((payload, i) => !sent[i]);
+      try {
+        if (remaining.length) localStorage.setItem('chat_queue', JSON.stringify(remaining));
+        else localStorage.removeItem('chat_queue');
       } catch { /* localStorage unavailable */ }
     })();
 
@@ -2764,9 +2769,6 @@
     }
 
     async function sendToTelegram(contactInfo) {
-      // GA4: lead conversion — contact submitted
-      gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'chat_contact', value: 1, currency: 'UAH'});
-
       const historyText = chatHistory
         .map(m => `${m.role}: ${m.text}`)
         .join('\n---\n');
@@ -2774,29 +2776,21 @@
       const payload = {
         contact: contactInfo,
         history: historyText,
+        source: location.pathname,
         timestamp: new Date().toISOString()
       };
 
-      try {
-        const res = await fetch(CHAT_PROXY_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) {
-          console.warn('Proxy returned', res.status, '— queuing for retry');
-          throw new Error('Proxy error ' + res.status);
-        }
-      } catch (e) {
-        // Queue for retry on next page load
-        try {
-          const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-          queue.push(payload);
-          localStorage.setItem('chat_queue', JSON.stringify(queue));
-        } catch { /* localStorage unavailable — data lost */ }
-        console.warn('sendToTelegram failed, queued:', e.message);
+      if (await sendToProxy(payload)) {
+        // GA4: lead conversion — only after the Worker accepted it
+        gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'chat_contact', value: 1, currency: 'UAH'});
+        return true;
       }
+      try {
+        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        queue.push(payload);
+        localStorage.setItem('chat_queue', JSON.stringify(queue));
+      } catch { /* localStorage unavailable — data lost */ }
+      return false;
     }
 
     function askForContact() {
@@ -2815,8 +2809,13 @@
         // Check if user just gave contact info
         if (!contactCollected && isContactInfo(userText)) {
           contactCollected = true;
-          sendToTelegram(userText);
-          addMessage('Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.', false);
+          addTyping();
+          sendToTelegram(userText).then((delivered) => {
+            removeTyping();
+            addMessage(delivered
+              ? 'Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.'
+              : 'Не вдалося передати прямо зараз 😕 Я зберіг розмову і спробую ще раз, коли ви повернетесь на сайт. Щоб напевно — напишіть Олександру напряму: Telegram, WhatsApp або пошта (кнопки під чатом).', false);
+          });
           return;
         }
 
