@@ -23,10 +23,14 @@
 |---|---|
 | `doc/PERSONAL_SITE_PLAN.md` | 🟢 головний план переробки, фази Ф0–Ф7 |
 | `doc/SERVICES_HUB_PLAN.md` | ✅ Ф1 виконано, у проді з 2026-09-19 (`/services/` із формою, перепривʼязка; фаза `f1-done`) |
+| `doc/CONSISTENCY_PLAN.md` | 🟡 Ф1.5 — план: P0 чесні форми (без рішень), P1 ціни й відгуки (рішення власника), P2 розбіжності |
+| `doc/HUBS_PLAN.md` | 🟡 Ф2 — план на рев'ю (хаби, архів `/blog/`, фази `f2-pre`/`f2-done`); після Ф1.5 |
+| `doc/PARKINSON_EDITORIAL_POLICY.md` | ⏳ чернетка редполітики рубрики «Паркінсон» — на затвердженні власника |
 | `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
-Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф2 хаби `/code/`, `/creative/`, `/parkinson/` + оновлений `/journal/` ·
+Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 чесні форми й факти · Ф2 хаби `/code/`, `/creative/`, `/parkinson/`,
+архів `/blog/` + оновлений `/journal/` ·
 Ф3 нова головна + меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
@@ -163,7 +167,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 ## Документація (`doc/`)
 | Файли | Статус |
 |---|---|
-| `PERSONAL_SITE_PLAN.md`, `SERVICES_HUB_PLAN.md`, `SUBSCRIPTION_PLAN.md` | див. «Плани й статус» |
+| `PERSONAL_SITE_PLAN.md`, `SERVICES_HUB_PLAN.md`, `CONSISTENCY_PLAN.md`, `HUBS_PLAN.md`, `PARKINSON_EDITORIAL_POLICY.md`, `SUBSCRIPTION_PLAN.md` | див. «Плани й статус» |
 | `DEVELOPMENT_LOG.md`, `PROJECT_CONTEXT.md` | журнали (лише дописувати) |
 | `COMMENTS_PLAN.md`, `AUDIT_FIXES_PLAN.md`, `AUTHOR_PAGE_PLAN.md`, `GETTING_CITED_ARTICLE_PLAN.md`, `TEPLIY_DVIR_CASE_PLAN.md`, `QUICKFIXES_PLAN.md`, `HOMEPAGE_B_PLAN.md`, `reviews/hub-spoke-changes.md` | ✅ виконані (історія) |
 | `SEO.md`, `PARKINSANDR_TECH_12_WEEK_ACTION_PLAN.md`, `SEED_KEYWORDS.md`, `seed-keywords-intent-map.md` | 🗄 історичні: комерційна SEO-стратегія квітня 2026 |
