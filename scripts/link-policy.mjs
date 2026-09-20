@@ -74,6 +74,133 @@ const CONTACT_FILES = {
   'journal/rannii-parkinsonizm/index.html': ['напишіть мені', 'напишіть мені'],
 };
 
+
+/**
+ * Ф2: which hub each post belongs to. `primary` decides the breadcrumb (exactly one hub per post);
+ * `also` are extra collections a hub shows without owning the post. The plan's table, as data.
+ * Tests check the inventory independently of this manifest, so it cannot confirm itself.
+ */
+export const HUB_MEMBERS = {
+  'parkinson/': {
+    name: 'Паркінсон',
+    primary: [
+      'journal/diahnoz-u-27/index.html',
+      'journal/rannii-parkinsonizm/index.html',
+      'journal/parkinson-shcho-robyty/index.html',
+      'journal/eksperyment-nad-soboyu/index.html',
+      'journal/hoverla/index.html',
+    ],
+    also: [],
+  },
+  'creative/': {
+    name: 'Творчість',
+    primary: [
+      'journal/holodylnyi-apokalipsys/index.html',
+      'journal/kabachok-starosta/index.html',
+      'journal/viddil-vtrachenoho-chasu/index.html',
+      'journal/poverny-meni-chas/index.html',
+    ],
+    also: [],
+  },
+  'journal/': {
+    name: 'Поза кодом',
+    primary: [
+      'journal/velozaizd/index.html',
+      'journal/velyke-budivnytstvo/index.html',
+      'journal/zhyly-buly/index.html',
+      'journal/vira-i-religiya/index.html',
+      'journal/vira-i-religiya-2/index.html',
+      'journal/bytva-tserkov/index.html',
+      'journal/pamyati-maksyma-babaka/index.html',
+    ],
+    // the feed of /journal/ keeps showing every journal post, hub or not
+    also: [
+      'journal/diahnoz-u-27/index.html',
+      'journal/rannii-parkinsonizm/index.html',
+      'journal/parkinson-shcho-robyty/index.html',
+      'journal/eksperyment-nad-soboyu/index.html',
+      'journal/hoverla/index.html',
+      'journal/holodylnyi-apokalipsys/index.html',
+      'journal/kabachok-starosta/index.html',
+      'journal/viddil-vtrachenoho-chasu/index.html',
+      'journal/poverny-meni-chas/index.html',
+    ],
+  },
+  'code/': {
+    name: 'Код',
+    primary: [
+      'blog/devlog-business-empire-idle/index.html',
+      'blog/devlog-empire-online/index.html',
+      'blog/jarvis-ai-assistant/index.html',
+    ],
+    also: [
+      'blog/seo-bez-reklamy-keis-atlas/index.html',
+      'blog/getting-cited-ai-poshuk/index.html',
+      'blog/internal-linking/index.html',
+    ],
+  },
+  'services/': {
+    name: 'Послуги',
+    primary: [
+      'blog/chek-list-zamovlennya-sajtu/index.html',
+      'blog/react-vs-tilda/index.html',
+      'blog/skilky-koshtuye-sajt/index.html',
+      'blog/tilda-vs-webflow-vs-kastom/index.html',
+      'blog/yak-obrati-rozrobnyka/index.html',
+      'blog/yak-zamovyty-sajt/index.html',
+      'blog/seo-bez-reklamy-keis-atlas/index.html',
+      'blog/getting-cited-ai-poshuk/index.html',
+      'blog/internal-linking/index.html',
+    ],
+    also: [],
+  },
+  'blog/': {
+    name: 'Блог',
+    primary: [], // the archive owns nothing: it lists all twelve articles
+    also: [
+      'blog/chek-list-zamovlennya-sajtu/index.html',
+      'blog/devlog-business-empire-idle/index.html',
+      'blog/devlog-empire-online/index.html',
+      'blog/getting-cited-ai-poshuk/index.html',
+      'blog/internal-linking/index.html',
+      'blog/jarvis-ai-assistant/index.html',
+      'blog/react-vs-tilda/index.html',
+      'blog/seo-bez-reklamy-keis-atlas/index.html',
+      'blog/skilky-koshtuye-sajt/index.html',
+      'blog/tilda-vs-webflow-vs-kastom/index.html',
+      'blog/yak-obrati-rozrobnyka/index.html',
+      'blog/yak-zamovyty-sajt/index.html',
+    ],
+  },
+};
+
+/** file → { hub, name, item } for the post's own breadcrumb, derived from HUB_MEMBERS. */
+export const primaryHub = () => {
+  const out = new Map();
+  for (const [hub, { name, primary }] of Object.entries(HUB_MEMBERS)) {
+    for (const file of primary) {
+      if (out.has(file)) throw new Error(`${file} is primary in two hubs`);
+      out.set(file, { hub, name, item: `${SITE}/${hub}` });
+    }
+  }
+  return out;
+};
+
+/** Breadcrumb rules of a phase, one group per hub — no defaults, so an unlisted page is a coverage failure. */
+function hubCrumbs() {
+  const groups = new Map();
+  for (const [file, { hub, name, item }] of primaryHub()) {
+    const key = `${name}\u0000${item}`;
+    if (!groups.has(key)) groups.set(key, { files: [], name, item });
+    groups.get(key).files.push(file);
+  }
+  return [...groups.values()].map(({ files, name, item }) => ({
+    pages: new RegExp(`^(${files.map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})$`),
+    name,
+    item,
+  }));
+}
+
 const SERVICE_PAGE = /^services\/[^/]+\/index\.html$/;
 const PROJECT_PAGE = /^projects\/[^/]+\/index\.html$/;
 const BLOG_CRUMB = { pages: /^blog\/[^/]+\/index\.html$/, name: 'Блог', item: `${SITE}/#blog` }; // Ф2 repoints it
@@ -121,4 +248,20 @@ export const PHASES = {
   },
 };
 
-export const CURRENT_PHASE = 'f1-done';
+// Ф2 step 1: the same state as f1-done, renamed so the phase matches the plan we are executing.
+PHASES['f2-pre'] = PHASES['f1-done'];
+
+// Ф2 after the breadcrumb migration: no homepage anchor is left, and every post belongs to a hub.
+PHASES['f2-done'] = {
+  homeAnchors: [],
+  links: PHASES['f1-done'].links,
+  breadcrumbs: [
+    { pages: SERVICE_PAGE, name: 'Послуги', item: `${SITE}/services/` },
+    { pages: PROJECT_PAGE, name: 'Послуги', item: `${SITE}/services/` },
+    ...hubCrumbs(),
+  ],
+  idCounts: ID_COUNTS,
+};
+
+export const CURRENT_PHASE = 'f2-pre';
+

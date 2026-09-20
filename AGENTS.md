@@ -60,7 +60,7 @@
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
     percent-encoding), фрагмент — на наявний `id` HTML-сторінки (зовнішні SVG-спрайти не підтримуються). URL-властивості
     JSON-LD — лише абсолютні; `id` на сторінці унікальні; `<base>` заборонено; кожна indexable сторінка має рівно один
-    canonical = її URL. Політика фази (`scripts/link-policy.mjs`, `CURRENT_PHASE`): дозволені якорі головної, маніфест
+    canonical = її URL. Політика фази (`scripts/link-policy.mjs`, `CURRENT_PHASE`; маніфест хабів Ф2 — `HUB_MEMBERS`): дозволені якорі головної, маніфест
     CTA, посилань на хаб і «напишіть мені» (за текстом посилання), breadcrumbs position 2, точна к-сть `@id #business`; покриття,
     повноту й цілі маніфесту тести перевіряють незалежно від нього; фазу перемикає коміт, що виконує міграцію.
     Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
@@ -96,7 +96,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
-- `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f1-done`);
+- `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f2-pre`);
   `--phase` — прогін іншої фази: показує, що ще треба перепривʼязати
 - `node scripts/repoint-anchors.mjs [--dry]` — міграція якорів головної Ф1 (крок 3, виконано): план → перевірка →
   запис усього або нічого; ідемпотентна (повторний прогін — 0 змін)

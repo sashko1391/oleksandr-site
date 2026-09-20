@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { urlOf, fileOf, resolveRef, parsePage, ldIds, validate, loadSite } from '../scripts/check-links.mjs';
-import { SITE, PHASES, CURRENT_PHASE, PERSONAL_CONTACT } from '../scripts/link-policy.mjs';
+import { SITE, PHASES, CURRENT_PHASE, PERSONAL_CONTACT, HUB_MEMBERS, primaryHub } from '../scripts/link-policy.mjs';
 
 // Fixtures: a minimal valid page (own canonical) and a site of such pages plus extra asset files.
 const ld = (data) => `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
@@ -333,6 +333,150 @@ describe('phases f1-pre → f1-done on a miniature site built from the manifests
   });
 });
 
+
+/**
+ * The Ф2 inventory, written out from doc/HUBS_PLAN.md rather than derived from HUB_MEMBERS — the manifest
+ * feeds both the migration and the hub tests, so it must not be the only thing that says it is right.
+ */
+const F2_INVENTORY = {
+  'journal/diahnoz-u-27/index.html': 'Паркінсон',
+  'journal/rannii-parkinsonizm/index.html': 'Паркінсон',
+  'journal/parkinson-shcho-robyty/index.html': 'Паркінсон',
+  'journal/eksperyment-nad-soboyu/index.html': 'Паркінсон',
+  'journal/hoverla/index.html': 'Паркінсон',
+  'journal/holodylnyi-apokalipsys/index.html': 'Творчість',
+  'journal/kabachok-starosta/index.html': 'Творчість',
+  'journal/viddil-vtrachenoho-chasu/index.html': 'Творчість',
+  'journal/poverny-meni-chas/index.html': 'Творчість',
+  'journal/velozaizd/index.html': 'Поза кодом',
+  'journal/velyke-budivnytstvo/index.html': 'Поза кодом',
+  'journal/zhyly-buly/index.html': 'Поза кодом',
+  'journal/vira-i-religiya/index.html': 'Поза кодом',
+  'journal/vira-i-religiya-2/index.html': 'Поза кодом',
+  'journal/bytva-tserkov/index.html': 'Поза кодом',
+  'journal/pamyati-maksyma-babaka/index.html': 'Поза кодом',
+  'blog/devlog-business-empire-idle/index.html': 'Код',
+  'blog/devlog-empire-online/index.html': 'Код',
+  'blog/jarvis-ai-assistant/index.html': 'Код',
+  'blog/chek-list-zamovlennya-sajtu/index.html': 'Послуги',
+  'blog/react-vs-tilda/index.html': 'Послуги',
+  'blog/skilky-koshtuye-sajt/index.html': 'Послуги',
+  'blog/tilda-vs-webflow-vs-kastom/index.html': 'Послуги',
+  'blog/yak-obrati-rozrobnyka/index.html': 'Послуги',
+  'blog/yak-zamovyty-sajt/index.html': 'Послуги',
+  'blog/seo-bez-reklamy-keis-atlas/index.html': 'Послуги',
+  'blog/getting-cited-ai-poshuk/index.html': 'Послуги',
+  'blog/internal-linking/index.html': 'Послуги',
+};
+
+const HUB_URL = {
+  'Паркінсон': `${SITE}/parkinson/`,
+  'Творчість': `${SITE}/creative/`,
+  'Поза кодом': `${SITE}/journal/`,
+  'Код': `${SITE}/code/`,
+  'Послуги': `${SITE}/services/`,
+};
+
+describe('Ф2 — HUB_MEMBERS', () => {
+  const primary = primaryHub();
+
+  it('gives every journal and blog post exactly one hub, and no post two', () => {
+    expect([...primary.keys()].sort()).toEqual(Object.keys(F2_INVENTORY).sort());
+    const listed = Object.values(HUB_MEMBERS).flatMap((h) => h.primary);
+    expect(listed.length, 'a post is primary in two hubs').toBe(new Set(listed).size);
+  });
+
+  it('assigns each post to the hub doc/HUBS_PLAN.md names', () => {
+    for (const [file, name] of Object.entries(F2_INVENTORY)) {
+      expect(primary.get(file)?.name, file).toBe(name);
+      expect(primary.get(file)?.item, file).toBe(HUB_URL[name]);
+    }
+  });
+
+  it('names only pages that exist, in primary and in the extra collections', () => {
+    const real = loadSite();
+    for (const [hub, { primary: own, also }] of Object.entries(HUB_MEMBERS)) {
+      for (const file of [...own, ...also]) expect(real.files.has(file), `${hub}: ${file}`).toBe(true);
+    }
+  });
+
+  it('shows every journal post in the /journal/ feed, hub or not', () => {
+    const journal = Object.keys(F2_INVENTORY).filter((f) => f.startsWith('journal/'));
+    const shown = new Set([...HUB_MEMBERS['journal/'].primary, ...HUB_MEMBERS['journal/'].also]);
+    expect([...shown].sort()).toEqual(journal.sort());
+  });
+
+  it('lists all twelve articles in the /blog/ archive and owns none of them', () => {
+    const blog = Object.keys(F2_INVENTORY).filter((f) => f.startsWith('blog/'));
+    expect(HUB_MEMBERS['blog/'].also.sort()).toEqual(blog.sort());
+    expect(HUB_MEMBERS['blog/'].primary).toEqual([]);
+  });
+});
+
+describe('phases f2-pre → f2-done', () => {
+  /** The manifest pages of the phase plus one post per hub, each carrying the breadcrumb that phase expects. */
+  function miniF2(phaseName) {
+    const phase = PHASES[phaseName];
+    const bodies = new Map();
+    const add = (rel, html) => bodies.set(rel, (bodies.get(rel) ?? '') + html);
+    add('index.html', '<div id="blog"></div>');
+    add('services/index.html', '<section id="contact"></section>');
+    add('journal/index.html', '');
+    // the hubs the breadcrumbs point at must exist, or layer A reports a broken link — as it should
+    for (const hub of Object.keys(HUB_MEMBERS)) add(`${hub}index.html`, '');
+    for (const { href, files } of phase.links) {
+      for (const [rel, texts] of Object.entries(files)) add(rel, texts.map((t) => `<a href="${href}">${t}</a>`).join(' '));
+    }
+    for (const [id, files] of Object.entries(phase.idCounts)) {
+      for (const [rel, n] of Object.entries(files)) add(rel, ld({ '@id': id }).repeat(n));
+    }
+    for (const rel of Object.keys(F2_INVENTORY)) add(rel, '');
+    for (const rel of [...bodies.keys()]) {
+      const rule = phase.breadcrumbs.find((b) => b.pages.test(rel));
+      // a post the phase does not govern keeps what Ф1 left: «Блог» → the homepage anchor
+      if (rule) add(rel, crumb(rule.name, rule.item));
+      else if (rel in F2_INVENTORY) add(rel, crumb('Блог', `${SITE}/#blog`));
+    }
+    return site([...bodies].map(([rel, body]) => page(rel, body)));
+  }
+
+  it('f2-pre is the state Ф1 left behind', () => {
+    expect(PHASES['f2-pre']).toBe(PHASES['f1-done']);
+  });
+
+  it('each state is clean under its own phase', () => {
+    expect(validate(miniF2('f2-pre'), PHASES['f2-pre'])).toEqual([]);
+    expect(validate(miniF2('f2-done'), PHASES['f2-done'])).toEqual([]);
+  });
+
+  it('f2-done rejects the pre-migration breadcrumbs, including the last homepage anchor', () => {
+    expect(new Set(rules(miniF2('f2-pre'), PHASES['f2-done']))).toEqual(new Set(['legacy-home-anchor', 'breadcrumb']));
+  });
+
+  it('f2-pre rejects the migrated breadcrumbs of blog posts', () => {
+    expect(rules(miniF2('f2-done'), PHASES['f2-pre'])).toContain('breadcrumb');
+  });
+
+  it('f2-done targets are the ones doc/HUBS_PLAN.md fixed', () => {
+    const done = PHASES['f2-done'];
+    expect(done.homeAnchors).toEqual([]);
+    expect(done.links.map((l) => [l.rule, l.href])).toEqual([
+      ['cta-links', `${SITE}/services/#contact`],
+      ['hub-links', `${SITE}/services/`],
+      ['contact-links', PERSONAL_CONTACT],
+    ]);
+    expect(done.breadcrumbs.map((b) => [b.name, b.item])).toEqual([
+      ['Послуги', `${SITE}/services/`], // services/*
+      ['Послуги', `${SITE}/services/`], // projects/*
+      ['Паркінсон', `${SITE}/parkinson/`],
+      ['Творчість', `${SITE}/creative/`],
+      ['Поза кодом', `${SITE}/journal/`],
+      ['Код', `${SITE}/code/`],
+      ['Послуги', `${SITE}/services/`], // the nine library articles
+    ]);
+  });
+});
+
 describe('public/ (integration)', () => {
   const real = loadSite();
   const countRules = (errors) => errors.reduce((acc, e) => ({ ...acc, [e.rule]: (acc[e.rule] ?? 0) + 1 }), {});
@@ -359,12 +503,20 @@ describe('public/ (integration)', () => {
   });
 
   // The manifest must not be able to weaken itself: coverage, completeness and targets are checked independently.
-  it('breadcrumb rules of every phase cover each services/, projects/ and blog/ page exactly once', () => {
-    const governed = real.pages.map((p) => p.rel).filter((rel) => /^(services|projects|blog)\/[^/]+\/index\.html$/.test(rel));
-    expect(governed.length).toBeGreaterThan(20);
+  it('breadcrumb rules of every phase cover each governed page exactly once — journal/ joins in f2-done', () => {
+    const all = real.pages.map((p) => p.rel);
+    const commercial = all.filter((rel) => /^(services|projects|blog)\/[^/]+\/index\.html$/.test(rel));
+    const journal = all.filter((rel) => /^journal\/[^/]+\/index\.html$/.test(rel));
+    expect(commercial.length).toBeGreaterThan(20);
+    expect(journal.length).toBe(16);
     for (const [name, phase] of Object.entries(PHASES)) {
+      const governed = name === 'f2-done' ? [...commercial, ...journal] : commercial;
       const badly = governed.filter((rel) => phase.breadcrumbs.filter((b) => b.pages.test(rel)).length !== 1);
       expect(badly, name).toEqual([]);
+      if (name !== 'f2-done') {
+        const early = journal.filter((rel) => phase.breadcrumbs.some((b) => b.pages.test(rel)));
+        expect(early, `${name} must not govern journal/ yet`).toEqual([]);
+      }
     }
   });
 
