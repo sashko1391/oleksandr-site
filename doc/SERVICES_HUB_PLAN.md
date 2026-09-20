@@ -170,7 +170,7 @@ sitemap — у `tests/policy.test.js`.
 `@id`), ItemList з 5 Service = 5 видимих карток, BreadcrumbList = видимі breadcrumbs; форма — видимі labels,
 обов'язкові поля, honeypot, лінк на `/privacy/`.
 
-**Браузерний smoke** (`scripts/smoke-services.mjs`, Playwright + системний Chrome, локальний статичний сервер;
+**Браузерний smoke** (`scripts/smoke-services.mjs` — у Ф1.5 перейменовано на `scripts/smoke-forms.mjs`, Playwright + системний Chrome, локальний статичний сервер;
 воркер підмінено route-mock, решта зовнішніх запитів обірвана; події читаються з `dataLayer`;
 `npm run smoke:services [-- --screenshots <dir>]`, не в `npm test`): hero-CTA → `#contact` + `cta_click`;
 успіх → рівно один лід із контактом і `source`, `generate_lead`, форма схована, фокус на підтвердженні; порожні й
