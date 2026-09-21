@@ -11,7 +11,7 @@
 // Secrets come from the environment or a gitignored .env: TELEGRAM_BOT_TOKEN (same bot as the comment
 // notifications) and TELEGRAM_CHANNEL_ID (@username of the public channel). Nothing is written to the repo:
 // what has already been announced is kept in .announce-state.json, which is gitignored.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, renameSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { parsePost, writeFeeds } from './build-feed.mjs';
@@ -56,8 +56,28 @@ export function composePost(item, slug, note = '') {
 }
 
 export const readState = () => (existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {});
-export const markSent = (state, slug, channel) =>
-  ({ ...state, [slug]: { ...state[slug], [channel]: new Date().toISOString() } });
+export const markSent = (state, slug, channel, value = new Date().toISOString()) =>
+  ({ ...state, [slug]: { ...state[slug], [channel]: value } });
+
+/**
+ * Should this slug go to the channel? Kept pure so the rule is testable: `main()` only obeys it.
+ * @returns {{ post: boolean, reason: string }}
+ */
+export function postDecision(state, slug, force) {
+  const when = state?.[slug]?.tg;
+  if (!when || force) return { post: true, reason: force && when ? 'forced' : 'not posted yet' };
+  if (when === 'sending') {
+    return { post: false, reason: 'a previous run stopped mid-send — check the channel, then use --force' };
+  }
+  return { post: false, reason: `already posted ${when} — use --force to post again` };
+}
+
+/** Write the state through a temp file: a crash mid-write must not leave unreadable JSON. */
+export function saveState(state) {
+  const tmp = `${STATE}.tmp`;
+  writeFileSync(tmp, JSON.stringify(state, null, 2), 'utf8');
+  renameSync(tmp, STATE);
+}
 
 /**
  * Fail before the network call, with a message that names the problem. A half-copied bot token (the part
@@ -95,6 +115,10 @@ function loadEnv() {
 export function readItem(slug) {
   const file = join(PUBLIC, slug, 'index.html');
   if (!existsSync(file)) throw new Error(`no such post: public/${slug}/index.html`);
+  // Only a page the hub manifest owns is a post: /pro-mene/ or a landing must not be announced as one.
+  if (!primaryHub().has(`${slug}/index.html`)) {
+    throw new Error(`${slug} is not in HUB_MEMBERS — add it there first, it has no section and no hashtag`);
+  }
   const item = parsePost(readFileSync(file, 'utf8'), '', `${slug}/index.html`);
   if (!item) throw new Error(`${slug}: the post has no valid datePublished or canonical`);
   return item;
@@ -106,11 +130,21 @@ const USAGE = 'usage: announce.mjs <section/slug> [--dry] [--only=tg|feed] [--fo
  * Parse the command line. `--note` takes its value either attached (`--note=…`) or as the next argument,
  * and that next argument must not be mistaken for the slug — the bug this function exists to keep fixed.
  */
+const KNOWN_FLAGS = ['--dry', '--force', '--note', '--only'];
+
 export function parseArgs(argv) {
   const flags = argv.filter((a) => a.startsWith('--'));
+  // A typo must stop the run, not post for real: `--drry` used to be silently ignored.
+  const unknown = flags.filter((f) => !KNOWN_FLAGS.includes(f.split('=')[0]));
+  if (unknown.length) throw new Error(`unknown flag(s): ${unknown.join(', ')}\n${USAGE}`);
+  const seen = flags.map((f) => f.split('=')[0]);
+  const dupes = seen.filter((f, i) => seen.indexOf(f) !== i);
+  if (dupes.length) throw new Error(`repeated flag(s): ${[...new Set(dupes)].join(', ')}`);
   const noteAt = argv.indexOf('--note');
   const noteValueAt = noteAt === -1 ? -1 : noteAt + 1; // -1 means "no argument is the note's value"
-  const [slugArg] = argv.filter((a, i) => !a.startsWith('--') && i !== noteValueAt);
+  const positional = argv.filter((a, i) => !a.startsWith('--') && i !== noteValueAt);
+  if (positional.length > 1) throw new Error(`expected one slug, got: ${positional.join(', ')}`);
+  const [slugArg] = positional;
   if (!slugArg) throw new Error(USAGE);
   const only = flags.find((f) => f.startsWith('--only='))?.slice('--only='.length);
   if (only && !['tg', 'feed'].includes(only)) throw new Error(`--only must be tg or feed, got ${only}`);
@@ -134,8 +168,9 @@ async function main(argv) {
   if (only === 'feed') return;
 
   const state = readState();
-  if (state[slug]?.tg && !force) {
-    console.log(`— telegram: already posted ${state[slug].tg} — use --force to post again`);
+  const decision = postDecision(state, slug, force);
+  if (!decision.post) {
+    console.log(`— telegram: ${decision.reason}`);
     return;
   }
   if (dry) {
@@ -145,8 +180,11 @@ async function main(argv) {
   }
   assertEnv();
   const { sendToChannel } = await import('../lib/telegram.js');
+  // Claim before sending: if the process dies after Telegram accepted the post but before we record
+  // it, the next run must not post a duplicate — it finds the claim and asks for --force.
+  saveState(markSent(state, slug, 'tg', 'sending'));
   const res = await sendToChannel(text);
-  writeFileSync(STATE, JSON.stringify(markSent(state, slug, 'tg'), null, 2), 'utf8');
+  saveState(markSent(readState(), slug, 'tg'));
   console.log(`— telegram: posted, message_id ${res?.result?.message_id ?? '?'}`);
 }
 

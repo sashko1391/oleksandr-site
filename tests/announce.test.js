@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv } from '../scripts/announce.mjs';
+import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv, postDecision } from '../scripts/announce.mjs';
 import { HUB_MEMBERS, primaryHub } from '../scripts/link-policy.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
@@ -42,6 +42,15 @@ describe('parseArgs', () => {
   it('takes the note attached with an equals sign', () => {
     expect(parseArgs(['journal/hoverla', '--note=З архіву.']).note).toBe('З архіву.');
   });
+  it('refuses a typo instead of posting for real', () => {
+    // `--drry` used to be ignored silently, which turned a typo into a live channel post
+    expect(() => parseArgs(['journal/hoverla', '--drry', '--dry'])).toThrow(/unknown flag/);
+    expect(() => parseArgs(['journal/hoverla', '--Dry'])).toThrow(/unknown flag/);
+    expect(() => parseArgs(['journal/hoverla', '--dry', '--dry'])).toThrow(/repeated flag/);
+    expect(() => parseArgs(['journal/hoverla', 'journal/velozaizd'])).toThrow(/expected one slug/);
+    expect(parseArgs(['journal/hoverla', '--dry', '--force', '--only=tg', '--note=x']).slug).toBe('journal/hoverla');
+  });
+
   it('rejects a missing slug, an empty note and an unknown --only', () => {
     expect(() => parseArgs(['--dry'])).toThrow(/usage:/);
     expect(() => parseArgs(['--note', 'journal/hoverla'])).toThrow(/usage:/); // the note ate the only argument
@@ -111,6 +120,22 @@ describe('tgEscape / composePost', () => {
   });
 });
 
+describe('postDecision', () => {
+  it('posts once, refuses a repeat, and obeys --force', () => {
+    expect(postDecision({}, 'journal/x', false)).toMatchObject({ post: true });
+    const sent = { 'journal/x': { tg: '2026-09-21T10:00:00.000Z' } };
+    expect(postDecision(sent, 'journal/x', false).post).toBe(false);
+    expect(postDecision(sent, 'journal/x', true).post).toBe(true);
+    expect(postDecision(sent, 'journal/other', false).post).toBe(true);
+  });
+  it('does not silently repost after a run that died mid-send', () => {
+    // the claim is written BEFORE the network call, so this state means "we do not know"
+    const d = postDecision({ 'journal/x': { tg: 'sending' } }, 'journal/x', false);
+    expect(d.post).toBe(false);
+    expect(d.reason).toMatch(/mid-send/);
+  });
+});
+
 describe('readItem (against the real posts)', () => {
   const slugs = ['journal', 'blog'].flatMap((dir) =>
     readdirSync(join(PUBLIC, dir), { withFileTypes: true })
@@ -129,6 +154,10 @@ describe('readItem (against the real posts)', () => {
 
   it('explains itself when the post does not exist', () => {
     expect(() => readItem('journal/nope')).toThrow(/no such post/);
+  });
+
+  it('refuses a page that is not a post — it would have no section and no hashtag', () => {
+    expect(() => readItem('services/kyiv')).toThrow(/HUB_MEMBERS/);
   });
 });
 

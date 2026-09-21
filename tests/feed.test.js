@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { readdirSync, existsSync, readFileSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
-  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect, itemsFor, byDate, FEEDS, LOGO,
+  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect, itemsFor, byDate, writeFeeds, FEEDS, LOGO,
 } from '../scripts/build-feed.mjs';
 import { injectInto, tagFor, maskInert, attrOf, sectionFeedOf, tagsFor } from '../scripts/inject-rss.mjs';
 import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
@@ -319,6 +320,44 @@ describe('section feeds (Ф4)', () => {
       expect(image).toContain(`<width>${LOGO.width}</width>`);
       expect(image).toContain(`<height>${LOGO.height}</height>`);
     }
+  });
+
+  it('writeFeeds() puts every feed in place, and its output is what is committed', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'feeds-'));
+    try {
+      const written = writeFeeds(dir);
+      expect(written.map((w) => w.feed.file)).toEqual(FEEDS.map((f) => f.file));
+      const stamp = (xml) => xml.replace(/<lastBuildDate>[^<]*<\/lastBuildDate>/, '');
+      for (const feed of FEEDS) {
+        const fresh = readFileSync(join(dir, feed.file), 'utf8');
+        expect(stamp(fresh), `${feed.file}: committed file differs from a fresh run`)
+          .toBe(stamp(read(feed.file)));
+      }
+      // nothing half-written is left behind
+      expect(readdirSync(dir).some((f) => f.endsWith('.tmp'))).toBe(false);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('every feed is well-formed XML — tags close, and they close in order', () => {
+    // no XML parser in the standard library, so: a tag stack over the real files
+    const check = (xml) => {
+      const stack = [];
+      const body = xml.replace(/<\?[\s\S]*?\?>|<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?]]>/g, '');
+      for (const m of body.matchAll(/<(\/?)([A-Za-z][\w:.-]*)[^>]*?(\/?)>/g)) {
+        const [, closing, name, selfClosing] = m;
+        if (selfClosing) continue;
+        if (closing) {
+          if (stack.pop() !== name) return `unbalanced </${name}>`;
+        } else stack.push(name);
+      }
+      return stack.length ? `never closed: ${stack.join(', ')}` : null;
+    };
+    for (const feed of FEEDS) expect(check(read(feed.file)), feed.file).toBeNull();
+    // the checker must actually catch a broken document
+    expect(check('<rss><channel><item></itemm></channel></rss>')).toMatch(/unbalanced/);
+    expect(check('<rss><channel></channel>')).toMatch(/never closed/);
   });
 
   it('collect() tags every item with the post file it came from', () => {

@@ -3,7 +3,7 @@
 // No build step, no deps. Post metadata comes from the Article JSON-LD block
 // (parsed as JSON, not scraped) plus the canonical/description/og:image <meta>.
 // Dates are validated and emitted in UTC RFC-822. Run standalone or from announce.mjs.
-import { readFileSync, writeFileSync, readdirSync, existsSync, statSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync, mkdirSync, renameSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { HUB_MEMBERS } from './link-policy.mjs';
@@ -285,18 +285,29 @@ ${entries}
  * leave the site with a half-updated set. Returns what was written, for the caller to log.
  * @returns {Array<{ feed: typeof FEEDS[number], count: number, newest: string }>}
  */
-export function writeFeeds() {
+export function writeFeeds(outDir = PUBLIC) {
   const all = collect();
   if (all.length === 0) throw new Error('no items collected — refusing to write empty feeds');
   const planned = FEEDS.map((feed) => ({ feed, items: itemsFor(feed, all) }));
   const empty = planned.filter((p) => p.items.length === 0).map((p) => p.feed.file);
   if (empty.length) throw new Error(`no items for ${empty.join(', ')} — nothing written`);
-  return planned.map(({ feed, items }) => {
-    const out = join(PUBLIC, feed.file);
-    mkdirSync(dirname(out), { recursive: true });
-    writeFileSync(out, build(items, feed), 'utf8');
-    return { feed, count: items.length, newest: items[0].pubDate };
-  });
+  // Render everything first, then put it in place: a failure halfway through must not leave the site
+  // with some feeds updated and others stale. Each file lands via a rename, which is atomic.
+  const rendered = planned.map((p) => ({ ...p, xml: build(p.items, p.feed) }));
+  const temps = [];
+  try {
+    for (const { feed, xml } of rendered) {
+      const out = join(outDir, feed.file);
+      mkdirSync(dirname(out), { recursive: true });
+      const tmp = `${out}.tmp`;
+      writeFileSync(tmp, xml, 'utf8');
+      temps.push({ tmp, out });
+    }
+    for (const { tmp, out } of temps) renameSync(tmp, out);
+  } finally {
+    for (const { tmp } of temps) if (existsSync(tmp)) rmSync(tmp, { force: true });
+  }
+  return rendered.map(({ feed, items }) => ({ feed, count: items.length, newest: items[0].pubDate }));
 }
 
 // Run only when executed directly (so tests can import the pure helpers above).
