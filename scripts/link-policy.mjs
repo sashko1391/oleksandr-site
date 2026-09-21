@@ -102,6 +102,7 @@ export const HUB_MEMBERS = {
       'journal/kabachok-starosta/index.html',
       'journal/viddil-vtrachenoho-chasu/index.html',
       'journal/poverny-meni-chas/index.html',
+      'journal/my-zh-tilky-na-kavu/index.html',
     ],
     also: [],
   },
@@ -127,6 +128,7 @@ export const HUB_MEMBERS = {
       'journal/kabachok-starosta/index.html',
       'journal/viddil-vtrachenoho-chasu/index.html',
       'journal/poverny-meni-chas/index.html',
+      'journal/my-zh-tilky-na-kavu/index.html',
     ],
   },
   'code/': {

@@ -407,13 +407,13 @@ describe('feed autodiscovery', () => {
       return isHub || (sectionFeedOf(rel) !== null && /^(journal|blog)\//.test(rel));
     });
     expect(planned.sort()).toEqual(expected.sort());
-    expect(planned).toHaveLength(23); // 4 hubs + 16 journal posts + 3 blog posts owned by /code/
+    expect(planned).toHaveLength(24); // 4 hubs + 17 journal posts + 3 blog posts owned by /code/
     expect(tagsFor('404.html'), 'the 404 page carries no feed at all').toEqual([]);
   });
 
   it('the section feed comes first, so a one-feed client defaults to the topical one', () => {
     const withBoth = htmlPages().filter((rel) => alternates(rel).length > 1);
-    expect(withBoth.length, 'no page advertises two feeds at all').toBe(23); // 4 hubs + 19 posts
+    expect(withBoth.length, 'no page advertises two feeds at all').toBe(24); // 4 hubs + 20 posts
     for (const rel of withBoth) {
       expect(alternates(rel)[alternates(rel).length - 1], `${rel}: the site feed must be last`).toBe('/feed.xml');
       expect(alternates(rel)[0]).toBe(`/${sectionFeedOf(rel).file}`);
