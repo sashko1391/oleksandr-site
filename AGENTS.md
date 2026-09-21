@@ -13,7 +13,7 @@
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
 - Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
 - Vercel Functions: `api/comments.js`, `api/tg-webhook.js`, `api/cron/comments-retention.js` + `lib/` (Supabase через
-  IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на головній — **скриптовий бот** (готові відповіді
+  IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на `/services/` (до Ф3 — на головній) — **скриптовий бот** (готові відповіді
   в JS, без LLM); заявки з бота й лід-форм пересилає в Telegram Cloudflare Worker `oleksandr-site.sashko1391.workers.dev`
   (код воркера не в репо).
 - RSS: `public/feed.xml` генерує `scripts/build-feed.mjs`. Тести: `npm test` (vitest).
@@ -32,7 +32,7 @@
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
 `/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
-Ф3 нова головна + меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
 ## Правила
@@ -55,7 +55,7 @@
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
     `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
-    claims, faq-schema, images, hubs, parkinson-frame, parkinson-claims, services-page, journal-index]`
+    claims, faq-schema, images, hubs, nav, homepage, parkinson-frame, parkinson-claims, services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -80,7 +80,7 @@
 ## Структура (2026-09)
 ```
 public/
-├── index.html            ← головна (поки комерційна; переробка у Ф3)
+├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
 ├── 404.html (noindex) · robots.txt · sitemap.xml (50 URL) · feed.xml (RSS)
 ├── journal/              ← «Поза кодом»: index (стрічка всіх 16 постів + фільтр жанрів, посилання на хаби)
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
@@ -100,6 +100,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
+- `node scripts/inject-nav.mjs [--check]` — наскрізне меню на всіх сторінках (ідемпотентно; 404 не чіпає)
 - `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f2-done`);
   `--phase` — прогін іншої фази: показує, що ще треба перепривʼязати
 - `node scripts/repoint-anchors.mjs [--phase f1|f2] [--dry]` — міграції посилань: Ф1 (якорі головної) і Ф2
@@ -151,9 +152,9 @@ api/ · lib/ · scripts/ · tests/ · doc/
 ## Schema
 | Тип сторінки | Обов'язково | Опційно |
 |---|---|---|
-| Головна (після Ф3) | Person, WebSite | — |
+| Головна | Person, WebSite, WebPage | — |
 | Хаб розділу | CollectionPage, ItemList, BreadcrumbList | FAQPage |
-| `/services/` | CollectionPage, ItemList(Service), BreadcrumbList, FAQPage | повний ProfessionalService — з Ф3 |
+| `/services/` | CollectionPage, ItemList(Service), BreadcrumbList, FAQPage, ProfessionalService (вузол тут із Ф3) | — |
 | Пост журналу / блогу | Article, BreadcrumbList | FAQPage (лише реальний FAQ) |
 | Кейс | Article, BreadcrumbList | SoftwareApplication, LocalBusiness клієнта |
 | Сервісний лендинг | Service, BreadcrumbList, FAQPage | HowTo |
