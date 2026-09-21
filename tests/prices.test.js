@@ -211,17 +211,19 @@ describe('one price model', () => {
     }
   });
 
-  it('priceRange stays inside the published range', () => {
-    const min = Math.min(...CANON);
-    const max = Math.max(...CANON);
+  it('priceRange states a floor, never a ceiling', () => {
+    let seen = 0;
     for (const p of pages) {
       for (const d of jsonLd(p.html)) {
-        const range = JSON.stringify(d).match(/"priceRange":\s*"(\d+)-(\d+) UAH"/);
+        const range = JSON.stringify(d).match(/"priceRange":\s*"([^"]+)"/);
         if (!range) continue;
-        expect(Number(range[1]), `${p.rel} priceRange lower bound`).toBe(min + 5000); // 20000: the cheapest site
-        expect(Number(range[2]), `${p.rel} priceRange upper bound`).toBe(max);
+        seen += 1;
+        // «20000-80000 UAH» reads as an upper bound, and there is none: 80 000 is itself a «від»
+        expect(range[1], `${p.rel}: priceRange must not look like a closed range`).not.toMatch(/\d\s*[-–]\s*\d/);
+        expect(range[1], `${p.rel}: priceRange starts at the cheapest site`).toMatch(/20[\s\u00a0]?000/);
       }
     }
+    expect(seen, 'the business node must still declare a price floor').toBe(1);
   });
 
   /**

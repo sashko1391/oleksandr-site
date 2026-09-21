@@ -212,8 +212,11 @@ const BLOG_CRUMB = { pages: /^blog\/[^/]+\/index\.html$/, name: 'Блог', item
  */
 const ID_COUNTS = {
   [`${SITE}/#business`]: {
-    'services/index.html': 7, // the node itself + CollectionPage.about + provider of 5 services
-    'services/kyiv/index.html': 2,
+    'services/index.html': 7, // the one definition + CollectionPage.about + provider of 5 services
+    'services/ai/index.html': 1, // the landings only reference it
+    'services/kyiv/index.html': 1,
+    'services/landing/index.html': 1,
+    'services/nextjs/index.html': 1,
     'services/redesign/index.html': 1,
   },
 };

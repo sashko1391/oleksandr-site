@@ -200,6 +200,27 @@ describe('R5/R6 — breadcrumbs move to the hubs (Ф2)', () => {
     expect(plan.changes).toEqual([]);
   });
 
+  it('refuses a position-2 item that is not part of a BreadcrumbList', () => {
+    const rel = 'blog/jarvis-ai-assistant/index.html';
+    const html = ld({
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Головна', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 2, name: 'Блог', item: `${SITE}/#blog` },
+        ] },
+        // a plain ItemList that happens to carry the same URL at position 2
+        { '@type': 'ItemList', itemListElement: [
+          { '@type': 'ListItem', position: 1, item: `${SITE}/blog/` },
+          { '@type': 'ListItem', position: 2, name: 'Блог', item: `${SITE}/#blog` },
+        ] },
+      ],
+    });
+    const plan = run({ [rel]: html }, 'f2');
+    expect(plan.changes, 'a blind string replace would have rewritten both').toEqual([]);
+    expect(plan.errors.length).toBeGreaterThan(0);
+  });
+
   it('is idempotent: a migrated post plans nothing', () => {
     const rel = 'journal/hoverla/index.html';
     const plan = run(post(rel, 'Паркінсон', `${SITE}/parkinson/`), 'f2');

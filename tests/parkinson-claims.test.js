@@ -100,7 +100,9 @@ describe('Parkinson rubric — claims and doses', () => {
     }
   });
 
-  it('hearsay is labelled as hearsay', () => {
-    expect(html['hoverla']).toMatch(/цифру я не перевіряв, це його слова/);
+  it('an unverified number is not published at all, labelled or not', () => {
+    // it used to say «палиці беруть на себе до 35% навантаження» on a driver's word — that is not a source
+    expect(body('hoverla'), 'the figure may only survive in the corrections log').not.toMatch(/\d{1,3}\s?% навантаження/);
+    expect(body('hoverla'), 'the experience stays, the figure goes').toContain('Цифр я не перевіряв і не наводжу');
   });
 });

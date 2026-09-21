@@ -17,6 +17,7 @@ doc/prompts/
 doc/overviews/
 doc/jarvis.md
 doc/baseline/
+doc/proposals/   # комерційні пропозиції: бюджети, умови оплати, податки — правило 9
 .vercel/
 
 # Patreon session (playwright storageState)

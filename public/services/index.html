@@ -45,7 +45,7 @@
         "height": 480
       },
       "datePublished": "2026-09-18",
-      "dateModified": "2026-09-20",
+      "dateModified": "2026-09-21",
       "mainEntity": {
         "@id": "https://www.parkinsandr.tech/services/#services"
       }
@@ -144,7 +144,7 @@
       "founder": {
         "@id": "https://www.parkinsandr.tech/pro-mene/#author"
       },
-      "priceRange": "20000-80000 UAH",
+      "priceRange": "від 20 000 ₴",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Послуги веб-розробки",
@@ -183,8 +183,18 @@
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "AI-платформа або кастомний магазин",
-              "description": "Платформа з особистим кабінетом, базою даних і AI-інтеграцією або магазин з нуля. Термін: 21–30 днів"
+              "name": "Інтернет-магазин (custom)",
+              "description": "Магазин з нуля на Next.js + Medusa: унікальний дизайн, складні фільтри, інтеграції. Термін: 21–30 днів"
+            },
+            "price": "80000",
+            "priceCurrency": "UAH"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI-платформа",
+              "description": "Платформа з особистим кабінетом, базою даних і AI-інтеграцією. Термін: 30+ днів"
             },
             "price": "80000",
             "priceCurrency": "UAH"
@@ -550,7 +560,8 @@
       border: 1.5px solid rgba(27, 58, 92, 0.1);
       border-radius: 100px;
       font-family: 'Manrope', sans-serif;
-      font-size: 0.85rem;
+      font-size: 1rem;
+      min-height: 48px;
       color: var(--ink);
       background: var(--white);
       outline: none;
@@ -563,8 +574,8 @@
       color: var(--ink-muted);
     }
 .chat-send {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--blue-deep);
       border: none;
@@ -595,6 +606,59 @@
         margin: 2rem 1.5rem 0;
       }
 }
+
+/* bot styles that stayed on the old homepage */
+.contact-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--milk);
+      border-radius: 100px;
+      border: 1px solid rgba(27, 58, 92, 0.08);
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      transition: all 0.3s;
+    }
+.contact-pill:hover {
+      border-color: var(--blue-mid);
+      color: var(--blue-deep);
+      transform: translateY(-2px);
+    }
+.msg-bubble .typing {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px 0;
+    }
+.typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+      animation: typing-bounce 1.2s infinite;
+    }
+.typing span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+.typing span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+.quick-btn {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(27, 58, 92, 0.12);
+      border-radius: 100px;
+      background: var(--white);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.75rem;
+      color: var(--blue-deep);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+.quick-btn:hover {
+      background: var(--blue-pale);
+      border-color: var(--blue-mid);
+    }
 </style>
 <style data-site-menu>
 .site-menu { display: flex; flex-wrap: nowrap; gap: 0.25rem 1.25rem; align-items: center; list-style: none;
@@ -920,7 +984,7 @@
           </div>
         </div>
 
-        <div class="chat-messages" id="chatMessages">
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions">
           <div class="chat-msg bot">
             <div class="msg-avatar">🤖</div>
             <div class="msg-bubble">Привіт! Я бот із готовими відповідями про послуги Олександра: ціни, строки, як
@@ -1023,6 +1087,13 @@
     let fallbackIndex = 0;
     let messageCount = 0;
     let contactCollected = false;
+    let contactDelivered = false;
+    // one message per outcome: what actually happened to the contact decides what the bot may claim
+    const CONTACT_REPLY = {
+      delivered: 'Записав! \u2705 Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! \ud83d\ude0a\n\nЯкщо є ще питання — я нікуди не дінусь.',
+      queued: 'Не вдалося передати прямо зараз \ud83d\ude15 Я зберіг розмову у вашому браузері і спробую ще раз, коли ви повернетесь на сайт. Щоб напевно — напишіть Олександру напряму: Telegram, WhatsApp або пошта (кнопки під чатом).',
+      lost: 'Не вдалося передати, і зберегти теж не вийшло — у цьому браузері недоступне локальне сховище \ud83d\ude15 Напишіть Олександру напряму: Telegram, WhatsApp або пошта (кнопки під чатом), інакше розмова до нього не дійде.'
+    };
     let chatHistory = [];
 
     // Cloudflare Worker proxy — тримає Telegram bot token серверно
@@ -1142,14 +1213,16 @@
       if (await sendToProxy(payload)) {
         // GA4: lead conversion — only after the Worker accepted it
         gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'chat_contact', value: 1, currency: 'UAH'});
-        return true;
+        return 'delivered';
       }
       try {
         const queue = readQueue();
         queue.push(payload);
         localStorage.setItem('chat_queue', JSON.stringify(queue));
-      } catch { /* localStorage unavailable — data lost */ }
-      return false;
+        return 'queued';
+      } catch {
+        return 'lost'; // no storage: nothing will be retried, and the visitor has to be told so
+      }
     }
 
     function askForContact() {
@@ -1169,11 +1242,10 @@
         if (!contactCollected && isContactInfo(userText)) {
           contactCollected = true;
           addTyping();
-          sendToTelegram(userText).then((delivered) => {
+          sendToTelegram(userText).then((state) => {
             removeTyping();
-            addMessage(delivered
-              ? 'Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.'
-              : 'Не вдалося передати прямо зараз 😕 Я зберіг розмову і спробую ще раз, коли ви повернетесь на сайт. Щоб напевно — напишіть Олександру напряму: Telegram, WhatsApp або пошта (кнопки під чатом).', false);
+            contactDelivered = state === 'delivered';
+            addMessage(CONTACT_REPLY[state] || CONTACT_REPLY.lost, false);
           });
           return;
         }
@@ -1203,6 +1275,8 @@
           } else if (lower.includes('дякую') || lower.includes('спасибі') || lower.includes('thx') || lower.includes('thanks')) {
             if (!contactCollected) {
               reply = 'Завжди радий! 😊 До речі, залиште свій контакт (Telegram, телефон або пошту) — Олександр подивиться нашу бесіду і зможе продовжити розмову особисто!';
+            } else if (!contactDelivered) {
+              reply = 'Завжди радий! 😊 Нагадаю: вашу розмову я передати не зміг — напишіть Олександру напряму (кнопки під чатом), так він точно її побачить.';
             } else {
               reply = 'Завжди радий! 😊 Олександр вже отримав нашу розмову і зв\'яжеться з вами. Гарного дня!';
             }

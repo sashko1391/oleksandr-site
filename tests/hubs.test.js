@@ -62,12 +62,28 @@ describe('section hubs', () => {
     }
   });
 
-  it('the visible breadcrumb repeats the one in the schema', () => {
+  it('the visible breadcrumb repeats the one in the schema, link and all', () => {
     for (const { slug, crumb } of HUBS) {
       const html = read(`${slug}/index.html`);
-      const visible = html.match(/<nav class="breadcrumbs"[\s\S]*?<\/nav>/)[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+      const nav = html.match(/<nav class="breadcrumbs"[\s\S]*?<\/nav>/)[0];
+      const visible = nav.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
       expect(visible, `${slug}`).toContain('Головна');
       expect(visible, `${slug}`).toContain(crumb);
+      expect(nav, `${slug}: the first crumb must link home`).toMatch(/<a href="\/">/);
+      expect(nav, `${slug}: the current crumb is not a link`).toContain('aria-current="page"');
+      const links = [...nav.matchAll(/<a href="([^"]+)"/g)].map((m) => m[1]);
+      for (const href of links) expect(href, `${slug}: ${href}`).toMatch(/^\/(?:[a-z-]+\/)*$/);
+    }
+  });
+
+  it('no card is hidden from the reader while counting in the schema', () => {
+    for (const { slug } of HUBS) {
+      const html = read(`${slug}/index.html`);
+      for (const card of html.match(/<article class="card"[^>]*>/g) ?? []) {
+        expect(card, `${slug}: a hidden card`).not.toMatch(/\shidden|aria-hidden="true"|display\s*:\s*none/);
+      }
+      const css = html.match(/<style>([\s\S]*?)<\/style>/)[1];
+      expect(css, `${slug}: cards must stay visible`).not.toMatch(/\.card\s*\{[^}]*display\s*:\s*none/);
     }
   });
 

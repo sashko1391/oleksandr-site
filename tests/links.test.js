@@ -555,6 +555,28 @@ describe('public/ (integration)', () => {
     }
   });
 
+  it('the business entity is defined exactly once on the whole site', () => {
+    const nodes = [];
+    for (const page of real.pages) {
+      for (const block of parsePage(page.html).ld) {
+        const walk = (n) => {
+          if (Array.isArray(n)) return n.forEach(walk);
+          if (!n || typeof n !== 'object') return;
+          if ([].concat(n['@type']).includes('ProfessionalService')) {
+            const fields = Object.keys(n).filter((k) => k !== '@type' && k !== '@id');
+            nodes.push({ rel: page.rel, id: n['@id'], definition: fields.length > 1 });
+          }
+          Object.values(n).forEach(walk);
+        };
+        walk(block);
+      }
+    }
+    const definitions = nodes.filter((n) => n.definition);
+    expect(definitions.map((n) => n.rel), 'only /services/ may define the business').toEqual(['services/index.html']);
+    expect(definitions[0].id).toBe(`${SITE}/#business`);
+    for (const n of nodes) expect(n.id, `${n.rel}: an anonymous ProfessionalService`).toBe(`${SITE}/#business`);
+  });
+
   it('idCounts of every phase list every page that references the entity', () => {
     for (const [name, phase] of Object.entries(PHASES)) {
       for (const [id, files] of Object.entries(phase.idCounts)) {

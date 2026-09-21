@@ -25,6 +25,10 @@ describe('Parkinson rubric — the frame', () => {
       expect(text, `${slug}: the frame must refuse diagnosis and dosing advice`)
         .toContain('немає рекомендацій щодо діагнозу, дозування чи зміни лікування');
       expect(frame[0], `${slug}: the frame must link the policy`).toContain(`href="${POLICY}"`);
+      // a frame nobody sees is not a frame
+      expect(frame[0], `${slug}: the frame is hidden`).not.toMatch(/\shidden|aria-hidden="true"|display\s*:\s*none/);
+      const css = html.match(/<style>([\s\S]*?)<\/style>/)[1];
+      expect(css, `${slug}: the frame is hidden by CSS`).not.toMatch(/\.rubric-frame[^{]*\{[^}]*display\s*:\s*none/);
       // it has to be above the content: before the first section heading of the article
       const article = html.slice(html.indexOf('<article'));
       expect(article.indexOf('rubric-frame'), `${slug}: the frame is below the first heading`)

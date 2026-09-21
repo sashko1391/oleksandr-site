@@ -3,6 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
 const SITE = 'https://www.parkinsandr.tech';
@@ -35,10 +36,32 @@ describe('homepage', () => {
   it('carries Person and WebSite; the business node lives on /services/ with the same @id', () => {
     expect(node(home, 'Person')['@id'], 'the stable Person @id').toBe(`${SITE}/pro-mene/#author`);
     expect(node(home, 'WebSite'), 'WebSite').toBeDefined();
+    expect(node(home, 'WebPage'), 'WebPage ties the page to the site and the author').toBeDefined();
+    expect(node(home, 'WebPage').about['@id']).toBe(`${SITE}/pro-mene/#author`);
     expect(node(home, 'ProfessionalService'), 'the business node moved away from the homepage').toBeUndefined();
     const business = node(services, 'ProfessionalService');
     expect(business['@id'], 'AGENTS rule 3: the @id never changes').toBe(`${SITE}/#business`);
     expect(business.url, 'the node now describes /services/').toBe(`${SITE}/services/`);
+  });
+
+  it('shows a selection from each section, and never misses its newest post', () => {
+    // several posts can share a date, so the rule is «something from the newest day», not one exact file
+    const newestDay = (hub) => {
+      const dates = HUB_MEMBERS[hub].primary
+        .map((f) => ({ file: f, date: readFileSync(join(PUBLIC, f), 'utf8').match(/"datePublished": ?"([^"]+)"/)[1] }));
+      const top = dates.map((d) => d.date).sort().reverse()[0];
+      return dates.filter((d) => d.date === top).map((d) => d.file);
+    };
+    for (const section of SECTIONS) {
+      const hub = section.hub.replace(/^\//, '');
+      const block = home.match(new RegExp(`<section id="${section.id}"[\\s\\S]*?<\\/section>`))[0];
+      expect(block, `${section.id}: the blocks are a selection, and must say so`).toContain('section-label');
+      const shown = [...block.matchAll(/<h3><a href="\/([^"]+)">/g)].map((m) => `${m[1]}index.html`);
+      const members = new Set([...HUB_MEMBERS[hub].primary, ...HUB_MEMBERS[hub].also]);
+      for (const file of shown) expect(members.has(file), `${section.id}: ${file} is not in this hub`).toBe(true);
+      expect(shown.some((f) => newestDay(hub).includes(f)),
+        `${section.id}: nothing from the section's newest day is on the homepage`).toBe(true);
+    }
   });
 
   it('shows each of the four sections with posts that exist', () => {
@@ -85,5 +108,7 @@ describe('homepage', () => {
     expect(img).toContain('src="/images/oleksandr.webp"');
     expect(img).toMatch(/width="480" height="480"/);
     expect(img).toContain('alt="Олександр Кравченко"');
+    expect(img, 'the LCP image must keep its priority').toContain('fetchpriority="high"');
+    expect(img, 'and must not be lazy').not.toContain('loading="lazy"');
   });
 });

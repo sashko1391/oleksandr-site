@@ -5,7 +5,8 @@
 //   R3  BreadcrumbList item …/#scenarios                                      → …/services/
 //   R4  BreadcrumbList item …/#portfolio named «Портфоліо»                     → …/services/ «Послуги»
 // Only <a href> values and those BreadcrumbList fields change. Everything is planned and verified first —
-// exact counts, a JSON-LD semantic diff, the f1-done validator — then written, or nothing is.
+// exact counts, a JSON-LD semantic diff, the phase validator. A failed check writes nothing at all; the writing
+// itself is file by file, so it is not a transaction — rerun after fixing, the script is idempotent.
 // Ф2 step 5 of doc/HUBS_PLAN.md adds, under `--phase f2`:
 //   R5  BreadcrumbList position 2 of blog/*     «Блог» → /#blog      → the hub HUB_MEMBERS gives the post
 //   R6  BreadcrumbList position 2 of journal/*  «Поза кодом» → /journal/ → «Паркінсон» or «Творчість»
@@ -172,13 +173,28 @@ function repointHubCrumb(html, rel, hub, phase, stats, errors) {
       errors.push(`${rel}: the rewritten JSON-LD does not parse`);
       return whole;
     }
+    // the position-2 items that really belong to a BreadcrumbList — a plain ItemList must not be touched
+    const allowed = new Set();
+    const findCrumbs = (node, path = []) => {
+      if (Array.isArray(node)) return node.forEach((v, i) => findCrumbs(v, [...path, String(i)]));
+      if (!node || typeof node !== 'object') return;
+      if ([].concat(node['@type']).includes('BreadcrumbList')) {
+        [].concat(node.itemListElement ?? []).forEach((item, i) => {
+          if (item?.position === 2) allowed.add([...path, 'itemListElement', String(i)].join('.'));
+        });
+      }
+      Object.entries(node).forEach(([k, v]) => findCrumbs(v, [...path, k]));
+    };
+    findCrumbs(before);
+
     const problems = [];
     let items = 0;
     let names = 0;
     for (const { path, from: was, to } of diffJson(before, after)) {
       const key = path.at(-1);
-      const owner = path.slice(0, key === '@id' ? -2 : -1).reduce((node, k) => node?.[k], before);
-      const inCrumb = owner?.['@type'] === 'ListItem' && owner.position === 2;
+      const ownerPath = path.slice(0, key === '@id' ? -2 : -1);
+      const owner = ownerPath.reduce((node, k) => node?.[k], before);
+      const inCrumb = owner?.['@type'] === 'ListItem' && owner.position === 2 && allowed.has(ownerPath.join('.'));
       if (inCrumb && (key === 'item' || key === '@id') && was === from.item && to === hub.item) items++;
       else if (inCrumb && key === 'name' && was === from.name && to === hub.name) names++;
       else problems.push(`unexpected JSON-LD change at ${path.join('.')}: ${JSON.stringify(was)} → ${JSON.stringify(to)}`);

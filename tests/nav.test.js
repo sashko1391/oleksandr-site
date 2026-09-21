@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import { MENU, menuHtml, inject, urlOf } from '../scripts/inject-nav.mjs';
+import { MENU, menuHtml, inject, urlOf, sectionOf } from '../scripts/inject-nav.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
 
@@ -49,7 +49,7 @@ describe('site menu', () => {
   it('marks the section the page belongs to — by its breadcrumb, not by its URL', () => {
     const marked = (rel) => {
       const page = pages.find((p) => p.rel === rel).html;
-      return page.match(/<a href="([^"]+)"[^>]*aria-current="page"/)?.[1];
+      return page.match(/<a href="([^"]+)"[^>]*aria-current="(?:page|location)"/)?.[1];
     };
     expect(marked('journal/hoverla/index.html'), 'a rubric post lives under /journal/ but belongs to /parkinson/')
       .toBe('/parkinson/');
@@ -59,6 +59,28 @@ describe('site menu', () => {
     expect(marked('blog/skilky-koshtuye-sajt/index.html')).toBe('/services/');
     expect(marked('projects/atlas/index.html')).toBe('/services/');
     expect(marked('pro-mene/index.html')).toBe('/pro-mene/');
+  });
+
+  it('uses «page» for the section page itself and «location» for what is inside it', () => {
+    const state = (rel) => pages.find((p) => p.rel === rel).html
+      .match(/<a href="[^"]+"[^>]*aria-current="([a-z]+)"/)?.[1];
+    expect(state('parkinson/index.html')).toBe('page');
+    expect(state('journal/hoverla/index.html')).toBe('location');
+    expect(state('code/index.html')).toBe('page');
+    expect(state('blog/jarvis-ai-assistant/index.html')).toBe('location');
+  });
+
+  it('reads the breadcrumb as JSON, not by the order of its keys', () => {
+    const crumb = (item) => `<script type="application/ld+json">${JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [{ '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Головна', item: 'https://www.parkinsandr.tech/' },
+        { '@type': 'ListItem', item, position: 2, name: 'Паркінсон' }, // keys in another order
+      ] }],
+    })}</script>`;
+    for (const item of ['https://www.parkinsandr.tech/parkinson/', { '@id': 'https://www.parkinsandr.tech/parkinson/' }]) {
+      expect(sectionOf('/journal/x/', crumb(item))?.href, JSON.stringify(item)).toBe('/parkinson/');
+    }
   });
 
   it('no page marks two sections at once', () => {

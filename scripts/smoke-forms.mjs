@@ -141,6 +141,33 @@ async function formChecks(browser, base) {
 }
 
 
+
+/** The bot may only say «Записав» after a 2xx, and must say so plainly when storage is gone too. */
+async function botHonestyChecks(browser, base) {
+  for (const [name, storage, expect_] of [
+    ['queued', true, 'зберіг розмову у вашому браузері'],
+    ['lost', false, 'зберегти теж не вийшло'],
+  ]) {
+    const ctx = await open(browser, base, { path: '/services/', workerStatus: 500 });
+    const { page } = ctx;
+    if (!storage) {
+      await page.evaluate(() => {
+        // a browser with site data blocked: writing throws, exactly as in private mode
+        Object.defineProperty(window, 'localStorage', { value: { getItem() { return null; }, setItem() { throw new Error('denied'); }, removeItem() { throw new Error('denied'); } } });
+      });
+    }
+    await page.fill('#chatInput', '@fresh_contact');
+    await page.click('.chat-send');
+    // a wrong message must fail the check, not crash the run
+    await page.locator('.chat-messages').filter({ hasText: 'напряму' }).waitFor({ state: 'visible', timeout: 15000 })
+      .catch(() => {});
+    const text = await page.locator('.chat-messages').innerText();
+    check(`bot (${name}): says what really happened and never «Записав»`,
+      text.includes(expect_) && !text.includes('Записав!'), text.slice(-160));
+    await ctx.context.close();
+  }
+}
+
 /** The scripted bot (on /services/ since Ф3) keeps a retry queue; flushing it must not swallow a fresh lead. */
 async function botQueueChecks(browser, base) {
   // first call (the flush of the seeded lead) answers slowly; everything after it fails
@@ -280,6 +307,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     await formChecks(browser, base);
     await botQueueChecks(browser, base);
+    await botHonestyChecks(browser, base);
     await desktopChecks(browser, base);
     await mobileChecks(browser, base);
     const i = process.argv.indexOf('--screenshots');

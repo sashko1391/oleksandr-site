@@ -8,6 +8,7 @@ import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
+const SITE = 'https://www.parkinsandr.tech';
 
 /** The sections of the site, in reading order; «Робота зі мною» is the one commercial item. */
 export const MENU = [
@@ -54,17 +55,46 @@ export const urlOf = (rel) => '/' + rel.replace(/index\.html$/, '');
  */
 export function menuHtml(rel, html = '') {
   const url = urlOf(rel);
-  const crumb = [...html.matchAll(/"position"\s*:\s*2\s*,\s*"name"\s*:\s*"[^"]*"\s*,\s*"item"\s*:\s*"([^"]+)"/g)]
-    .map((m) => m[1].replace('https://www.parkinsandr.tech', ''))[0];
-  const byCrumb = crumb && MENU.find((item) => item.href === crumb);
-  const current = byCrumb ?? MENU.filter((item) => url === item.href || url.startsWith(item.href))
-    .sort((a, b) => b.href.length - a.href.length)[0];
+  const current = sectionOf(url, html);
   const items = MENU.map((item) => {
-    const mark = item === current ? ' aria-current="page"' : '';
+    // «page» only for the section's own page; a post inside it marks its location, not the page
+    const mark = item === current ? (url === item.href ? ' aria-current="page"' : ' aria-current="location"') : '';
     const cls = item.cta ? ' class="site-menu-cta"' : '';
     return `    <li><a href="${item.href}"${cls}${mark}>${item.label}</a></li>`;
   }).join('\n');
   return `${START}\n  <ul class="site-menu">\n${items}\n  </ul>\n  ${END}`;
+}
+
+/** The section a page belongs to: its breadcrumb decides, the URL is the fallback. */
+export function sectionOf(url, html = '') {
+  for (const block of [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]) {
+    let data;
+    try {
+      data = JSON.parse(block[1]);
+    } catch {
+      continue; // a broken block is the link validator's business
+    }
+    const crumbs = [];
+    const walk = (node) => {
+      if (Array.isArray(node)) return node.forEach(walk);
+      if (!node || typeof node !== 'object') return;
+      if ([].concat(node['@type']).includes('BreadcrumbList')) {
+        for (const item of [].concat(node.itemListElement ?? [])) {
+          if (item?.position !== 2) continue;
+          const target = typeof item.item === 'string' ? item.item : item.item?.['@id'];
+          if (target) crumbs.push(target.replace(SITE, ''));
+        }
+      }
+      Object.values(node).forEach(walk);
+    };
+    walk(data);
+    for (const href of crumbs) {
+      const found = MENU.find((item) => item.href === href);
+      if (found) return found;
+    }
+  }
+  return MENU.filter((item) => url === item.href || url.startsWith(item.href))
+    .sort((a, b) => b.href.length - a.href.length)[0];
 }
 
 /** Put the menu inside the page's main nav, after the logo, and drop the generic «← На головну». */

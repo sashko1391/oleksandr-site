@@ -10,10 +10,10 @@
 
 ## Чат-бот і форми заявок
 ```
-Відвідувач → бот на головній (готові відповіді в JS, без LLM) або форма (/services/, лендинги)
+Відвідувач → бот на `/services/` (готові відповіді в JS, без LLM) або форма (/services/, лендинги)
           → POST {contact, history, timestamp} → Cloudflare Worker (oleksandr-site.sashko1391.workers.dev) → Telegram Bot API
 ```
-Токен бота — у секретах воркера (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`), не у фронтенді. Бот головної при
+Токен бота — у секретах воркера (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`), не у фронтенді. Бот на `/services/` при
 мережевій помилці або HTTP 4xx/5xx зберігає заявку в `localStorage` і повторює при наступному завантаженні сторінки;
 форма `/services/` показує помилку з прямими контактами і дозволяє повторити.
 
