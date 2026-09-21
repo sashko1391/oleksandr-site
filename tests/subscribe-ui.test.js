@@ -100,11 +100,14 @@ describe('subscription block', () => {
     }
   });
 
-  it('never claims a letter was sent when the request failed', () => {
+  it('never claims a letter was sent when the request failed, and never blames the address for our fault', () => {
     const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v1.js'), 'utf8');
-    const failure = js.split('r.status === 503')[1].split('} else')[0];
+    // every 5xx is ours — a missing key or a dead provider is not the reader's typo
+    const failure = js.split('r.status >= 500')[1].split('} else')[0];
     expect(failure).not.toMatch(/Перевірте пошту/);
+    expect(failure).not.toMatch(/Перевірте адресу/);
     expect(failure).toContain('не вдалося');
+    expect(failure).toContain('на нашому боці');
     // and a captcha that never loads says so instead of spinning forever
     expect(js).toContain('captchaDead');
     expect(js).toMatch(/s\.onerror = giveUp/);
