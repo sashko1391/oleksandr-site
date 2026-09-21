@@ -25,7 +25,7 @@
       ]
     },
     {
-      "source": "/js/subscribe.v1.js",
+      "source": "/js/subscribe.v2.js",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
@@ -46,7 +46,7 @@
     }
   ],
   "crons": [
-    { "path": "/api/cron/comments-retention", "schedule": "0 3 * * *" },
-    { "path": "/api/cron/subscribers-retention", "schedule": "30 3 * * *" }
+    { "path": "/api/cron/comments-retention/", "schedule": "0 3 * * *" },
+    { "path": "/api/cron/subscribers-retention/", "schedule": "30 3 * * *" }
   ]
 }

@@ -70,8 +70,11 @@ export default async function handler(req, res) {
     return htmlPage({
       res,
       title: 'Посилання не знайдено',
-      heading: 'Такого посилання не знайшлося',
-      body: '<p>Можливо, адресу вже видалено з бази. Листів у будь-якому разі не буде.</p>',
+      heading: 'Відписку не підтверджено',
+      body:
+        '<p>Це посилання не знайшлося: воно могло застаріти, бути скопійованим не повністю, або адресу ' +
+        'вже видалено з бази.</p>' +
+        '<p class="muted">Якщо листи все одно приходитимуть — напишіть мені, і я приберу адресу вручну.</p>',
     });
   }
   console.log(JSON.stringify({ level: 'info', event: 'subscriber_unsubscribed', id: row.id }));

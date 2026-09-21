@@ -1,6 +1,6 @@
 // Static policy checks that enforce the rules tagged `[enforced: tests/policy.test.js]` in AGENTS.md.
 import { describe, it, expect } from 'vitest';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { maskInert } from '../scripts/inject-rss.mjs';
 
@@ -97,5 +97,25 @@ describe('policy: discovery', () => {
       })
       .map((p) => p.rel);
     expect(bad).toEqual([]);
+  });
+});
+
+describe('policy: scheduled jobs', () => {
+  const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
+
+  it('every cron path ends with a slash — trailingSlash would redirect it into nothing', () => {
+    // Vercel Cron does not follow the 308 that trailingSlash:true produces, so a path without the
+    // slash means the job silently never runs.
+    expect(vercel.trailingSlash).toBe(true);
+    for (const cron of vercel.crons) {
+      expect(cron.path, `${cron.path} would be redirected, not executed`).toMatch(/\/$/);
+    }
+  });
+
+  it('every cron path points at a handler that exists', () => {
+    for (const cron of vercel.crons) {
+      const file = join(process.cwd(), cron.path.replace(/^\//, '').replace(/\/$/, '') + '.js');
+      expect(existsSync(file), `${cron.path} has no handler at ${file}`).toBe(true);
+    }
   });
 });

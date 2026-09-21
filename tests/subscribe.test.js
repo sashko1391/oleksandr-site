@@ -27,7 +27,7 @@ import subscribeHandler from '../api/subscribe.js';
 import confirmHandler from '../api/subscribe/confirm.js';
 import unsubscribeHandler from '../api/unsubscribe.js';
 import retentionHandler from '../api/cron/subscribers-retention.js';
-import { verifyTurnstile, hashToken } from '../lib/security.js';
+import { verifyTurnstile, hashToken, hashEmail, unsubToken, deliveryIdentity } from '../lib/security.js';
 
 function mockRes() {
   const res = { statusCode: 0, headers: {}, body: undefined, html: undefined, ended: false };
@@ -175,6 +175,9 @@ describe('POST /api/subscribe — the happy path and what it stores', () => {
     await subscribeHandler(postReq(), res);
     expect(res.statusCode).toBe(202);
     expect(sqlQueries().some((q) => q.includes('INSERT INTO subscribers'))).toBe(true);
+    // the attempt counter starts at 1 — the cap that protects one inbox depends on it
+    expect(sqlQueries().find((q) => q.includes('INSERT INTO subscribers')))
+      .toMatch(/confirm_send_count[\s\S]*now\(\), 1\)/);
     expect(sendEmailMock).toHaveBeenCalledTimes(1);
     expect(sendEmailMock.mock.calls[0][0].to).toBe('reader@example.com');
   });
@@ -231,24 +234,40 @@ describe('POST /api/subscribe — bombing one address', () => {
     expect(sqlMock).not.toHaveBeenCalled();
   });
 
-  it('sends nothing inside the cooldown even when the counters were reset', async () => {
-    bumpMock.mockResolvedValue(1); // KV says "go ahead" — the durable check must still hold
-    routeSql({
-      found: [{ id: 9, status: 'pending', confirm_sent_at: new Date().toISOString(), confirm_send_count: 1 }],
-    });
+  it('claims the cooldown in the UPDATE itself — two parallel requests cannot both send', async () => {
+    bumpMock.mockResolvedValue(1); // KV says "go ahead": the durable claim must still hold
+    // the row exists, but the conditional UPDATE matches nothing (inside the cooldown / over the cap)
+    routeSql({ found: [{ id: 9, status: 'pending' }], update: [] });
     const res = mockRes();
     await subscribeHandler(postReq(), res);
     expect(res.statusCode).toBe(202);
-    expect(sendEmailMock).not.toHaveBeenCalled();
+    expect(sendEmailMock, 'an unclaimed cooldown must not send').not.toHaveBeenCalled();
+    const upd = sqlQueries().find((q) => q.includes('UPDATE subscribers'));
+    expect(upd, 'the cooldown must be a condition of the write, not a check before it')
+      .toContain("confirm_sent_at < now() - interval '10 minutes'");
+    expect(upd).toContain('confirm_send_count < ');
+    expect(upd, 'a confirmed row must never be re-opened by this path').toContain("status <> 'confirmed'");
   });
 
-  it('stops for good after the hard cap, however old the last letter is', async () => {
-    routeSql({
-      found: [{ id: 9, status: 'pending', confirm_sent_at: '2020-01-01T00:00:00Z', confirm_send_count: 5 }],
-    });
+  it('stores an unsubscribe hash a future newsletter can recompute — otherwise nobody can ever unsubscribe', async () => {
     const res = mockRes();
     await subscribeHandler(postReq(), res);
-    expect(sendEmailMock).not.toHaveBeenCalled();
+    // the sender will derive this from email_hash months later; a random token would be unrecoverable,
+    // because the database keeps only its sha256
+    const expected = hashToken(unsubToken(hashEmail('reader@example.com')));
+    expect(sqlValues().map(String)).toContain(expected);
+    // and it is per-address
+    expect(expected).not.toBe(hashToken(unsubToken(hashEmail('other@example.com'))));
+  });
+
+  it('counts abuse per mailbox, so +suffix and Gmail dots cannot bomb one inbox', async () => {
+    const res = mockRes();
+    await subscribeHandler(postReq({ body: { ...validBody(), email: 'v.i.c.t.i.m+7@gmail.com' } }), res);
+    const key = bumpMock.mock.calls.map(([k]) => k).find((k) => k.startsWith('rl:sub:email:'));
+    expect(key).toBe(`rl:sub:email:${hashEmail(deliveryIdentity('victim@gmail.com'))}`);
+    // …while the address itself is stored and delivered to exactly as typed (lowercased)
+    expect(sqlValues()).toContain('v.i.c.t.i.m+7@gmail.com');
+    expect(sendEmailMock.mock.calls[0][0].to).toBe('v.i.c.t.i.m+7@gmail.com');
   });
 
   it('does resend once the cooldown has passed, with a brand-new token', async () => {
@@ -259,7 +278,8 @@ describe('POST /api/subscribe — bombing one address', () => {
     await subscribeHandler(postReq(), res);
     expect(res.statusCode).toBe(202);
     expect(sendEmailMock).toHaveBeenCalledTimes(1);
-    expect(sqlQueries().some((q) => q.includes('UPDATE subscribers'))).toBe(true);
+    const upd = sqlQueries().find((q) => q.includes('UPDATE subscribers'));
+    expect(upd, 'each attempt must be counted, or the cap never bites').toContain('confirm_send_count + 1');
   });
 
   it('lets someone who unsubscribed opt in again, through a fresh confirmation', async () => {
@@ -332,6 +352,25 @@ describe('/api/subscribe/confirm', () => {
     expect(q).toContain("status = 'confirmed'");
     expect(q).toContain('confirm_token_hash = NULL'); // single use
     expect(q).toContain("status = 'pending'");
+  });
+
+  it('honours the seven days the letter promises, in the same statement', async () => {
+    const res = mockRes();
+    await confirmHandler({ method: 'POST', query: {}, body: { token }, headers: {} }, res);
+    const q = sqlQueries().find((x) => x.includes('UPDATE subscribers'));
+    // an expiry a cron has to enforce is an expiry that does not exist while the cron is broken
+    expect(q, 'the 7 days must be a condition of the confirm itself').toContain("interval '7 days'");
+    expect(q).toContain('coalesce(confirm_sent_at, created_at) >');
+  });
+
+  it('resets the lifecycle so a reader is never locked out of coming back', async () => {
+    const res = mockRes();
+    await confirmHandler({ method: 'POST', query: {}, body: { token }, headers: {} }, res);
+    const q = sqlQueries().find((x) => x.includes('UPDATE subscribers'));
+    // without this, five confirmation attempts would bar the address for good…
+    expect(q).toContain('confirm_send_count = 0');
+    // …and an old unsubscribed_at would let the retention job erase a freshly confirmed subscriber
+    expect(q).toContain('unsubscribed_at = NULL');
   });
 
   it('a second click writes nothing and still says something sensible', async () => {
@@ -449,16 +488,29 @@ describe('cron: subscribers retention', () => {
     expect(del).toContain("interval '7 days'");
   });
 
+  it('parks a lapsed re-opt-in instead of deleting it — the suppression record must survive', async () => {
+    const res = mockRes();
+    await retentionHandler(authed, res);
+    const qs = sqlQueries();
+    const park = qs.find((q) => q.includes("SET status = 'unsubscribed'"));
+    expect(park, 'a row that carries unsubscribed_at must be parked, not dropped').toContain('unsubscribed_at IS NOT NULL');
+    const del = qs.find((q) => q.includes('DELETE FROM subscribers'));
+    expect(del, 'and the delete must skip exactly those rows').toContain('unsubscribed_at IS NULL');
+  });
+
   it('anonymises the consent IP after 30 days and erases an unsubscribed address after 30 more', async () => {
     const res = mockRes();
     await retentionHandler(authed, res);
     const qs = sqlQueries().join(' | ');
     expect(qs).toContain('SET ip_hash = NULL');
     expect(qs).toContain('SET email = NULL');
+    // what is erased must match what /privacy/ promises: address, topics, source, IP hash
+    expect(qs).toContain("topics = '{}'::text[]");
+    expect(qs).toContain('source = NULL');
     expect(qs).toContain('unsubscribed_at < now() - ');
     // the suppression hash must survive: it is what stops us mailing that person again
     expect(qs, 'email_hash must never be cleared').not.toContain('email_hash = NULL');
-    expect(res.body).toEqual({ ok: true, unconfirmed: 1, ips: 1, erased: 1 });
+    expect(res.body).toEqual({ ok: true, parked: 1, unconfirmed: 1, ips: 1, erased: 1 });
   });
 
   it('503 when the database is down', async () => {

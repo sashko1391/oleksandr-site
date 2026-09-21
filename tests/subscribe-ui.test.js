@@ -68,10 +68,10 @@ describe('subscription block', () => {
 
   it('loads the versioned script, which vercel.json caches immutably', () => {
     for (const { rel } of HUBS) {
-      expect(read(rel), rel).toContain('<script defer src="/js/subscribe.v1.js"></script>');
+      expect(read(rel), rel).toContain('<script defer src="/js/subscribe.v2.js"></script>');
     }
     const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
-    const rule = vercel.headers.find((h) => h.source === '/js/subscribe.v1.js');
+    const rule = vercel.headers.find((h) => h.source === '/js/subscribe.v2.js');
     expect(rule?.headers?.[0]?.value).toContain('immutable');
   });
 
@@ -86,7 +86,7 @@ describe('subscription block', () => {
   });
 
   it('calls the API with the trailing slash vercel.json enforces (no 308 on every submit)', () => {
-    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v1.js'), 'utf8');
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v2.js'), 'utf8');
     expect(js).toContain("fetch('/api/subscribe/'");
     const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
     expect(vercel.trailingSlash, 'this test exists because of that setting').toBe(true);
@@ -101,7 +101,7 @@ describe('subscription block', () => {
   });
 
   it('never claims a letter was sent when the request failed, and never blames the address for our fault', () => {
-    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v1.js'), 'utf8');
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v2.js'), 'utf8');
     // every 5xx is ours — a missing key or a dead provider is not the reader's typo
     const failure = js.split('r.status >= 500')[1].split('} else')[0];
     expect(failure).not.toMatch(/Перевірте пошту/);
@@ -112,5 +112,31 @@ describe('subscription block', () => {
     expect(js).toContain('captchaDead');
     expect(js).toMatch(/s\.onerror = giveUp/);
     expect(js).toMatch(/setTimeout\(giveUp/);
+    // …і знімає вирок, якщо перевірка приїхала пізніше за таймаут
+    expect(js).toMatch(/captchaDead\) \{ captchaDead = false/);
+    expect(js).toContain("'error-callback'");
+    expect(js).toContain("'expired-callback'");
+  });
+
+  it('cannot leave the button dead: every path re-enables it, and the request has a timeout', () => {
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v2.js'), 'utf8');
+    expect(js).toMatch(/var done = function \(\) \{\s*submit\.disabled = false;/);
+    expect((js.match(/done\(\);/g) || []).length, 'both then and catch must call it').toBe(2);
+    expect(js).toContain('AbortController');
+    expect(js).toContain('AbortError');
+  });
+
+  it('does not promise a letter that the API deliberately may not send', () => {
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v2.js'), 'utf8');
+    const ok = js.split('r.status === 202')[1].split('} else')[0];
+    expect(ok, 'the 202 branch must not claim a letter is on its way').not.toMatch(/там лист/);
+    expect(ok).toContain('Якщо цій адресі потрібне підтвердження');
+    const api = readFileSync(join(process.cwd(), 'api', 'subscribe.js'), 'utf8');
+    expect(api, 'the API says the same thing').toContain('Якщо цій адресі потрібне підтвердження');
+  });
+
+  it('requires at least one section — an empty list would mean «everything» to the API', () => {
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v2.js'), 'utf8');
+    expect(js).toMatch(/if \(!topics\.length\)/);
   });
 });

@@ -15,6 +15,8 @@
   var widgetId = null;
   var captchaDead = false; // Turnstile не приїхав: краще сказати правду, ніж крутити «зачекайте»
   var CAPTCHA_TIMEOUT = 8000;
+  var REQUEST_TIMEOUT = 15000;
+  var statusNode = null;
 
   var io = new IntersectionObserver(function (entries) {
     for (var i = 0; i < entries.length; i++) {
@@ -29,6 +31,7 @@
     form.hidden = false;
     var box = root.querySelector('[data-turnstile]');
     var status = root.querySelector('[data-status]');
+    statusNode = status;
     var submit = form.querySelector('button[type=submit]');
     form.addEventListener('submit', function (e) { e.preventDefault(); send(form, status, submit); });
     loadTurnstile(box, status);
@@ -38,7 +41,15 @@
     if (!box) return;
     window.onSubscribeTurnstile = function () {
       if (!window.turnstile) return;
-      widgetId = window.turnstile.render(box, { sitekey: SITE_KEY, theme: 'light' });
+      widgetId = window.turnstile.render(box, {
+        sitekey: SITE_KEY,
+        theme: 'light',
+        // Перевірка впала або протухла — не мовчимо і не лишаємо мертву кнопку.
+        'error-callback': function () { captchaDead = true; setStatus(statusNode, CAPTCHA_MSG, 'err'); },
+        'expired-callback': function () { setStatus(statusNode, 'Перевірка застаріла — пройдіть її ще раз.', 'err'); },
+      });
+      // Приїхав пізніше за таймаут — знімаємо вирок, інакше форма лишилася б мертвою назавжди.
+      if (widgetId != null && captchaDead) { captchaDead = false; setStatus(statusNode, '', ''); }
     };
     var giveUp = function () {
       if (widgetId != null) return;
@@ -70,6 +81,7 @@
     for (var i = 0; i < boxes.length; i++) topics.push(boxes[i].value);
 
     if (!email || !email.value.trim()) return setStatus(status, 'Вкажіть адресу пошти.', 'err');
+    if (!topics.length) return setStatus(status, 'Виберіть хоча б один розділ.', 'err');
     if (!consent || !consent.checked) return setStatus(status, 'Потрібна згода на обробку адреси.', 'err');
     if (captchaDead) return setStatus(status, CAPTCHA_MSG, 'err');
     var token = window.turnstile && widgetId != null ? window.turnstile.getResponse(widgetId) : '';
@@ -77,9 +89,16 @@
 
     submit.disabled = true;
     setStatus(status, 'Надсилаю…', '');
+    var done = function () {
+      submit.disabled = false; // що б не сталося, кнопка не лишається мертвою
+      if (window.turnstile && widgetId != null) window.turnstile.reset(widgetId);
+    };
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, REQUEST_TIMEOUT) : null;
     // Слеш обов'язковий: vercel.json має trailingSlash, і без нього кожен виклик — зайвий 308.
     fetch('/api/subscribe/', {
       method: 'POST',
+      signal: ctrl ? ctrl.signal : undefined,
       headers: { 'content-type': 'application/json', 'x-requested-with': 'fetch' },
       body: JSON.stringify({
         email: email.value.trim(),
@@ -90,11 +109,13 @@
         hp: hp ? hp.value : '',
       }),
     }).then(function (r) {
-      submit.disabled = false;
-      if (window.turnstile && widgetId != null) window.turnstile.reset(widgetId);
+      if (timer) clearTimeout(timer);
+      done();
       if (r.status === 202) {
-        // Те саме, що каже сервер: лист або вже в дорозі, або адреса вже підписана.
-        setStatus(status, '✅ Перевірте пошту — там лист із кнопкою підтвердження.', 'ok');
+        // Дослівно те, що каже сервер: він навмисно не розрізняє нову й уже підписану адресу,
+        // а ще мовчить про cooldown — тож обіцяти «лист у дорозі» тут не можна.
+        setStatus(status, '✅ Якщо цій адресі потрібне підтвердження — перевірте пошту. ' +
+          'Якщо вона вже підписана, робити нічого не треба.', 'ok');
         email.value = '';
         consent.checked = false;
       } else if (r.status === 429) {
@@ -106,9 +127,12 @@
       } else {
         setStatus(status, 'Не вдалося підписати. Перевірте адресу й спробуйте ще раз.', 'err');
       }
-    }).catch(function () {
-      submit.disabled = false;
-      setStatus(status, 'Помилка мережі. Спробуйте ще раз.', 'err');
+    }).catch(function (e) {
+      if (timer) clearTimeout(timer);
+      done();
+      setStatus(status, e && e.name === 'AbortError'
+        ? 'Сервер не відповів вчасно. Спробуйте ще раз.'
+        : 'Помилка мережі. Спробуйте ще раз.', 'err');
     });
   }
 })();

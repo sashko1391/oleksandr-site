@@ -45,15 +45,19 @@ export default async function handler(req, res) {
     });
   }
 
-  // POST: single-use by construction — the token hash is cleared in the same statement that
-  // confirms, so a second click (or a parallel one) updates nothing instead of writing twice.
+  // POST: single-use by construction — the token hash is cleared in the same statement that confirms,
+  // so a second click (or a parallel one) updates nothing instead of writing twice. The seven days the
+  // letter promises are a condition of that statement, not a cron's job. Confirming also resets the
+  // lifecycle: the attempt counter, and the unsubscribed_at of someone who came back.
   let row;
   try {
     const sql = getSql();
     const updated = await sql`
       UPDATE subscribers
-      SET status = 'confirmed', confirmed_at = now(), confirm_token_hash = NULL
+      SET status = 'confirmed', confirmed_at = now(), confirm_token_hash = NULL,
+          confirm_send_count = 0, unsubscribed_at = NULL
       WHERE confirm_token_hash = ${hashToken(token)} AND status = 'pending'
+        AND coalesce(confirm_sent_at, created_at) > now() - interval '7 days'
       RETURNING id`;
     row = updated[0];
   } catch (err) {

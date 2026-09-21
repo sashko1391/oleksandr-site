@@ -10,6 +10,8 @@ import {
   getClientIp,
   hashIp,
   hashEmail,
+  deliveryIdentity,
+  unsubToken,
   newToken,
   hashToken,
   verifyTurnstile,
@@ -20,11 +22,16 @@ import {
 const SITE = 'https://www.parkinsandr.tech';
 const RL_CAPTCHA_MIN = 20; // Turnstile verifies per IP per minute
 const RL_IP_HOUR = 5; // subscribe attempts per IP per hour
-const COOLDOWN_MS = 10 * 60 * 1000; // one confirmation per address per 10 minutes (durable, in the DB)
-const MAX_CONFIRMS = 5; // hard cap per address: KV can be reset, this cannot
+// One confirmation per address per 10 minutes and at most MAX_CONFIRMS in total — enforced as
+// conditions of the UPDATE below, because KV can be reset but the row cannot.
+const MAX_CONFIRMS = 5;
 
-/** True whether the letter went out now or the address was already on the list — no membership leak. */
-const GENERIC = 'Якщо ця адреса ще не підписана, лист із підтвердженням уже в дорозі.';
+/**
+ * True in every branch: a letter just went out, the address was already on the list, or it is inside
+ * the cooldown. Saying «лист уже в дорозі» would be a lie in the last two.
+ */
+const GENERIC =
+  'Якщо цій адресі потрібне підтвердження — перевірте пошту. Якщо вона вже підписана, робити нічого не треба.';
 
 /** @param {import('http').ServerResponse} res @param {import('http').IncomingMessage} req */
 function setCors(res, req) {
@@ -56,8 +63,10 @@ export default async function handler(req, res) {
   } catch (err) {
     return jsonError(res, 500, 'config_ip_salt_missing', err);
   }
+  let abuseHash;
   try {
     emailHash = hashEmail(email);
+    abuseHash = hashEmail(deliveryIdentity(email)); // +suffix and Gmail dots reach the same inbox
   } catch (err) {
     return jsonError(res, 500, 'config_email_hash_secret_missing', err);
   }
@@ -90,8 +99,8 @@ export default async function handler(req, res) {
     if ((await bump(`rl:sub:ip:${ipHash}`, 3600)) > RL_IP_HOUR) {
       return res.status(429).json({ error: 'too many requests' });
     }
-    const perAddress = await bump(`rl:sub:email:${emailHash}`, 600);
-    const perDay = await bump(`rl:sub:email:day:${emailHash}`, 86400);
+    const perAddress = await bump(`rl:sub:email:${abuseHash}`, 600);
+    const perDay = await bump(`rl:sub:email:day:${abuseHash}`, 86400);
     if (perAddress > 1 || perDay > 3) {
       // Say the same thing as the happy path: whether this address is rate-limited is its owner's business.
       return res.status(202).json({ ok: true, message: GENERIC });
@@ -107,7 +116,7 @@ export default async function handler(req, res) {
     sql = getSql();
     // Also match a row whose address was erased on request: email_hash is what survives erasure.
     const found = await sql`
-      SELECT id, status, confirm_sent_at, confirm_send_count
+      SELECT id, status
       FROM subscribers
       WHERE email = ${email} OR email_hash = ${emailHash}
       LIMIT 1`;
@@ -119,34 +128,39 @@ export default async function handler(req, res) {
   // Already on the list: send nothing, say the same sentence as everyone else gets.
   if (row?.status === 'confirmed') return res.status(202).json({ ok: true, message: GENERIC });
 
-  // Durable backstop under the KV limits: a reset KV must not reopen the mail cannon.
-  if (row) {
-    const sentAt = row.confirm_sent_at ? new Date(row.confirm_sent_at).getTime() : 0;
-    if (Date.now() - sentAt < COOLDOWN_MS || row.confirm_send_count >= MAX_CONFIRMS) {
-      return res.status(202).json({ ok: true, message: GENERIC });
-    }
-  }
-
   const raw = newToken();
   const confirmHash = hashToken(raw);
+  // Deterministic, so a newsletter months from now can still build the link (and archived letters keep
+  // working); only its hash is stored, so a database leak hands out no unsubscribe keys.
+  const unsubHash = hashToken(unsubToken(emailHash));
   let id;
   try {
     if (row) {
-      // Re-opt-in (pending or previously unsubscribed): a fresh single-use token, consent re-recorded.
-      await sql`
+      // Re-opt-in (pending or previously unsubscribed): fresh single-use token, consent re-recorded.
+      // The cooldown and the hard cap are conditions of this very UPDATE — a check in JS before it
+      // would let two parallel requests both pass and send two letters.
+      const updated = await sql`
         UPDATE subscribers SET
           email = ${email}, status = 'pending', confirm_token_hash = ${confirmHash},
+          unsubscribe_token_hash = ${unsubHash},
           topics = ${topics}, consent_at = now(), ip_hash = ${ipHash}, source = ${source ?? null},
           confirm_sent_at = now(), confirm_send_count = confirm_send_count + 1
-        WHERE id = ${row.id}`;
-      id = row.id;
+        WHERE id = ${row.id}
+          AND status <> 'confirmed'
+          AND (confirm_sent_at IS NULL OR confirm_sent_at < now() - interval '10 minutes')
+          AND confirm_send_count < ${MAX_CONFIRMS}
+        RETURNING id`;
+      const claimed = updated[0];
+      // Nothing claimed: inside the cooldown, over the cap, or someone else won the race.
+      if (!claimed) return res.status(202).json({ ok: true, message: GENERIC });
+      id = claimed.id;
     } else {
       const inserted = await sql`
         INSERT INTO subscribers
           (email, status, email_hash, confirm_token_hash, unsubscribe_token_hash, topics,
            consent_at, ip_hash, source, confirm_sent_at, confirm_send_count)
         VALUES
-          (${email}, 'pending', ${emailHash}, ${confirmHash}, ${hashToken(newToken())}, ${topics},
+          (${email}, 'pending', ${emailHash}, ${confirmHash}, ${unsubHash}, ${topics},
            now(), ${ipHash}, ${source ?? null}, now(), 1)
         RETURNING id`;
       const created = inserted[0];
