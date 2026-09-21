@@ -89,6 +89,11 @@
   .head .tag { font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue-mid); margin-bottom:0.75rem; }
   .head h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5vw,3rem); color:var(--blue-deep); line-height:1.15; margin-bottom:0.75rem; }
   .head h1 em { font-style:italic; color:var(--blue-mid); }
+  .sections { max-width:1080px; margin:0 auto; padding:0 2rem 0.5rem; }
+  .sections p { color:var(--ink-soft); margin-bottom:0.5rem; }
+  .sections ul { list-style:none; display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; }
+  .sections a { display:inline-flex; align-items:center; min-height:48px; font-weight:500; }
+  @media (max-width:768px) { .sections { padding-left:1.25rem; padding-right:1.25rem; } }
   .head p { font-size:1.02rem; color:var(--ink-soft); font-weight:300; line-height:1.6; max-width:640px; }
 
   .genre-tabs { position:sticky; top:3.7rem; z-index:60; background:rgba(245,240,234,0.95); backdrop-filter:blur(10px); border-bottom:1px solid rgba(27,58,92,0.07); }
@@ -154,6 +159,14 @@
     <h1><em>Поза</em> кодом</h1>
     <p>Те, що я пишу поза роботою: есеї, оповідання й записи про життя з хворобою Паркінсона, село і пам'ять. Чесно, без прикрашань. Раніше — на Patreon, тепер тут.</p>
   </header>
+  <nav class="sections" aria-label="Тематичні розділи">
+    <p>Ці ж записи згруповано за темами — разом зі статтями з блогу:</p>
+    <ul>
+      <li><a href="/parkinson/">Життя з Паркінсоном →</a></li>
+      <li><a href="/creative/">Творчість →</a></li>
+      <li><a href="/code/">Код →</a></li>
+    </ul>
+  </nav>
   <nav class="genre-tabs" aria-label="Фільтр записів за жанром">
     <div class="genre-tabs-inner">
       <button class="gt active" data-filter="all" aria-pressed="true">Усі</button>

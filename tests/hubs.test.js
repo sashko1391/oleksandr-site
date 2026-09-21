@@ -128,5 +128,10 @@ describe('section hubs', () => {
     expect(read('creative/index.html')).toContain('href="/parkinson/"');
     expect(read('parkinson/index.html')).toContain('href="/journal/"');
     expect(read('services/index.html'), '/services/ must point at the archive').toContain('href="/blog/"');
+    // the journal keeps the full feed, but a reader must be able to get to the topic hubs from it
+    const journal = read('journal/index.html');
+    for (const hub of ['/parkinson/', '/creative/', '/code/']) {
+      expect(journal, `/journal/ must link ${hub}`).toContain(`href="${hub}"`);
+    }
   });
 });
