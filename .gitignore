@@ -22,3 +22,6 @@ doc/proposals/   # комерційні пропозиції: бюджети, у
 
 # Patreon session (playwright storageState)
 patreon-auth.json
+
+# announce state (which posts already went to the channel) — machine-local
+.announce-state.json

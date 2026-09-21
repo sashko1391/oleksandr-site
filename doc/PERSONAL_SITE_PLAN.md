@@ -148,7 +148,8 @@
   у кожного (до 30 найновіших постів розділу за `HUB_MEMBERS`); autodiscovery першим рядком у `<head>` хаба
   **і його постів**, видиме посилання на сторінці хаба.
   Деталі — `doc/SUBSCRIPTION_PLAN.md`, Фаза 0.1b.
-- ⏳ **Telegram-канал** — потребує власника: створити канал, додати бота адміном, дати `TELEGRAM_CHANNEL_ID`.
+- ✅ **Telegram-канал** (21.09.2026): `t.me/parkinsandr`, бот — адмін, `TELEGRAM_CHANNEL_ID` у Vercel env;
+  `npm run announce -- <розділ/slug>` постить новий запис у канал і регенерує фіди; видимі посилання на хабах.
 - ⏳ **Email (Resend)** — потребує власника: акаунт і ключ, DNS на `send.parkinsandr.tech`; далі Supabase
   `subscribers`, double-opt-in, віджет, оновлення `/privacy/` (`doc/SUBSCRIPTION_PLAN.md`, Фаза 1).
 **DoD:** підписка по темах працює (RSS ✅); email-список — канал анонсів.

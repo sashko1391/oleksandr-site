@@ -36,6 +36,7 @@ npm run check:links                   # валідатор посилань і �
 npm run smoke:forms                   # браузерний smoke всіх лід-форм (Playwright + системний Chrome)
 node scripts/build-feed.mjs           # регенерувати feed.xml — загальний і по розділах
 node scripts/inject-rss.mjs           # RSS <link> у <head> (загальний скрізь, фід розділу — на хабі й постах)
+npm run announce -- journal/slug      # анонс поста: фіди + пост у Telegram-канал (--dry щоб подивитись)
 node scripts/inject-comments.mjs      # блок коментарів у journal + blog (ідемпотентно)
 scripts/indexnow.sh /journal/slug/    # IndexNow для конкретних шляхів
 ```

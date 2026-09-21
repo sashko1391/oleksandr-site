@@ -25,13 +25,27 @@
   рішення — чиста `tagsFor()`, ідемпотентно), видимі посилання — у блоці «Поруч» трьох хабів і окремим
   блоком «Підписка» в `/journal/`.
 - `vercel.json`: ті самі Content-Type і кеш 30 хв на `/:section/feed.xml`.
+- Логотип каналу — `public/images/rss-logo.png` 144×144 із заявленими розмірами (RSS 2.0 інакше вважає 88×31).
 - Тести: `tests/feed.test.js` 55 + посилений `tests/policy.test.js`. Мутаційна перевірка: 20 мутантів — 20 убито
   (після рев'ю Codex додано: дубль `<item>`, зниклий `<pubDate>`, підмінений `<title>` при тому самому GUID,
   переставлені item-и, зламаний XML, лінк у коментарі, зворотний порядок alternate, чужий фід на сторінці).
 
-**Не зроблено (потребує власника):** Telegram-канал `@parkinsandr` (ручне створення + `TELEGRAM_CHANNEL_ID`)
-і видимі лінки; Фаза 1 Email (Resend + DNS `send.parkinsandr.tech` + Supabase `subscribers` + API + віджет +
-`/privacy/`); Фаза 2 `scripts/announce.mjs`.
+**Зроблено — Фаза 0.2 (Telegram-канал), 2026-09-21:** канал `t.me/parkinsandr` створено власником, бот доданий
+адміністратором із правом публікації, `TELEGRAM_CHANNEL_ID` — у Vercel env (редеплой зроблено).
+- `scripts/announce.mjs <розділ/slug> [--dry] [--only=tg|feed] [--force]` — регенерує фіди й постить у канал
+  через наявний `sendToChannel()`. Формат поста: жирний заголовок, тизер із `description`, голий canonical
+  (щоб Telegram намалював OG-картку) і один хештег.
+- Хештег береться з `HUB_MEMBERS.primary`, а не з `articleSection`: секція є лише в 12 із 28 постів і суперечить
+  сама собі (`Есеї`/`Проза`/`Журнал`/`Блог` як синоніми).
+- Секрети — лише з gitignored `.env` або середовища; стан «що вже анонсовано» — gitignored `.announce-state.json`
+  (повторний прогін нічого не дублює, `--force` перекриває).
+- Видимі посилання «Канал у Telegram →» — на чотирьох хабах поруч із RSS; URL — одна константа `TELEGRAM_CHANNEL`
+  у `scripts/link-policy.mjs`, тест ловить появу другої адреси.
+- Тести: `tests/announce.test.js` (13) + 2 у `tests/hubs.test.js`. Мутаційна перевірка: 6 мутантів — 6 убито
+  (зокрема «без HTML-екранування» і «посилання загорнуте в `<a>`», що вбиває прев'ю).
+
+**Не зроблено:** Фаза 1 Email (Resend + DNS `send.parkinsandr.tech` + Supabase `subscribers` + API + віджет +
+`/privacy/`); email-частина `announce.mjs` (Фаза 2, per-recipient трекінг).
 
 **Переглянуто під нову IA:**
 - ✅ `SECTIONS` у `build-feed.mjs` лишається джерелом постів (journal + blog), розділи — з `HUB_MEMBERS`.

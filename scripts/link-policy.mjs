@@ -7,6 +7,9 @@ export const SITE = 'https://www.parkinsandr.tech';
 /** Personal contact for «напишіть мені» error reports (owner decision 2026-09-18) — not the sales chat. */
 export const PERSONAL_CONTACT = 'https://t.me/+380936429885';
 
+/** The public broadcast channel (Ф4). One URL everywhere on the site; TELEGRAM_CHANNEL_ID lives in Vercel env. */
+export const TELEGRAM_CHANNEL = 'https://t.me/parkinsandr';
+
 const TALK = 'Обговорити проєкт →';
 const AI = 'Поговорити з AI →';
 const HELPER = 'AI-помічником';

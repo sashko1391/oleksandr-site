@@ -3,7 +3,9 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
+import { HUB_MEMBERS, TELEGRAM_CHANNEL, PERSONAL_CONTACT } from '../scripts/link-policy.mjs';
+import { FEEDS } from '../scripts/build-feed.mjs';
+import { maskInert } from '../scripts/inject-rss.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
 const SITE = 'https://www.parkinsandr.tech';
@@ -134,6 +136,27 @@ describe('section hubs', () => {
     const posts = HUB_MEMBERS['blog/'].also;
     expect(posts).toHaveLength(12);
     for (const file of posts) expect(archive).toContain(`href="/${file.replace('index.html', '')}"`);
+  });
+
+  it('every section with a feed offers both ways to subscribe, visibly', () => {
+    for (const feed of FEEDS.slice(1)) {
+      const hub = feed.file.replace('feed.xml', 'index.html');
+      const body = maskInert(read(hub)).replace(/<head[\s>][\s\S]*?<\/head>/i, '');
+      expect(body, `${hub}: no visible RSS link`).toContain(`href="/${feed.file}"`);
+      expect(body, `${hub}: no Telegram channel link`).toContain(`href="${TELEGRAM_CHANNEL}"`);
+    }
+  });
+
+  it('the Telegram channel is one URL across the site — no second address to keep in sync', () => {
+    const urls = new Set();
+    for (const rel of Object.keys(HUB_MEMBERS).map((h) => `${h}index.html`).concat('index.html')) {
+      if (!existsSync(join(PUBLIC, rel))) continue;
+      for (const m of read(rel).matchAll(/https:\/\/t\.me\/[^"'\s<]+/g)) urls.add(m[0]);
+    }
+    // two Telegram addresses exist on purpose and mean different things: the broadcast channel and the
+    // owner's personal contact on the commercial pages. A third one would be an address to keep in sync.
+    expect([...urls].sort(), 'an unknown Telegram address appeared')
+      .toEqual([TELEGRAM_CHANNEL, PERSONAL_CONTACT].sort());
   });
 
   it('the hubs link to each other and to the pages that own the rest', () => {

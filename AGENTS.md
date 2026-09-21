@@ -12,6 +12,8 @@
 - Static HTML без build step (Astro — фаза Ф6); хостинг Vercel (`vercel.json`); деплой = `git push` у `main`.
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
 - Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
+- Підписка: RSS (загальний + по розділах) і публічний Telegram-канал `@parkinsandr` (`t.me/parkinsandr`,
+  URL — константа `TELEGRAM_CHANNEL` у `scripts/link-policy.mjs`); email — ще не зроблено.
 - Vercel Functions: `api/comments.js`, `api/tg-webhook.js`, `api/cron/comments-retention.js` + `lib/` (Supabase через
   IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на `/services/` (до Ф3 — на головній) — **скриптовий бот** (готові відповіді
   в JS, без LLM); заявки з бота й лід-форм пересилає в Telegram Cloudflare Worker `oleksandr-site.sashko1391.workers.dev`
@@ -29,13 +31,13 @@
 | `doc/HUBS_PLAN.md` | ✅ Ф2 виконано 2026-09-21: хаби, архів `/blog/`, рамка рубрики, breadcrumbs → хаби (`f2-done`) |
 | `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
 | `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
-| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS загальний і по розділах у репо; Telegram-канал і Email — потребують власника |
+| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS загальний і по розділах + Telegram-канал з автопостингом; Email — далі |
 | `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: дані GSC, зроблене 2026-09-21, що міряти далі |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
 `/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
-Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS по розділах ✅, Telegram/Email — за власником) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS по розділах ✅, Telegram-канал ✅, Email — далі) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
 ## Правила
@@ -107,6 +109,9 @@ api/ · lib/ · scripts/ · tests/ · doc/
 
 ## Скрипти
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml` + фіди розділів `public/{parkinson,code,creative,journal}/feed.xml`
+- `npm run announce -- <розділ/slug> [--dry] [--only=tg|feed] [--force]` — публікація поста: фіди + пост у
+  Telegram-канал (`@parkinsandr`). Секрети — з gitignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`);
+  що вже анонсовано, лежить у gitignored `.announce-state.json`; `--dry` нічого не шле й нічого не пише
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>`: загальний на всіх сторінках, крім 404; фід розділу —
   першим на хабі розділу та на його постах (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
@@ -130,6 +135,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
    `[advisory — перевір GET /api/comments?slug=… → 200]`
 4. `sitemap.xml` (lastmod), пост у `HUB_MEMBERS` (`scripts/link-policy.mjs`) — інакше він не потрапить ні на хаб,
    ні у фід розділу, `node scripts/build-feed.mjs && node scripts/inject-rss.mjs`, картка в індексі розділу.
+   Далі анонс: `npm run announce -- <розділ/slug> --dry` → перевірити текст → без `--dry`.
    `[enforced: tests/policy.test.js + tests/feed.test.js]`
 5. Щонайменше 3 вхідні внутрішні посилання; після деплою — IndexNow + GSC «Запросити індексування». `[advisory]`
 
