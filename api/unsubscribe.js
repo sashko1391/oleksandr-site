@@ -7,7 +7,7 @@ import { TokenInput } from '../lib/schema.js';
 import { jsonError, htmlPage } from '../lib/http.js';
 import { hashToken } from '../lib/security.js';
 
-const ACTION = '/api/unsubscribe';
+const ACTION = '/api/unsubscribe/';
 
 function tokenOf(req) {
   // RFC 8058 posts `List-Unsubscribe=One-Click` as the body, with the token still in the URL.

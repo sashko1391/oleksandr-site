@@ -77,7 +77,8 @@
 
     submit.disabled = true;
     setStatus(status, 'Надсилаю…', '');
-    fetch('/api/subscribe', {
+    // Слеш обов'язковий: vercel.json має trailingSlash, і без нього кожен виклик — зайвий 308.
+    fetch('/api/subscribe/', {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-requested-with': 'fetch' },
       body: JSON.stringify({

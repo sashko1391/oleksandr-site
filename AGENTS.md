@@ -161,7 +161,11 @@ api/ · lib/ · scripts/ · tests/ · doc/
 ## Технічні нотатки
 - Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (лише в коментарях), `/js/comments.v1.js`.
 - `vercel.json`: `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
-  для сканування); rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml` і `/:section/feed.xml`; cron retention.
+  для сканування). **Наслідок:** виклики API теж треба робити зі слешем (`/api/subscribe/`), інакше кожен
+  запит коштує зайвий 308, а one-click POST від поштового клієнта може за ним і не піти. `comments.v1.js`
+  досі ходить без слеша (працює через редирект); виправити — разом із наступним бампом до `v2`
+  rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml` і `/:section/feed.xml`;
+  crons: очистка коментарів (3:00) і підписників (3:30).
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.
 - Лаб-PSI цього сайту шумить (cold Vercel edge) — мірити 3–4 прогони, дивитись на медіану.

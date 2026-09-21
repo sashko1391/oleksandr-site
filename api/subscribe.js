@@ -158,7 +158,7 @@ export default async function handler(req, res) {
   }
 
   const { subject, html, text } = confirmEmail({
-    confirmUrl: `${SITE}/api/subscribe/confirm?token=${encodeURIComponent(raw)}`,
+    confirmUrl: `${SITE}/api/subscribe/confirm/?token=${encodeURIComponent(raw)}`,
     topics,
   });
   try {

@@ -6,7 +6,7 @@ import { TokenInput } from '../../lib/schema.js';
 import { jsonError, htmlPage } from '../../lib/http.js';
 import { hashToken } from '../../lib/security.js';
 
-const ACTION = '/api/subscribe/confirm';
+const ACTION = '/api/subscribe/confirm/';
 
 /** The token of this request: the emailed link puts it in the query, our own form re-posts it. */
 function tokenOf(req) {

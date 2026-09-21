@@ -85,6 +85,21 @@ describe('subscription block', () => {
     }
   });
 
+  it('calls the API with the trailing slash vercel.json enforces (no 308 on every submit)', () => {
+    const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v1.js'), 'utf8');
+    expect(js).toContain("fetch('/api/subscribe/'");
+    const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
+    expect(vercel.trailingSlash, 'this test exists because of that setting').toBe(true);
+    // the links people open from an email must not redirect either — a one-click POST may not follow
+    for (const [file, needle] of [
+      ['api/subscribe.js', '/api/subscribe/confirm/?token='],
+      ['api/subscribe/confirm.js', "const ACTION = '/api/subscribe/confirm/'"],
+      ['api/unsubscribe.js', "const ACTION = '/api/unsubscribe/'"],
+    ]) {
+      expect(readFileSync(join(process.cwd(), file), 'utf8'), file).toContain(needle);
+    }
+  });
+
   it('never claims a letter was sent when the request failed', () => {
     const js = readFileSync(join(PUBLIC, 'js', 'subscribe.v1.js'), 'utf8');
     const failure = js.split('r.status === 503')[1].split('} else')[0];
