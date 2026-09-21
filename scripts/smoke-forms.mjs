@@ -141,16 +141,16 @@ async function formChecks(browser, base) {
 }
 
 
-/** The homepage bot keeps a retry queue in localStorage; flushing it must not swallow a fresh lead. */
+/** The scripted bot (on /services/ since Ф3) keeps a retry queue; flushing it must not swallow a fresh lead. */
 async function botQueueChecks(browser, base) {
   // first call (the flush of the seeded lead) answers slowly; everything after it fails
   const ctx = await open(browser, base, {
-    path: '/',
+    path: '/services/',
     workerPlan: (n) => (n === 1 ? { status: 200, delayMs: 10000 } : { status: 500 }),
   });
   const { page } = ctx;
   await page.evaluate(() => localStorage.setItem('chat_queue', JSON.stringify([
-    { id: 'seeded-1', contact: '@seeded', history: 'seeded', source: '/', timestamp: new Date().toISOString() },
+    { id: 'seeded-1', contact: '@seeded', history: 'seeded', source: '/services/', timestamp: new Date().toISOString() },
   ])));
   await page.reload({ waitUntil: 'load' });
   await page.fill('#chatInput', '@fresh_contact');
@@ -158,11 +158,11 @@ async function botQueueChecks(browser, base) {
   await page.waitForFunction(() => (JSON.parse(localStorage.getItem('chat_queue') || '[]')).some((p) => p.contact === '@fresh_contact'), null, { timeout: 15000 });
   // the fresh lead must land while the flush is still waiting for its slow answer
   const duringFlush = await page.evaluate(() => JSON.parse(localStorage.getItem('chat_queue') || '[]'));
-  check('homepage bot: the flush is still in flight when the fresh lead is queued',
+  check('/services/ bot: the flush is still in flight when the fresh lead is queued',
     duringFlush.some((p) => p.id === 'seeded-1'), JSON.stringify(duringFlush.map((p) => p.contact)));
   await page.waitForTimeout(12000); // let the slow flush finish and rewrite the queue
   const queue = await page.evaluate(() => JSON.parse(localStorage.getItem('chat_queue') || '[]'));
-  check('homepage bot: a lead sent during a queue flush is not lost',
+  check('/services/ bot: a lead sent during a queue flush is not lost',
     queue.some((p) => p.contact === '@fresh_contact') && !queue.some((p) => p.id === 'seeded-1'),
     JSON.stringify(queue.map((p) => p.contact)));
   await ctx.context.close();

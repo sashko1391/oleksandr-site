@@ -205,11 +205,14 @@ const SERVICE_PAGE = /^services\/[^/]+\/index\.html$/;
 const PROJECT_PAGE = /^projects\/[^/]+\/index\.html$/;
 const BLOG_CRUMB = { pages: /^blog\/[^/]+\/index\.html$/, name: 'Блог', item: `${SITE}/#blog` }; // Ф2 repoints it
 
-/** Our entity @id never changes; until Ф3 moves the full node these pages keep exactly these occurrences. */
+/**
+ * Our entity @id never changes (AGENTS rule 3). Ф3 moved the full ProfessionalService node from the
+ * homepage to /services/, so the homepage no longer mentions it and /services/ has the node plus its
+ * six references.
+ */
 const ID_COUNTS = {
   [`${SITE}/#business`]: {
-    'index.html': 1,
-    'services/index.html': 6, // CollectionPage.about + provider of 5 services — references only
+    'services/index.html': 7, // the node itself + CollectionPage.about + provider of 5 services
     'services/kyiv/index.html': 2,
     'services/redesign/index.html': 1,
   },

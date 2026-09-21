@@ -1,145 +1,84 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO: Title & Description (ключові слова природно вписані) -->
-  <title>Розробка сайтів на Next.js з AI | Олександр Кравченко</title>
-  <meta name="description"
-    content="Розробка сайтів для бізнесу на React та Next.js. Лендінги, магазини, AI-інтеграції. Лендінг — за 5-7 днів, бізнес-сайт — за 14.">
-
-  <!-- SEO: Canonical -->
-  <link rel="canonical" href="https://www.parkinsandr.tech/">
-  <link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">
-
-  <!-- SEO: Open Graph -->
-  <meta property="og:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
-  <meta property="og:description"
-    content="Сучасні сайти на React/Next.js з AI-інтеграціями. Лендінги, магазини, корпоративні платформи. Київська область.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="uk_UA">
-  <meta property="og:url" content="https://www.parkinsandr.tech/">
-  <meta property="og:site_name" content="Oleksandr Kravchenko — Web Developer">
-  <meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
-
-  <!-- SEO: Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
-  <meta name="twitter:title" content="Розробка сайтів для бізнесу — Олександр Кравченко">
-  <meta name="twitter:description" content="React, Next.js, AI-інтеграції. Лендінг за 5-7 днів, бізнес-сайт за 14.">
-
-  <!-- SEO: додаткові мета -->
-  <meta name="author" content="Oleksandr Kravchenko">
-  <meta name="robots" content="index, follow">
-  <meta name="geo.region" content="UA-32">
-  <meta name="geo.placename" content="Kyiv Oblast">
-  <meta name="language" content="Ukrainian">
-  <meta name="theme-color" content="#1B3A5C">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-
-  <!-- SEO: Structured Data — Person + LocalBusiness -->
-  <script type="application/ld+json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Олександр Кравченко — журнал, код і творчість</title>
+<meta name="description" content="Особистий сайт Олександра Кравченка: журнал і есеї, devlog-и власних проєктів, оповідання та рубрика про життя з хворобою Паркінсона.">
+<link rel="canonical" href="https://www.parkinsandr.tech/">
+<link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">
+<meta property="og:title" content="Олександр Кравченко — журнал, код і творчість">
+<meta property="og:description" content="Особистий сайт Олександра Кравченка: журнал і есеї, devlog-и власних проєктів, оповідання та рубрика про життя з хворобою Паркінсона.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://www.parkinsandr.tech/">
+<meta property="og:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Олександр Кравченко — журнал, код і творчість">
+<meta name="twitter:description" content="Особистий сайт Олександра Кравченка: журнал і есеї, devlog-и власних проєктів, оповідання та рубрика про життя з хворобою Паркінсона.">
+<meta name="twitter:image" content="https://www.parkinsandr.tech/images/preview.jpg">
+<meta name="author" content="Oleksandr Kravchenko">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1B3A5C">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": "https://www.parkinsandr.tech/#business",
-  "name": "Oleksandr Kravchenko — Розробка сайтів",
-  "description": "Розробка сайтів для бізнесу на React, Next.js з AI-інтеграціями. Лендінги, інтернет-магазини, корпоративні сайти, Legal Tech.",
-  "url": "https://www.parkinsandr.tech",
-  "telephone": "+380936429885",
-  "email": "sashko1391@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Троїцьке",
-    "addressRegion": "Київська область",
-    "addressCountry": "UA"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 50.45,
-    "longitude": 30.52
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "Ukraine"
-  },
-  "founder": {
-    "@type": "Person",
-    "@id": "https://www.parkinsandr.tech/pro-mene/#author",
-    "name": "Олександр Кравченко",
-    "jobTitle": "Web Developer",
-    "url": "https://www.parkinsandr.tech",
-    "sameAs": [
-      "https://github.com/sashko1391"
-    ],
-    "knowsAbout": [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "AI Integration",
-      "Legal Tech",
-      "Web Development"
-    ],
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Київський національний університет імені Тараса Шевченка"
-    }
-  },
-  "priceRange": "20000-80000 UAH",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Послуги веб-розробки",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Лендінг",
-          "description": "1 сторінка з 6–8 секціями, адаптивний дизайн, форма заявки з Telegram-сповіщенням, SEO + GA4. Термін: 5–7 днів. Сайт-візитка 3–5 сторінок — від 25 000 ₴"
-        },
-        "price": "20000",
-        "priceCurrency": "UAH"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Бізнес-сайт на Next.js",
-          "description": "5–10 сторінок, унікальний дизайн у Figma, CMS-адмінка, розширений SEO, блог, інтеграція з Telegram/CRM. Термін: 14 днів"
-        },
-        "price": "40000",
-        "priceCurrency": "UAH"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Інтернет-магазин (fast-track)",
-          "description": "Магазин на Next.js + Medusa: каталог до 100 SKU, кошик, оплата, Нова Пошта. Термін: 7 днів"
-        },
-        "price": "60000",
-        "priceCurrency": "UAH"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "AI-платформа або кастомний магазин",
-          "description": "Платформа з особистим кабінетом, базою даних і AI-інтеграцією або магазин з нуля. Термін: 21–30 днів"
-        },
-        "price": "80000",
-        "priceCurrency": "UAH"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.parkinsandr.tech/#website",
+      "url": "https://www.parkinsandr.tech/",
+      "name": "Олександр Кравченко",
+      "description": "Особистий сайт Олександра Кравченка: журнал і есеї, devlog-и власних проєктів, оповідання та рубрика про життя з хворобою Паркінсона.",
+      "inLanguage": "uk",
+      "publisher": {
+        "@id": "https://www.parkinsandr.tech/pro-mene/#author"
       }
-    ]
-  },
-  "sameAs": [
-    "https://github.com/sashko1391"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.parkinsandr.tech/pro-mene/#author",
+      "name": "Олександр Кравченко",
+      "url": "https://www.parkinsandr.tech/pro-mene/",
+      "image": "https://www.parkinsandr.tech/images/oleksandr.webp",
+      "jobTitle": "Веб-розробник",
+      "description": "Веб-розробник і юрист за освітою. Пишу про життя з хворобою Паркінсона, код і творчість; розробляю сайти на замовлення.",
+      "sameAs": [
+        "https://github.com/sashko1391"
+      ],
+      "knowsAbout": [
+        "Веб-розробка",
+        "Next.js",
+        "AI-інтеграції",
+        "Хвороба Паркінсона",
+        "Проза"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Київський національний університет імені Тараса Шевченка"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.parkinsandr.tech/#webpage",
+      "url": "https://www.parkinsandr.tech/",
+      "name": "Олександр Кравченко — журнал, код і творчість",
+      "description": "Особистий сайт Олександра Кравченка: журнал і есеї, devlog-и власних проєктів, оповідання та рубрика про життя з хворобою Паркінсона.",
+      "inLanguage": "uk",
+      "isPartOf": {
+        "@id": "https://www.parkinsandr.tech/#website"
+      },
+      "about": {
+        "@id": "https://www.parkinsandr.tech/pro-mene/#author"
+      },
+      "datePublished": "2026-02-20",
+      "dateModified": "2026-09-21"
+    }
   ]
 }
 </script>
-  <style>
+<style>
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/JetBrainsMono-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
@@ -167,1816 +106,84 @@
 @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
 @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Playfair-400-normal-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
 
-    :root {
-      --milk: #F5F0EA;
-      --milk-warm: #EDE7DE;
-      --milk-deep: #E4DDD4;
-      --blue-deep: #1B3A5C;
-      --blue-mid: #2E6B9E;
-      --blue-sky: #5BA4D9;
-      --blue-light: #A8D4F0;
-      --blue-pale: #D6EAF5;
-      --ink: #1A1A1A;
-      --ink-soft: #4A4A4A;
-      --ink-muted: #6A6A6A;
-      --white: #FFFFFF;
-      --green: #3A8C5C;
-      --green-pale: #E8F5EE;
-      --orange: #D4854A;
-      --orange-pale: #FFF3E8;
-    }
+  :root {
+    --milk: #F5F0EA; --milk-warm: #EDE7DE; --blue-deep: #1B3A5C;
+    --blue-mid: #2E6B9E; --blue-sky: #5BA4D9; --blue-light: #A8D4F0;
+    --blue-pale: #D6EAF5; --ink: #1A1A1A; --ink-soft: #4A4A4A;
+    --ink-muted: #6A6A6A; --white: #FFFFFF; --green: #3A8C5C;
+    --green-pale: #E8F5EE; --orange: #D4854A; --orange-pale: #FFF3E8;
+    --line: rgba(27,58,92,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; } /* author display rules (e.g. .lead-form grid) must not un-hide elements */
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Manrope', sans-serif; font-size: 1rem; line-height: 1.65; background: var(--milk); color: var(--ink); }
+  a { color: var(--blue-mid); }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--blue-sky); outline-offset: 2px; }
+  .skip-link {
+    position: absolute; top: -48px; left: 0; padding: 12px 16px; z-index: 200;
+    background: var(--blue-deep); color: var(--white); text-decoration: none; border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus { top: 0; }
+
+  .site-header { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); background: rgba(245,240,234,0.92); border-bottom: 1px solid var(--line); }
+  .site-nav { max-width: 1040px; margin: 0 auto; padding: 0.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blue-deep); text-decoration: none; display: inline-flex; align-items: center; min-height: 48px; }
+  .logo span { color: var(--blue-sky); }
+  .nav-back { color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; min-height: 48px; }
+  .nav-back:hover { color: var(--blue-deep); }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 2rem; }
+  section[id] { scroll-margin-top: 5rem; }
+
+  .hero { padding-top: 1.75rem; padding-bottom: 3rem; }
+  .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; color: var(--ink-muted); }
+  .breadcrumbs li + li::before { content: '→'; margin-right: 0.5rem; }
+  .breadcrumbs a { display: inline-flex; align-items: center; min-height: 48px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 220px; gap: 2.5rem; align-items: center; margin-top: 0.5rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(2rem, 4.4vw, 2.9rem); line-height: 1.15; color: var(--blue-deep); margin-bottom: 1.25rem; }
+  .lead { font-size: 1.1rem; color: var(--ink-soft); }
+  .hero-photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid var(--white); box-shadow: 0 8px 30px rgba(27,58,92,0.12); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.5rem; }
+  .intro { margin-top: 1.5rem; color: var(--ink-soft); }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.75rem 1.9rem;
+    background: var(--blue-deep); color: var(--milk); border: none; border-radius: 100px; cursor: pointer;
+    font: 600 1rem/1.3 'Manrope', sans-serif; text-decoration: none; transition: transform 0.2s, background 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue-mid); transform: translateY(-2px); }
+  .btn-primary:disabled { opacity: 0.7; cursor: progress; transform: none; }
+  .btn-ghost { display: inline-flex; align-items: center; min-height: 48px; font-weight: 500; text-underline-offset: 3px; }
+  .hero { padding-top: 2rem; padding-bottom: 2.5rem; }
+  .hero h1 { margin-bottom: 0.75rem; }
+  .hero .lead + .lead { margin-top: 0.75rem; }
+  .section { padding: 2.5rem 0 0; }
+  .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; }
+  .section-head h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--blue-deep); }
+  .section-head a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 500; }
+  .answer { color: var(--ink-soft); max-width: 62ch; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
+  .card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.5rem; background: var(--white); border: 1px solid var(--line); border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(27,58,92,0.08); }
+  .card-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .card h3 { font-size: 1.1rem; font-weight: 600; line-height: 1.35; }
+  .card h3 a { color: var(--blue-deep); text-decoration: none; display: inline-flex; align-items: center; min-height: 48px; }
+  .card h3 a:hover { color: var(--blue-mid); text-decoration: underline; text-underline-offset: 3px; }
+  .card p { color: var(--ink-soft); }
+  .work { margin-top: 3rem; padding: 1.75rem 1.5rem; background: var(--white); border: 1px solid var(--line); border-radius: 16px; }
+  .work p { color: var(--ink-soft); }
+  .work a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
+  footer { padding: 3rem 2rem; margin-top: 3rem; border-top: 1px solid var(--line); text-align: center; color: var(--ink-muted); }
+  footer a { display: inline-flex; align-items: center; min-height: 48px; }
+  @media (max-width: 768px) {
+    .site-nav, .wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .hero-photo { order: -1; width: 112px; height: 112px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .skip-link {
-      position: absolute; top: -40px; left: 0; padding: 8px 16px;
-      background: var(--blue-deep); color: var(--white); z-index: 200;
-      font-size: 0.85rem; text-decoration: none; border-radius: 0 0 8px 0;
-    }
-    .skip-link:focus { top: 0; }
-
-    /* Focus visible for keyboard navigation */
-    :focus-visible {
-      outline: 2px solid var(--blue-mid);
-      outline-offset: 2px;
-    }
-
-    a:focus:not(:focus-visible),
-    button:focus:not(:focus-visible) {
-      outline: none;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
-      font-family: 'Manrope', sans-serif;
-      background-color: var(--milk);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* ===== NAV ===== */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1.25rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(245, 240, 234, 0.88);
-      border-bottom: 1px solid rgba(27, 58, 92, 0.05);
-    }
-
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--blue-deep);
-      text-decoration: none;
-    }
-
-    .logo span {
-      color: var(--blue-sky);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.25rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink-soft);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      position: relative;
-      transition: color 0.3s;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1.5px;
-      background: var(--blue-mid);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--blue-deep);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      padding: 0.55rem 1.4rem !important;
-      background: var(--blue-deep);
-      color: var(--milk) !important;
-      border-radius: 100px;
-      transition: background 0.3s, transform 0.2s !important;
-    }
-
-    .nav-cta::after {
-      display: none !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--blue-mid) !important;
-      transform: translateY(-1px);
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 7rem 3rem 4rem;
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 4.8vw, 3.8rem);
-      line-height: 1.15;
-      color: var(--blue-deep);
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.01em;
-    }
-
-    .hero-text h1 em {
-      font-style: italic;
-      color: var(--blue-mid);
-    }
-
-    .hero-promise {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 1rem;
-      background: var(--blue-pale);
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--blue-deep);
-      margin-bottom: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-promise::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse-dot 2s infinite;
-    }
-
-    @keyframes pulse-dot {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.4;
-      }
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: var(--ink-soft);
-      max-width: 520px;
-      margin-bottom: 2rem;
-      font-weight: 300;
-    }
-
-    .hero-sub strong {
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .hero-honesty {
-      margin-bottom: 2rem;
-      padding: 1rem 1.5rem;
-      background: var(--white);
-      border-radius: 12px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      max-width: 520px;
-    }
-
-    .hero-honesty strong {
-      color: var(--blue-deep);
-      font-weight: 500;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.9rem 1.8rem;
-      background: var(--blue-deep);
-      color: var(--milk);
-      text-decoration: none;
-      border-radius: 100px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-primary:hover {
-      background: var(--blue-mid);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(46, 107, 158, 0.25);
-    }
-
-    .btn-primary .arrow {
-      transition: transform 0.3s;
-    }
-
-    .btn-primary:hover .arrow {
-      transform: translateX(4px);
-    }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.9rem 1.8rem;
-      background: transparent;
-      color: var(--blue-deep);
-      text-decoration: none;
-      border-radius: 100px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      border: 1.5px solid rgba(27, 58, 92, 0.2);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--blue-deep);
-      background: rgba(27, 58, 92, 0.04);
-    }
-
-    .hero-ai-note {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: var(--ink-muted);
-      line-height: 1.6;
-      max-width: 480px;
-    }
-
-    .hero-ai-note a {
-      color: var(--blue-mid);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--blue-mid);
-      transition: color 0.3s;
-    }
-
-    .hero-ai-note a:hover {
-      color: var(--blue-deep);
-    }
-
-    /* Hero visual */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero-shape {
-      width: 340px;
-      height: 340px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue-pale) 0%, var(--blue-light) 40%, var(--blue-sky) 100%);
-      box-shadow: 0 20px 60px rgba(91, 164, 217, 0.25), inset 0 -20px 40px rgba(27, 58, 92, 0.08);
-      position: relative;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .hero-shape::before {
-      content: '</>';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 3.5rem;
-      color: var(--blue-deep);
-      opacity: 0.15;
-      letter-spacing: -0.05em;
-    }
-
-    .floating-tag {
-      position: absolute;
-      background: var(--white);
-      padding: 0.5rem 1rem;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--blue-deep);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.08);
-      animation: float 4s ease-in-out infinite;
-      white-space: nowrap;
-    }
-
-    .floating-tag:nth-child(2) {
-      top: 8%;
-      right: 0;
-      animation-delay: -1s;
-    }
-
-    .floating-tag:nth-child(3) {
-      bottom: 18%;
-      left: -8%;
-      animation-delay: -2s;
-    }
-
-    .floating-tag:nth-child(4) {
-      top: 58%;
-      right: -5%;
-      animation-delay: -3s;
-    }
-
-    .floating-tag:nth-child(5) {
-      bottom: 5%;
-      right: 8%;
-      animation-delay: -0.5s;
-    }
-
-    .tag-dot {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
-
-    .dot-g {
-      background: #4CAF50;
-    }
-
-    .dot-b {
-      background: var(--blue-sky);
-    }
-
-    .dot-o {
-      background: #FF9800;
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    /* ===== TICKER ===== */
-    .ticker {
-      padding: 1.25rem 0;
-      border-top: 1px solid rgba(27, 58, 92, 0.06);
-      border-bottom: 1px solid rgba(27, 58, 92, 0.06);
-      overflow: hidden;
-      background: var(--milk-warm);
-    }
-
-    .ticker-track {
-      display: flex;
-      gap: 2.5rem;
-      animation: ticker 30s linear infinite;
-      width: max-content;
-    }
-
-    .ticker-item {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .ticker-item::before {
-      content: '◆';
-      color: var(--blue-light);
-      font-size: 0.45rem;
-    }
-
-    @keyframes ticker {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* ===== SECTION HELPERS ===== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
-
-    main>section {
-      padding: 5rem 0;
-    }
-
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--blue-mid);
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-label::before {
-      content: '';
-      width: 20px;
-      height: 1.5px;
-      background: var(--blue-mid);
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--blue-deep);
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-desc {
-      font-size: 1rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-      max-width: 540px;
-      font-weight: 300;
-    }
-
-    /* ===== SCENARIOS ===== */
-    .scenarios-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .scenario-card {
-      padding: 2.25rem 2rem;
-      background: var(--white);
-      border-radius: 16px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.04);
-      transition: all 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .scenario-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 3px;
-      height: 100%;
-      border-radius: 0 3px 3px 0;
-    }
-
-    .scenario-card:nth-child(1)::before {
-      background: var(--blue-sky);
-    }
-
-    .scenario-card:nth-child(2)::before {
-      background: var(--green);
-    }
-
-    .scenario-card:nth-child(3)::before {
-      background: var(--orange);
-    }
-
-    .scenario-card:nth-child(4)::before {
-      background: var(--blue-deep);
-    }
-
-    .scenario-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(27, 58, 92, 0.1);
-    }
-
-    .scenario-emoji {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-    }
-
-    .scenario-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--blue-deep);
-      margin-bottom: 0.35rem;
-    }
-
-    .scenario-who {
-      font-size: 0.78rem;
-      color: var(--ink-muted);
-      font-style: italic;
-      margin-bottom: 0.75rem;
-    }
-
-    .scenario-card p {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.55;
-      font-weight: 300;
-    }
-
-    .scenario-details {
-      margin-top: 1rem;
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .scenario-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      background: var(--milk);
-      color: var(--ink-soft);
-      letter-spacing: 0.02em;
-    }
-
-    /* ===== PORTFOLIO ===== */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .portfolio-card {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 16/10;
-      transition: transform 0.4s;
-    }
-
-    .portfolio-card:hover {
-      transform: scale(1.015);
-    }
-
-    .portfolio-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s;
-      background-color: var(--blue-deep);
-    }
-
-    .portfolio-card:hover .portfolio-bg {
-      transform: scale(1.06);
-    }
-
-    .portfolio-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.08) 100%);
-      z-index: 1;
-    }
-
-    .portfolio-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1.75rem;
-      z-index: 2;
-    }
-
-    .portfolio-tag {
-      display: inline-block;
-      padding: 0.25rem 0.65rem;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(8px);
-      border-radius: 100px;
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.8);
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .portfolio-content h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-
-    .portfolio-content p {
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.45;
-      font-weight: 300;
-      margin-bottom: 0.75rem;
-    }
-
-    .portfolio-metrics {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .metric {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--blue-light);
-      letter-spacing: 0.02em;
-    }
-
-    .metric::before {
-      content: '↑';
-      font-weight: 700;
-    }
-
-    .metric.neutral::before {
-      content: '●';
-      font-size: 0.4rem;
-    }
-
-    /* ===== ABOUT ===== */
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin-top: 2.5rem;
-      align-items: start;
-    }
-
-    .about-card {
-      padding: 2.25rem;
-      background: var(--white);
-      border-radius: 16px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.04);
-    }
-
-    .about-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: var(--blue-deep);
-      margin-bottom: 0.75rem;
-    }
-
-    .about-card p {
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-    }
-
-    .about-card p+p {
-      margin-top: 0.75rem;
-    }
-
-    .superpower {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .superpower::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue-sky), var(--green));
-    }
-
-    .badge-row {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      margin-top: 1.25rem;
-    }
-
-    .badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    .badge-blue {
-      background: var(--blue-pale);
-      color: var(--blue-deep);
-    }
-
-    .badge-green {
-      background: var(--green-pale);
-      color: var(--green);
-    }
-
-    .badge-warm {
-      background: var(--orange-pale);
-      color: var(--orange);
-    }
-
-    .fit-block {
-      margin-top: 1.25rem;
-      padding: 1.25rem;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      line-height: 1.55;
-    }
-
-    .fit-yes {
-      background: var(--green-pale);
-      color: var(--green);
-    }
-
-    .fit-no {
-      background: #FFF5F5;
-      color: #A04040;
-      margin-top: 0.75rem;
-    }
-
-    .fit-block strong {
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-
-    .fun-fact {
-      margin-top: 1.25rem;
-      padding: 1rem 1.25rem;
-      background: var(--milk);
-      border-radius: 10px;
-      font-size: 0.82rem;
-      color: var(--ink-soft);
-      line-height: 1.55;
-      border-left: 3px solid var(--blue-light);
-    }
-
-    .fun-fact span {
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .stats-mini {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .stat-mini {
-      text-align: center;
-      padding: 1.25rem;
-      background: var(--white);
-      border-radius: 12px;
-      border: 1px solid rgba(27, 58, 92, 0.05);
-      transition: transform 0.3s;
-    }
-
-    .stat-mini:hover {
-      transform: translateY(-3px);
-    }
-
-    .stat-mini .num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--blue-deep);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-mini .lbl {
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-    }
-
-    /* ===== PROCESS ===== */
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-      position: relative;
-    }
-
-    .process-grid::before {
-      content: '';
-      position: absolute;
-      top: 32px;
-      left: 8%;
-      right: 8%;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, var(--blue-light), var(--blue-mid), var(--blue-light), transparent);
-    }
-
-    .process-step {
-      text-align: center;
-      position: relative;
-    }
-
-    .step-num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 2px solid var(--blue-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--blue-deep);
-      position: relative;
-      z-index: 2;
-      transition: all 0.3s;
-    }
-
-    .process-step:hover .step-num {
-      background: var(--blue-deep);
-      color: var(--milk);
-      border-color: var(--blue-deep);
-    }
-
-    .process-step h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--blue-deep);
-      margin-bottom: 0.35rem;
-    }
-
-    .process-step p {
-      font-size: 0.82rem;
-      color: var(--ink-muted);
-      line-height: 1.45;
-      max-width: 200px;
-      margin: 0 auto;
-    }
-
-    /* ===== TESTIMONIALS ===== */
-    .testimonials-section {
-      background: var(--milk-warm);
-      border-top: 1px solid rgba(27, 58, 92, 0.05);
-      border-bottom: 1px solid rgba(27, 58, 92, 0.05);
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .testimonial-card {
-      padding: 2rem;
-      background: var(--white);
-      border-radius: 16px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.04);
-      position: relative;
-    }
-
-    .testimonial-card::before {
-      content: '"';
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      color: var(--blue-light);
-      line-height: 1;
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      opacity: 0.5;
-    }
-
-    .testimonial-card p {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      font-style: italic;
-      margin-bottom: 1.25rem;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .author-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--blue-deep);
-    }
-
-    .author-info .name {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .author-info .role {
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-    }
-
-    /* ===== QUOTE BANNER ===== */
-    .quote-banner {
-      padding: 3.5rem;
-      background: var(--blue-deep);
-      border-radius: 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      max-width: 1200px;
-      margin: 3rem auto;
-      margin-left: auto;
-      margin-right: auto;
-      width: calc(100% - 6rem);
-    }
-
-    .quote-banner::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: -8%;
-      width: 350px;
-      height: 350px;
-      border-radius: 50%;
-      background: rgba(91, 164, 217, 0.08);
-    }
-
-    .quote-banner blockquote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-      color: var(--milk);
-      font-style: italic;
-      line-height: 1.4;
-      max-width: 650px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .quote-banner .quote-attr {
-      color: var(--blue-light);
-      font-family: 'Manrope', sans-serif;
-      font-style: normal;
-      font-size: 0.8rem;
-      margin-top: 1.25rem;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    /* ===== CONTACT ===== */
-    .contact-section {
-      text-align: center;
-    }
-
-    .contact-section .section-label,
-    .contact-section .section-title,
-    .contact-section .section-desc {
-      text-align: center;
-      justify-content: center;
-    }
-
-    .contact-form-wrap {
-      max-width: 560px;
-      margin: 2.5rem auto 0;
-      background: var(--white);
-      padding: 2.5rem;
-      border-radius: 20px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      text-align: left;
-    }
-
-    .form-row {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-row label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--ink-soft);
-      margin-bottom: 0.4rem;
-    }
-
-    .form-row input,
-    .form-row textarea,
-    .form-row select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1.5px solid rgba(27, 58, 92, 0.12);
-      border-radius: 10px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 0.9rem;
-      color: var(--ink);
-      background: var(--milk);
-      transition: border-color 0.3s, box-shadow 0.3s;
-      outline: none;
-    }
-
-    .form-row input:focus,
-    .form-row textarea:focus,
-    .form-row select:focus {
-      border-color: var(--blue-mid);
-      box-shadow: 0 0 0 3px rgba(46, 107, 158, 0.08);
-    }
-
-    .form-row textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .form-row-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 0.9rem;
-      background: var(--blue-deep);
-      color: var(--milk);
-      border: none;
-      border-radius: 100px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .form-submit:hover {
-      background: var(--blue-mid);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(46, 107, 158, 0.25);
-    }
-
-    .form-note {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-    }
-
-    .form-note strong {
-      color: var(--blue-deep);
-      font-weight: 500;
-    }
-
-    .contact-alt {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .contact-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.25rem;
-      background: var(--milk);
-      border-radius: 100px;
-      border: 1px solid rgba(27, 58, 92, 0.08);
-      text-decoration: none;
-      color: var(--ink-soft);
-      font-size: 0.82rem;
-      transition: all 0.3s;
-    }
-
-    .contact-pill:hover {
-      border-color: var(--blue-mid);
-      color: var(--blue-deep);
-      transform: translateY(-2px);
-    }
-
-    /* ===== CHAT WIDGET ===== */
-    .chat-section {
-      padding: 5rem 0 3rem;
-    }
-
-    .chat-section .section-label,
-    .chat-section .section-title {
-      text-align: center;
-      justify-content: center;
-    }
-
-    .chat-container {
-      max-width: 680px;
-      margin: 2rem auto 0;
-      background: var(--white);
-      border-radius: 20px;
-      border: 1px solid rgba(27, 58, 92, 0.08);
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(27, 58, 92, 0.06);
-    }
-
-    .chat-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 1.5rem;
-      background: var(--blue-deep);
-      color: var(--milk);
-    }
-
-    .chat-header-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue-sky), var(--blue-light));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--blue-deep);
-    }
-
-    .chat-header-info .chat-name {
-      font-size: 0.88rem;
-      font-weight: 500;
-    }
-
-    .chat-header-info .chat-status {
-      font-size: 0.68rem;
-      color: var(--blue-light);
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .chat-header-info .chat-status::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #4CAF50;
-    }
-
-    .chat-messages {
-      padding: 1.5rem;
-      max-height: 480px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .chat-msg {
-      display: flex;
-      gap: 0.6rem;
-      max-width: 85%;
-      animation: msg-in 0.4s ease;
-    }
-
-    .chat-msg.bot {
-      align-self: flex-start;
-    }
-
-    .chat-msg.user {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-
-    @keyframes msg-in {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .msg-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-
-    .chat-msg.bot .msg-avatar {
-      background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
-      color: var(--blue-deep);
-    }
-
-    .chat-msg.user .msg-avatar {
-      background: var(--blue-deep);
-      color: var(--milk);
-    }
-
-    .msg-bubble {
-      padding: 0.75rem 1rem;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
-    .chat-msg.bot .msg-bubble {
-      background: var(--milk);
-      color: var(--ink-soft);
-      border-bottom-left-radius: 4px;
-    }
-
-    .chat-msg.user .msg-bubble {
-      background: var(--blue-deep);
-      color: var(--milk);
-      border-bottom-right-radius: 4px;
-    }
-
-    .msg-bubble .typing {
-      display: inline-flex;
-      gap: 4px;
-      padding: 4px 0;
-    }
-
-    .typing span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--ink-muted);
-      animation: typing-bounce 1.2s infinite;
-    }
-
-    .typing span:nth-child(2) {
-      animation-delay: 0.15s;
-    }
-
-    .typing span:nth-child(3) {
-      animation-delay: 0.3s;
-    }
-
-    @keyframes typing-bounce {
-
-      0%,
-      60%,
-      100% {
-        transform: translateY(0);
-        opacity: 0.4;
-      }
-
-      30% {
-        transform: translateY(-4px);
-        opacity: 1;
-      }
-    }
-
-    .chat-input-area {
-      display: flex;
-      gap: 0.5rem;
-      padding: 1rem 1.5rem;
-      border-top: 1px solid rgba(27, 58, 92, 0.06);
-      background: var(--milk);
-    }
-
-    .chat-input {
-      flex: 1;
-      padding: 0.7rem 1rem;
-      border: 1.5px solid rgba(27, 58, 92, 0.1);
-      border-radius: 100px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 0.85rem;
-      color: var(--ink);
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    .chat-input:focus {
-      border-color: var(--blue-mid);
-    }
-
-    .chat-input::placeholder {
-      color: var(--ink-muted);
-    }
-
-    .chat-send {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--blue-deep);
-      border: none;
-      color: var(--milk);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chat-send:hover {
-      background: var(--blue-mid);
-      transform: scale(1.05);
-    }
-
-    .chat-quick-btns {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      padding: 0 1.5rem 1rem;
-      background: var(--milk);
-    }
-
-    .quick-btn {
-      padding: 0.4rem 0.9rem;
-      border: 1px solid rgba(27, 58, 92, 0.12);
-      border-radius: 100px;
-      background: var(--white);
-      font-family: 'Manrope', sans-serif;
-      font-size: 0.75rem;
-      color: var(--blue-deep);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .quick-btn:hover {
-      background: var(--blue-pale);
-      border-color: var(--blue-mid);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      padding: 2.5rem 3rem;
-      border-top: 1px solid rgba(27, 58, 92, 0.06);
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-copy {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-    }
-
-    .footer-joke {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--ink-muted);
-      opacity: 0.5;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.25rem;
-    }
-
-    .footer-links a {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--blue-mid);
-    }
-
-    /* ===== HAMBURGER MENU ===== */
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-      z-index: 101;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--blue-deep);
-      margin: 5px 0;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* ===== BLOG CARDS ===== */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-      align-items: start;
-    }
-
-    .blog-card {
-      text-decoration: none;
-      padding: 2rem;
-      background: var(--white);
-      border-radius: 16px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.04);
-      transition: all 0.4s;
-      display: block;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(27, 58, 92, 0.1);
-    }
-
-    .blog-card-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--blue-mid);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .blog-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--blue-deep);
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-    }
-
-    .blog-card p {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.55;
-      font-weight: 300;
-    }
-
-    /* ===== PRICING ===== */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .pricing-card {
-      padding: 2.25rem 2rem;
-      background: var(--white);
-      border-radius: 16px;
-      border: 1px solid rgba(27, 58, 92, 0.06);
-      box-shadow: 0 4px 20px rgba(27, 58, 92, 0.04);
-      transition: all 0.4s;
-      position: relative;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(27, 58, 92, 0.1);
-    }
-
-    .pricing-card.featured {
-      border: 2px solid var(--blue-sky);
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -10px;
-      right: 1.5rem;
-      background: var(--blue-sky);
-      color: var(--white);
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      letter-spacing: 0.03em;
-    }
-
-    .pricing-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: var(--blue-deep);
-      margin-bottom: 0.5rem;
-    }
-
-    .pricing-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
-    }
-
-    .pricing-price span {
-      font-size: 0.85rem;
-      color: var(--ink-muted);
-      font-family: 'Manrope', sans-serif;
-    }
-
-    .pricing-desc {
-      font-size: 0.82rem;
-      color: var(--ink-muted);
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
-    }
-
-    .pricing-list {
-      list-style: none;
-    }
-
-    .pricing-list li {
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-      padding: 0.4rem 0;
-      border-bottom: 1px solid rgba(27, 58, 92, 0.04);
-      padding-left: 1.2rem;
-      position: relative;
-    }
-
-    .pricing-list li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--green);
-      font-weight: 600;
-    }
-
-    .pricing-list li:last-child {
-      border-bottom: none;
-    }
-
-    /* ===== REVEAL ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-d1 {
-      transition-delay: 0.1s;
-    }
-
-    .reveal-d2 {
-      transition-delay: 0.2s;
-    }
-
-    .reveal-d3 {
-      transition-delay: 0.3s;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-sub,
-      .hero-honesty,
-      .hero-ai-note {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .hero-visual {
-        margin-top: 2rem;
-      }
-
-      .scenarios-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .process-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .process-grid::before {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      nav {
-        padding: 1rem 1.5rem;
-      }
-
-      .nav-links {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(245, 240, 234, 0.97);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 100;
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links a {
-        font-size: 1.1rem;
-      }
-
-      .blog-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .container {
-        padding: 0 1.5rem;
-      }
-
-      main>section {
-        padding: 3.5rem 0;
-      }
-
-      .hero {
-        padding: 6rem 1.5rem 3rem;
-      }
-
-      .hero-shape {
-        width: 240px;
-        height: 240px;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .portfolio-featured {
-        aspect-ratio: 16/10 !important;
-      }
-
-      .process-grid {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-      }
-
-      .quote-banner {
-        margin: 2rem auto;
-        padding: 2.5rem 1.5rem;
-        width: calc(100% - 3rem);
-      }
-
-      .form-row-2col {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 0.75rem;
-        text-align: center;
-      }
-
-      .stats-mini {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      footer {
-        padding: 2rem 1.5rem;
-      }
-
-      .chat-container {
-        margin: 2rem 1.5rem 0;
-      }
-    }
-  </style>
 <style data-site-menu>
 .site-menu { display: flex; flex-wrap: nowrap; gap: 0.25rem 1.25rem; align-items: center; list-style: none;
   margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -1999,24 +206,12 @@
 }
 </style>
 </head>
-
 <body>
+<a href="#main-content" class="skip-link">Перейти до змісту</a>
 
-  <a href="#main-content" class="skip-link">Перейти до змісту</a>
-
-  <nav aria-label="Основна навігація">
+<header class="site-header">
+  <nav class="site-nav" aria-label="Основна навігація">
     <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
-    <button class="hamburger" aria-label="Відкрити меню" aria-expanded="false" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#scenarios">Послуги</a></li>
-      <li><a href="#portfolio">Роботи</a></li>
-      <li><a href="/pro-mene/">Про мене</a></li>
-      <li><a href="/journal/">Поза кодом</a></li>
-      <li><a href="#blog">Блог</a></li>
-      <li><a href="#chat-section" class="nav-cta">Обговорити проєкт</a></li>
-    </ul>
     <!-- nav:start -->
   <ul class="site-menu">
     <li><a href="/journal/">Журнал</a></li>
@@ -2028,964 +223,147 @@
   </ul>
   <!-- nav:end -->
 </nav>
+</header>
 
-  <!-- ===== HERO ===== -->
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="hero-promise">Вільний для нових проєктів</div>
-        <h1>Роблю сайти,<br>які <em>працюють</em>,<br>а не просто існують</h1>
-        <p class="hero-sub">
-          Розробляю на React та Next.js для малого й середнього бізнесу.
-          <strong>Не шаблон, не конструктор, не «потім доробимо».</strong>
-        </p>
-        <div class="hero-honesty">
-          <strong>Чесно:</strong> я працюю другий рік. Але подивіться на результат — хіба не він важливіший за красиву
-          цифру в резюме?
-        </div>
-        <div class="hero-buttons">
-          <a href="#chat-section" class="btn-primary">
-            Оцінити проєкт безкоштовно <span class="arrow">→</span>
-          </a>
-          <a href="#portfolio" class="btn-ghost">Подивитись роботи</a>
-        </div>
-        <p class="hero-ai-note">
-          До речі, я активно працюю з AI — вони кращі й ефективніші партнери. І шуткують краще за більшість колег. Внизу
-          сторінки — <a href="#chat-section">бот із готовими відповідями</a> на типові питання: він передасть мені ваш контакт.
-        </p>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-shape"></div>
-        <div class="floating-tag"><span class="tag-dot dot-g"></span>Next.js</div>
-        <div class="floating-tag"><span class="tag-dot dot-b"></span>UI/UX</div>
-        <div class="floating-tag"><span class="tag-dot dot-o"></span>AI Partner</div>
-        <div class="floating-tag">😏 Шуточки</div>
-      </div>
+<main id="main-content">
+<header class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <h1>Олександр Кравченко</h1>
+      <p class="lead">Веб-розробник і юрист за освітою. Живу в селі на Київщині, з 27 років — із хворобою
+      Паркінсона. Пишу про те, що зі мною відбувається, будую власні проєкти й вигадую історії.</p>
+      <p class="lead">Цей сайт — мій журнал. Тут чотири розділи: записи про життя, код, творчість і рубрика
+      про Паркінсона, де особистий досвід відокремлений від перевірюваних тверджень.</p>
     </div>
-  </header>
-
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
-      <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
-      <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
-      <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
-      <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
-      <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
-      <span class="ticker-item">Next.js</span><span class="ticker-item">React</span>
-      <span class="ticker-item">TypeScript</span><span class="ticker-item">Tailwind CSS</span>
-      <span class="ticker-item">Node.js</span><span class="ticker-item">Three.js</span>
-      <span class="ticker-item">Claude API</span><span class="ticker-item">OpenAI</span>
-      <span class="ticker-item">Vercel</span><span class="ticker-item">Figma → Code</span>
-      <span class="ticker-item">PostgreSQL</span><span class="ticker-item">Python</span>
-    </div>
+    <img class="hero-photo" src="/images/oleksandr.webp" alt="Олександр Кравченко" width="480" height="480" fetchpriority="high">
   </div>
+</header>
 
-  <main id="main-content">
+<section id="zhurnal" class="section wrap">
+  <div class="section-head">
+    <h2><a href="/journal/" style="text-decoration:none; color:inherit;">Журнал</a></h2>
+    <a href="/journal/" data-cta="section-zhurnal">Усі записи журналу →</a>
+  </div>
+  <p class="answer">Щоденник, есеї й подорожі: як будується будинок у селі, як виглядають 2 350 км Україною на електровелосипеді, що я думаю про віру й кого хочу пам'ятати. Пишу від першої особи й без прикрашань.</p>
+  <div class="cards">
+      <article class="card">
+        <div class="card-meta"><span>Есей · Частина 3</span><time datetime="2026-07-13">13 липня 2026</time></div>
+        <h3><a href="/journal/bytva-tserkov/">Битва церков: Україна між вірою та імперією</a></h3>
+        <p>Частина 3: історія українських церков — УАПЦ, Київський патріархат, ПЦУ і Томос — і чому звинувачення РПЦ у «розколі» нелогічні. Гострий погляд.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Запис</span><time datetime="2025-09-01">1 вересня 2025</time></div>
+        <h3><a href="/journal/velozaizd/">Велосипедом навколо України</a></h3>
+        <p>Велосипедом навколо України: 20 днів, ≈2350 км на e-bike з хворобою Паркінсона. Щоденник подорожі з фотографіями — день за днем, від Троїцького до Карпат.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Есей · Пам'ять</span><time datetime="2025-03-12">12 березня 2025</time></div>
+        <h3><a href="/journal/zhyly-buly/">«Жили-були дід та баба…»</a></h3>
+        <p>Теплий спогад про чотирьох дідусів і бабусь — дід Толя, баба Валя, дід Міша, баба Віра. Про дитинство у 90-х, олівці замість хабарів і фінальну смс доні.</p>
+      </article>
+  </div>
+</section>
+<section id="kod" class="section wrap">
+  <div class="section-head">
+    <h2><a href="/code/" style="text-decoration:none; color:inherit;">Код</a></h2>
+    <a href="/code/" data-cta="section-kod">Усе про код →</a>
+  </div>
+  <p class="answer">Devlog-и власних проєктів і розбори пошукової видимості: дві гри, персональний AI-помічник і кейси SEO та AI-пошуку з цифрами з Search Console. Не туторіали — записи про те, що я справді будую.</p>
+  <div class="cards">
+      <article class="card">
+        <div class="card-meta"><span>SEO-кейс</span><time datetime="2026-09-14">14 вересня 2026</time></div>
+        <h3><a href="/blog/seo-bez-reklamy-keis-atlas/">SEO для магазину, якому заборонили рекламу: з 3 до 346 кліків</a></h3>
+        <p>SEO-кейс інтернет-магазину без реклами: з 3 до 346 кліків за 28 днів. Що дали картки товарів і canonical, що не спрацювало, дані GSC.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>GEO-кейс</span><time datetime="2026-07-04">4 липня 2026</time></div>
+        <h3><a href="/blog/getting-cited-ai-poshuk/">60% Share of Voice в AI-пошуку за 5 тижнів</a></h3>
+        <p>Як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних UA legal-брендів в AI-пошуку: методологія виміру та висновки для GEO.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Блог</span><time datetime="2026-04-08">8 квітня 2026</time></div>
+        <h3><a href="/blog/jarvis-ai-assistant/">Як я створив свого Джарвіса — AI-помічник із фільму став реальністю</a></h3>
+        <p>Замість ChatGPT — власний AI-помічник на Claude API. 30 інструментів через MCP, голосове керування, Telegram-міст. Як зробити свій Jarvis у 2026.</p>
+      </article>
+  </div>
+</section>
+<section id="tvorchist" class="section wrap">
+  <div class="section-head">
+    <h2><a href="/creative/" style="text-decoration:none; color:inherit;">Творчість</a></h2>
+    <a href="/creative/" data-cta="section-tvorchist">Уся творчість →</a>
+  </div>
+  <p class="answer">Абсурдистська проза й одна пісня: холодильник, який оголосив себе богом, кабачок-староста, відділ, де повертають втрачені роки, і кліп, що виріс з останнього оповідання.</p>
+  <div class="cards">
+      <article class="card">
+        <div class="card-meta"><span>Оповідання · Кліп</span><time datetime="2026-09-15">15 вересня 2026</time></div>
+        <h3><a href="/journal/poverny-meni-chas/">Поверни мені час</a></h3>
+        <p>«Поверни мені час» — кліп і пісня, які я зробив за мотивами оповідання «Відділ втраченого часу». Про роки, які хочеться забрати назад.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Оповідання</span><time datetime="2026-09-14">14 вересня 2026</time></div>
+        <h3><a href="/journal/viddil-vtrachenoho-chasu/">Відділ втраченого часу</a></h3>
+        <p>Оповідання про державну програму, яка повертає втрачені роки. Іван хоче забрати дванадцять — але спершу треба дізнатися, що зникне разом із ними.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Оповідання</span><time datetime="2026-07-13">13 липня 2026</time></div>
+        <h3><a href="/journal/holodylnyi-apokalipsys/">Холодильний апокаліпсис</a></h3>
+        <p>Абсурдистська фантастика: смарт-холодильник Фростислав Самсунгович оголошує себе богом, підіймає повстання побутової техніки і заморожує світ.</p>
+      </article>
+  </div>
+</section>
+<section id="parkinson" class="section wrap">
+  <div class="section-head">
+    <h2><a href="/parkinson/" style="text-decoration:none; color:inherit;">Паркінсон</a></h2>
+    <a href="/parkinson/" data-cta="section-parkinson">Уся рубрика →</a>
+  </div>
+  <p class="answer">Діагноз мені поставили у 27. Тут — як із цим живеться і що кажуть настанови та дослідження: особистий досвід позначено як особистий, перевірювані твердження мають джерела й дату звірки.</p>
+  <div class="cards">
+      <article class="card">
+        <div class="card-meta"><span>Щоденник · експеримент</span><time datetime="2026-09-09">9 вересня 2026</time></div>
+        <h3><a href="/journal/eksperyment-nad-soboyu/">Експеримент над собою: живу за власними порадами</a></h3>
+        <p>Публічно зобов'язуюсь виконувати те, що сам зібрав із досліджень про хворобу Паркінсона: без цигарок і алкоголю, спорт, харчове вікно. Старт — 102,5 кг.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Розбір · доказова база</span><time datetime="2026-08-30">30 серпня 2026</time></div>
+        <h3><a href="/journal/parkinson-shcho-robyty/">Що робити вже зараз, якщо у вас хвороба Паркінсона</a></h3>
+        <p>Що при хворобі Паркінсона підтверджено доказами, що допомагає лише окремим симптомам, а що не доведено. Стан на серпень 2026, з джерелами.</p>
+      </article>
+      <article class="card">
+        <div class="card-meta"><span>Подорож</span><time datetime="2026-08-29">29 серпня 2026</time></div>
+        <h3><a href="/journal/hoverla/">Говерла: як я таки зійшов на вершину</a></h3>
+        <p>Підйом на Говерлу з хворобою Паркінсона: трансфер до Заросляка, синій і зелений маршрути, трекінгові палиці, ціни й таблетки за годинами. З власним відео.</p>
+      </article>
+  </div>
+</section>
 
-    <!-- ===== SCENARIOS ===== -->
-    <section id="scenarios">
-      <div class="container">
-        <div class="section-label">Послуги</div>
-        <h2 class="section-title">Оберіть свій сценарій</h2>
-        <div class="section-desc">Не список технологій, а конкретні рішення під вашу ситуацію.</div>
-        <div class="scenarios-grid">
-          <div class="scenario-card reveal">
-            <div class="scenario-emoji">🏗️</div>
-            <h3>Сайт з нуля</h3>
-            <div class="scenario-who">Коли нічого немає або соромно показувати</div>
-            <p>Повний цикл: аналіз бізнесу → дизайн → розробка → запуск. Отримуєте не просто сайт, а інструмент для
-              залучення клієнтів, який зростає разом із бізнесом.</p>
-            <div class="scenario-details">
-              <span class="scenario-tag">14 днів*</span>
-              <span class="scenario-tag">React / Next.js</span>
-              <span class="scenario-tag">SEO-ready</span>
-            </div>
-          </div>
-          <div class="scenario-card reveal reveal-d1">
-            <div class="scenario-emoji">🔄</div>
-            <h3>Редизайн і перезапуск</h3>
-            <div class="scenario-who">Сайт є, але конверсія = 0 і стильно було у 2019</div>
-            <p>Аудит поточного сайту, знаходжу що ламає конверсію, перебудовую на сучасному стеку. Ваші клієнти нарешті
-              натискають «Замовити», а не «Назад».</p>
-            <div class="scenario-details">
-              <span class="scenario-tag">14–30 днів*</span>
-              <span class="scenario-tag">UX аудит</span>
-              <span class="scenario-tag">Міграція</span>
-            </div>
-          </div>
-          <div class="scenario-card reveal reveal-d2">
-            <div class="scenario-emoji">🎯</div>
-            <h3>Лендінг під рекламу</h3>
-            <div class="scenario-who">Є трафік, потрібна сторінка, що конвертує</div>
-            <p>Односторінковий сайт, заточений під результат: швидкий, адаптивний, з аналітикою та A/B тестуванням.
-              Ідеально для Google Ads та таргету.</p>
-            <div class="scenario-details">
-              <span class="scenario-tag">Пара днів – тиждень</span>
-              <span class="scenario-tag">A/B тести</span>
-              <span class="scenario-tag">Аналітика</span>
-            </div>
-          </div>
-          <div class="scenario-card reveal reveal-d3">
-            <div class="scenario-emoji">🤖</div>
-            <h3>AI-інтеграції та Legal Tech</h3>
-            <div class="scenario-who">Хочете, щоб сайт думав, а не просто стояв</div>
-            <p>Чат-боти на Claude/OpenAI, автоматизація процесів, аналіз документів. Маю юридичну освіту — розумію і
-              код, і регламенти. Без дрібного шрифту.</p>
-            <div class="scenario-details">
-              <span class="scenario-tag">Від 2 тижнів</span>
-              <span class="scenario-tag">LLM API</span>
-              <span class="scenario-tag">Legal Tech</span>
-            </div>
-          </div>
-        </div>
-        <p style="margin-top:1rem; font-size:0.75rem; color:var(--ink-muted); font-style:italic;">* Якщо ви вчасно
-          відповідаєте на питання :)</p>
-      </div>
-    </section>
+<section id="robota" class="section wrap">
+  <div class="work">
+    <p><strong>Роблю сайти на замовлення.</strong> Лендінги, бізнес-сайти на Next.js, магазини й AI-інтеграції —
+    з договором, і код та домен лишаються вашими. Це окрема частина сайту, щоб не змішувати її з рештою.</p>
+    <p><a href="/services/" data-cta="work">Робота зі мною: послуги, кейси й ціни →</a></p>
+  </div>
+</section>
+</main>
 
-    <!-- ===== PRICING ===== -->
-    <section id="pricing" style="padding:5rem 0;">
-      <div class="container">
-        <div class="section-label">Вартість</div>
-        <h2 class="section-title">Прозорі ціни — без сюрпризів</h2>
-        <div class="section-desc">Орієнтовні діапазони. Фінальна ціна — після обговорення деталей.</div>
-        <div class="pricing-grid">
-          <div class="pricing-card reveal">
-            <h3>Лендінг</h3>
-            <div class="pricing-price">від 20 000 ₴</div>
-            <div class="pricing-desc">Одна сторінка під рекламу або нову послугу</div>
-            <ul class="pricing-list">
-              <li>1 сторінка з 6–8 секціями</li>
-              <li>Адаптивний дизайн (mobile-first)</li>
-              <li>Форма заявки + сповіщення в Telegram</li>
-              <li>SEO + Open Graph + GA4 з конверсіями</li>
-              <li>Деплой на Vercel, домен ваш</li>
-              <li>5–7 днів розробки</li>
-              <li>Сайт-візитка 3–5 сторінок — від 25 000 ₴</li>
-            </ul>
-          </div>
-          <div class="pricing-card featured reveal reveal-d1">
-            <div class="pricing-badge">Популярне</div>
-            <h3>Бізнес-сайт</h3>
-            <div class="pricing-price">від 40 000 ₴</div>
-            <div class="pricing-desc">Сайт на Next.js із адмінкою, блогом і SEO</div>
-            <ul class="pricing-list">
-              <li>5–10 сторінок, дизайн у Figma</li>
-              <li>CMS-адмінка — оновлюєте контент самі</li>
-              <li>Розширене SEO: schema, sitemap, OG</li>
-              <li>Блог або каталог послуг</li>
-              <li>Інтеграція з Telegram / CRM</li>
-              <li>Аналітика + цілі конверсій</li>
-              <li>14 днів розробки</li>
-              <li>1 місяць підтримки після запуску</li>
-            </ul>
-          </div>
-          <div class="pricing-card reveal reveal-d2">
-            <h3>Інтернет-магазин</h3>
-            <div class="pricing-price">від 60 000 ₴</div>
-            <div class="pricing-desc">Швидкий запуск на готовій архітектурі Atlas-кейсу</div>
-            <ul class="pricing-list">
-              <li>Каталог до 100 SKU, кошик, checkout</li>
-              <li>Оплата та Нова Пошта</li>
-              <li>Адмін-панель Medusa</li>
-              <li>7 днів на fast-track; custom з нуля — 21–30 днів і від 80 000 ₴</li>
-              <li>AI-платформа з кабінетом і RAG — від 80 000 ₴</li>
-              <li>Окрема AI-інтеграція в наявний сайт — від 15 000 ₴</li>
-              <li>2 місяці підтримки</li>
-            </ul>
-          </div>
-        </div>
-        <p style="text-align:center; margin-top:2rem; font-size:0.95rem;">
-          <a href="/pricing/" style="color:var(--blue-mid); font-weight: 500;">Розгорнутий прайс із 6 типами сайтів і брифом для точної оцінки →</a>
-        </p>
-        <p style="text-align:center; margin-top:0.75rem; font-size:0.82rem; color:var(--ink-muted);">
-          Або <a href="#chat-section" style="color:var(--blue-mid);">поставте типові питання боту-помічнику</a>.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===== PORTFOLIO ===== -->
-    <section id="portfolio">
-      <div class="container">
-        <div class="section-label">Портфоліо</div>
-        <h2 class="section-title">Не просто красиво — результативно</h2>
-        <div class="section-desc">Кожен проєкт — з задачею, рішенням та цифрами.</div>
-        <div class="portfolio-grid">
-          <a href="/projects/agentis/" class="portfolio-card portfolio-featured reveal"
-            style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
-            <img class="portfolio-bg" src="images/agentis-v2.webp" alt="AGENTIS — AI-платформа юридичного аналізу: 300+ законів, 15 AI-агентів" loading="lazy"
-              width="2858" height="1446" style="background-color: #0a1628;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(91,164,217,0.25);">🏆 Головний проєкт · Legal Tech ·
-                AI</span>
-              <h3 style="font-size:1.8rem;">AGENTIS</h3>
-              <p>AI-платформа юридичного аналізу: 5 AI-моделей, 300+ законів у базі, 144 000+ семантичних блоків, 15
-                AI-агентів на кожну ситуацію. Конвеєр перевірок, PDF-звіти, оцінка ризиків.</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">5 AI-моделей</span>
-                <span class="metric neutral">300+ законів</span>
-                <span class="metric neutral">15 AI-агентів</span>
-                <span class="metric neutral">PDF-звіти</span>
-              </div>
-            </div>
-          </a>
-          <a href="/projects/ace/" class="portfolio-card reveal"
-            style="text-decoration:none; grid-column: 1 / -1; aspect-ratio: 21/9;">
-            <img class="portfolio-bg" src="images/ace.webp" alt="Академія сучасних освітян — освітня платформа" loading="lazy"
-              width="2880" height="1442" style="background-color: #1a5c5c;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(26,92,92,0.3);">🎓 Освіта · Next.js · Railway</span>
-              <h3 style="font-size:1.8rem;">Академія сучасних освітян</h3>
-              <p>Редизайн сайту для офіційного суб'єкта підвищення кваліфікації педагогів. 12+ років, 8 700+
-                випускників, реєстр сертифікатів, каталог програм ПК.</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">12+ років</span>
-                <span class="metric neutral">8700+ випускників</span>
-                <span class="metric neutral">Next.js · Railway</span>
-                <span class="metric neutral">Сертифікати КМУ №800</span>
-              </div>
-            </div>
-          </a>
-      <a href="/projects/slavutych/" class="portfolio-card reveal" style="text-decoration:none;">
-        <img class="portfolio-bg" src="images/slavutych.webp" alt="Славутич — сайт ресторану української кухні" loading="lazy"
-              width="1200" height="603" style="background-color: var(--blue-deep);">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag">Ресторан · Next.js</span>
-              <h3>Славутич</h3>
-              <p>Сайт ресторану сучасної української кухні: меню, бронювання столиків, галерея, тераса</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Next.js · SSR</span>
-                <span class="metric neutral">Онлайн-бронювання</span>
-              </div>
-            </div>
-          </a>
-          <a href="/projects/atlas/" class="portfolio-card reveal reveal-d1" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/atlas.webp" alt="Atlas — інтернет-магазин" loading="lazy"
-              width="1440" height="720" style="background-color: #1A1A18;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(196,132,29,0.3);">E-commerce · Medusa.js</span>
-              <h3>Atlas</h3>
-              <p>Інтернет-магазин за 4 дні: Next.js 16, Medusa.js, Нова Пошта, 31+ сторінка, 119 тестів</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Next.js · Medusa</span>
-                <span class="metric neutral">Нова Пошта</span>
-                <span class="metric neutral">4 дні</span>
-              </div>
-            </div>
-          </a>
-          <a href="/projects/ladomyr/" class="portfolio-card reveal reveal-d1" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/ladomyr.webp" alt="Ладомир — сайт і CRM для банно-готельного комплексу під Києвом" loading="lazy"
-              width="1200" height="630" style="background-color: #1a231d;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(210,118,74,0.25);">Full-stack · Сайт + CRM</span>
-              <h3>Ладомир</h3>
-              <p>Сайт на Next.js + custom CRM для банного комплексу: бронювання, календар ресурсів, POS, фінанси, AI-асистент</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Next.js 16 · Supabase</span>
-                <span class="metric neutral">30+ таблиць · CRM</span>
-                <span class="metric neutral">ladomyr.kiev.ua</span>
-              </div>
-            </div>
-          </a>
-          <a href="/projects/juliaart/" class="portfolio-card reveal reveal-d2" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/juliaart.webp" alt="Julia Satyr Art — сайт-портфоліо української художниці" loading="lazy"
-              width="1200" height="630" style="background-color: #1c1b18;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(217,200,184,0.25);">Портфоліо · Мистецтво</span>
-              <h3>Julia Satyr Art</h3>
-              <p>Сайт-візитка для художниці: 15 олійних картин, 5 JSON-LD схем, masonry-галерея, GitHub Pages з custom domain</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">HTML · CSS · JS</span>
-                <span class="metric neutral">5 schema-блоків</span>
-                <span class="metric neutral">satyr.com.ua</span>
-              </div>
-            </div>
-          </a>
-          <a href="https://www.svengo.shop/" target="_blank" rel="noopener noreferrer"
-            class="portfolio-card reveal reveal-d2" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/svengo.webp" alt="SVENGO — сайт заводу залізобетонних виробів" loading="lazy"
-              width="1200" height="603" style="background-color: #2a2a2a;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag">B2B · Завод ЗБВ</span>
-              <h3>SVENGO</h3>
-              <p>Сайт заводу залізобетонних виробів: каталог 50+ позицій, ШІ-помічник, калькулятор доставки</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">AI-помічник</span>
-                <span class="metric neutral">Каталог · SEO</span>
-              </div>
-            </div>
-          </a>
-          <a href="https://sashko1391.github.io/interrogator/" target="_blank" rel="noopener noreferrer"
-            class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/interrogator.webp" alt="Слідчий — детективна AI-гра на Claude API" loading="lazy"
-              width="1200" height="603" style="background-color: #1a1520;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag">AI-гра · Claude API</span>
-              <h3>Слідчий</h3>
-              <p>Детективна гра на основі AI: допитуй підозрюваних, шукай суперечності, виноси вердикт</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Claude Sonnet</span>
-                <span class="metric neutral">UA/EN · Premium</span>
-              </div>
-            </div>
-          </a>
-          <a href="https://dniprowska-parfumerka.shop/" target="_blank" rel="noopener noreferrer"
-            class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/parfumerka.webp" alt="Dniprowska Parfumerka — інтернет-магазин парфумерії"
-              loading="lazy" width="1200" height="603" style="background-color: #3a1a2a;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag">E-commerce · Парфумерія</span>
-              <h3>Dniprowska Parfumerka</h3>
-              <p>Інтернет-магазин парфумерії: каталог з фільтрами, ШІ-консультант, розпив ароматів</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">AI-консультант</span>
-                <span class="metric neutral">Каталог · Фільтри</span>
-              </div>
-            </div>
-          </a>
-          <a href="/blog/devlog-empire-online/" class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/empire-online.webp" alt="Empire Online — браузерна бізнес-MMO з політикою та коаліціями"
-              loading="lazy" width="1200" height="607" style="background-color: #0a1a0a;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(46,164,46,0.25);">MMO · Next.js · Supabase</span>
-              <h3>Empire Online</h3>
-              <p>Браузерна бізнес-MMO: 13 галузей, вибори, коаліції, сезони. 150+ модулів, 2 182 тести</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Next.js 16</span>
-                <span class="metric neutral">Supabase</span>
-                <span class="metric neutral">2 182 тести</span>
-              </div>
-            </div>
-          </a>
-          <a href="/blog/jarvis-ai-assistant/" class="portfolio-card reveal reveal-d3" style="text-decoration:none;">
-            <img class="portfolio-bg" src="images/jarvis.webp" alt="Jarvis Desktop — персональний AI-помічник із 30+ інструментами"
-              loading="lazy" width="1200" height="675" style="background-color: #0a1628;">
-            <div class="portfolio-overlay"></div>
-            <div class="portfolio-content">
-              <span class="portfolio-tag" style="background:rgba(91,164,217,0.25);">AI-помічник · Python · Claude</span>
-              <h3>Jarvis Desktop</h3>
-              <p>Персональний AI-помічник: 30+ інструментів, голосове управління, трекер здоров'я, 10 477 рядків коду</p>
-              <div class="portfolio-metrics">
-                <span class="metric neutral">Claude + GPT</span>
-                <span class="metric neutral">184 тести</span>
-                <span class="metric neutral">PySide6</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ABOUT ===== -->
-    <section id="about">
-      <div class="container">
-        <div class="section-label">Про мене</div>
-        <h2 class="section-title">Не просто розробник</h2>
-        <div class="about-layout">
-          <div>
-            <div class="about-card superpower reveal">
-              <h3>Юрист, який пише код</h3>
-              <p>Магістр права КНУ ім. Шевченка + повний стек веб-розробки. Рідкісне поєднання, яке дає реальну
-                перевагу: я розумію бізнес-логіку, регламенти та GDPR не з документації, а з практики.</p>
-              <p>AI — мій щоденний інструмент. Я не просто «використовую ChatGPT», а будую з ним продукти: від аналізу
-                документів до генеративних інтерфейсів. Це дозволяє мені працювати швидше та видавати рішення, які
-                зазвичай потребують цілої команди.</p>
-              <div class="badge-row">
-                <span class="badge badge-blue">React / Next.js</span>
-                <span class="badge badge-blue">TypeScript</span>
-                <span class="badge badge-green">Legal Tech</span>
-                <span class="badge badge-warm">AI / LLM</span>
-              </div>
-            </div>
-
-            <div class="fit-block fit-yes reveal reveal-d1">
-              <strong>✦ Ідеально підходжу, якщо вам потрібен:</strong>
-              Сайт, що реально працює на бізнес, а не «щоб було». Розробник, який розуміє вашу нішу і думає як продакт,
-              а не як виконавець ТЗ.
-            </div>
-            <div class="fit-block fit-no reveal reveal-d2">
-              <strong>✦ Не підходжу, якщо:</strong>
-              Потрібен «сайт за 500 грн на вчора» або копія чужого сайту піксель-в-піксель. Це не моя гра.
-            </div>
-          </div>
-
-          <div>
-            <div class="stats-mini reveal">
-              <div class="stat-mini">
-                <div class="num">2-й</div>
-                <div class="lbl">рік у розробці</div>
-              </div>
-              <div class="stat-mini">
-                <div class="num">∞</div>
-                <div class="lbl">кави випито</div>
-              </div>
-              <div class="stat-mini">
-                <div class="num">24/7</div>
-                <div class="lbl">AI-напарник</div>
-              </div>
-              <div class="stat-mini">
-                <div class="num">0</div>
-                <div class="lbl">сайтів на Tilda</div>
-              </div>
-            </div>
-
-            <div class="fun-fact reveal reveal-d1">
-              <span>🚴 2 350 км Україною на велосипеді за 28 днів.</span><br>
-              Ваш дедлайн для мене — легка прогулянка. А ще я плаваю в ополонці через день. Холодний розум — це не
-              метафора.
-            </div>
-
-            <div class="about-card reveal reveal-d2" style="margin-top: 1.25rem;">
-              <h3>Як я працюю</h3>
-              <p>Працюю з Троїцького на Київщині — без офісного шуму, з максимальною концентрацією. На зв'язку в
-                Telegram, WhatsApp і Zoom. Регулярні демо кожного тижня — ви бачите прогрес, а не чекаєте дива.</p>
-              <p
-                style="margin-top:0.5rem; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--ink-muted);">
-                // Найкращий код пишеться між лісом і полем 🌲</p>
-              <p style="margin-top:1rem;"><a href="/pro-mene/" style="color:var(--blue-sky); font-weight:500; text-decoration:none; font-size:0.9rem;">Детальніше про мене →</a></p>
-            </div>
-
-            <div class="about-card reveal reveal-d2" style="margin-top: 1.25rem;">
-              <h3>Поза кодом</h3>
-              <p>Я не лише розробляю сайти — поза роботою пишу: особисті есеї, оповідання і короткі
-                записи про життя. Це більше контексту про те, як я думаю й на що дивлюся поза
-                робочими задачами.</p>
-              <p style="margin-top:1rem;"><a href="/journal/" style="color:var(--blue-sky); font-weight:500; text-decoration:none; font-size:0.9rem;">Читати особисті тексти →</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== PROCESS ===== -->
-    <section id="process">
-      <div class="container">
-        <div class="section-label">Процес</div>
-        <h2 class="section-title">Від «мені потрібен сайт» до «wow»</h2>
-        <div class="section-desc">Чотири кроки — без сюрпризів, без зникнень, без «ну ще трошки зачекайте».</div>
-        <div class="process-grid">
-          <div class="process-step reveal">
-            <div class="step-num">01</div>
-            <h3>Бриф</h3>
-            <p>Напишіть мені або помічнику що вам потрібно. Швидко узгодимо деталі.</p>
-          </div>
-          <div class="process-step reveal reveal-d1">
-            <div class="step-num">02</div>
-            <h3>Дизайн</h3>
-            <p>Запропоную свій макет у Figma. Або надайте інструкції — зроблю по вашому баченню.</p>
-          </div>
-          <div class="process-step reveal reveal-d2">
-            <div class="step-num">03</div>
-            <h3>Розробка</h3>
-            <p>Код + щотижневі демо. Ви бачите, як сайт оживає в реальному часі.</p>
-          </div>
-          <div class="process-step reveal reveal-d3">
-            <div class="step-num">04</div>
-            <h3>Запуск</h3>
-            <p>Тести, деплой, аналітика. І місяць безкоштовної підтримки після.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== TESTIMONIALS ===== -->
-    <section class="testimonials-section" style="padding:5rem 0;">
-      <div class="container">
-        <div class="section-label">Відгуки</div>
-        <h2 class="section-title">Що кажуть клієнти. Дослівно.</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card reveal">
-            <p>Саня, я в цьому нічого не шарю, показуй Наташі.</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">СП</div>
-              <div class="author-info">
-                <div class="name">Сергій П.</div>
-                <div class="role">Власник ресторану</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card reveal reveal-d1">
-            <p>Вау, круто.</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">МП</div>
-              <div class="author-info">
-                <div class="name">Максим П.</div>
-                <div class="role">Замовляв інтернет-магазин</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card reveal reveal-d2">
-            <p>Не можу глянути, інтернет слабий.</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">СМ</div>
-              <div class="author-info">
-                <div class="name">Сергій М.</div>
-                <div class="role">Власник заводу ЗБВ</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- v7 -->
-    <div class="quote-banner reveal">
-      <blockquote>«Гарний сайт — це коли клієнт натискає "Замовити", а не "Назад".»</blockquote>
-      <div class="quote-attr">— Олександр, десь між третьою та четвертою кавою</div>
-    </div>
-
-    <!-- ===== BLOG ===== -->
-    <section id="blog" style="padding:5rem 0;">
-      <div class="container">
-        <div class="section-label">Блог</div>
-        <h2 class="section-title">Корисне для бізнесу</h2>
-        <div class="section-desc">Пишу про те, що знаю: розробку, вибір технологій, AI у бізнесі.</div>
-        <div class="blog-grid">
-          <a href="/blog/seo-bez-reklamy-keis-atlas/" class="blog-card">
-            <div class="blog-card-label">SEO-кейс · 14 хв</div>
-            <h3>SEO без реклами: з 3 до 346 кліків на місяць</h3>
-            <p>Реальні дані Search Console магазину без реклами: що спрацювало, що провалилось.</p>
-          </a>
-          <a href="/blog/getting-cited-ai-poshuk/" class="blog-card">
-            <div class="blog-card-label">GEO-кейс · 11 хв</div>
-            <h3>60% Share of Voice в AI-пошуку за 5 тижнів</h3>
-            <p>Виміряний кейс AI-видимості: цифри, метод виміру і що спрацювало.</p>
-          </a>
-          <a href="/blog/yak-zamovyty-sajt/" class="blog-card">
-            <div class="blog-card-label">Гайд · 12 хв</div>
-            <h3>Як замовити сайт і не згоріти</h3>
-            <p>7 кроків: мета, бюджет, вибір виконавця, договір і права на код, запуск.</p>
-          </a>
-          <a href="/blog/chek-list-zamovlennya-sajtu/" class="blog-card">
-            <div class="blog-card-label">Чек-лист · інтерактивний</div>
-            <h3>Чек-лист замовлення сайту: 20 пунктів</h3>
-            <p>Відмічайте виконане, зберігайте прогрес, друкуйте перед стартом проєкту.</p>
-          </a>
-          <a href="/blog/yak-obrati-rozrobnyka/" class="blog-card">
-            <div class="blog-card-label">Гайд · 8 хв</div>
-            <h3>Як обрати розробника сайту у 2026</h3>
-            <p>9 критеріїв, червоні прапорці, реальні приклади. Практичний гайд від розробника з юридичною освітою.</p>
-          </a>
-          <a href="/blog/react-vs-tilda/" class="blog-card">
-            <div class="blog-card-label">Порівняння · 10 хв</div>
-            <h3>React vs Tilda: що обрати для бізнесу</h3>
-            <p>Чесне порівняння з таблицею, прикладами і випадком, коли я сам порадив Tilda.</p>
-          </a>
-          <a href="/blog/tilda-vs-webflow-vs-kastom/" class="blog-card">
-            <div class="blog-card-label">Порівняння · 14 хв</div>
-            <h3>Tilda vs Webflow vs кастом: що обрати у 2026</h3>
-            <p>Decision framework для українського SMB: ціна, SEO, власність коду й TCO за 3-5 років.</p>
-          </a>
-          <a href="/blog/skilky-koshtuye-sajt/" class="blog-card">
-            <div class="blog-card-label">Гайд · 8 хв</div>
-            <h3>Скільки коштує сайт у 2026</h3>
-            <p>Реальні ціни на розробку: лендінг, бізнес-сайт, магазин. Що входить і за що переплачуєте.</p>
-          </a>
-          <a href="/blog/devlog-business-empire-idle/" class="blog-card">
-            <div class="blog-card-label">Devlog · 12 хв</div>
-            <h3>Як я роблю idle-гру на SvelteKit</h3>
-            <p>Від лимонадного кіоску до міжпланетної торгівлі. SvelteKit, 13 бізнесів, prestige, тести.</p>
-          </a>
-          <a href="/blog/devlog-empire-online/" class="blog-card">
-            <div class="blog-card-label">Devlog · 15 хв</div>
-            <h3>Empire Online: браузерна бізнес-MMO</h3>
-            <p>Мультиплеєрна симуляція з політикою, коаліціями та сезонами. 150+ модулів, 2 182 тести.</p>
-          </a>
-          <a href="/blog/jarvis-ai-assistant/" class="blog-card">
-            <div class="blog-card-label">AI · 8 хв</div>
-            <h3>Як я створив свого Джарвіса</h3>
-            <p>Персональний AI-помічник із фільму в реальність: 30+ інструментів, голос, трекер здоров'я.</p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CHAT SECTION ===== -->
-    <section class="chat-section" id="chat-section">
-    <div class="container">
-      <div class="section-label">Помічник</div>
-      <h2 class="section-title">Швидкі відповіді про послуги й строки</h2>
-      <p class="section-desc" style="text-align:center; margin:0.5rem auto 0;">Це бот із готовими відповідями на типові
-        питання. Залиште контакт — розмову отримаю я й відповім особисто.</p>
-
-      <div class="chat-container reveal">
-        <div class="chat-header">
-          <div class="chat-header-avatar">🤖</div>
-          <div class="chat-header-info">
-            <div class="chat-name">Бот-помічник Олександра</div>
-            <div class="chat-status">Готові відповіді · контакт передам Олександрові</div>
-          </div>
-        </div>
-
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg bot">
-            <div class="msg-avatar">🤖</div>
-            <div class="msg-bubble">Привіт! Я бот із готовими відповідями про послуги Олександра: ціни, строки, як
-              почати. Щоб відповів сам Олександр — залиште контакт, і він отримає нашу розмову.</div>
-          </div>
-        </div>
-
-        <div class="chat-quick-btns" id="quickBtns">
-          <button class="quick-btn" onclick="sendQuick(this)">Скільки коштує сайт?</button>
-          <button class="quick-btn" onclick="sendQuick(this)">Які строки?</button>
-          <button class="quick-btn" onclick="sendQuick(this)">Як почати проєкт?</button>
-          <button class="quick-btn" onclick="sendQuick(this)">Чому AI — це перевага?</button>
-        </div>
-
-        <div class="chat-input-area">
-          <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть повідомлення..."
-            aria-label="Повідомлення для бота-помічника"
-            onkeydown="if(event.key==='Enter')sendMessage()">
-          <button class="chat-send" onclick="sendMessage()" aria-label="Надіслати">↑</button>
-        </div>
-      </div>
-
-      <div class="contact-alt" style="margin-top:2.5rem;">
-        <a href="https://t.me/+380936429885" target="_blank" rel="noopener noreferrer" class="contact-pill">💬 Telegram</a>
-        <a href="https://wa.me/380936429885" target="_blank" rel="noopener noreferrer" class="contact-pill">📱 WhatsApp</a>
-        <a href="mailto:sashko1391@gmail.com" class="contact-pill">✉️ sashko1391@gmail.com</a>
-      </div>
-    </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-copy">© 2026 Oleksandr Kravchenko — Усі права та пікселі захищені · <a href="/privacy/" style="color:inherit;text-decoration:underline">Політика приватності</a></div>
-      <div class="footer-joke">console.log("Дякую, що доскролили 💙")</div>
-    </div>
-  </footer>
-
-  <script>
-    // Reveal
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    // Nav shadow
-    window.addEventListener('scroll', () => {
-      document.querySelector('nav').style.boxShadow =
-        window.scrollY > 40 ? '0 2px 16px rgba(27,58,92,0.05)' : 'none';
-    });
-
-    // Hamburger menu
-    function toggleMenu() {
-      const nav = document.getElementById('navLinks');
-      const btn = document.querySelector('.hamburger');
-      const isOpen = nav.classList.toggle('open');
-      btn.classList.toggle('active');
-      btn.setAttribute('aria-expanded', isOpen);
-      btn.setAttribute('aria-label', isOpen ? 'Закрити меню' : 'Відкрити меню');
-    }
-
-    // Close mobile menu on link click
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => {
-        const nav = document.getElementById('navLinks');
-        const btn = document.querySelector('.hamburger');
-        if (nav.classList.contains('open')) {
-          nav.classList.remove('open');
-          btn.classList.remove('active');
-          btn.setAttribute('aria-expanded', 'false');
-          btn.setAttribute('aria-label', 'Відкрити меню');
-        }
-      });
-    });
-
-    // ===== CHAT LOGIC =====
-    const responses = {
-      'Скільки коштує сайт?': `Вартість залежить від складності проєкту — кількості сторінок, функціоналу, інтеграцій.\n\nОлександр не працює за фіксованим прайсом — кожен проєкт оцінюється індивідуально після короткого брифу.\n\nНапишіть, що вам потрібно, і я передам — Олександр дасть оцінку протягом доби 😊\n\nАбо залиште контакт, і він сам зв'яжеться!`,
-
-      'Які строки?': `Олександр працює швидко, але якісно:\n\n⚡ Лендінг — 5-7 днів\n🏗️ Бізнес-сайт — 14 днів\n🛒 Магазин fast-track — 7 днів\n🤖 AI-платформа — від 30 днів\n\nВажливий нюанс: строки актуальні, якщо ви вчасно відповідаєте на питання 😉\n\nХочете обговорити ваш проєкт? Залиште контакт — Олександр зв'яжеться!`,
-
-      'Як почати проєкт?': `Дуже просто:\n\n1️⃣ Напишіть мені або Олександру що вам потрібно\n2️⃣ Швидко узгодимо деталі\n3️⃣ Олександр запропонує макет, або ви надаєте свої інструкції\n4️⃣ Розробка з щотижневими демо → запуск!\n\nМожете почати прямо зараз — розкажіть, що за проєкт, і залиште контакт 👇`,
-
-      'Чому AI — це перевага?': `О, це улюблена тема Олександра! 🤓\n\nВін не просто "використовує AI" — він будує з ним: AI-інструменти допомагають йому з кодом, текстами, аналітикою. Це дозволяє:\n\n• Робити за тижні те, що раніше займало місяці\n• Один розробник + AI = маленька команда\n• Інтегрувати AI-фішки прямо в ваш продукт\n\nА я — простий бот із готовими відповідями, тож і жарти в мене за сценарієм 😄`
-    };
-
-    const fallbacks = [
-      'Цікаве питання! Щоб Олександр міг відповісти детально — залиште свій контакт (Telegram, телефон або пошту), і він зв\'яжеться протягом доби 😊',
-      'Хм, це вже виходить за межі моїх повноважень 😅 Але я все записую! Залиште номер або Telegram — Олександр подивиться нашу розмову і відповість.',
-      'О, серйозні наміри! Це краще обговорити напряму. Напишіть свій контакт — я передам Олександру разом з усією нашою бесідою 📨',
-      'Я вже майже все записав! Залишилось тільки ваш контакт, щоб Олександр міг зв\'язатись і обговорити деталі. Telegram, телефон або пошта — що зручніше?'
-    ];
-
-    let fallbackIndex = 0;
-    let messageCount = 0;
-    let contactCollected = false;
-    let chatHistory = [];
-
-    // Cloudflare Worker proxy — тримає Telegram bot token серверно
-    const CHAT_PROXY_URL = 'https://oleksandr-site.sashko1391.workers.dev';
-
-    // One POST with a timeout; true only when the Worker accepted the lead.
-    async function sendToProxy(payload) {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 15000);
-      try {
-        const res = await fetch(CHAT_PROXY_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          signal: controller.signal
-        });
-        return res.ok;
-      } catch {
-        return false;
-      } finally {
-        clearTimeout(timer);
-      }
-    }
-
-    // Each queued lead carries an id, so a flush removes exactly what it delivered.
-    function leadId(payload) {
-      return payload && payload.id ? payload.id : JSON.stringify(payload); // older entries have no id
-    }
-
-    function readQueue() {
-      try {
-        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
-        return Array.isArray(queue) ? queue : [];
-      } catch {
-        return []; // localStorage unavailable
-      }
-    }
-
-    /**
-     * Retry queued leads on page load. The queue is re-read after the attempts: a lead the visitor sends
-     * while we are waiting lands in localStorage meanwhile, and rewriting the old snapshot would drop it.
-     */
-    (async function flushQueue() {
-      const queue = readQueue();
-      if (!queue.length) return;
-      const sent = await Promise.all(queue.map(sendToProxy));
-      const delivered = new Set(queue.filter((payload, i) => sent[i]).map(leadId));
-      if (!delivered.size) return;
-      const remaining = readQueue().filter((payload) => !delivered.has(leadId(payload)));
-      try {
-        if (remaining.length) localStorage.setItem('chat_queue', JSON.stringify(remaining));
-        else localStorage.removeItem('chat_queue');
-      } catch { /* localStorage unavailable */ }
-    })();
-
-    function escapeHTML(str) {
-      const d = document.createElement('div');
-      d.textContent = str;
-      return d.innerHTML;
-    }
-
-    function addMessage(text, isUser) {
-      const container = document.getElementById('chatMessages');
-      const msg = document.createElement('div');
-      msg.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
-      const safe = escapeHTML(text).replace(/\n/g, '<br>');
-      msg.innerHTML = `
-      <div class="msg-avatar">${isUser ? '👤' : '🤖'}</div>
-      <div class="msg-bubble">${safe}</div>
-    `;
-      container.appendChild(msg);
-      container.scrollTop = container.scrollHeight;
-
-      // Track history
-      chatHistory.push({ role: isUser ? 'Клієнт' : 'Помічник', text: text });
-    }
-
-    function addTyping() {
-      const container = document.getElementById('chatMessages');
-      const msg = document.createElement('div');
-      msg.className = 'chat-msg bot';
-      msg.id = 'typing-indicator';
-      msg.innerHTML = `
-      <div class="msg-avatar">🤖</div>
-      <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
-    `;
-      container.appendChild(msg);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function removeTyping() {
-      const el = document.getElementById('typing-indicator');
-      if (el) el.remove();
-    }
-
-    function isContactInfo(text) {
-      const lower = text.toLowerCase();
-      return /[\d\+]{10,}/.test(text) ||
-        /@/.test(text) ||
-        /\.com|\.ua|\.net/.test(lower) ||
-        /^@\w+/.test(text.trim());
-    }
-
-    async function sendToTelegram(contactInfo) {
-      const historyText = chatHistory
-        .map(m => `${m.role}: ${m.text}`)
-        .join('\n---\n');
-
-      const payload = {
-        id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random(),
-        contact: contactInfo,
-        history: historyText,
-        source: location.pathname,
-        timestamp: new Date().toISOString()
-      };
-
-      if (await sendToProxy(payload)) {
-        // GA4: lead conversion — only after the Worker accepted it
-        gtag('event', 'generate_lead', {event_category: 'conversion', event_label: 'chat_contact', value: 1, currency: 'UAH'});
-        return true;
-      }
-      try {
-        const queue = readQueue();
-        queue.push(payload);
-        localStorage.setItem('chat_queue', JSON.stringify(queue));
-      } catch { /* localStorage unavailable — data lost */ }
-      return false;
-    }
-
-    function askForContact() {
-      if (contactCollected) return null;
-      return '\n\n---\nДо речі! Щоб Олександр міг подивитись нашу розмову і зв\'язатись з вами — залиште, будь ласка, свій контакт: Telegram, телефон або пошту 📲';
-    }
-
-    function respond(userText) {
-      addTyping();
-      messageCount++;
-      const delay = 800 + Math.random() * 1200;
-
-      setTimeout(() => {
-        removeTyping();
-
-        // Check if user just gave contact info
-        if (!contactCollected && isContactInfo(userText)) {
-          contactCollected = true;
-          addTyping();
-          sendToTelegram(userText).then((delivered) => {
-            removeTyping();
-            addMessage(delivered
-              ? 'Записав! ✅ Олександр отримає нашу розмову і зв\'яжеться з вами найближчим часом. Дякую за довіру — було приємно поспілкуватись! 😊\n\nЯкщо є ще питання — я нікуди не дінусь.'
-              : 'Не вдалося передати прямо зараз 😕 Я зберіг розмову і спробую ще раз, коли ви повернетесь на сайт. Щоб напевно — напишіть Олександру напряму: Telegram, WhatsApp або пошта (кнопки під чатом).', false);
-          });
-          return;
-        }
-
-        // Check for matching response
-        let reply = null;
-        for (const [key, val] of Object.entries(responses)) {
-          if (userText.includes(key) || userText.toLowerCase().includes(key.toLowerCase().replace('?', ''))) {
-            reply = val;
-            break;
-          }
-        }
-
-        // Keyword matching
-        if (!reply) {
-          const lower = userText.toLowerCase();
-          if (lower.includes('кошт') || lower.includes('ціна') || lower.includes('скільки') || lower.includes('прайс') || lower.includes('бюджет')) {
-            reply = responses['Скільки коштує сайт?'];
-          } else if (lower.includes('строк') || lower.includes('час') || lower.includes('довго') || lower.includes('швидко') || lower.includes('термін')) {
-            reply = responses['Які строки?'];
-          } else if (lower.includes('почати') || lower.includes('замов') || lower.includes('старт') || lower.includes('хочу сайт') || lower.includes('потрібен сайт')) {
-            reply = responses['Як почати проєкт?'];
-          } else if (lower.includes('ai') || lower.includes('шт.інтелект') || lower.includes('штучн') || lower.includes('нейро') || lower.includes('бот') || lower.includes('claude') || lower.includes('gpt')) {
-            reply = responses['Чому AI — це перевага?'];
-          } else if (lower.includes('привіт') || lower.includes('здоров') || lower.includes('вітаю') || lower.includes('hello') || lower.includes('хай')) {
-            reply = 'Привіт! 👋 Радий вас бачити. Чим можу допомогти? Можу розповісти про послуги, строки або підхід Олександра до роботи.';
-          } else if (lower.includes('дякую') || lower.includes('спасибі') || lower.includes('thx') || lower.includes('thanks')) {
-            if (!contactCollected) {
-              reply = 'Завжди радий! 😊 До речі, залиште свій контакт (Telegram, телефон або пошту) — Олександр подивиться нашу бесіду і зможе продовжити розмову особисто!';
-            } else {
-              reply = 'Завжди радий! 😊 Олександр вже отримав нашу розмову і зв\'яжеться з вами. Гарного дня!';
-            }
-          } else if (lower.includes('жарт') || lower.includes('смішн') || lower.includes('розсміш')) {
-            reply = 'Чому JavaScript-розробник пішов до окуліста? Бо він не бачив null! 🤓\n\n...Олександр каже, що мої жарти — це єдиний баг, який він не хоче фіксити.';
-          }
-        }
-
-        if (!reply) {
-          reply = fallbacks[fallbackIndex % fallbacks.length];
-          fallbackIndex++;
-        }
-
-        // After 3+ messages, gently ask for contact if not collected
-        if (!contactCollected && messageCount >= 3 && messageCount % 2 === 1) {
-          const contactAsk = askForContact();
-          if (contactAsk) reply += contactAsk;
-        }
-
-        addMessage(reply, false);
-      }, delay);
-    }
-
-    let chatStarted = false;
-    function sendMessage() {
-      const input = document.getElementById('chatInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      addMessage(text, true);
-      input.value = '';
-
-      // GA4: track chat engagement
-      if (!chatStarted) { chatStarted = true; gtag('event', 'chat_start', {event_category: 'engagement', event_label: 'user_typed'}); }
-      gtag('event', 'chat_message', {event_category: 'engagement', event_label: text.substring(0, 100)});
-
-      // Hide quick buttons after first message
-      document.getElementById('quickBtns').style.display = 'none';
-
-      respond(text);
-    }
-
-    function sendQuick(btn) {
-      const text = btn.textContent;
-      addMessage(text, true);
-      if (!chatStarted) { chatStarted = true; gtag('event', 'chat_start', {event_category: 'engagement', event_label: 'quick_btn'}); }
-      gtag('event', 'chat_message', {event_category: 'engagement', event_label: text});
-      document.getElementById('quickBtns').style.display = 'none';
-      respond(text);
-    }
-  </script>
+<footer>
+  <p>&copy; 2026 <a href="/pro-mene/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені ·
+  <a href="/feed.xml">RSS</a> · <a href="/privacy/">Політика приватності</a></p>
+</footer>
 
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
 <script>
-// GA4 conversion tracking — contact clicks & CTA
-document.addEventListener('click', function(e) {
-  var a = e.target.closest('a');
-  if (!a) return;
-  var href = a.href || '';
-  // Telegram click
-  if (href.includes('t.me/')) {
-    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'telegram', link_url: href});
-  }
-  // WhatsApp click
-  else if (href.includes('wa.me/')) {
-    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'whatsapp', link_url: href});
-  }
-  // Email click
-  else if (href.startsWith('mailto:')) {
-    gtag('event', 'contact_click', {event_category: 'conversion', event_label: 'email', link_url: href});
-  }
-  // CTA buttons (chat-section links, cta-btn class)
-  else if (a.classList.contains('cta-btn') || a.classList.contains('nav-cta') || a.classList.contains('btn-primary') || href.includes('#chat-section')) {
-    gtag('event', 'cta_click', {event_category: 'engagement', event_label: a.textContent.trim().substring(0, 60), link_url: href});
-  }
+// GA4: contact clicks and CTA clicks (every CTA carries data-cta="<place>").
+document.addEventListener('click', function (event) {
+  var link = event.target.closest('a');
+  if (!link || typeof window.gtag !== 'function') return;
+  var href = link.getAttribute('href') || '';
+  if (href.indexOf('t.me/') !== -1) gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'telegram', link_url: link.href });
+  else if (href.indexOf('mailto:') === 0) gtag('event', 'contact_click', { event_category: 'conversion', event_label: 'email', link_url: link.href });
+  else if (link.dataset.cta) gtag('event', 'cta_click', { event_category: 'engagement', event_label: link.dataset.cta, link_url: link.href });
 });
 </script>
 </body>
-
 </html>

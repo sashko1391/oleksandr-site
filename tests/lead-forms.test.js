@@ -57,15 +57,15 @@ describe('lead forms', () => {
 
   it('no page keeps its own sending logic', () => {
     for (const page of pages) {
-      if (page.rel === 'index.html') continue; // the homepage bot has its own queue
+      if (page.rel === 'services/index.html') continue; // the scripted bot (Ф3 moved it here) has its own queue
       expect(page.html, page.rel).not.toMatch(/function\s+(submitLead|submitBrief)/);
       expect(page.html, page.rel).not.toContain(WORKER);
     }
   });
 
-  it('only the shared module and the homepage bot talk to the Worker', () => {
+  it('only the shared module and the bot on /services/ talk to the Worker', () => {
     const talking = pages.filter((p) => p.html.includes(WORKER)).map((p) => p.rel);
-    expect(talking).toEqual(['index.html']);
+    expect(talking, 'Ф3 moved the bot off the homepage').toEqual(['services/index.html']);
     expect(shared).toContain(WORKER);
     // a second script file with its own fetch would bypass every check above
     const scripts = (function walk(dir) {

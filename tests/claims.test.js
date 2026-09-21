@@ -40,7 +40,7 @@ const NOT_EVIDENCE = [
 
 /** My own measurements: allowed, but only while the page that shows the measurement still says so. */
 const OWN_DATA = [
-  { text: '60% Share of Voice в AI-пошуку за 5 тижнів', backedBy: 'blog/getting-cited-ai-poshuk/index.html', number: '60%' },
+  { text: '60% Share of Voice', backedBy: 'blog/getting-cited-ai-poshuk/index.html', number: '60%' },
   { text: '80% трафіку', backedBy: 'projects/slavutych/index.html', number: '80%' },
 ];
 
