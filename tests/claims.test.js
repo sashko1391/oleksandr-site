@@ -98,12 +98,14 @@ describe('claims with numbers', () => {
     const landing = page('services/landing/index.html').html;
     const redesign = page('services/redesign/index.html').html;
     expect(landing).toContain('Akamai, State of Online Retail Performance, 2017');
-    expect(landing).toContain('затримка всього на 100 мс знижує конверсію на 7%, а 2 секунди затримки подвоюють показник відмов');
+    expect(landing).toContain('затримка всього на 100 мс може знизити конверсію на 7%, а затримка на 2 секунди збільшила показник відмов на 103%');
     expect(landing).toContain('Unbounce Conversion Benchmark Report');
     expect(landing).toContain('Медіана конверсії лендингів у світі — 6,6%, а по галузях вона різниться від 3,8% до 12,3%');
     expect(redesign).toContain('Google, Think with Google, 2016');
-    expect(redesign).toContain('40% людей ідуть зі сторінки, яка вантажиться довше за три секунди, а сесії з відмовою мали DOM ready на 55% повільніший');
-    expect(redesign).toContain('затримка 100 мс знижує конверсію на 7%, а 2 секунди затримки подвоюють відмови');
+    expect(redesign).toContain('сесії з відмовою мали DOM ready на 55% повільніший за сесії без відмови (дослідження Google/SOASTA, 2016)');
+    expect(redesign, 'the 40% figure is Econsultancy, quoted by Google — not a Google/SOASTA result')
+      .toContain('за даними Econsultancy, які наводить Google, 40% людей ідуть зі сторінки');
+    expect(redesign).toContain('затримка 100 мс може знизити конверсію на 7%, а затримка на 2 секунди збільшила показник відмов на 103%');
   });
 
   it('no page promises a conversion rate or a payback period of its own', () => {
@@ -113,6 +115,13 @@ describe('claims with numbers', () => {
       expect(plain, `${p.rel}: promises a conversion rate`).not.toMatch(new RegExp(`конверсі${UK}+ \\d{1,2}[-–]\\d{1,2}\\s?%`));
       expect(plain, `${p.rel}: promises a payback period`).not.toMatch(new RegExp(`окуп${UK}+ (себе |)за \\d`));
       expect(plain, `${p.rel}: promises leads per day`).not.toMatch(/\d[-–]\d додаткових заяв/);
+      // a promise does not need a percent sign: «окупається з перших 10-30 заявок» is one too
+      const PROMISE = new RegExp(`(окупа${UK}+|окупність|принесе|гарантує|зросте|додасть)[^.!?]{0,60}\\d`, 'i');
+      const example = /приклад|не обіцянка|порахуйте|орієнтир/i;
+      for (const sentence of plain.split(/(?<=[.!?])\s+/)) {
+        if (!PROMISE.test(sentence) || example.test(sentence)) continue;
+        expect.fail(`${p.rel}: promises a number without calling it an example — «${sentence.trim().slice(0, 120)}»`);
+      }
     }
   });
 });

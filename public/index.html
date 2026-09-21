@@ -71,8 +71,17 @@
     "name": "Олександр Кравченко",
     "jobTitle": "Web Developer",
     "url": "https://www.parkinsandr.tech",
-    "sameAs": ["https://github.com/sashko1391"],
-    "knowsAbout": ["React", "Next.js", "TypeScript", "AI Integration", "Legal Tech", "Web Development"],
+    "sameAs": [
+      "https://github.com/sashko1391"
+    ],
+    "knowsAbout": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "AI Integration",
+      "Legal Tech",
+      "Web Development"
+    ],
     "alumniOf": {
       "@type": "CollegeOrUniversity",
       "name": "Київський національний університет імені Тараса Шевченка"
@@ -107,10 +116,20 @@
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Інтернет-магазин або AI-платформа",
-          "description": "Магазин fast-track на Next.js + Medusa: каталог, кошик, оплата, Нова Пошта. Термін: 7 днів. Custom-магазин і AI-платформа з кабінетом — від 80 000 ₴"
+          "name": "Інтернет-магазин (fast-track)",
+          "description": "Магазин на Next.js + Medusa: каталог до 100 SKU, кошик, оплата, Нова Пошта. Термін: 7 днів"
         },
         "price": "60000",
+        "priceCurrency": "UAH"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI-платформа або кастомний магазин",
+          "description": "Платформа з особистим кабінетом, базою даних і AI-інтеграцією або магазин з нуля. Термін: 21–30 днів"
+        },
+        "price": "80000",
         "priceCurrency": "UAH"
       }
     ]
@@ -2700,17 +2719,31 @@
       }
     }
 
-    // Retry queued leads on page load: wait for every attempt, then rewrite the queue once.
-    (async function flushQueue() {
-      let queue;
+    // Each queued lead carries an id, so a flush removes exactly what it delivered.
+    function leadId(payload) {
+      return payload && payload.id ? payload.id : JSON.stringify(payload); // older entries have no id
+    }
+
+    function readQueue() {
       try {
-        queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        return Array.isArray(queue) ? queue : [];
       } catch {
-        return; // localStorage unavailable
+        return []; // localStorage unavailable
       }
-      if (!Array.isArray(queue) || !queue.length) return;
+    }
+
+    /**
+     * Retry queued leads on page load. The queue is re-read after the attempts: a lead the visitor sends
+     * while we are waiting lands in localStorage meanwhile, and rewriting the old snapshot would drop it.
+     */
+    (async function flushQueue() {
+      const queue = readQueue();
+      if (!queue.length) return;
       const sent = await Promise.all(queue.map(sendToProxy));
-      const remaining = queue.filter((payload, i) => !sent[i]);
+      const delivered = new Set(queue.filter((payload, i) => sent[i]).map(leadId));
+      if (!delivered.size) return;
+      const remaining = readQueue().filter((payload) => !delivered.has(leadId(payload)));
       try {
         if (remaining.length) localStorage.setItem('chat_queue', JSON.stringify(remaining));
         else localStorage.removeItem('chat_queue');
@@ -2771,6 +2804,7 @@
         .join('\n---\n');
 
       const payload = {
+        id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random(),
         contact: contactInfo,
         history: historyText,
         source: location.pathname,
@@ -2783,7 +2817,7 @@
         return true;
       }
       try {
-        const queue = JSON.parse(localStorage.getItem('chat_queue') || '[]');
+        const queue = readQueue();
         queue.push(payload);
         localStorage.setItem('chat_queue', JSON.stringify(queue));
       } catch { /* localStorage unavailable — data lost */ }

@@ -122,13 +122,13 @@ describe('one price model', () => {
     const found = (haystack) => {
       const hits = CATEGORY.flatMap((category, rank) =>
         [...haystack.matchAll(category.re)].map((m) => ({ category, rank, start: m.index, end: m.index + m[0].length })));
-      // «магазин» and «магазин (custom)» over the same words are one mention: keep the longest, and on a
-      // tie the more specific pattern (CATEGORY is ordered specific-first)
+      // «магазин» and «магазин custom» over the same words are one mention: the more specific pattern wins
+      // (CATEGORY is ordered specific-first), and between equals the longer match
       const kept = [];
       let rest = hits.slice();
       while (rest.length) {
         const best = rest.reduce((a, b) =>
-          (b.end - b.start > a.end - a.start || (b.end - b.start === a.end - a.start && b.rank < a.rank)) ? b : a);
+          (b.rank < a.rank || (b.rank === a.rank && b.end - b.start > a.end - a.start)) ? b : a);
         kept.push(best);
         rest = rest.filter((h) => h.end <= best.start || h.start >= best.end);
       }
@@ -186,6 +186,31 @@ describe('one price model', () => {
     }
   });
 
+  /** Offers name their category, so the pair «category → price» is checkable in structured data too. */
+  it('every JSON-LD offer prices the category it names', () => {
+    for (const p of pages) {
+      for (const d of jsonLd(p.html)) {
+        const offers = [];
+        const walk = (node) => {
+          if (Array.isArray(node)) return node.forEach(walk);
+          if (!node || typeof node !== 'object') return;
+          const price = Number(node.price ?? node.priceSpecification?.minPrice ?? NaN);
+          const name = node.name ?? node.itemOffered?.name;
+          if (Number.isFinite(price) && price > 0 && typeof name === 'string') offers.push({ name, price });
+          Object.values(node).forEach(walk);
+        };
+        walk(d);
+        for (const offer of offers) {
+          const categories = categoryOf('', ` за ${offer.name}`) ?? categoryOf(offer.name, '');
+          if (!categories) continue;
+          const expected = Math.min(...categories.map((c) => c.price));
+          expect(offer.price, `${p.rel}: offer «${offer.name}» is priced ${offer.price}, catalogue says ${expected}`)
+            .toBe(expected);
+        }
+      }
+    }
+  });
+
   it('priceRange stays inside the published range', () => {
     const min = Math.min(...CANON);
     const max = Math.max(...CANON);
@@ -195,6 +220,46 @@ describe('one price model', () => {
         if (!range) continue;
         expect(Number(range[1]), `${p.rel} priceRange lower bound`).toBe(min + 5000); // 20000: the cheapest site
         expect(Number(range[2]), `${p.rel} priceRange upper bound`).toBe(max);
+      }
+    }
+  });
+
+  /**
+   * The delivery time /pricing/ publishes per category, read from its own comparison tables. Keyed by
+   * category, not by price: a landing and a Telegram bot both start at 20 000 ₴ but take different time.
+   */
+  const TERMS = (() => {
+    const out = {};
+    const rows = [...page('pricing/index.html').html.matchAll(/<tr><td>([^<]+)<\/td><td>від ([\d\u00a0 ]+) ₴<\/td><td>([^<]+)<\/td>/g)];
+    for (const [, rowName, , term] of rows) {
+      const hits = CATEGORY.flatMap((category) => [...rowName.matchAll(category.re)].map((m) => ({ category, rank: CATEGORY.indexOf(category), len: m[0].length })));
+      if (!hits.length) continue;
+      const best = hits.reduce((a, b) => (b.rank < a.rank ? b : a));
+      if (!(best.category.name in out)) out[best.category.name] = term.replace(/\u00a0/g, ' ').trim();
+    }
+    return out;
+  })();
+
+  /** «5-7 днів» and «5–7 днів» are the same promise; «7–14 днів» is a different one. */
+  const termKey = (text) => (text.match(/\d+/g) ?? []).join('-') + (/тижн/i.test(text) ? 'w' : 'd');
+
+  it('a delivery time named next to a category is the one /pricing/ publishes', () => {
+    const commercial = pages.filter((p) => p.rel === 'index.html' || p.rel === 'pricing/index.html' || p.rel.startsWith('services/'));
+    for (const p of commercial) {
+      const text = p.html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ')
+        .replace(/<[^>]+>/g, ' ').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ');
+      // only a promise about future work («Термін: …», «готово за …») — not a fact about a finished case
+      for (const m of text.matchAll(/(?:Термін:|термін:|готово за)\s*(\d+(?:\s?[–-]\s?\d+)?\s*(?:днів|дні|день|тижні|тижнів|тиждень))/g)) {
+        // a price card puts the category, the price and the term together, so the price is not a boundary here
+        const before = text.slice(Math.max(0, m.index - 90), m.index);
+        const hits = CATEGORY.flatMap((category) => [...before.matchAll(category.re)].map((x) => ({ category, end: x.index + x[0].length, rank: CATEGORY.indexOf(category) })));
+        if (!hits.length) continue;
+        const nearest = hits.reduce((a, b) => (b.end > a.end || (b.end === a.end && b.rank < a.rank) ? b : a));
+        const categories = [nearest.category];
+        const expected = TERMS[nearest.category.name];
+        if (!expected) continue;
+        expect(termKey(m[1]), `${p.rel}: «${categories.map((c) => c.name).join('/')} — ${m[1]}», /pricing/ says «${expected}»`)
+          .toBe(termKey(expected));
       }
     }
   });

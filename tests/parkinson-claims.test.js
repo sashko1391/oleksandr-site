@@ -15,9 +15,12 @@ function blocks(page) {
     .map((m) => ({ tag: m[1], text: m[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), at: m.index }));
 }
 
-// a quantity of medicine, or the post's own scheme — not the word «таблетка» in a general sentence
-const DOSE = /\d+\s*\/?\s*\d*\s*(?:мг|міліграм|таблет|пластир)|мінімальної дози|(?:моє|власне|збільшував) дозуванн/i;
-const WARNS = /(підбирає лікар|призначає лікар|не раджу це повторювати|не повторюйте|не як рекомендацію|питання до невролога|обговор\w+ (?:це )?з (?:власним |)(?:лікар|неврологом))/i;
+// a quantity of medicine — digits or words, any unit — or the post's own scheme; not the bare word «таблетка»
+// «одна таблетка» is the generic singular («одна таблетка нічого не доводить»), not a quantity taken
+const NUMERAL = '(?:\\d+(?:\\s*\\/\\s*\\d+)?|дв[аіо]|три|чотири|пʼять|п\'ять|шість|сім|вісім|девʼять|дев\'ять|десять|півтори|половин[ау])';
+const UNIT = '(?:мг|мкг|мл|міліграм\\p{L}*|таблет\\p{L}*|капсул\\p{L}*|пластир\\p{L}*|крапл\\p{L}*)';
+const DOSE = new RegExp(`${NUMERAL}\\s*${UNIT}|мінімальн\\p{L}+ дози|(?:моє|власне|збільшував) дозуванн`, 'iu');
+const WARNS = /(підбирає лікар|призначає лікар|не раджу це повторювати|не повторюйте|не як рекомендацію|питання до невролога|не схема, яку можна повторити|обговор\p{L}+ (?:це )?з (?:власним |)(?:лікар\p{L}*|неврологом))/iu;
 
 describe('Parkinson rubric — claims and doses', () => {
   it('every dose mentioned carries a warning in the same block or right next to it', () => {
@@ -64,10 +67,34 @@ describe('Parkinson rubric — claims and doses', () => {
     expect(html['hoverla']).toContain('Дозування та час прийому підбирає лікар');
   });
 
-  it('the crisis contacts are current on every post that carries them', () => {
-    for (const slug of POSTS) {
-      if (!/гаряч|криз|підтримк/i.test(html[slug])) continue;
+  /** Figures checked against the sources on 2026-09-21: changing one here means going back to the source. */
+  it('the medical figures are the ones the sources give', () => {
+    const early = html['rannii-parkinsonizm'];
+    expect(early, 'MDS-2015 applies the exclusion only from 600 mg/day').toContain('600 мг');
+    expect(early).toContain('movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.26424');
+    expect(early, 'the MDS-UPDRS III threshold for a documented response').toContain('понад 30%');
+    expect(early, 'employment figures come from the cohort, not from «10–15 років»')
+      .toContain('через 5 років могли працювати 88%, через 10 років — 44%');
+    expect(early).not.toMatch(/часто йдеться про 10–15 років/);
+    expect(html['diahnoz-u-27'], 'a negative levodopa test is not a diagnosis on its own')
+      .toContain('лише тоді, коли доза була щонайменше 600 мг на добу');
+  });
+
+  it('the self-experiment keeps its frame', () => {
+    const post = html['eksperyment-nad-soboyu'];
+    expect(post).toContain('Це щоденник однієї людини, а не дослідження й не медична порада');
+    expect(post).toContain('не обговоривши з власним лікарем');
+    expect(post, 'fasting is named as unproven').toMatch(/не доведено|недоведен/);
+  });
+
+  it('the crisis contacts are on the four posts that carry them, and are current', () => {
+    // hoverla is a hiking post; its crisis block comes with the rubric frame in step 2b (doc/HUBS_PLAN.md)
+    const withContacts = POSTS.filter((slug) => /howareu\.com\/hot-lines/.test(html[slug]));
+    expect(withContacts).toEqual(['diahnoz-u-27', 'rannii-parkinsonizm', 'parkinson-shcho-robyty', 'eksperyment-nad-soboyu']);
+    for (const slug of withContacts) {
       expect(html[slug], `${slug} still lists the paused 7333 line`).not.toMatch(/\b7333\b/);
+      expect(html[slug], `${slug} must name the crisis line that answers`).toContain('0 800 21 01 60');
+      expect(html[slug], `${slug} must say when the contacts were checked`).toMatch(/[Кк]онтакти перевірено/);
     }
   });
 

@@ -87,6 +87,16 @@ describe('testimonials', () => {
     expect(slavutych, 'the Slavutych case must state the re-check').toMatch(/Перевірка \d{1,2} [\u0430-\u044f\u0456\u0457\u0454\u0491]+ 2026/);
   });
 
+  it('a page that quotes a client tells the reader where the numbers come from', () => {
+    for (const rel of [...new Set(blocks.map((b) => b.rel))]) {
+      const page = pages.find((p) => p.rel === rel).html;
+      expect(page, `${rel}: no note explaining the numbers inside the quotes`)
+        .toContain('Цифри всередині цитат — слова клієнтів');
+      expect(page, `${rel}: the note must link the measurements`).toContain('/projects/ace/#vymiriuvannia');
+      expect(page, `${rel}: the note must link the measurements`).toContain('/projects/slavutych/#vymiriuvannia');
+    }
+  });
+
   it('a speed number shown as a result card says when it was measured', () => {
     for (const p of pages) {
       for (const m of p.html.matchAll(/<div class="result-metric"><strong>([^<]+)<\/strong><span>([^<]*)<\/span>/g)) {

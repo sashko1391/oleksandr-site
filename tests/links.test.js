@@ -377,6 +377,32 @@ const HUB_URL = {
   'Послуги': `${SITE}/services/`,
 };
 
+/** The extra collections each hub shows, from doc/HUBS_PLAN.md — again written out, not derived. */
+const F2_ALSO = {
+  'parkinson/': [],
+  'creative/': [],
+  'journal/': [ // the feed keeps every journal post, including those owned by the two hubs
+    'journal/diahnoz-u-27/index.html', 'journal/rannii-parkinsonizm/index.html',
+    'journal/parkinson-shcho-robyty/index.html', 'journal/eksperyment-nad-soboyu/index.html',
+    'journal/hoverla/index.html', 'journal/holodylnyi-apokalipsys/index.html',
+    'journal/kabachok-starosta/index.html', 'journal/viddil-vtrachenoho-chasu/index.html',
+    'journal/poverny-meni-chas/index.html',
+  ],
+  'code/': [ // «SEO й AI-пошук» — owned by /services/, shown here too
+    'blog/seo-bez-reklamy-keis-atlas/index.html', 'blog/getting-cited-ai-poshuk/index.html',
+    'blog/internal-linking/index.html',
+  ],
+  'services/': [],
+  'blog/': [ // the archive lists all twelve
+    'blog/chek-list-zamovlennya-sajtu/index.html', 'blog/devlog-business-empire-idle/index.html',
+    'blog/devlog-empire-online/index.html', 'blog/getting-cited-ai-poshuk/index.html',
+    'blog/internal-linking/index.html', 'blog/jarvis-ai-assistant/index.html',
+    'blog/react-vs-tilda/index.html', 'blog/seo-bez-reklamy-keis-atlas/index.html',
+    'blog/skilky-koshtuye-sajt/index.html', 'blog/tilda-vs-webflow-vs-kastom/index.html',
+    'blog/yak-obrati-rozrobnyka/index.html', 'blog/yak-zamovyty-sajt/index.html',
+  ],
+};
+
 describe('Ф2 — HUB_MEMBERS', () => {
   const primary = primaryHub();
 
@@ -391,6 +417,15 @@ describe('Ф2 — HUB_MEMBERS', () => {
       expect(primary.get(file)?.name, file).toBe(name);
       expect(primary.get(file)?.item, file).toBe(HUB_URL[name]);
     }
+  });
+
+  it('shows exactly the extra collections the plan lists', () => {
+    for (const [hub, files] of Object.entries(F2_ALSO)) {
+      expect(HUB_MEMBERS[hub].also.slice().sort(), hub).toEqual(files.slice().sort());
+      const both = HUB_MEMBERS[hub].also.filter((f) => HUB_MEMBERS[hub].primary.includes(f));
+      expect(both, `${hub}: a post is both owned and merely shown`).toEqual([]);
+    }
+    expect(Object.keys(HUB_MEMBERS).sort()).toEqual(Object.keys(F2_ALSO).sort());
   });
 
   it('names only pages that exist, in primary and in the extra collections', () => {

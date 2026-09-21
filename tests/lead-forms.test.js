@@ -67,6 +67,19 @@ describe('lead forms', () => {
     const talking = pages.filter((p) => p.html.includes(WORKER)).map((p) => p.rel);
     expect(talking).toEqual(['index.html']);
     expect(shared).toContain(WORKER);
+    // a second script file with its own fetch would bypass every check above
+    const scripts = (function walk(dir) {
+      const out = [];
+      for (const name of readdirSync(dir)) {
+        const p = join(dir, name);
+        if (statSync(p).isDirectory()) out.push(...walk(p));
+        else if (/\.m?js$/.test(name)) out.push(p);
+      }
+      return out;
+    })(PUBLIC);
+    const senders = scripts.filter((f) => readFileSync(f, 'utf8').includes(WORKER))
+      .map((f) => relative(PUBLIC, f).split(sep).join('/'));
+    expect(senders, 'only lead-form.v1.js may send to the Worker').toEqual([SCRIPT.replace(/^\//, '')]);
   });
 
   it('without JavaScript the form is hidden and the direct contacts stay reachable', () => {

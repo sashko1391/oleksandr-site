@@ -64,7 +64,7 @@ function check(name, ok, detail = '') {
  * Open /services/ with the Worker answering `workerStatus` (or never, with `workerHangs`); returns the page and the
  * payloads it received. `clock` installs Playwright's fake timers so a test can fast-forward the page's timeout.
  */
-async function open(browser, base, { path = '/services/', workerStatus = 200, workerHangs = false, clock = false, javaScript = true, viewport = DESKTOP } = {}) {
+async function open(browser, base, { path = '/services/', workerStatus = 200, workerHangs = false, workerPlan = null, clock = false, javaScript = true, viewport = DESKTOP } = {}) {
   const context = await browser.newContext({ viewport, javaScriptEnabled: javaScript });
   const sent = [];
   await context.route('**/*', (route) => {
@@ -75,7 +75,9 @@ async function open(browser, base, { path = '/services/', workerStatus = 200, wo
       if (request.method() === 'OPTIONS') return route.fulfill({ status: 204, headers: cors });
       sent.push(request.postDataJSON());
       if (workerHangs) return undefined; // never answer: the page has to give up on its own
-      return route.fulfill({ status: workerStatus, headers: cors, contentType: 'application/json', body: '{}' });
+      const plan = workerPlan ? workerPlan(sent.length) : { status: workerStatus };
+      const answer = () => route.fulfill({ status: plan.status, headers: cors, contentType: 'application/json', body: '{}' });
+      return plan.delayMs ? new Promise((done) => setTimeout(() => answer().then(done), plan.delayMs)) : answer();
     }
     return route.abort(); // GA, Clarity, Plausible
   });
@@ -136,6 +138,34 @@ async function formChecks(browser, base) {
       hidden && note && direct, `hidden=${hidden} note=${note} direct=${direct}`);
     await noJs.context.close();
   }
+}
+
+
+/** The homepage bot keeps a retry queue in localStorage; flushing it must not swallow a fresh lead. */
+async function botQueueChecks(browser, base) {
+  // first call (the flush of the seeded lead) answers slowly; everything after it fails
+  const ctx = await open(browser, base, {
+    path: '/',
+    workerPlan: (n) => (n === 1 ? { status: 200, delayMs: 10000 } : { status: 500 }),
+  });
+  const { page } = ctx;
+  await page.evaluate(() => localStorage.setItem('chat_queue', JSON.stringify([
+    { id: 'seeded-1', contact: '@seeded', history: 'seeded', source: '/', timestamp: new Date().toISOString() },
+  ])));
+  await page.reload({ waitUntil: 'load' });
+  await page.fill('#chatInput', '@fresh_contact');
+  await page.click('.chat-send');
+  await page.waitForFunction(() => (JSON.parse(localStorage.getItem('chat_queue') || '[]')).some((p) => p.contact === '@fresh_contact'), null, { timeout: 15000 });
+  // the fresh lead must land while the flush is still waiting for its slow answer
+  const duringFlush = await page.evaluate(() => JSON.parse(localStorage.getItem('chat_queue') || '[]'));
+  check('homepage bot: the flush is still in flight when the fresh lead is queued',
+    duringFlush.some((p) => p.id === 'seeded-1'), JSON.stringify(duringFlush.map((p) => p.contact)));
+  await page.waitForTimeout(12000); // let the slow flush finish and rewrite the queue
+  const queue = await page.evaluate(() => JSON.parse(localStorage.getItem('chat_queue') || '[]'));
+  check('homepage bot: a lead sent during a queue flush is not lost',
+    queue.some((p) => p.contact === '@fresh_contact') && !queue.some((p) => p.id === 'seeded-1'),
+    JSON.stringify(queue.map((p) => p.contact)));
+  await ctx.context.close();
 }
 
 async function desktopChecks(browser, base) {
@@ -249,6 +279,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const browser = await chromium.launch({ headless: true, channel: 'chrome' });
   try {
     await formChecks(browser, base);
+    await botQueueChecks(browser, base);
     await desktopChecks(browser, base);
     await mobileChecks(browser, base);
     const i = process.argv.indexOf('--screenshots');
