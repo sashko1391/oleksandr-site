@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>parkinsandr.tech — Код</title>
+    <link>https://www.parkinsandr.tech/code/</link>
+    <atom:link href="https://www.parkinsandr.tech/code/feed.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[Devlog-и власних проєктів, AI-інструменти й розбори пошукової видимості з даними.]]></description>
+    <language>uk</language>
+    <copyright>© 2026 Олександр Кравченко</copyright>
+    <lastBuildDate>Mon, 21 Sep 2026 08:46:41 GMT</lastBuildDate>
+    <image>
+      <url>https://www.parkinsandr.tech/images/preview.jpg</url>
+      <title>parkinsandr.tech — Код</title>
+      <link>https://www.parkinsandr.tech/code/</link>
+    </image>
+    <item>
+      <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
+      <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[SEO-кейс інтернет-магазину Atlas, якому недоступна реклама: зростання з 3 до 346 кліків у 28-денному вікні Google Search Console, що спрацювало (canonical, картки товарів, FAQ, реальні запити), що не спрацювало (масовий блог, keyword stuffing) і обмеження даних.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/atlas.webp" type="image/webp" length="29630"/>
+    </item>
+    <item>
+      <title><![CDATA[AI-пошук: 60% Share of Voice за 5 тижнів]]></title>
+      <link>https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Data-driven GEO-кейс: як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних українських legal-брендів в AI-пошуку — з методологією виміру та висновками.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Внутрішня перелінковка сайту: кластерна структура 2026]]></title>
+      <link>https://www.parkinsandr.tech/blog/internal-linking/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/internal-linking/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Як я створив свого Джарвіса — AI-помічник із фільму в реальність]]></title>
+      <link>https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як створити персонального AI-помічника як Джарвіс із Залізної людини. Реальний проєкт: 30+ AI-інструментів, голосове управління, трекер здоров'я.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Devlog: Empire Online — браузерна бізнес-MMO]]></title>
+      <link>https://www.parkinsandr.tech/blog/devlog-empire-online/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-empire-online/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/empire-online.webp" type="image/webp" length="31426"/>
+    </item>
+    <item>
+      <title><![CDATA[Devlog: як я роблю idle-гру на SvelteKit]]></title>
+      <link>https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Девлог розробки Business Empire Idle — від ванільного JS до SvelteKit, 13 бізнесів, prestige-система, AI-зображення.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/empire-idle.webp" type="image/webp" length="39858"/>
+    </item>
+  </channel>
+</rss>

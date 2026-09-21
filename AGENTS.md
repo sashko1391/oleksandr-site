@@ -16,7 +16,9 @@
   IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на `/services/` (до Ф3 — на головній) — **скриптовий бот** (готові відповіді
   в JS, без LLM); заявки з бота й лід-форм пересилає в Telegram Cloudflare Worker `oleksandr-site.sashko1391.workers.dev`
   (код воркера не в репо).
-- RSS: `public/feed.xml` генерує `scripts/build-feed.mjs`. Тести: `npm test` (vitest).
+- RSS: `scripts/build-feed.mjs` генерує загальносайтовий `public/feed.xml` і фіди розділів
+  (`/parkinson/`, `/code/`, `/creative/`, `/journal/` — розділ із `HUB_MEMBERS`, до 30 найновіших у кожному).
+  Тести: `npm test` (vitest).
 
 ## Плани й статус
 | Документ | Статус |
@@ -27,13 +29,13 @@
 | `doc/HUBS_PLAN.md` | ✅ Ф2 виконано 2026-09-21: хаби, архів `/blog/`, рамка рубрики, breadcrumbs → хаби (`f2-done`) |
 | `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
 | `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
-| `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
+| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS загальний і по розділах у репо; Telegram-канал і Email — потребують власника |
 | `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: дані GSC, зроблене 2026-09-21, що міряти далі |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
 `/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
-Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS по розділах ✅, Telegram/Email — за власником) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
 ## Правила
@@ -46,8 +48,14 @@
    повним URL, не за суфіксом. `[enforced: tests/policy.test.js]`
 4. **Не додавати `<link rel="preload" as="font">`** — на цьому сайті погіршує FCP/LCP (експеримент 2026-06-14).
    `[enforced: tests/policy.test.js]`
-5. **Sitemap = рівно всі indexable сторінки; кожна сторінка має один RSS-лінк у `<head>`.** `[enforced: tests/policy.test.js]`
-6. **`public/feed.xml` відповідає постам** — після нового поста регенерувати. `[enforced: tests/feed.test.js]`
+5. **Sitemap = рівно всі indexable сторінки; кожна HTML-сторінка, крім `404.html`, має рівно один
+   rss-`alternate` на `/feed.xml` у `<head>`.** Сторінка розділу (хаб або пост, чий `primary`-хаб має фід)
+   додає другий `alternate` — на фід свого розділу, і ставить його **першим**: клієнт, що розуміє лише один
+   фід, має підписатися на тематичний. Склад визначає `tagsFor()` у `scripts/inject-rss.mjs`.
+   `[enforced: tests/policy.test.js, tests/feed.test.js]`
+6. **Фіди відповідають постам:** кожен фід — до 30 найновіших постів свого розділу (`MAX_ITEMS`),
+   розділ береться з `HUB_MEMBERS`, загальний `/feed.xml` — з усіх постів. Після нового поста регенерувати;
+   тест звіряє записані файли з тим, що згенерував би скрипт зараз. `[enforced: tests/feed.test.js]`
 7. **Рубрика Паркінсон = «досвід пацієнта»** (рецензента-невролога немає): дисклеймер у видимій зоні, джерела,
    «перевірено: дата», журнал виправлень; завжди поза пейволом; без обіцянок лікування. `[advisory]`
 8. **Одна велика зміна за раз;** перевірки після змін — функціональні (обсяги трафіку замалі для статистики). `[advisory]`
@@ -82,7 +90,7 @@
 ```
 public/
 ├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
-├── 404.html (noindex) · robots.txt · sitemap.xml (50 URL) · feed.xml (RSS)
+├── 404.html (noindex) · robots.txt · sitemap.xml (50 URL) · feed.xml (RSS усього сайту)
 ├── journal/              ← «Поза кодом»: index (стрічка всіх 16 постів + фільтр жанрів, посилання на хаби)
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
 ├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
@@ -98,8 +106,9 @@ api/ · lib/ · scripts/ · tests/ · doc/
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
 ## Скрипти
-- `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
-- `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
+- `node scripts/build-feed.mjs` — регенерує `public/feed.xml` + фіди розділів `public/{parkinson,code,creative,journal}/feed.xml`
+- `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>`: загальний на всіх сторінках, крім 404; фід розділу —
+  першим на хабі розділу та на його постах (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
 - `node scripts/inject-nav.mjs [--check]` — наскрізне меню на всіх сторінках (ідемпотентно; 404 не чіпає)
 - `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f2-done`);
@@ -119,7 +128,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
 2. JSON-LD: Article (author → `/pro-mene/#author`) + BreadcrumbList; FAQPage — лише для реального видимого FAQ.
 3. Коментарі: блок перед `</article>` (`inject-comments.mjs`) **+ `INSERT INTO posts(slug)` у Supabase**, інакше API 404.
    `[advisory — перевір GET /api/comments?slug=… → 200]`
-4. `sitemap.xml` (lastmod), `node scripts/build-feed.mjs && node scripts/inject-rss.mjs`, картка в індексі розділу.
+4. `sitemap.xml` (lastmod), пост у `HUB_MEMBERS` (`scripts/link-policy.mjs`) — інакше він не потрапить ні на хаб,
+   ні у фід розділу, `node scripts/build-feed.mjs && node scripts/inject-rss.mjs`, картка в індексі розділу.
    `[enforced: tests/policy.test.js + tests/feed.test.js]`
 5. Щонайменше 3 вхідні внутрішні посилання; після деплою — IndexNow + GSC «Запросити індексування». `[advisory]`
 
@@ -135,7 +145,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 ## Технічні нотатки
 - Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (лише в коментарях), `/js/comments.v1.js`.
 - `vercel.json`: `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
-  для сканування); rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml`; cron retention.
+  для сканування); rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml` і `/:section/feed.xml`; cron retention.
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.
 - Лаб-PSI цього сайту шумить (cold Vercel edge) — мірити 3–4 прогони, дивитись на медіану.

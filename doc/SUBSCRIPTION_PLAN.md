@@ -6,25 +6,37 @@
 > Принцип: реюз усього загартованого стеку коментарів (Supabase pooler, Upstash KV, Turnstile, honeypot,
 > rate-limit, ipHash, retention-cron, vitest handler-тести). Деплой: git push → Vercel. Комітити тільки на «пуш».
 
-## ⏸ СТАТУС: ПАУЗА з 2026-09-18
-**Причина:** власник запускає системну переробку сайту з «реклами послуг розробника» в особистий сайт
-(щоденник, програмування, творчість, Паркінсон, продаж контенту через mono). IA і розділи зміняться →
-підписку продовжуємо ПІСЛЯ узгодження нової структури.
+## 🟢 СТАТУС: відновлено 2026-09-21 (пауза з 2026-09-18 знята)
+**Чому пауза:** підписку відклали до нової IA. Ф2 (хаби) і Ф3 (особиста головна + меню) її дали, тож причина відпала.
 
-**Зроблено — Фаза 0 (RSS): коміт `97303d1`, запушено 2026-09-18 — RSS у проді** (`/feed.xml`, 28 items на момент запуску).
-- `scripts/build-feed.mjs`, `scripts/inject-rss.mjs`, `public/feed.xml` (28 items), `tests/feed.test.js`,
-  `vercel.json` (headers `/feed.xml`), `lib/telegram.js` (`sendToChannel`), rss-`<link>` у head 44 сторінок.
-- 95/95 тестів green; 3 раунди codex-рев'ю закрито.
-- Новий пост → перегенерувати: `node scripts/build-feed.mjs && node scripts/inject-rss.mjs` (ідемпотентно).
+**Зроблено — Фаза 0.1 (RSS): коміт `97303d1`, у проді з 2026-09-18** — `/feed.xml`, 28 items.
+- `scripts/build-feed.mjs`, `scripts/inject-rss.mjs`, `public/feed.xml`, `tests/feed.test.js`,
+  `vercel.json` (headers `/feed.xml`), `lib/telegram.js` (`sendToChannel`), rss-`<link>` у head кожної
+  HTML-сторінки, крім `404.html`.
 
-**Не зроблено:** Telegram-канал `@parkinsandr` (ручне створення + `TELEGRAM_CHANNEL_ID`) і видимі лінки;
-Фаза 1 Email (Resend + DNS `send.parkinsandr.tech` + Supabase `subscribers` + API + віджет + `/privacy/`);
-Фаза 2 `scripts/announce.mjs`.
+**Зроблено — Фаза 0.1b (фіди розділів), 2026-09-21:** підписка по темах, без бекенду й без зовнішніх залежностей.
+- `/parkinson/feed.xml` (5), `/code/feed.xml` (6), `/creative/feed.xml` (4), `/journal/feed.xml` (16).
+  Склад кожного — до 30 найновіших постів розділу за `HUB_MEMBERS` (`scripts/link-policy.mjs`); тест звіряє
+  записаний файл і з маніфестом, і з тим, що згенерував би скрипт зараз, тож фід не розійдеться з розділом
+  непомітно. Архів `/blog/` і комерційний `/services/` власного фіда не мають.
+- `build(items, feed)` рендерить канал переданого фіда; `collect()` більше не ріже до 30 — ліміт у `itemsFor`
+  на кожен фід окремо; кожен item знає свій файл-джерело (`source`).
+- `inject-rss.mjs` ставить `alternate` фіда розділу **першим** на хабі й на постах розділу (23 сторінки;
+  рішення — чиста `tagsFor()`, ідемпотентно), видимі посилання — у блоці «Поруч» трьох хабів і окремим
+  блоком «Підписка» в `/journal/`.
+- `vercel.json`: ті самі Content-Type і кеш 30 хв на `/:section/feed.xml`.
+- Тести: `tests/feed.test.js` 55 + посилений `tests/policy.test.js`. Мутаційна перевірка: 20 мутантів — 20 убито
+  (після рев'ю Codex додано: дубль `<item>`, зниклий `<pubDate>`, підмінений `<title>` при тому самому GUID,
+  переставлені item-и, зламаний XML, лінк у коментарі, зворотний порядок alternate, чужий фід на сторінці).
 
-**При відновленні переглянути під нову IA:**
-- `SECTIONS` у `build-feed.mjs` (зараз journal+blog) → розділи нового сайту; фіди по розділах.
-- Підписка по темах (Паркінсон / творчість / код / щоденник) → сегменти в `subscribers`.
-- Email-список = канал анонсів платних релізів (mono) — зв'язати з планом монетизації.
+**Не зроблено (потребує власника):** Telegram-канал `@parkinsandr` (ручне створення + `TELEGRAM_CHANNEL_ID`)
+і видимі лінки; Фаза 1 Email (Resend + DNS `send.parkinsandr.tech` + Supabase `subscribers` + API + віджет +
+`/privacy/`); Фаза 2 `scripts/announce.mjs`.
+
+**Переглянуто під нову IA:**
+- ✅ `SECTIONS` у `build-feed.mjs` лишається джерелом постів (journal + blog), розділи — з `HUB_MEMBERS`.
+- Підписка по темах: RSS ✅; для email ті самі 4 розділи стануть сегментами в `subscribers`.
+- Email-список = канал анонсів платних релізів — зв'язати з планом монетизації (Ф5, ⛔ заблоковано).
 
 ## Стан на старті (звірено 2026-07-14)
 - RSS-фіда НЕМАЄ (ні `feed.xml`, ні `<link rel=alternate>` у head).
@@ -47,9 +59,9 @@
   `build-feed.mjs`. Локальний час зламає сортування в рідерах і даватиме «нові» дублі при регенерації фіда.
 - **Channel-мета:** title «parkinsandr.tech — Поза кодом і не тільки», link, description, language uk, `<atom:link rel=self>`.
 - **Сортування:** за pubDate desc; ліміт напр. 30 останніх.
-- **Scope:** старт — один комбінований `/feed.xml` (усе). Опційно пізніше `/journal/feed.xml` (тільки «Поза кодом»).
-- **`<link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">`** у head:
-  головна, `/journal/`, `/blog/` (індекси) + усі пости. Скрипт-інжектор (як `scripts/inject-comments.mjs`), ідемпотентний.
+- **Scope:** старт — один комбінований `/feed.xml` (усе); фіди розділів додано у Фазі 0.1b (2026-09-21).
+- **`<link rel="alternate" type="application/rss+xml" …>`** у head кожної HTML-сторінки, крім `404.html`;
+  на сторінках розділу першим іде фід розділу. Скрипт-інжектор `scripts/inject-rss.mjs`, ідемпотентний.
 - **Кеш:** `vercel.json` — `Cache-Control: public, max-age=1800` на `/feed.xml`.
 - **Запуск:** частина `announce.mjs` (Фаза 2) + разово зараз для наявних постів.
 - **Тест:** валідність XML (парситься), кількість items = кількість постів, дати у RFC-822.
@@ -210,7 +222,7 @@
 2. **Фаза 1.0** (Resend domain verify / DNS) — паралельно, бо DNS-пропагація має лаг.
 3. **Фаза 1.1–1.6** (Email підписка) — міграція → бекенд → листи → віджет → /privacy/ → тести.
 4. **Фаза 2** (announce.mjs) — коли є ≥1 email-канал; зв'язати всі канали.
-5. **Пізніше:** Web Push (окремий план), `/journal/feed.xml`, welcome-серія.
+5. **Пізніше:** Web Push (окремий план), welcome-серія.
 
 ## Definition of done (по фазах)
 - **Ф0:** `/feed.xml` валідний (feedvalidator), `<link>` у head усіх сторінок, TG-канал живий + лінки на сайті.

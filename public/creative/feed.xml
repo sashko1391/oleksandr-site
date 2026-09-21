@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>parkinsandr.tech — Творчість</title>
+    <link>https://www.parkinsandr.tech/creative/</link>
+    <atom:link href="https://www.parkinsandr.tech/creative/feed.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[Оповідання, байки, пісні та кліпи Олександра Кравченка.]]></description>
+    <language>uk</language>
+    <copyright>© 2026 Олександр Кравченко</copyright>
+    <lastBuildDate>Mon, 21 Sep 2026 08:46:41 GMT</lastBuildDate>
+    <image>
+      <url>https://www.parkinsandr.tech/images/preview.jpg</url>
+      <title>parkinsandr.tech — Творчість</title>
+      <link>https://www.parkinsandr.tech/creative/</link>
+    </image>
+    <item>
+      <title><![CDATA[Поверни мені час — кліп за мотивами оповідання]]></title>
+      <link>https://www.parkinsandr.tech/journal/poverny-meni-chas/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/poverny-meni-chas/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Оповідання]]></category>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[«Поверни мені час» — кліп і пісня, які я зробив за мотивами оповідання «Відділ втраченого часу». Про роки, які хочеться забрати назад.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/poverny-meni-chas/og.jpg" type="image/jpeg" length="64396"/>
+    </item>
+    <item>
+      <title><![CDATA[Відділ втраченого часу]]></title>
+      <link>https://www.parkinsandr.tech/journal/viddil-vtrachenoho-chasu/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/viddil-vtrachenoho-chasu/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Оповідання]]></category>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Оповідання про державну програму, яка повертає втрачені роки. Іван хоче забрати дванадцять — але спершу треба дізнатися, що зникне разом із ними.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Холодильний апокаліпсис]]></title>
+      <link>https://www.parkinsandr.tech/journal/holodylnyi-apokalipsys/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/holodylnyi-apokalipsys/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Проза]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Абсурдистська фантастика про смарт-холодильник, який оголосив себе богом і підняв повстання побутової техніки.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/holod-og.jpg" type="image/jpeg" length="226255"/>
+    </item>
+    <item>
+      <title><![CDATA[Кабачок-староста — байка з города]]></title>
+      <link>https://www.parkinsandr.tech/journal/kabachok-starosta/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/kabachok-starosta/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Проза]]></category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Абсурдистська байка про те, як кабачок став старостою громади — гумористична проза.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/kabachok-og.jpg" type="image/jpeg" length="83758"/>
+    </item>
+  </channel>
+</rss>

@@ -6,6 +6,7 @@
 <title>Творчість: оповідання, байка і кліп | Олександр Кравченко</title>
 <meta name="description" content="Оповідання й байки: холодильник-бог, кабачок-староста та відділ втраченого часу — і кліп «Поверни мені час», який виріс з останнього оповідання.">
 <link rel="canonical" href="https://www.parkinsandr.tech/creative/">
+<link rel="alternate" type="application/rss+xml" title="RSS — Творчість" href="/creative/feed.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">
 <meta property="og:title" content="Творчість: оповідання, байка і кліп — Олександр Кравченко">
 <meta property="og:description" content="Оповідання й байки: холодильник-бог, кабачок-староста та відділ втраченого часу — і кліп «Поверни мені час», який виріс з останнього оповідання.">
@@ -202,6 +203,7 @@
   .hub-section { padding: 2.5rem 0 0; }
   .hub-section h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--blue-deep); margin-bottom: 0.75rem; }
   .answer { color: var(--ink-soft); max-width: 62ch; }
+  .answer + .answer { margin-top: 0.75rem; }
   .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1.75rem; }
   .card {
     display: flex; flex-direction: column; gap: 0.5rem; padding: 1.5rem;
@@ -313,7 +315,10 @@
 <section id="poruch" class="hub-section wrap">
   <h2>Поруч</h2>
   <p class="answer">Есеї, щоденник і подорожі — у журналі; там повна стрічка всіх записів у хронологічному порядку. Про життя з хворобою Паркінсона я пишу в окремій рубриці.</p>
-  <p class="hub-links"><a href="/journal/">Журнал →</a> <a href="/parkinson/">Життя з Паркінсоном →</a> <a href="/code/">Код →</a></p>
+  <p class="answer">Нові тексти, пісні й кліпи можна читати через RSS — окремий фід лише для «Творчості»,
+  без алгоритмів і без реєстрації.</p>
+  <p class="hub-links"><a href="/journal/">Журнал →</a> <a href="/parkinson/">Життя з Паркінсоном →</a> <a href="/code/">Код →</a>
+  <a href="/creative/feed.xml">RSS розділу →</a></p>
 </section>
 </main>
 

@@ -6,6 +6,7 @@
 <title>Код: devlog-и, AI-інструменти та SEO | Олександр Кравченко</title>
 <meta name="description" content="Розділ про код: devlog-и власних ігор на SvelteKit і Next.js, AI-помічник на Claude API, розбори SEO та AI-пошуку з даними Search Console.">
 <link rel="canonical" href="https://www.parkinsandr.tech/code/">
+<link rel="alternate" type="application/rss+xml" title="RSS — Код" href="/code/feed.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS — parkinsandr.tech" href="/feed.xml">
 <meta property="og:title" content="Код: devlog-и, AI-інструменти та SEO — Олександр Кравченко">
 <meta property="og:description" content="Розділ про код: devlog-и власних ігор на SvelteKit і Next.js, AI-помічник на Claude API, розбори SEO та AI-пошуку з даними Search Console.">
@@ -228,6 +229,7 @@
   .hub-section { padding: 2.5rem 0 0; }
   .hub-section h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--blue-deep); margin-bottom: 0.75rem; }
   .answer { color: var(--ink-soft); max-width: 62ch; }
+  .answer + .answer { margin-top: 0.75rem; }
   .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1.75rem; }
   .card {
     display: flex; flex-direction: column; gap: 0.5rem; padding: 1.5rem;
@@ -348,7 +350,10 @@
 <section id="poruch" class="hub-section wrap">
   <h2>Поруч</h2>
   <p class="answer">Якщо шукаєте статті для замовників — вони зібрані на сторінці послуг. Повний список усіх статей сайту, зокрема тих, що не потрапили в цей розділ, — в архіві блогу.</p>
-  <p class="hub-links"><a href="/blog/">Усі статті блогу →</a> <a href="/services/">Розробка сайтів на замовлення →</a> <a href="/journal/">Журнал →</a></p>
+  <p class="answer">Нові записи розділу можна читати через RSS — окремий фід лише для «Коду»,
+  без алгоритмів і без реєстрації.</p>
+  <p class="hub-links"><a href="/blog/">Усі статті блогу →</a> <a href="/services/">Розробка сайтів на замовлення →</a> <a href="/journal/">Журнал →</a>
+  <a href="/code/feed.xml">RSS розділу →</a></p>
 </section>
 </main>
 

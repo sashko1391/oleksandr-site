@@ -2,6 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { maskInert } from '../scripts/inject-rss.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
 const SITE = 'https://www.parkinsandr.tech';
@@ -81,11 +82,18 @@ describe('policy: discovery', () => {
   it('sitemap lists exactly the indexable pages', () => {
     expect(new Set(locs)).toEqual(new Set(indexable.map((p) => SITE + urlOf(p.rel))));
   });
-  it('every indexable page links /feed.xml exactly once in <head>', () => {
+  it('every indexable page links /feed.xml exactly once in <head>, as a real rss alternate', () => {
     const bad = indexable
       .filter((p) => {
-        const head = (p.html.match(/<head[\s>][\s\S]*?<\/head>/i) || [''])[0];
-        return (head.match(/href=["']\/feed\.xml["']/g) || []).length !== 1;
+        // commented-out and script-embedded markup is not a link
+        const head = (maskInert(p.html).match(/<head[\s>][\s\S]*?<\/head>/i) || [''])[0];
+        const rss = (head.match(/<link\b[^>]*>/gi) || []).filter(
+          (t) =>
+            /\brel\s*=\s*["']alternate["']/i.test(t) &&
+            /\btype\s*=\s*["']application\/rss\+xml["']/i.test(t) &&
+            /\bhref\s*=\s*["']\/feed\.xml["']/i.test(t)
+        );
+        return rss.length !== 1;
       })
       .map((p) => p.rel);
     expect(bad).toEqual([]);

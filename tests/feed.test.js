@@ -2,9 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
-  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect,
+  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect, itemsFor, byDate, FEEDS,
 } from '../scripts/build-feed.mjs';
-import { injectInto } from '../scripts/inject-rss.mjs';
+import { injectInto, tagFor, maskInert, attrOf, sectionFeedOf, tagsFor } from '../scripts/inject-rss.mjs';
+import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
+
+const PUBLIC = join(process.cwd(), 'public');
+const read = (rel) => readFileSync(join(PUBLIC, rel), 'utf8');
+const guidsOf = (xml) => [...xml.matchAll(/<guid[^>]*>([^<]+)<\/guid>/g)].map((m) => m[1]);
 
 describe('rfc822', () => {
   it('emits UTC RFC-822 for a valid ISO date', () => {
@@ -51,6 +56,16 @@ describe('cdata / xmlSafe', () => {
     expect(xmlSafe('a\tb\nc\rd')).toBe('a\tb\nc\rd');
   });
 });
+
+/** Every public HTML page, relative to public/ (404 included — it must not link a section feed either). */
+function htmlPages(dir = PUBLIC, prefix = '') {
+  const out = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    if (e.isDirectory()) out.push(...htmlPages(join(dir, e.name), `${prefix}${e.name}/`));
+    else if (e.name.endsWith('.html')) out.push(`${prefix}${e.name}`);
+  }
+  return out;
+}
 
 const SAMPLE = `<!doctype html><head>
 <title>Заголовок — суфікс</title>
@@ -144,13 +159,13 @@ describe('collect (integration against real posts)', () => {
         if (/"datePublished"\s*:\s*"\d{4}-\d{2}-\d{2}/.test(html) && /rel="canonical"/.test(html)) expected++;
       }
     }
-    expect(items.length).toBe(Math.min(expected, 30));
+    expect(items.length).toBe(expected); // collect() keeps everything; the 30-item cap is per feed
     expect(items.length).toBeGreaterThan(0);
+    expect(itemsFor(FEEDS[0], items).length).toBe(Math.min(expected, 30));
   });
   it('the written public/feed.xml links match the collected set', () => {
-    const xml = readFileSync(join(process.cwd(), 'public', 'feed.xml'), 'utf8');
-    const guids = [...xml.matchAll(/<guid[^>]*>([^<]+)<\/guid>/g)].map((m) => m[1]);
-    expect(new Set(guids)).toEqual(new Set(items.map((i) => i.link)));
+    const guids = guidsOf(read('feed.xml'));
+    expect(new Set(guids)).toEqual(new Set(itemsFor(FEEDS[0], items).map((i) => i.link)));
   });
   it('every collected item has the required fields', () => {
     for (const it of items) {
@@ -165,8 +180,216 @@ describe('collect (integration against real posts)', () => {
   });
 });
 
+
+describe('xmlSafe — the XML 1.0 Char production', () => {
+  it('drops U+FFFE / U+FFFF and unpaired surrogates, keeps real astral characters', () => {
+    expect(xmlSafe('a￾b￿c')).toBe('abc');
+    expect(xmlSafe('a\uD800b')).toBe('ab'); // lone high surrogate
+    expect(xmlSafe('a\uDC00b')).toBe('ab'); // lone low surrogate
+    expect(xmlSafe('a\u{1F600}b')).toBe('a\u{1F600}b'); // a valid pair survives
+    expect(xmlSafe('a�b')).toBe('a�b'); // U+FFFD is a legal character
+  });
+});
+
+describe('byDate', () => {
+  it('is newest-first and consistent — equal dates fall back to the source path', () => {
+    const a = { pubDate: 'Mon, 13 Jul 2026 00:00:00 GMT', source: 'journal/a/index.html' };
+    const b = { pubDate: 'Mon, 13 Jul 2026 00:00:00 GMT', source: 'journal/b/index.html' };
+    const c = { pubDate: 'Tue, 14 Jul 2026 00:00:00 GMT', source: 'journal/c/index.html' };
+    expect(byDate(a, b)).toBeLessThan(0);
+    expect(byDate(b, a)).toBeGreaterThan(0); // the old comparator answered -1 both ways
+    expect(byDate(a, a)).toBe(0);
+    expect([a, b, c].slice().sort(byDate)).toEqual([c, a, b]);
+  });
+  it('orders the real posts that share a date deterministically', () => {
+    const items = collect();
+    const sameDay = items.filter((i) => i.pubDate === 'Mon, 13 Jul 2026 00:00:00 GMT').map((i) => i.source);
+    expect(sameDay.length, 'this guard needs posts that share a date').toBeGreaterThan(1);
+    expect(sameDay).toEqual([...sameDay].sort());
+  });
+});
+
+describe('section feeds (Ф4)', () => {
+  const sections = FEEDS.slice(1);
+  const all = collect();
+  const dateOf = (file) => read(file).match(/"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})/)[1];
+  const canonicalOf = (file) => read(file).match(/<link rel="canonical" href="([^"]+)"/)[1];
+
+  /** What a feed must contain, computed from the manifest alone: the 30 newest of its section. */
+  const expectedLinks = (hub) =>
+    [...HUB_MEMBERS[hub].primary, ...HUB_MEMBERS[hub].also]
+      .map((file) => ({ file, date: dateOf(file), link: canonicalOf(file) }))
+      .sort((a, b) => (a.date === b.date ? (a.file < b.file ? -1 : 1) : a.date < b.date ? 1 : -1))
+      .slice(0, 30)
+      .map((x) => x.link);
+
+  it('publishes one feed per personal section, and only those', () => {
+    expect(sections.map((f) => f.file)).toEqual([
+      'parkinson/feed.xml', 'code/feed.xml', 'creative/feed.xml', 'journal/feed.xml',
+    ]);
+    // the archive and the commercial hub stay out of the subscription surface
+    expect(sections.some((f) => f.file.startsWith('blog/') || f.file.startsWith('services/'))).toBe(false);
+  });
+
+  it('each file holds the 30 newest posts its hub manifest lists — dates and canonicals read from the posts', () => {
+    for (const feed of sections) {
+      const hub = feed.file.replace('feed.xml', '');
+      const expected = expectedLinks(hub);
+      expect(expected.length, `${hub}: manifest is empty`).toBeGreaterThan(0);
+      // both the committed file and what the generator would write now — a mutation in either is caught
+      expect(guidsOf(read(feed.file)), `${hub}: the committed feed drifted from the manifest`).toEqual(expected);
+      expect(itemsFor(feed, all).map((i) => i.link), `${hub}: the generator drifted from the manifest`)
+        .toEqual(expected);
+    }
+  });
+
+  it('every committed feed is byte-for-byte what the generator writes now (only the build time differs)', () => {
+    const stamp = (xml) => xml.replace(/<lastBuildDate>[^<]*<\/lastBuildDate>/, '<lastBuildDate/>');
+    for (const feed of FEEDS) {
+      expect(stamp(read(feed.file)), `${feed.file} is stale or hand-edited — rerun build-feed.mjs`)
+        .toBe(stamp(build(itemsFor(feed, all), feed)));
+    }
+  });
+
+  it('every section item is a real post of the site (no orphan subscription)', () => {
+    const known = new Set(all.map((i) => i.link)); // the whole inventory, not the capped site feed
+    for (const feed of sections) for (const g of guidsOf(read(feed.file))) expect(known).toContain(g);
+  });
+
+  it('each file is a valid self-referencing channel pointing at its own hub', () => {
+    for (const feed of sections) {
+      const xml = read(feed.file);
+      expect(xml).toContain(`<atom:link href="https://www.parkinsandr.tech/${feed.file}" rel="self"`);
+      expect(xml).toContain(`<link>${feed.link}</link>`);
+      expect(xml).toContain(`<title>parkinsandr.tech — ${feed.name}</title>`);
+      expect(xml.replace(/<!\[CDATA\[[\s\S]*?]]>/g, '')).not.toMatch(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;)/);
+      const dates = [...xml.matchAll(/<pubDate>([^<]+)<\/pubDate>/g)].map((m) => new Date(m[1]).getTime());
+      expect(dates, `${feed.file}: not newest-first`).toEqual([...dates].sort((a, b) => b - a));
+    }
+  });
+
+  it('every item carries each required element exactly once', () => {
+    for (const feed of FEEDS) {
+      const items = read(feed.file).split('<item>').slice(1).map((chunk) => chunk.split('</item>')[0]);
+      expect(items.length, `${feed.file}: item count`).toBe(itemsFor(feed, all).length);
+      for (const item of items) {
+        for (const tag of ['title', 'link', 'guid', 'dc:creator', 'category', 'pubDate', 'description']) {
+          expect((item.match(new RegExp(`<${tag}[ >]`, 'g')) || []).length, `${feed.file}: <${tag}>`).toBe(1);
+        }
+      }
+      const guids = guidsOf(read(feed.file));
+      expect(new Set(guids).size, `${feed.file}: duplicate guid`).toBe(guids.length);
+    }
+  });
+
+  it('itemsFor filters by membership, keeps order and caps at 30', () => {
+    const mk = (n) => ({ link: `https://x/${n}`, source: `journal/${n}/index.html`, pubDate: '' });
+    const many = Array.from({ length: 35 }, (_, i) => mk(i));
+    const feed = { members: new Set(many.map((i) => i.source)) };
+    expect(itemsFor(feed, many)).toHaveLength(30);
+    expect(itemsFor(feed, many)[0]).toBe(many[0]); // order preserved, oldest dropped
+    const one = { members: new Set(['journal/3/index.html']) };
+    expect(itemsFor(one, many).map((i) => i.source)).toEqual(['journal/3/index.html']);
+    expect(itemsFor({ members: null }, many)).toHaveLength(30);
+  });
+
+  it('build() renders the channel of the feed it is given', () => {
+    const feed = sections[0];
+    const xml = build([parsePost(SAMPLE, 'Поза кодом')], feed);
+    expect(xml).toContain(`<title>${feed.title}</title>`);
+    expect(xml).toContain(`<link>${feed.link}</link>`);
+    expect(xml).toContain(`<atom:link href="https://www.parkinsandr.tech/${feed.file}" rel="self"`);
+    expect(xml).toContain(`<description><![CDATA[${feed.description}]]></description>`);
+    // RSS 2.0: the channel image mirrors the channel's own title and link
+    const image = xml.match(/<image>([\s\S]*?)<\/image>/)[1];
+    expect(image).toContain(`<title>${feed.title}</title>`);
+    expect(image).toContain(`<link>${feed.link}</link>`);
+  });
+
+  it('collect() tags every item with the post file it came from', () => {
+    for (const item of all) {
+      expect(item.source).toMatch(/^(journal|blog)\/[^/]+\/index\.html$/);
+      expect(existsSync(join(PUBLIC, item.source))).toBe(true);
+    }
+  });
+});
+
+describe('feed autodiscovery', () => {
+  const head = (rel) => maskInert(read(rel)).match(/<head[\s>][\s\S]*?<\/head>/i)[0];
+  /** The rss alternates of a page, in document order, as [href, …] — masked markup does not count. */
+  const alternates = (rel) =>
+    (head(rel).match(/<link\b[^>]*>/gi) || [])
+      .filter((t) => /rel\s*=\s*["']alternate["']/i.test(t) && /application\/rss\+xml/i.test(t))
+      .map((t) => attrOf(t, 'href'));
+
+  it('every indexable page advertises the site feed exactly once', () => {
+    for (const rel of htmlPages().filter((r) => r !== '404.html')) {
+      expect(alternates(rel).filter((h) => h === '/feed.xml'), rel).toHaveLength(1);
+    }
+  });
+
+  it('a page advertises the feed of the section that owns it — and no other section feed', () => {
+    for (const rel of htmlPages()) {
+      const feed = rel === '404.html' ? null : sectionFeedOf(rel);
+      const section = alternates(rel).filter((h) => h !== '/feed.xml');
+      expect(section, `${rel}: section alternates`).toEqual(feed ? [`/${feed.file}`] : []);
+    }
+  });
+
+  it('what is on disk is exactly what the injector plans for every page', () => {
+    for (const rel of htmlPages()) {
+      const planned = tagsFor(rel).map((t) => attrOf(t, 'href'));
+      expect(alternates(rel), `${rel}: <head> does not match the plan — rerun inject-rss.mjs`).toEqual(planned);
+      // and re-running would change nothing
+      for (const tag of tagsFor(rel)) expect(injectInto(read(rel), tag), `${rel}: not idempotent`).toBeNull();
+    }
+  });
+
+  it('the plan itself follows the manifest: hubs, their posts, and nothing else', () => {
+    const planned = htmlPages().filter((rel) => tagsFor(rel).length > 1);
+    const expected = htmlPages().filter((rel) => {
+      const hub = rel.replace(/index\.html$/, '');
+      const isHub = FEEDS.slice(1).some((f) => f.file === `${hub}feed.xml`);
+      return isHub || (sectionFeedOf(rel) !== null && /^(journal|blog)\//.test(rel));
+    });
+    expect(planned.sort()).toEqual(expected.sort());
+    expect(planned).toHaveLength(23); // 4 hubs + 16 journal posts + 3 blog posts owned by /code/
+    expect(tagsFor('404.html'), 'the 404 page carries no feed at all').toEqual([]);
+  });
+
+  it('the section feed comes first, so a one-feed client defaults to the topical one', () => {
+    const withBoth = htmlPages().filter((rel) => alternates(rel).length > 1);
+    expect(withBoth.length, 'no page advertises two feeds at all').toBe(23); // 4 hubs + 19 posts
+    for (const rel of withBoth) {
+      expect(alternates(rel)[alternates(rel).length - 1], `${rel}: the site feed must be last`).toBe('/feed.xml');
+      expect(alternates(rel)[0]).toBe(`/${sectionFeedOf(rel).file}`);
+    }
+  });
+
+  it('sectionFeedOf follows the hub manifest: a post gets the feed of its primary hub', () => {
+    expect(sectionFeedOf('parkinson/index.html').file).toBe('parkinson/feed.xml');
+    expect(sectionFeedOf('journal/hoverla/index.html').file).toBe('parkinson/feed.xml'); // owned by the rubric
+    expect(sectionFeedOf('journal/velozaizd/index.html').file).toBe('journal/feed.xml');
+    expect(sectionFeedOf('journal/kabachok-starosta/index.html').file).toBe('creative/feed.xml');
+    expect(sectionFeedOf('blog/jarvis-ai-assistant/index.html').file).toBe('code/feed.xml');
+    expect(sectionFeedOf('blog/react-vs-tilda/index.html'), 'a /services/ post has no feed').toBeNull();
+    expect(sectionFeedOf('blog/index.html'), 'the archive has no feed of its own').toBeNull();
+    expect(sectionFeedOf('index.html'), 'the homepage is not a section').toBeNull();
+  });
+
+  it('each hub has a visible link to its feed, not only the <head> tag', () => {
+    for (const feed of FEEDS.slice(1)) {
+      const hub = feed.file.replace('feed.xml', 'index.html');
+      const body = maskInert(read(hub)).replace(/<head[\s>][\s\S]*?<\/head>/i, '');
+      const links = [...body.matchAll(/<a\b[^>]*>/gi)].map((m) => attrOf(m[0], 'href'));
+      expect(links, `${hub}: no visible subscribe link`).toContain(`/${feed.file}`);
+    }
+  });
+});
+
 describe('injectInto (inject-rss)', () => {
   const TAG = 'type="application/rss+xml"';
+  const TAGS = { site: tagFor(FEEDS[0]) };
   const page = (head) => `<!doctype html><head>\n${head}\n</head><body></body>`;
 
   it('inserts after canonical, inside head', () => {
@@ -187,6 +410,51 @@ describe('injectInto (inject-rss)', () => {
     const single = page(`<link rel='alternate' type='application/rss+xml' href='/feed.xml'>`);
     expect(injectInto(single)).toBeNull();
   });
+
+  it('puts a section feed BEFORE the site feed and leaves the site feed alone', () => {
+    const feed = FEEDS[1];
+    const withSite = injectInto(page('<link rel="canonical" href="https://x/">'));
+    const out = injectInto(withSite, tagFor(feed));
+    expect(out).toContain(tagFor(feed));
+    expect((out.match(/href="\/feed\.xml"/g) || []).length).toBe(1);
+    expect(out.indexOf(`/${feed.file}"`)).toBeLessThan(out.indexOf('"/feed.xml"'));
+    expect(out).toMatch(/<link rel="canonical"[^>]*>\n/); // canonical keeps its own line
+    expect(injectInto(out, tagFor(feed)), 'second run must be a no-op').toBeNull();
+  });
+
+  it('accepts a single-quoted tag and reads its href', () => {
+    const feed = FEEDS[1];
+    const single = `<link rel='alternate' type='application/rss+xml' title='RSS' href='/${feed.file}'>`;
+    const out = injectInto(page('<link rel="canonical" href="https://x/">'), single);
+    expect(out).toContain(single);
+    expect(injectInto(out, single), 'the href must be recognised in single quotes too').toBeNull();
+    expect(injectInto(out, tagFor(feed)), 'same feed, other quote style — still a duplicate').toBeNull();
+  });
+
+  it('ignores a commented-out or script-embedded rss link', () => {
+    const commented = page(`<link rel="canonical" href="https://x/">\n<!-- ${TAGS.site} -->`);
+    expect(injectInto(commented), 'a comment is not a link').not.toBeNull();
+    const scripted = page(
+      `<link rel="canonical" href="https://x/">\n<script>document.write('${TAGS.site}')</script>`
+    );
+    const out = injectInto(scripted);
+    expect(out, 'markup inside <script> is not a link').not.toBeNull();
+    // and the real tag lands after the canonical, not inside the script
+    expect(out.indexOf('canonical')).toBeLessThan(out.indexOf('rel="alternate"'));
+  });
+
+  it('does not mistake a plain href="/feed.xml" for an rss alternate', () => {
+    const anchorOnly = page('<link rel="canonical" href="https://x/">');
+    const withAnchor = anchorOnly.replace('</head>', '<link rel="preload" href="/feed.xml"></head>');
+    expect(injectInto(withAnchor)).toContain('rel="alternate"');
+  });
+
+  it('tells two feeds apart — a page with the site feed still gets the section one', () => {
+    const only = page('<link rel="alternate" type="application/rss+xml" href="/feed.xml">');
+    expect(injectInto(only, tagFor(FEEDS[1]))).toContain(`/${FEEDS[1].file}`);
+    expect(injectInto(only)).toBeNull();
+  });
+
   it('does not inject when there is no <head> (canonical only in body)', () => {
     expect(injectInto('<html><body><link rel="canonical" href="https://x/"></body></html>')).toBeNull();
   });

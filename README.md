@@ -6,7 +6,8 @@
 ## Стек
 - Статичний HTML/CSS без build step (`public/`), хостинг Vercel.
 - Vercel Functions (`api/`, `lib/`): коментарі — Supabase Postgres, Upstash KV, Cloudflare Turnstile, премодерація в Telegram.
-- RSS: `public/feed.xml` — генерується скриптом із метаданих постів.
+- RSS: `public/feed.xml` — увесь сайт, плюс фід кожного розділу (`/parkinson/`, `/code/`, `/creative/`,
+  `/journal/`); усе генерується скриптом із метаданих постів.
 
 ## Чат-бот і форми заявок
 ```
@@ -33,8 +34,8 @@ npm install
 npm test                              # vitest
 npm run check:links                   # валідатор посилань і політики фази (-- --phase f1-done — пробний прогін)
 npm run smoke:forms                   # браузерний smoke всіх лід-форм (Playwright + системний Chrome)
-node scripts/build-feed.mjs           # регенерувати public/feed.xml
-node scripts/inject-rss.mjs           # RSS <link> у <head> усіх сторінок (ідемпотентно)
+node scripts/build-feed.mjs           # регенерувати feed.xml — загальний і по розділах
+node scripts/inject-rss.mjs           # RSS <link> у <head> (загальний скрізь, фід розділу — на хабі й постах)
 node scripts/inject-comments.mjs      # блок коментарів у journal + blog (ідемпотентно)
 scripts/indexnow.sh /journal/slug/    # IndexNow для конкретних шляхів
 ```

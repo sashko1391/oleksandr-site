@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>parkinsandr.tech — журнал і не тільки</title>
-    <link>https://www.parkinsandr.tech/</link>
-    <atom:link href="https://www.parkinsandr.tech/feed.xml" rel="self" type="application/rss+xml"/>
-    <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
+    <title>parkinsandr.tech — Журнал</title>
+    <link>https://www.parkinsandr.tech/journal/</link>
+    <atom:link href="https://www.parkinsandr.tech/journal/feed.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[Есеї, щоденник, подорожі та оповідання — усі записи журналу, від найновіших.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
     <lastBuildDate>Mon, 21 Sep 2026 08:46:41 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/preview.jpg</url>
-      <title>parkinsandr.tech — журнал і не тільки</title>
-      <link>https://www.parkinsandr.tech/</link>
+      <title>parkinsandr.tech — Журнал</title>
+      <link>https://www.parkinsandr.tech/journal/</link>
     </image>
     <item>
       <title><![CDATA[Поверни мені час — кліп за мотивами оповідання]]></title>
@@ -22,16 +22,6 @@
       <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[«Поверни мені час» — кліп і пісня, які я зробив за мотивами оповідання «Відділ втраченого часу». Про роки, які хочеться забрати назад.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/poverny-meni-chas/og.jpg" type="image/jpeg" length="64396"/>
-    </item>
-    <item>
-      <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
-      <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[SEO-кейс інтернет-магазину Atlas, якому недоступна реклама: зростання з 3 до 346 кліків у 28-денному вікні Google Search Console, що спрацювало (canonical, картки товарів, FAQ, реальні запити), що не спрацювало (масовий блог, keyword stuffing) і обмеження даних.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/atlas.webp" type="image/webp" length="29630"/>
     </item>
     <item>
       <title><![CDATA[Відділ втраченого часу]]></title>
@@ -141,116 +131,6 @@
       <category><![CDATA[Журнал]]></category>
       <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Особиста історія життя з хворобою Паркінсона: перші симптоми, помилкові діагнози, леводопа, війна, переїзд у село і погляд на хворобу як на виклик.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[AI-пошук: 60% Share of Voice за 5 тижнів]]></title>
-      <link>https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/getting-cited-ai-poshuk/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Data-driven GEO-кейс: як за 5 тижнів продукт вийшов на 60% Share of Voice серед відстежуваних українських legal-брендів в AI-пошуку — з методологією виміру та висновками.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Чек-лист замовлення сайту: 20 пунктів перед стартом]]></title>
-      <link>https://www.parkinsandr.tech/blog/chek-list-zamovlennya-sajtu/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/chek-list-zamovlennya-sajtu/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Sun, 21 Jun 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Інтерактивний чек-лист із 20 пунктів для замовлення сайту: мета й ТЗ, бюджет, вибір і перевірка виконавця, договір і права на код, процес, запуск.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Як замовити сайт і не згоріти: покроковий гайд 2026]]></title>
-      <link>https://www.parkinsandr.tech/blog/yak-zamovyty-sajt/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/yak-zamovyty-sajt/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Покроковий гайд, як замовити сайт і не згоріти: мета, бюджет, вибір виконавця, договір і права на код, процес, запуск та червоні прапорці.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Tilda vs Webflow vs кастом: що обрати у 2026]]></title>
-      <link>https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/tilda-vs-webflow-vs-kastom/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Decision framework для українського SMB: коли Tilda, коли Webflow, коли кастомна розробка. З цифрами, прихованими витратами і TCO за 3-5 років.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Внутрішня перелінковка сайту: кластерна структура 2026]]></title>
-      <link>https://www.parkinsandr.tech/blog/internal-linking/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/internal-linking/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Як я створив свого Джарвіса — AI-помічник із фільму в реальність]]></title>
-      <link>https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Як створити персонального AI-помічника як Джарвіс із Залізної людини. Реальний проєкт: 30+ AI-інструментів, голосове управління, трекер здоров'я.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Devlog: Empire Online — браузерна бізнес-MMO]]></title>
-      <link>https://www.parkinsandr.tech/blog/devlog-empire-online/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-empire-online/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/empire-online.webp" type="image/webp" length="31426"/>
-    </item>
-    <item>
-      <title><![CDATA[Devlog: як я роблю idle-гру на SvelteKit]]></title>
-      <link>https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Девлог розробки Business Empire Idle — від ванільного JS до SvelteKit, 13 бізнесів, prestige-система, AI-зображення.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/empire-idle.webp" type="image/webp" length="39858"/>
-    </item>
-    <item>
-      <title><![CDATA[Скільки коштує сайт у 2026: ціни в гривнях за 5 типів]]></title>
-      <link>https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/skilky-koshtuye-sajt/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Pillar-гайд про вартість веб-розробки в Україні у 2026 році. 5 типів сайтів з реальними цінами в гривнях, FAQ і прикладами розрахунку.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[React vs Tilda: що обрати для бізнесу у 2026]]></title>
-      <link>https://www.parkinsandr.tech/blog/react-vs-tilda/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/react-vs-tilda/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Чесне порівняння React/Next.js і Tilda для бізнес-сайтів.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Як обрати розробника сайту у 2026 — 9 критеріїв]]></title>
-      <link>https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Практичний гайд: як обрати веб-розробника для бізнесу і не пошкодувати. 9 критеріїв, червоні прапорці, реальні приклади.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
     </item>
     <item>
