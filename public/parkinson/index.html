@@ -247,6 +247,28 @@
     .site-nav, .wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
     .cards { grid-template-columns: 1fr; }
   }
+  /* підписка (Ф4) */
+  .sub-form { margin-top: 1.25rem; max-width: 34rem; }
+  .sub-field { margin-bottom: 0.9rem; }
+  .sub-field label { display: block; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.3rem; }
+  .sub-field input[type=email] { width: 100%; min-height: 48px; padding: 0.6rem 0.75rem; font: inherit;
+    color: var(--ink); background: var(--white); border: 1px solid rgba(27,58,92,0.18); border-radius: 9px; }
+  .sub-field input[type=email]:focus { outline: 2px solid var(--blue-sky); border-color: var(--blue-sky); }
+  .sub-topics { border: 0; padding: 0; margin: 0 0 0.9rem; }
+  .sub-topics legend { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.35rem; padding: 0; }
+  .sub-topics div { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+  .sub-topics label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 48px; font-size: 0.95rem; }
+  .sub-consent { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.9rem; color: var(--ink-soft); }
+  .sub-consent input { margin-top: 0.35rem; }
+  .sub-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .sub-turnstile { min-height: 65px; margin: 0.6rem 0; }
+  .sub-submit { min-height: 48px; padding: 0 1.4rem; font: inherit; font-weight: 500; color: var(--white);
+    background: var(--blue-deep); border: 0; border-radius: 10px; cursor: pointer; }
+  .sub-submit:disabled { opacity: 0.55; cursor: default; }
+  .sub-status { font-size: 0.9rem; margin-top: 0.7rem; min-height: 1.2rem; }
+  .sub-status.err { color: #C0392B; }
+  .sub-status.ok { color: var(--green, #3A8C5C); }
+
 </style>
 <style data-site-menu>
 .site-menu { display: flex; flex-wrap: nowrap; gap: 0.25rem 1.25rem; align-items: center; list-style: none;
@@ -350,16 +372,42 @@
   </div>
 </section>
 
+<section id="pidpyska" class="hub-section wrap" data-subscribe>
+  <h2>Підписка</h2>
+  <p class="answer">Новий текст — одним коротким листом: заголовок, кілька речень і посилання. Нічого, крім нових
+  записів; відписатися можна одним кліком із будь-якого листа.</p>
+  <form class="sub-form" hidden novalidate>
+    <div class="sub-field">
+      <label for="sub-email">Ваша пошта</label>
+      <input type="email" id="sub-email" name="email" autocomplete="email" required placeholder="you@example.com">
+    </div>
+    <fieldset class="sub-topics">
+      <legend>Про що надсилати</legend>
+      <div>
+        <label><input type="checkbox" name="topics" value="parkinson" checked> Паркінсон</label>
+        <label><input type="checkbox" name="topics" value="code"> Код</label>
+        <label><input type="checkbox" name="topics" value="creative"> Творчість</label>
+        <label><input type="checkbox" name="topics" value="journal"> Журнал</label>
+      </div>
+    </fieldset>
+    <label class="sub-consent"><input type="checkbox" name="consent" required>
+      <span>Згоден на зберігання адреси для цієї розсилки. Відписатися можна одним кліком із будь-якого листа —
+      <a href="/privacy/">як я поводжуся з даними</a>.</span></label>
+    <div class="sub-turnstile" data-turnstile></div>
+    <input type="text" name="hp" class="sub-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button type="submit" class="sub-submit">Підписатися</button>
+    <p class="sub-status" data-status role="status" aria-live="polite"></p>
+  </form>
+  <p class="hub-links"><a href="/parkinson/feed.xml">RSS рубрики →</a> <a href="https://t.me/parkinsandr" target="_blank" rel="noopener noreferrer">Канал у Telegram →</a></p>
+  <p class="answer">Не любите пошту — беріть RSS або Telegram: те саме, тими самими днями.</p>
+</section>
+
 <section id="poruch" class="hub-section wrap">
   <h2>Поруч</h2>
   <p class="answer">Решта особистих записів — у журналі: подорожі, будівництво, есеї про віру й пам'ять.
   Як влаштована рубрика й за якими правилами я перевіряю твердження — на сторінці редакційної політики.</p>
-  <p class="answer">Нові матеріали рубрики можна читати через RSS — окремий фід лише для «Паркінсона»,
-  без алгоритмів і без реєстрації.</p>
   <p class="hub-links"><a href="/parkinson/redaktsiina-polityka/">Редакційна політика →</a>
-  <a href="/journal/">Журнал →</a> <a href="/creative/">Творчість →</a>
-  <a href="/parkinson/feed.xml">RSS рубрики →</a>
-  <a href="https://t.me/parkinsandr" target="_blank" rel="noopener noreferrer">Канал у Telegram →</a></p>
+  <a href="/journal/">Журнал →</a> <a href="/creative/">Творчість →</a></p>
 </section>
 </main>
 
@@ -371,5 +419,6 @@
 <script defer data-domain="parkinsandr.tech" data-api="/api/event" src="/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
+<script defer src="/js/subscribe.v1.js"></script>
 </body>
 </html>

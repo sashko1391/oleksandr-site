@@ -146,6 +146,28 @@
     .post-card { padding:1.15rem 1.2rem; }
     .feed[data-filter="all"] > .post-card:first-child { padding:1.4rem 1.3rem; }
   }
+  /* підписка (Ф4) */
+  .sub-form { margin-top: 1.25rem; max-width: 34rem; }
+  .sub-field { margin-bottom: 0.9rem; }
+  .sub-field label { display: block; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.3rem; }
+  .sub-field input[type=email] { width: 100%; min-height: 48px; padding: 0.6rem 0.75rem; font: inherit;
+    color: var(--ink); background: var(--white); border: 1px solid rgba(27,58,92,0.18); border-radius: 9px; }
+  .sub-field input[type=email]:focus { outline: 2px solid var(--blue-sky); border-color: var(--blue-sky); }
+  .sub-topics { border: 0; padding: 0; margin: 0 0 0.9rem; }
+  .sub-topics legend { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.35rem; padding: 0; }
+  .sub-topics div { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+  .sub-topics label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 48px; font-size: 0.95rem; }
+  .sub-consent { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.9rem; color: var(--ink-soft); }
+  .sub-consent input { margin-top: 0.35rem; }
+  .sub-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .sub-turnstile { min-height: 65px; margin: 0.6rem 0; }
+  .sub-submit { min-height: 48px; padding: 0 1.4rem; font: inherit; font-weight: 500; color: var(--white);
+    background: var(--blue-deep); border: 0; border-radius: 10px; cursor: pointer; }
+  .sub-submit:disabled { opacity: 0.55; cursor: default; }
+  .sub-status { font-size: 0.9rem; margin-top: 0.7rem; min-height: 1.2rem; }
+  .sub-status.err { color: #C0392B; }
+  .sub-status.ok { color: var(--green, #3A8C5C); }
+
 </style>
 <style data-site-menu>
 .site-menu { display: flex; flex-wrap: nowrap; gap: 0.25rem 1.25rem; align-items: center; list-style: none;
@@ -290,8 +312,31 @@
       </a>
     </div>
   </section>
-  <section class="sections" aria-label="Підписка на журнал">
-    <p>Нові записи — окремим RSS-фідом або в Telegram-каналі, без алгоритмів і без реєстрації:</p>
+  <section class="sections" id="pidpyska" aria-label="Підписка на журнал" data-subscribe>
+    <p>Новий запис — одним коротким листом: заголовок, кілька речень і посилання. Відписатися можна одним кліком.</p>
+  <form class="sub-form" hidden novalidate>
+    <div class="sub-field">
+      <label for="sub-email">Ваша пошта</label>
+      <input type="email" id="sub-email" name="email" autocomplete="email" required placeholder="you@example.com">
+    </div>
+    <fieldset class="sub-topics">
+      <legend>Про що надсилати</legend>
+      <div>
+        <label><input type="checkbox" name="topics" value="parkinson"> Паркінсон</label>
+        <label><input type="checkbox" name="topics" value="code"> Код</label>
+        <label><input type="checkbox" name="topics" value="creative"> Творчість</label>
+        <label><input type="checkbox" name="topics" value="journal" checked> Журнал</label>
+      </div>
+    </fieldset>
+    <label class="sub-consent"><input type="checkbox" name="consent" required>
+      <span>Згоден на зберігання адреси для цієї розсилки. Відписатися можна одним кліком із будь-якого листа —
+      <a href="/privacy/">як я поводжуся з даними</a>.</span></label>
+    <div class="sub-turnstile" data-turnstile></div>
+    <input type="text" name="hp" class="sub-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button type="submit" class="sub-submit">Підписатися</button>
+    <p class="sub-status" data-status role="status" aria-live="polite"></p>
+  </form>
+    <p>Не любите пошту — те саме приходить у RSS і в Telegram:</p>
     <ul>
       <li><a href="/journal/feed.xml">RSS журналу →</a></li>
       <li><a href="/feed.xml">RSS усього сайту →</a></li>
@@ -324,5 +369,6 @@
   if(h && tabs.some(function(t){ return t.getAttribute('data-filter')===h; })) apply(h);
 })();
 </script>
+<script defer src="/js/subscribe.v1.js"></script>
 </body>
 </html>

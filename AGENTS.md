@@ -12,9 +12,11 @@
 - Static HTML без build step (Astro — фаза Ф6); хостинг Vercel (`vercel.json`); деплой = `git push` у `main`.
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
 - Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
-- Підписка: RSS (загальний + по розділах) і публічний Telegram-канал `@parkinsandr` (`t.me/parkinsandr`,
-  URL — константа `TELEGRAM_CHANNEL` у `scripts/link-policy.mjs`); email — ще не зроблено.
-- Vercel Functions: `api/comments.js`, `api/tg-webhook.js`, `api/cron/comments-retention.js` + `lib/` (Supabase через
+- Підписка: RSS (загальний + по розділах), публічний Telegram-канал `@parkinsandr` (`t.me/parkinsandr`,
+  URL — константа `TELEGRAM_CHANNEL` у `scripts/link-policy.mjs`) і email через Resend
+  (домен `send.parkinsandr.tech`, подвійне підтвердження, таблиця `subscribers`; форма — на 4 хабах).
+- Vercel Functions: `api/comments.js`, `api/subscribe.js`, `api/subscribe/confirm.js`, `api/unsubscribe.js`,
+  `api/tg-webhook.js`, `api/cron/{comments,subscribers}-retention.js` + `lib/` (Supabase через
   IPv4 transaction pooler, Upstash KV, Turnstile, Telegram). Чат на `/services/` (до Ф3 — на головній) — **скриптовий бот** (готові відповіді
   в JS, без LLM); заявки з бота й лід-форм пересилає в Telegram Cloudflare Worker `oleksandr-site.sashko1391.workers.dev`
   (код воркера не в репо).
@@ -31,13 +33,13 @@
 | `doc/HUBS_PLAN.md` | ✅ Ф2 виконано 2026-09-21: хаби, архів `/blog/`, рамка рубрики, breadcrumbs → хаби (`f2-done`) |
 | `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
 | `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
-| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS загальний і по розділах + Telegram-канал з автопостингом; Email — далі |
+| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS, Telegram-канал з автопостингом, email-підписка з подвійним підтвердженням |
 | `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: дані GSC, зроблене 2026-09-21, що міряти далі |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
 `/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
-Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS по розділах ✅, Telegram-канал ✅, Email — далі) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS ✅, Telegram ✅, Email ✅ — лишився живий тест) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
 ## Правила
@@ -66,7 +68,8 @@
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
     `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
-    claims, faq-schema, images, hubs, nav, homepage, parkinson-frame, parkinson-claims, services-page, journal-index]`
+    claims, faq-schema, images, hubs, nav, homepage, parkinson-frame, parkinson-claims, services-page, journal-index,
+    announce, subscribe, subscribe-ui]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -76,7 +79,13 @@
     CTA, посилань на хаб і «напишіть мені» (за текстом посилання), breadcrumbs position 2, точна к-сть `@id #business`; покриття,
     повноту й цілі маніфесту тести перевіряють незалежно від нього; фазу перемикає коміт, що виконує міграцію.
     Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
-13. **Правдивість:** сайт не видає скриптового бота за AI чи людину, власний продукт — за клієнта; без анонімних
+13. **Підписка на email — згода й чесність:** подвійне підтвердження (GET лише показує кнопку, підтверджує
+    тільки POST — інакше поштовий сканер «підтверджує» за людину); токени в БД лише як sha256; токен відписки
+    ніколи не обнуляється; `/api/unsubscribe` свідомо БЕЗ same-origin-перевірки (one-click RFC 8058 приходить
+    без `Origin`; авторизує сам токен); відповідь `/api/subscribe` однакова для нової й уже підписаної адреси,
+    але ніколи не обіцяє листа, якого не надіслали (відмова Resend → 503). Ліміти на адресу — і в KV, і в БД.
+    `[enforced: tests/subscribe.test.js, tests/subscribe-ui.test.js]`
+14. **Правдивість:** сайт не видає скриптового бота за AI чи людину, власний продукт — за клієнта; без анонімних
     чи неперевірених відгуків; кожна цифра на комерційних сторінках — із кейсу або `/pricing/` (розбіжності між
     сторінками не множити, а виправляти в джерелі). Джерело правди для цін — `/pricing/` (модель B, рішення
     власника 2026-09-20): ціна кожної категорії й термін лендингу 5–7 днів беруться звідти, включно з JSON-LD
@@ -126,6 +135,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
   без JavaScript + специфіка `/services/` (Playwright + системний Chrome, воркер підмінено; не входить у `npm test`)
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
+- `db/*.sql` — міграції Supabase (застосовані; файл лишається як джерело правди схеми)
 - `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push
 
 ## Чек-лист нового поста

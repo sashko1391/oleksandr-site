@@ -44,8 +44,26 @@
 - Тести: `tests/announce.test.js` (13) + 2 у `tests/hubs.test.js`. Мутаційна перевірка: 6 мутантів — 6 убито
   (зокрема «без HTML-екранування» і «посилання загорнуте в `<a>`», що вбиває прев'ю).
 
-**Не зроблено:** Фаза 1 Email (Resend + DNS `send.parkinsandr.tech` + Supabase `subscribers` + API + віджет +
-`/privacy/`); email-частина `announce.mjs` (Фаза 2, per-recipient трекінг).
+**Зроблено — Фаза 1 (Email), 2026-09-21:** Resend верифікував `send.parkinsandr.tech`; DNS: DKIM + два CNAME,
+корінь `v=spf1 -all` і `_dmarc` `p=reject`, піддомен `_dmarc.send` `p=quarantine` (знизити до `p=none` на час
+прогрівання — рішення власника). По ходу знайдено й прибрано **два `v=spf1` на корені** — це PermError, SPF не
+працював би взагалі.
+- База: `db/2026-09-21-subscribers.sql` + `…-retention.sql` застосовані до проєкту `parkinsandr`; перевірено
+  живими вставками, що спрацьовують усі CHECK-обмеження й `citext`. `citext` перенесено з `public` у `extensions`
+  (лінтер Supabase). RLS без політик — свідомо: доступ лише через пулер, авторизація в коді.
+- Код: `lib/email.js` (Resend, таймаут, `Idempotency-Key`), `api/subscribe.js`, `api/subscribe/confirm.js`,
+  `api/unsubscribe.js`, `api/cron/subscribers-retention.js`, віджет `public/js/subscribe.v1.js`,
+  блок підписки на 4 хабах, секція «Розсилка» в `/privacy/`.
+- Рішення, які варто пам'ятати: відповідь однакова для нової й уже підписаної адреси (інакше ендпоінт —
+  оракул членства), але відмова Resend → 503, а не «перевірте пошту»; підтверджує тільки POST; токен відписки
+  ніколи не обнуляється; `/api/unsubscribe` без CSRF-перевірки (RFC 8058); ліміт на адресу продубльовано в БД,
+  бо KV ефемерний; якщо Turnstile не завантажився — кажемо прямо й показуємо RSS/Telegram.
+- Тести: `tests/subscribe.test.js` (36) + `tests/subscribe-ui.test.js` (8). Мутаційна перевірка: 23 мутанти —
+  23 убито. Разом у проєкті 423 тести.
+
+**Не зроблено:** живий тест усього ланцюжка (підписка → лист → підтвердження → відписка) на справжній адресі;
+email-частина `announce.mjs` (Фаза 2, per-recipient трекінг доставки); зниження `_dmarc.send` до `p=none`
+й подальше підняття до `reject` після прогрівання.
 
 **Переглянуто під нову IA:**
 - ✅ `SECTIONS` у `build-feed.mjs` лишається джерелом постів (journal + blog), розділи — з `HUB_MEMBERS`.
