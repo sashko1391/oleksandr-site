@@ -56,7 +56,10 @@ describe('parseArgs', () => {
     expect(() => parseArgs(['--note', 'journal/hoverla'])).toThrow(/usage:/); // the note ate the only argument
     expect(() => parseArgs(['journal/hoverla', '--note', '  '])).toThrow(/non-empty/);
     expect(() => parseArgs(['journal/hoverla', '--note='])).toThrow(/non-empty/);
-    expect(() => parseArgs(['journal/hoverla', '--only=email'])).toThrow(/--only must be/);
+    expect(() => parseArgs(['journal/hoverla', '--only=sms'])).toThrow(/--only must be/);
+    for (const ch of ['tg', 'feed', 'email']) {
+      expect(parseArgs(['journal/hoverla', `--only=${ch}`]).only).toBe(ch);
+    }
   });
 });
 

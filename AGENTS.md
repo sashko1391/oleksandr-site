@@ -79,7 +79,9 @@
     CTA, посилань на хаб і «напишіть мені» (за текстом посилання), breadcrumbs position 2, точна к-сть `@id #business`; покриття,
     повноту й цілі маніфесту тести перевіряють незалежно від нього; фазу перемикає коміт, що виконує міграцію.
     Не покрито: `<form action>` (API-маршрути — не файли). `[enforced: tests/links.test.js]`
-13. **Підписка на email — згода й чесність:** подвійне підтвердження (GET лише показує кнопку, підтверджує
+13. **Підписка на email — згода й чесність:** лист розсилки завжди має видиме посилання на відписку
+    і заголовки `List-Unsubscribe` + `List-Unsubscribe-Post` (one-click RFC 8058); доставка рахується
+    по кожному отримувачу (`announcement_deliveries`), а не по посту, і повтор прогону не шле другий лист. подвійне підтвердження (GET лише показує кнопку, підтверджує
     тільки POST — інакше поштовий сканер «підтверджує» за людину); токени в БД лише як sha256; токен відписки
     ніколи не обнуляється; `/api/unsubscribe` свідомо БЕЗ same-origin-перевірки (one-click RFC 8058 приходить
     без `Origin`; авторизує сам токен); відповідь `/api/subscribe` однакова для нової й уже підписаної адреси,
@@ -118,9 +120,11 @@ api/ · lib/ · scripts/ · tests/ · doc/
 
 ## Скрипти
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml` + фіди розділів `public/{parkinson,code,creative,journal}/feed.xml`
-- `npm run announce -- <розділ/slug> [--dry] [--only=tg|feed] [--force]` — публікація поста: фіди + пост у
-  Telegram-канал (`@parkinsandr`). Секрети — з gitignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`);
-  що вже анонсовано, лежить у gitignored `.announce-state.json`; `--dry` нічого не шле й нічого не пише
+- `npm run announce -- <розділ/slug> [--dry] [--only=tg|feed|email] [--force] [--note "…"]` — публікація поста:
+  фіди + пост у Telegram-канал (`@parkinsandr`) + лист підписникам розділу. Секрети — з gitignored `.env`
+  (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, а для листів ще `DATABASE_URL`, `RESEND_API_KEY`,
+  `EMAIL_HASH_SECRET`); стан Telegram — у gitignored `.announce-state.json`, стан листів — у таблиці
+  `announcement_deliveries` по кожному отримувачу; невідомий прапорець зупиняє прогін; `--dry` нічого не шле
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>`: загальний на всіх сторінках, крім 404; фід розділу —
   першим на хабі розділу та на його постах (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
