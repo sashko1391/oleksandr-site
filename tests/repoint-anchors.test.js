@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { planRepoint, verifyPlan } from '../scripts/repoint-anchors.mjs';
-import { SITE, PERSONAL_CONTACT } from '../scripts/link-policy.mjs';
+import { planRepoint, verifyPlan, EXPECTED_F2 } from '../scripts/repoint-anchors.mjs';
+import { SITE, PERSONAL_CONTACT, PHASES } from '../scripts/link-policy.mjs';
 import { loadSite, urlOf } from '../scripts/check-links.mjs';
 
 // Ф1 step 3: the repoint script changes only <a href> values and the expected BreadcrumbList fields.
@@ -17,7 +17,7 @@ const site = (pages) => ({
   files: new Set(Object.keys(pages)),
   virtual: new Set(),
 });
-const run = (pages) => planRepoint(site(pages));
+const run = (pages, phase = 'f1') => planRepoint(site(pages), phase);
 const output = (plan, rel) => plan.changes.find((c) => c.rel === rel)?.html;
 const PARKINSON = 'journal/parkinson-shcho-robyty/index.html';
 
@@ -142,10 +142,72 @@ describe('the whole plan', () => {
   });
 });
 
-describe('public/ (integration)', () => {
-  it('is migrated: a new run plans nothing and reports nothing', () => {
-    const plan = planRepoint(loadSite());
+
+describe('R5/R6 — breadcrumbs move to the hubs (Ф2)', () => {
+  const post = (rel, name, item) => ({ [rel]: crumbs(['Головна', `${SITE}/`], [name, item], ['Пост', `${SITE}/${rel.replace('index.html', '')}`]) });
+
+  it('R5: a devlog goes from the homepage anchor to /code/', () => {
+    const rel = 'blog/devlog-empire-online/index.html';
+    const plan = run(post(rel, 'Блог', `${SITE}/#blog`), 'f2');
+    expect(plan.stats).toEqual({ R5: 1, R6: 0 });
+    expect(output(plan, rel)).toContain(`"name": "Код"`);
+    expect(output(plan, rel)).toContain(`"item": "${SITE}/code/"`);
     expect(plan.errors).toEqual([]);
-    expect(plan.changes.map((c) => c.rel)).toEqual([]);
+  });
+
+  it('R5: a library article goes to /services/, R6: a rubric post to /parkinson/', () => {
+    const plan = run({
+      ...post('blog/skilky-koshtuye-sajt/index.html', 'Блог', `${SITE}/#blog`),
+      ...post(PARKINSON, 'Поза кодом', `${SITE}/journal/`),
+    }, 'f2');
+    expect(plan.stats).toEqual({ R5: 1, R6: 1 });
+    expect(output(plan, 'blog/skilky-koshtuye-sajt/index.html')).toContain(`"item": "${SITE}/services/"`);
+    expect(output(plan, PARKINSON)).toContain(`"item": "${SITE}/parkinson/"`);
+  });
+
+  it('leaves the seven journal posts that stay in «Поза кодом» untouched', () => {
+    const rel = 'journal/velozaizd/index.html';
+    const plan = run(post(rel, 'Поза кодом', `${SITE}/journal/`), 'f2');
+    expect(plan.changes).toEqual([]);
+    expect(plan.stats).toEqual({ R5: 0, R6: 0 });
+  });
+
+  it('touches only position 2, and keeps the rest of the block byte for byte', () => {
+    const rel = 'blog/jarvis-ai-assistant/index.html';
+    const html = post(rel, 'Блог', `${SITE}/#blog`)[rel];
+    const out = output(run({ [rel]: html }, 'f2'), rel);
+    expect(out).toContain(`"name": "Головна"`);
+    expect(out).toContain(`"position": 3`);
+    expect(out.replace('"name": "Код"', '"name": "Блог"').replace(`"item": "${SITE}/code/"`, `"item": "${SITE}/#blog"`)).toBe(html);
+  });
+
+  it('reports a page whose position-2 crumb is not what Ф1 left', () => {
+    const rel = 'blog/jarvis-ai-assistant/index.html';
+    // same URL, different name: the post was edited by hand, so the migration must stop and say so
+    const html = crumbs(['Головна', `${SITE}/`], ['Статті', `${SITE}/#blog`], ['Пост', `${SITE}/blog/jarvis-ai-assistant/`]);
+    const plan = run({ [rel]: html }, 'f2');
+    expect(plan.errors.length, 'a renamed crumb must not be migrated silently').toBeGreaterThan(0);
+    expect(plan.changes).toEqual([]);
+  });
+
+  it('is idempotent: a migrated post plans nothing', () => {
+    const rel = 'journal/hoverla/index.html';
+    const plan = run(post(rel, 'Паркінсон', `${SITE}/parkinson/`), 'f2');
+    expect(plan.changes).toEqual([]);
+  });
+});
+
+describe('public/ (integration)', () => {
+  it('is migrated: a new run of either phase plans nothing and reports nothing', () => {
+    for (const phase of ['f1', 'f2']) {
+      const plan = planRepoint(loadSite(), phase);
+      expect(plan.errors, phase).toEqual([]);
+      expect(plan.changes.map((c) => c.rel), phase).toEqual([]);
+    }
+  });
+
+  it('the Ф2 inventory is the one doc/HUBS_PLAN.md fixed', () => {
+    expect(EXPECTED_F2).toEqual({ R5: 12, R6: 9 });
+    expect(verifyPlan(loadSite(), planRepoint(loadSite(), 'f2'), EXPECTED_F2, PHASES['f2-done'])).toEqual([]);
   });
 });

@@ -6,11 +6,14 @@
 //   R4  BreadcrumbList item …/#portfolio named «Портфоліо»                     → …/services/ «Послуги»
 // Only <a href> values and those BreadcrumbList fields change. Everything is planned and verified first —
 // exact counts, a JSON-LD semantic diff, the f1-done validator — then written, or nothing is.
-// Idempotent; public/index.html is never touched. `node scripts/repoint-anchors.mjs [--dry]`
+// Ф2 step 5 of doc/HUBS_PLAN.md adds, under `--phase f2`:
+//   R5  BreadcrumbList position 2 of blog/*     «Блог» → /#blog      → the hub HUB_MEMBERS gives the post
+//   R6  BreadcrumbList position 2 of journal/*  «Поза кодом» → /journal/ → «Паркінсон» or «Творчість»
+// Idempotent; public/index.html is never touched. `node scripts/repoint-anchors.mjs [--phase f2] [--dry]`
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SITE, PERSONAL_CONTACT, PHASES } from './link-policy.mjs';
+import { SITE, PERSONAL_CONTACT, PHASES, primaryHub } from './link-policy.mjs';
 import { loadSite, textOf, validate } from './check-links.mjs';
 
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
@@ -23,6 +26,9 @@ const BREADCRUMB_RULES = { [`${SITE}/#scenarios`]: 'R3', [`${SITE}/#portfolio`]:
 
 /** Inventory 25/3/5/6 minus the six CTAs that step 3 rewrote by hand before this run (plan v3). */
 export const EXPECTED = { R1: 19, R2: 3, R3: 5, R4: 6 };
+
+/** Ф2: twelve blog posts leave the homepage anchor, nine journal posts move to their rubric hub. */
+export const EXPECTED_F2 = { R5: 12, R6: 9 };
 
 const SKIP_RE = /<!--[\s\S]*?-->|<(script|style|textarea)\b[^>]*>[\s\S]*?<\/\1\s*>/gi;
 const COMMENT_RE = /<!--[\s\S]*?-->/g;
@@ -121,15 +127,76 @@ function repointBreadcrumbs(html, rel, stats, errors) {
   }));
 }
 
+/** What Ф1 left in the position-2 breadcrumb of a post, per section. */
+const F2_FROM = {
+  'blog/': { name: 'Блог', item: `${SITE}/#blog` },
+  'journal/': { name: 'Поза кодом', item: `${SITE}/journal/` },
+};
+
+/**
+ * Ф2: the position-2 breadcrumb of a post becomes the hub HUB_MEMBERS assigns to it. The JSON text is
+ * edited in place (so formatting survives) and the result is proven by a semantic diff: nothing but the
+ * item and the name of that one ListItem may differ.
+ */
+function repointHubCrumb(html, rel, hub, stats, errors) {
+  const section = Object.keys(F2_FROM).find((prefix) => rel.startsWith(prefix));
+  const from = F2_FROM[section];
+  if (!from || (hub.item === from.item && hub.name === from.name)) return html; // nothing to move
+  const rule = section === 'blog/' ? 'R5' : 'R6';
+  return mapOutside(html, COMMENT_RE, (part) => part.replace(LD_RE, (whole, open, json, close) => {
+    if (!json.includes(`"${from.item}"`)) return whole;
+    let before;
+    try {
+      before = JSON.parse(json);
+    } catch {
+      return whole; // a broken block is reported by the integrity validator
+    }
+    const next = json.split(`"${from.item}"`).join(`"${hub.item}"`)
+      .replace(new RegExp(`("name"\\s*:\\s*)"${from.name}"`, 'g'), `$1"${hub.name}"`);
+    let after;
+    try {
+      after = JSON.parse(next);
+    } catch {
+      errors.push(`${rel}: the rewritten JSON-LD does not parse`);
+      return whole;
+    }
+    const problems = [];
+    let items = 0;
+    let names = 0;
+    for (const { path, from: was, to } of diffJson(before, after)) {
+      const key = path.at(-1);
+      const owner = path.slice(0, key === '@id' ? -2 : -1).reduce((node, k) => node?.[k], before);
+      const inCrumb = owner?.['@type'] === 'ListItem' && owner.position === 2;
+      if (inCrumb && (key === 'item' || key === '@id') && was === from.item && to === hub.item) items++;
+      else if (inCrumb && key === 'name' && was === from.name && to === hub.name) names++;
+      else problems.push(`unexpected JSON-LD change at ${path.join('.')}: ${JSON.stringify(was)} → ${JSON.stringify(to)}`);
+    }
+    if (items !== names) problems.push(`${rule}: ${items} item(s) moved but ${names} name(s) renamed`);
+    if (problems.length) {
+      errors.push(...problems.map((p) => `${rel}: ${p}`));
+      return whole;
+    }
+    stats[rule] += items;
+    return open + next + close;
+  }));
+}
+
 /** Plan every change in memory: { stats, errors, changes: [{ rel, html }] }. Writes nothing. */
-export function planRepoint(site) {
-  const stats = { R1: 0, R2: 0, R3: 0, R4: 0 };
+export function planRepoint(site, phase = 'f1') {
+  const stats = phase === 'f2' ? { R5: 0, R6: 0 } : { R1: 0, R2: 0, R3: 0, R4: 0 };
   const errors = [];
   const changes = [];
+  const hubs = phase === 'f2' ? primaryHub() : new Map();
   for (const { rel, html } of site.pages) {
     if (rel === 'index.html') continue;
-    let next = mapOutside(html, SKIP_RE, (markup) => repointAnchors(markup, rel, stats, errors));
-    next = repointBreadcrumbs(next, rel, stats, errors);
+    let next = html;
+    if (phase === 'f2') {
+      const hub = hubs.get(rel);
+      if (hub) next = repointHubCrumb(html, rel, hub, stats, errors);
+    } else {
+      next = mapOutside(html, SKIP_RE, (markup) => repointAnchors(markup, rel, stats, errors));
+      next = repointBreadcrumbs(next, rel, stats, errors);
+    }
     if (next !== html) changes.push({ rel, html: next });
   }
   return { stats, errors, changes };
@@ -151,11 +218,12 @@ export function verifyPlan(site, plan, expected = EXPECTED, policy = PHASES['f1-
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const phase = process.argv.includes('--phase') ? process.argv[process.argv.indexOf('--phase') + 1] : 'f1';
   const site = loadSite();
-  const plan = planRepoint(site);
-  const problems = verifyPlan(site, plan);
-  const { R1, R2, R3, R4 } = plan.stats;
-  console.log(`planned: R1 ${R1} · R2 ${R2} · R3 ${R3} · R4 ${R4} in ${plan.changes.length} file(s)`);
+  const plan = planRepoint(site, phase);
+  const problems = verifyPlan(site, plan, phase === 'f2' ? EXPECTED_F2 : EXPECTED,
+    PHASES[phase === 'f2' ? 'f2-done' : 'f1-done']);
+  console.log(`planned: ${Object.entries(plan.stats).map(([r, n]) => `${r} ${n}`).join(' · ')} in ${plan.changes.length} file(s)`);
   if (problems.length) {
     for (const p of problems) console.error(p);
     console.error(`${problems.length} problem(s) — nothing written`);

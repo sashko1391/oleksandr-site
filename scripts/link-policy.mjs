@@ -263,5 +263,5 @@ PHASES['f2-done'] = {
   idCounts: ID_COUNTS,
 };
 
-export const CURRENT_PHASE = 'f2-pre';
+export const CURRENT_PHASE = 'f2-done';
 
