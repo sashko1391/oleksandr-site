@@ -260,6 +260,27 @@
     .cluster-spokes { flex-direction: column; align-items: center; }
   }
 </style>
+<style data-site-menu>
+.site-menu { display: flex; flex-wrap: nowrap; gap: 0.25rem 1.25rem; align-items: center; list-style: none;
+  margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.site-menu::-webkit-scrollbar { display: none; }
+.site-menu a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 0.15rem; white-space: nowrap;
+  color: #4A4A4A; text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+.site-menu a:hover { color: #1B3A5C; }
+.site-menu a[aria-current="page"] { color: #1B3A5C; box-shadow: inset 0 -2px 0 #5BA4D9; }
+.site-menu .site-menu-cta { color: #1B3A5C; font-weight: 600; }
+.site-menu .site-menu-cta::before { content: '·'; margin-right: 1rem; color: rgba(27,58,92,0.3); }
+@media (max-width: 860px) {
+  /* the logo keeps the first row, the sections get their own scrollable one */
+  nav[aria-label="Основна навігація"] { flex-wrap: wrap; row-gap: 0; }
+  .site-menu { width: 100%; gap: 0.25rem 1.1rem; }
+  .site-menu a { font-size: 0.92rem; min-height: 44px; }
+  .site-menu .site-menu-cta::before { display: none; }
+}
+@media (max-width: 480px) {
+  nav[aria-label="Основна навігація"] .logo { font-size: 1.2rem; }
+}
+</style>
 </head>
 <body>
 
@@ -267,7 +288,16 @@
 
 <nav aria-label="Основна навігація">
   <a href="/" class="logo">Oleksandr<span>.</span>Kravchenko</a>
-  <a href="/" class="nav-back">← На головну</a>
+  <!-- nav:start -->
+  <ul class="site-menu">
+    <li><a href="/journal/">Журнал</a></li>
+    <li><a href="/code/">Код</a></li>
+    <li><a href="/creative/">Творчість</a></li>
+    <li><a href="/parkinson/">Паркінсон</a></li>
+    <li><a href="/pro-mene/">Про мене</a></li>
+    <li><a href="/services/" class="site-menu-cta" aria-current="page">Робота зі мною</a></li>
+  </ul>
+  <!-- nav:end -->
 </nav>
 
 <main id="main-content">
