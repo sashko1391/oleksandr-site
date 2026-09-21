@@ -8,8 +8,9 @@ import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
 const PUBLIC = join(process.cwd(), 'public');
 const SITE = 'https://www.parkinsandr.tech';
 
-/** The collection pages that exist today; /parkinson/ joins them with the editorial policy (step 2b). */
+/** The collection pages of Ф2. The rubric frame of /parkinson/ has its own suite (parkinson-frame). */
 const HUBS = [
+  { slug: 'parkinson', crumb: 'Паркінсон' },
   { slug: 'code', crumb: 'Код' },
   { slug: 'creative', crumb: 'Творчість' },
   { slug: 'blog', crumb: 'Блог' },
@@ -124,6 +125,8 @@ describe('section hubs', () => {
     expect(read('code/index.html')).toContain('href="/services/"');
     expect(read('blog/index.html')).toContain('href="/code/"');
     expect(read('creative/index.html')).toContain('href="/journal/"');
+    expect(read('creative/index.html')).toContain('href="/parkinson/"');
+    expect(read('parkinson/index.html')).toContain('href="/journal/"');
     expect(read('services/index.html'), '/services/ must point at the archive').toContain('href="/blog/"');
   });
 });

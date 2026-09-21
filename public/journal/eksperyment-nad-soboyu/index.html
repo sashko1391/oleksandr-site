@@ -29,7 +29,7 @@
   "author": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"},
   "publisher": {"@id": "https://www.parkinsandr.tech/pro-mene/#author"},
   "datePublished": "2026-09-09",
-  "dateModified": "2026-09-20",
+  "dateModified": "2026-09-21",
   "articleSection": "Поза кодом",
   "inLanguage": "uk",
   "description": "Публічна обіцянка виконувати рекомендації, зібрані з досліджень про хворобу Паркінсона: відмова від цигарок і алкоголю, повернення до фізичних вправ, харчове вікно 18:6. Фіксація точки відліку та правил звітування.",
@@ -151,6 +151,14 @@
     .baseline dl { grid-template-columns:1fr; gap:.15rem; }
     .baseline dd { margin-bottom:.5rem; }
   }
+
+  .rubric-frame { max-width: 720px; margin: 1.5rem auto 0; padding: 1.25rem 1.5rem; background: var(--blue-pale, #D6EAF5); border-left: 3px solid var(--blue-mid, #2E6B9E); border-radius: 12px; font-size: 0.95rem; line-height: 1.6; }
+  .rubric-frame p + p { margin-top: 0.5rem; }
+  .rubric-frame-meta { color: var(--ink-soft, #4A4A4A); }
+  .rubric-frame-meta a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
+  .corrections { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, rgba(27,58,92,0.12)); }
+  .corrections h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .corrections p + p { margin-top: 0.5rem; }
 </style>
 </head>
 <body>
@@ -173,6 +181,14 @@
       <span>~7 хв читання</span>
     </div>
   </header>
+  <div class="rubric-frame">
+    <p><strong>Досвід пацієнта, а не медична порада.</strong> Я живу з хворобою Паркінсона, але я не лікар:
+    тут немає рекомендацій щодо діагнозу, дозування чи зміни лікування — ці рішення ухвалюйте разом із неврологом.
+    Перевірювані твердження мають джерела.</p>
+    <p class="rubric-frame-meta">Джерела звіряв автор (не лікар): <time datetime="2026-09-21">21 вересня 2026</time> ·
+    <a href="/parkinson/redaktsiina-polityka/">Редакційна політика рубрики →</a></p>
+  </div>
+
 
   <div class="article-body">
     <p class="lead">Мабуть, час настав. Нещодавно я опублікував <a href="/journal/parkinson-shcho-robyty/">розбір рекомендацій</a>, зібраних із досліджень: що робити просто зараз, якщо у вас знайшли хворобу Паркінсона. А чи є реальні кейси пацієнтів, які цим рекомендаціям слідували? <strong>Чудова новина: я маю нагоду спробувати.</strong> Бо дослідження я проводив ще чотири місяці тому, а впровадив із них плюс-мінус нічого.</p>
@@ -273,6 +289,11 @@
       <p>Контекст, якщо ви тут уперше: <a href="/journal/diahnoz-u-27/">«Діагноз у 27»</a> — як усе почалося; <a href="/journal/rannii-parkinsonizm/">«Ранній паркінсонізм простими словами»</a> — про симптоми й діагностику; <a href="/journal/parkinson-shcho-robyty/">«Що робити вже зараз»</a> — той самий розбір, за яким я тепер намагаюся жити.</p>
     </div>
 
+    <section class="corrections" aria-labelledby="vypravlennya">
+      <h2 id="vypravlennya">Журнал виправлень</h2>
+      <p><strong>21 вересня 2026</strong> — додано джерело до твердження про конкуренцію харчового білка з леводопою за транспорт.</p>
+      <p><strong>20 вересня 2026</strong> — оновлено кризові контакти: лінія 7333 на паузі.</p>
+    </section>
     <div class="author-box">
       <img src="/images/oleksandr.webp" alt="Олександр Кравченко" width="52" height="52" loading="lazy">
       <p><strong>Олександр Кравченко</strong> — веб-розробник і юрист, живу в селі на Київщині. Хвороба Паркінсона з 27 років. <strong>Не лікар</strong> — автор із власним досвідом хвороби. <a href="/pro-mene/">Більше про мене →</a></p>

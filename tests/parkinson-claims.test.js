@@ -7,10 +7,13 @@ import { join } from 'node:path';
 const PUBLIC = join(process.cwd(), 'public');
 const POSTS = ['diahnoz-u-27', 'rannii-parkinsonizm', 'parkinson-shcho-robyty', 'eksperyment-nad-soboyu', 'hoverla'];
 const html = Object.fromEntries(POSTS.map((slug) => [slug, readFileSync(join(PUBLIC, 'journal', slug, 'index.html'), 'utf8')]));
+/** The post without its corrections log: the log records past edits and may name what was removed. */
+const body = (slug) => html[slug].replace(/<section class="corrections"[\s\S]*?<\/section>/, ' ');
 
 /** Blocks of the article, in order, as (tag, text) — a dose warning may stand in the next block. */
 function blocks(page) {
-  const article = page.slice(page.indexOf('<article'));
+  // the corrections log quotes figures from past edits; it is a changelog, not advice
+  const article = page.slice(page.indexOf('<article')).replace(/<section class="corrections"[\s\S]*?<\/section>/, ' ');
   return [...article.matchAll(/<(p|li|div)[^>]*>([\s\S]*?)<\/\1>/g)]
     .map((m) => ({ tag: m[1], text: m[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), at: m.index }));
 }
@@ -87,12 +90,11 @@ describe('Parkinson rubric — claims and doses', () => {
     expect(post, 'fasting is named as unproven').toMatch(/не доведено|недоведен/);
   });
 
-  it('the crisis contacts are on the four posts that carry them, and are current', () => {
-    // hoverla is a hiking post; its crisis block comes with the rubric frame in step 2b (doc/HUBS_PLAN.md)
+  it('every post of the rubric carries current crisis contacts', () => {
     const withContacts = POSTS.filter((slug) => /howareu\.com\/hot-lines/.test(html[slug]));
-    expect(withContacts).toEqual(['diahnoz-u-27', 'rannii-parkinsonizm', 'parkinson-shcho-robyty', 'eksperyment-nad-soboyu']);
+    expect(withContacts).toEqual(POSTS);
     for (const slug of withContacts) {
-      expect(html[slug], `${slug} still lists the paused 7333 line`).not.toMatch(/\b7333\b/);
+      expect(body(slug), `${slug} still lists the paused 7333 line`).not.toMatch(/\b7333\b/);
       expect(html[slug], `${slug} must name the crisis line that answers`).toContain('0 800 21 01 60');
       expect(html[slug], `${slug} must say when the contacts were checked`).toMatch(/[Кк]онтакти перевірено/);
     }

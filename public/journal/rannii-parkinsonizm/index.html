@@ -206,6 +206,14 @@
     .article-header { padding: 6rem 1.5rem 1.5rem; }
     .article-body { padding: 0 1.5rem 3rem; }
   }
+
+  .rubric-frame { max-width: 720px; margin: 1.5rem auto 0; padding: 1.25rem 1.5rem; background: var(--blue-pale, #D6EAF5); border-left: 3px solid var(--blue-mid, #2E6B9E); border-radius: 12px; font-size: 0.95rem; line-height: 1.6; }
+  .rubric-frame p + p { margin-top: 0.5rem; }
+  .rubric-frame-meta { color: var(--ink-soft, #4A4A4A); }
+  .rubric-frame-meta a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
+  .corrections { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, rgba(27,58,92,0.12)); }
+  .corrections h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .corrections p + p { margin-top: 0.5rem; }
 </style>
 </head>
 <body>
@@ -228,6 +236,14 @@
       <span>~22 хв читання</span>
     </div>
   </header>
+  <div class="rubric-frame">
+    <p><strong>Досвід пацієнта, а не медична порада.</strong> Я живу з хворобою Паркінсона, але я не лікар:
+    тут немає рекомендацій щодо діагнозу, дозування чи зміни лікування — ці рішення ухвалюйте разом із неврологом.
+    Перевірювані твердження мають джерела.</p>
+    <p class="rubric-frame-meta">Джерела звіряв автор (не лікар): <time datetime="2026-09-21">21 вересня 2026</time> ·
+    <a href="/parkinson/redaktsiina-polityka/">Редакційна політика рубрики →</a></p>
+  </div>
+
 
   <div class="article-body">
     <p class="lead">Мені поставили хворобу Паркінсона у 27 років. До того я три роки жив із симптомами й вважав, що просто перетренував руку. Ця стаття — про те, <strong>як виглядає паркінсонізм у молодих, чому його роками не помічають і що з ним роблять у 2026-му</strong>. Максимально просто, без медичного жаргону, і чесно там, де відповіді немає.</p>
@@ -724,6 +740,11 @@
 
 <p>Повна особиста історія — без медичної частини, зате з війною, Берліном, переїздом у село і рештою — у моєму першому есеї: <a href="/journal/diahnoz-u-27/">«Діагноз у 27»</a>.</p>
 
+    <section class="corrections" aria-labelledby="vypravlennya">
+      <h2 id="vypravlennya">Журнал виправлень</h2>
+      <p><strong>21 вересня 2026</strong> — виправлено опис критеріїв MDS 2015: поріг 600 мг леводопи на добу замість «800–1000 мг протягом 4–8 тижнів»; цифри про працездатність замінено на дані когортного дослідження; прес-релізи AbbVie і Medtronic замінено на документи FDA.</p>
+      <p><strong>20 вересня 2026</strong> — оновлено кризові контакти: лінія 7333 на паузі.</p>
+    </section>
     <div class="author-box">
       <img src="/images/oleksandr.webp" alt="Олександр Кравченко" width="52" height="52" loading="lazy">
       <p><strong>Олександр Кравченко</strong> — веб-розробник і юрист, живу в селі на Київщині. Хвороба Паркінсона з 27 років, діагноз підтверджено у 2018-му. Не лікар. <a href="/pro-mene/">Більше про мене →</a></p>

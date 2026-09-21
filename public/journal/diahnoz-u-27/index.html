@@ -123,6 +123,14 @@
     .article-header { padding: 6rem 1.5rem 1.5rem; }
     .article-body { padding: 0 1.5rem 3rem; }
   }
+
+  .rubric-frame { max-width: 720px; margin: 1.5rem auto 0; padding: 1.25rem 1.5rem; background: var(--blue-pale, #D6EAF5); border-left: 3px solid var(--blue-mid, #2E6B9E); border-radius: 12px; font-size: 0.95rem; line-height: 1.6; }
+  .rubric-frame p + p { margin-top: 0.5rem; }
+  .rubric-frame-meta { color: var(--ink-soft, #4A4A4A); }
+  .rubric-frame-meta a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
+  .corrections { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, rgba(27,58,92,0.12)); }
+  .corrections h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .corrections p + p { margin-top: 0.5rem; }
 </style>
 </head>
 <body>
@@ -145,6 +153,14 @@
       <span>~15 хв читання</span>
     </div>
   </header>
+  <div class="rubric-frame">
+    <p><strong>Досвід пацієнта, а не медична порада.</strong> Я живу з хворобою Паркінсона, але я не лікар:
+    тут немає рекомендацій щодо діагнозу, дозування чи зміни лікування — ці рішення ухвалюйте разом із неврологом.
+    Перевірювані твердження мають джерела.</p>
+    <p class="rubric-frame-meta">Джерела звіряв автор (не лікар): <time datetime="2026-09-21">21 вересня 2026</time> ·
+    <a href="/parkinson/redaktsiina-polityka/">Редакційна політика рубрики →</a></p>
+  </div>
+
 
   <div class="article-body">
     <p class="lead">«У вас хвороба Паркінсона», — таким був підсумок мого другого походу до невролога ще у 2018 році. На той момент я знав про хворобу небагато — лише те, що це хвороба стариків. Приїхали: став дідом у 27 😁</p>
@@ -265,6 +281,10 @@
     <p>Ніхто не знає, скільки нам відведено часу, особливо з огляду на війну. Але я точно знаю, що варто провести його активно, з усмішкою, пробуючи нове, вдячно приймаючи допомогу друзів і підтримуючи тих, хто зіткнувся з проблемою. Кожен новий день — це шанс рухатися далі, шукати способи покращити себе і своє життя, знаходити радість навіть у дрібницях. Життя прекрасне у своїй непередбачуваності, і якщо ми навчимося любити навіть свої слабкості, то станемо сильнішими, ніж будь-коли були.</p>
     <p>Як сказано в сучасного українського класика Леся Подерв'янського: «Не бздо в каністру» 😁</p>
 
+    <section class="corrections" aria-labelledby="vypravlennya">
+      <h2 id="vypravlennya">Журнал виправлень</h2>
+      <p><strong>21 вересня 2026</strong> — додано попередження біля опису самостійного початку прийому леводопи (це мій випадок, а не приклад), джерело до механізму дії леводопи та пояснення, чому висновок «атиповий паркінсонізм» після короткої проби був помилковим.</p>
+    </section>
     <div class="author-box">
       <img src="/images/oleksandr.webp" alt="Олександр Кравченко" width="52" height="52" loading="lazy">
       <p><strong>Олександр Кравченко</strong> — веб-розробник і юрист, живу в селі на Київщині. Це перший запис мого щоденника. <a href="/pro-mene/">Більше про мене →</a></p>
