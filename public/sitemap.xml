@@ -163,6 +163,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.parkinsandr.tech/code/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.parkinsandr.tech/creative/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.parkinsandr.tech/blog/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.parkinsandr.tech/journal/</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
