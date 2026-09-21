@@ -23,14 +23,15 @@
 |---|---|
 | `doc/PERSONAL_SITE_PLAN.md` | 🟢 головний план переробки, фази Ф0–Ф7 |
 | `doc/SERVICES_HUB_PLAN.md` | ✅ Ф1 виконано, у проді з 2026-09-19 (`/services/` із формою, перепривʼязка; фаза `f1-done`) |
-| `doc/CONSISTENCY_PLAN.md` | 🟡 Ф1.5 — план: P0 чесні форми (без рішень), P1 ціни й відгуки (рішення власника), P2 розбіжності |
-| `doc/HUBS_PLAN.md` | 🟡 Ф2 — план на рев'ю (хаби, архів `/blog/`, фази `f2-pre`/`f2-done`); після Ф1.5 |
-| `doc/PARKINSON_EDITORIAL_POLICY.md` | ⏳ чернетка редполітики рубрики «Паркінсон» — на затвердженні власника |
+| `doc/CONSISTENCY_PLAN.md` | ✅ Ф1.5 виконано 2026-09-20: чесні форми, одна модель цін, відгуки, цифри з джерелами |
+| `doc/HUBS_PLAN.md` | ✅ Ф2 виконано 2026-09-21: хаби, архів `/blog/`, рамка рубрики, breadcrumbs → хаби (`f2-done`) |
+| `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
+| `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
 | `doc/SUBSCRIPTION_PLAN.md` | ⏸ пауза: RSS у проді; Telegram-канал і Email — після нової IA |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
-Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 чесні форми й факти · Ф2 хаби `/code/`, `/creative/`, `/parkinson/`,
-архів `/blog/` + оновлений `/journal/` ·
+Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
+`/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
 Ф3 нова головна + меню · Ф4 підписка · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
@@ -54,7 +55,7 @@
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
     `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
-    claims, faq-schema, images, services-page, journal-index]`
+    claims, faq-schema, images, hubs, parkinson-frame, parkinson-claims, services-page, journal-index]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -80,8 +81,11 @@
 ```
 public/
 ├── index.html            ← головна (поки комерційна; переробка у Ф3)
-├── 404.html (noindex) · robots.txt · sitemap.xml (45 URL) · feed.xml (RSS)
-├── journal/              ← «Поза кодом»: index (хронологічна стрічка + фільтр жанрів) + 16 постів
+├── 404.html (noindex) · robots.txt · sitemap.xml (50 URL) · feed.xml (RSS)
+├── journal/              ← «Поза кодом»: index (стрічка всіх 16 постів + фільтр жанрів, посилання на хаби)
+├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
+├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
+├── blog/                 ← архів усіх статей (Ф2, не в меню)
 ├── blog/{slug}/          ← 12 статей: 6 для замовників, devlog-и, AI/SEO-кейси
 ├── services/             ← хаб `/services/` (Ф1: послуги, кейси, ціни, FAQ, форма `#contact`)
 ├── services/{slug}/      ← 5 лендингів: nextjs, landing, ai, redesign, kyiv
@@ -96,10 +100,11 @@ api/ · lib/ · scripts/ · tests/ · doc/
 - `node scripts/build-feed.mjs` — регенерує `public/feed.xml`
 - `node scripts/inject-rss.mjs` — RSS `<link>` у `<head>` (ідемпотентно)
 - `node scripts/inject-comments.mjs` — блок коментарів у journal + blog (ідемпотентно)
-- `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f2-pre`);
+- `npm run check:links [-- --phase <name>]` — валідатор посилань (цілісність + політика фази, зараз `f2-done`);
   `--phase` — прогін іншої фази: показує, що ще треба перепривʼязати
-- `node scripts/repoint-anchors.mjs [--dry]` — міграція якорів головної Ф1 (крок 3, виконано): план → перевірка →
-  запис усього або нічого; ідемпотентна (повторний прогін — 0 змін)
+- `node scripts/repoint-anchors.mjs [--phase f1|f2] [--dry]` — міграції посилань: Ф1 (якорі головної) і Ф2
+  (breadcrumbs → хаби), обидві виконані. План → перевірка (лічильники, семантичний diff JSON-LD, валідатор) →
+  запис усього або нічого; ідемпотентні (повторний прогін — 0 змін)
 - `npm run smoke:forms [-- --screenshots <dir>]` — браузерний smoke всіх 7 лід-форм: успіх, відмова воркера,
   без JavaScript + специфіка `/services/` (Playwright + системний Chrome, воркер підмінено; не входить у `npm test`)
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
@@ -138,7 +143,8 @@ api/ · lib/ · scripts/ · tests/ · doc/
   Паркінсон, проза) і 4 з 5 сервісних лендингів.
 - Комерційні запити не вийшли в топ-30; органіку дають особистий пост розробника (Джарвіс) і кейси за назвами клієнтів.
 - Комерційні CTA ведуть на форму `/services/#contact`, лендинги — на хаб `/services/`; «напишіть мені» в постах про
-  Паркінсон — на особистий Telegram (Ф1, крок 3). Від якорів головної лишився лише `/#blog` у breadcrumbs — Ф2.
+  Паркінсон — на особистий Telegram (Ф1, крок 3). Від Ф2 жодна сторінка не залежить від якорів головної:
+  breadcrumbs ведуть на хаби (`f2-done`), тож переробка головної у Ф3 нічого не ламає.
 - **Контентні пріоритети:** 1) індексація наявного; 2) хаби розділів; 3) особистий контент першої руки;
   4) `/services/` — переконливість для прямих відвідувачів, а не полювання на комерційні запити.
 
