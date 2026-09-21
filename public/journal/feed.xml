@@ -7,11 +7,13 @@
     <description><![CDATA[Есеї, щоденник, подорожі та оповідання — усі записи журналу, від найновіших.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Mon, 21 Sep 2026 08:46:41 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 12:32:47 GMT</lastBuildDate>
     <image>
-      <url>https://www.parkinsandr.tech/images/preview.jpg</url>
+      <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Журнал</title>
       <link>https://www.parkinsandr.tech/journal/</link>
+      <width>144</width>
+      <height>144</height>
     </image>
     <item>
       <title><![CDATA[Поверни мені час — кліп за мотивами оповідання]]></title>

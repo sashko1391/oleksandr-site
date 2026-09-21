@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
-  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect, itemsFor, byDate, FEEDS,
+  decode, cdata, xmlEscape, xmlSafe, rfc822, extractArticle, parsePost, build, collect, itemsFor, byDate, FEEDS, LOGO,
 } from '../scripts/build-feed.mjs';
 import { injectInto, tagFor, maskInert, attrOf, sectionFeedOf, tagsFor } from '../scripts/inject-rss.mjs';
 import { HUB_MEMBERS } from '../scripts/link-policy.mjs';
@@ -304,6 +304,21 @@ describe('section feeds (Ф4)', () => {
     const image = xml.match(/<image>([\s\S]*?)<\/image>/)[1];
     expect(image).toContain(`<title>${feed.title}</title>`);
     expect(image).toContain(`<link>${feed.link}</link>`);
+  });
+
+  it('the channel logo exists and its declared size is the file’s real size', () => {
+    const png = readFileSync(join(PUBLIC, LOGO.path));
+    expect(png.subarray(1, 4).toString('latin1'), 'not a PNG').toBe('PNG');
+    // IHDR: width and height are the two big-endian uint32 at byte 16
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([LOGO.width, LOGO.height]);
+    expect(LOGO.width, 'RSS 2.0 caps the channel image at 144 wide').toBeLessThanOrEqual(144);
+    expect(LOGO.height, 'RSS 2.0 caps the channel image at 400 tall').toBeLessThanOrEqual(400);
+    for (const feed of FEEDS) {
+      const image = read(feed.file).match(/<image>([\s\S]*?)<\/image>/)[1];
+      expect(image).toContain(`<url>https://www.parkinsandr.tech/${LOGO.path}</url>`);
+      expect(image).toContain(`<width>${LOGO.width}</width>`);
+      expect(image).toContain(`<height>${LOGO.height}</height>`);
+    }
   });
 
   it('collect() tags every item with the post file it came from', () => {

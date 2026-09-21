@@ -66,6 +66,8 @@ export const FEEDS = [
     };
   }),
 ];
+/** RSS 2.0 caps the channel image at 144×400 and assumes 88×31 when the size is not declared. */
+export const LOGO = { path: 'images/rss-logo.png', width: 144, height: 144 };
 const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif' };
 
 /** First capture group of `re` in `html`, or ''. */
@@ -266,9 +268,11 @@ export function build(items, feed = FEEDS[0]) {
     <copyright>© ${new Date().getUTCFullYear()} ${AUTHOR}</copyright>
     <lastBuildDate>${now}</lastBuildDate>
     <image>
-      <url>${SITE}/images/preview.jpg</url>
+      <url>${SITE}/${LOGO.path}</url>
       <title>${xmlEscape(feed.title)}</title>
       <link>${xmlEscape(feed.link)}</link>
+      <width>${LOGO.width}</width>
+      <height>${LOGO.height}</height>
     </image>
 ${entries}
   </channel>
@@ -276,26 +280,33 @@ ${entries}
 `;
 }
 
-// Run only when executed directly (so tests can import the pure helpers above).
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+/**
+ * Regenerate every feed. Nothing is written unless all of them have items, so a broken run cannot
+ * leave the site with a half-updated set. Returns what was written, for the caller to log.
+ * @returns {Array<{ feed: typeof FEEDS[number], count: number, newest: string }>}
+ */
+export function writeFeeds() {
   const all = collect();
-  if (all.length === 0) {
-    console.error('feed.xml: no items collected — aborting');
-    process.exit(1);
-  }
-  const written = [];
-  for (const feed of FEEDS) {
-    const items = itemsFor(feed, all);
-    if (items.length === 0) {
-      console.error(`${feed.file}: no items — aborting (nothing written for this run)`);
-      process.exit(1);
-    }
-    written.push({ feed, items });
-  }
-  for (const { feed, items } of written) {
+  if (all.length === 0) throw new Error('no items collected — refusing to write empty feeds');
+  const planned = FEEDS.map((feed) => ({ feed, items: itemsFor(feed, all) }));
+  const empty = planned.filter((p) => p.items.length === 0).map((p) => p.feed.file);
+  if (empty.length) throw new Error(`no items for ${empty.join(', ')} — nothing written`);
+  return planned.map(({ feed, items }) => {
     const out = join(PUBLIC, feed.file);
     mkdirSync(dirname(out), { recursive: true });
     writeFileSync(out, build(items, feed), 'utf8');
-    console.log(`${feed.file}: ${items.length} items (newest ${items[0]?.pubDate ?? '—'})`);
+    return { feed, count: items.length, newest: items[0].pubDate };
+  });
+}
+
+// Run only when executed directly (so tests can import the pure helpers above).
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  try {
+    for (const { feed, count, newest } of writeFeeds()) {
+      console.log(`${feed.file}: ${count} items (newest ${newest})`);
+    }
+  } catch (e) {
+    console.error(`feeds: ${e.message}`);
+    process.exit(1);
   }
 }
