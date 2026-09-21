@@ -9,6 +9,8 @@
 // Ф2 step 5 of doc/HUBS_PLAN.md adds, under `--phase f2`:
 //   R5  BreadcrumbList position 2 of blog/*     «Блог» → /#blog      → the hub HUB_MEMBERS gives the post
 //   R6  BreadcrumbList position 2 of journal/*  «Поза кодом» → /journal/ → «Паркінсон» or «Творчість»
+// Ф3 step 1 adds, under `--phase f3`:
+//   R7  the seven journal posts that stayed: «Поза кодом» → «Журнал» (same URL, the section is renamed)
 // Idempotent; public/index.html is never touched. `node scripts/repoint-anchors.mjs [--phase f2] [--dry]`
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -29,6 +31,9 @@ export const EXPECTED = { R1: 19, R2: 3, R3: 5, R4: 6 };
 
 /** Ф2: twelve blog posts leave the homepage anchor, nine journal posts move to their rubric hub. */
 export const EXPECTED_F2 = { R5: 12, R6: 9 };
+
+/** Ф3: the section «Поза кодом» is called «Журнал» in the menu, so its seven posts are renamed too. */
+export const EXPECTED_F3 = { R7: 7 };
 
 const SKIP_RE = /<!--[\s\S]*?-->|<(script|style|textarea)\b[^>]*>[\s\S]*?<\/\1\s*>/gi;
 const COMMENT_RE = /<!--[\s\S]*?-->/g;
@@ -127,22 +132,29 @@ function repointBreadcrumbs(html, rel, stats, errors) {
   }));
 }
 
-/** What Ф1 left in the position-2 breadcrumb of a post, per section. */
-const F2_FROM = {
-  'blog/': { name: 'Блог', item: `${SITE}/#blog` },
-  'journal/': { name: 'Поза кодом', item: `${SITE}/journal/` },
+/** What the previous phase left in the position-2 breadcrumb of a post, per section. */
+const CRUMB_FROM = {
+  f2: {
+    'blog/': { name: 'Блог', item: `${SITE}/#blog` },
+    'journal/': { name: 'Поза кодом', item: `${SITE}/journal/` },
+  },
+  // Ф3 renames the section itself; the URL does not move, only the name the reader sees
+  f3: {
+    'journal/': { name: 'Поза кодом', item: `${SITE}/journal/` },
+  },
 };
+const RULE = { f2: { 'blog/': 'R5', 'journal/': 'R6' }, f3: { 'journal/': 'R7' } };
 
 /**
  * Ф2: the position-2 breadcrumb of a post becomes the hub HUB_MEMBERS assigns to it. The JSON text is
  * edited in place (so formatting survives) and the result is proven by a semantic diff: nothing but the
  * item and the name of that one ListItem may differ.
  */
-function repointHubCrumb(html, rel, hub, stats, errors) {
-  const section = Object.keys(F2_FROM).find((prefix) => rel.startsWith(prefix));
-  const from = F2_FROM[section];
+function repointHubCrumb(html, rel, hub, phase, stats, errors) {
+  const section = Object.keys(CRUMB_FROM[phase]).find((prefix) => rel.startsWith(prefix));
+  const from = CRUMB_FROM[phase][section];
   if (!from || (hub.item === from.item && hub.name === from.name)) return html; // nothing to move
-  const rule = section === 'blog/' ? 'R5' : 'R6';
+  const rule = RULE[phase][section];
   return mapOutside(html, COMMENT_RE, (part) => part.replace(LD_RE, (whole, open, json, close) => {
     if (!json.includes(`"${from.item}"`)) return whole;
     let before;
@@ -171,28 +183,30 @@ function repointHubCrumb(html, rel, hub, stats, errors) {
       else if (inCrumb && key === 'name' && was === from.name && to === hub.name) names++;
       else problems.push(`unexpected JSON-LD change at ${path.join('.')}: ${JSON.stringify(was)} → ${JSON.stringify(to)}`);
     }
-    if (items !== names) problems.push(`${rule}: ${items} item(s) moved but ${names} name(s) renamed`);
+    // when the section keeps its URL (Ф3 renames it), only the name changes — otherwise both must
+    const expectedItems = hub.item === from.item ? 0 : names;
+    if (items !== expectedItems) problems.push(`${rule}: ${items} item(s) moved but ${names} name(s) renamed`);
     if (problems.length) {
       errors.push(...problems.map((p) => `${rel}: ${p}`));
       return whole;
     }
-    stats[rule] += items;
+    stats[rule] += Math.max(items, names);
     return open + next + close;
   }));
 }
 
 /** Plan every change in memory: { stats, errors, changes: [{ rel, html }] }. Writes nothing. */
 export function planRepoint(site, phase = 'f1') {
-  const stats = phase === 'f2' ? { R5: 0, R6: 0 } : { R1: 0, R2: 0, R3: 0, R4: 0 };
+  const stats = phase === 'f2' ? { R5: 0, R6: 0 } : phase === 'f3' ? { R7: 0 } : { R1: 0, R2: 0, R3: 0, R4: 0 };
   const errors = [];
   const changes = [];
-  const hubs = phase === 'f2' ? primaryHub() : new Map();
+  const hubs = phase === 'f1' ? new Map() : primaryHub();
   for (const { rel, html } of site.pages) {
     if (rel === 'index.html') continue;
     let next = html;
-    if (phase === 'f2') {
+    if (phase !== 'f1') {
       const hub = hubs.get(rel);
-      if (hub) next = repointHubCrumb(html, rel, hub, stats, errors);
+      if (hub) next = repointHubCrumb(html, rel, hub, phase, stats, errors);
     } else {
       next = mapOutside(html, SKIP_RE, (markup) => repointAnchors(markup, rel, stats, errors));
       next = repointBreadcrumbs(next, rel, stats, errors);
@@ -221,8 +235,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const phase = process.argv.includes('--phase') ? process.argv[process.argv.indexOf('--phase') + 1] : 'f1';
   const site = loadSite();
   const plan = planRepoint(site, phase);
-  const problems = verifyPlan(site, plan, phase === 'f2' ? EXPECTED_F2 : EXPECTED,
-    PHASES[phase === 'f2' ? 'f2-done' : 'f1-done']);
+  const expected = { f1: EXPECTED, f2: EXPECTED_F2, f3: EXPECTED_F3 }[phase];
+  const problems = verifyPlan(site, plan, expected, PHASES[phase === 'f1' ? 'f1-done' : 'f2-done']);
   console.log(`planned: ${Object.entries(plan.stats).map(([r, n]) => `${r} ${n}`).join(' · ')} in ${plan.changes.length} file(s)`);
   if (problems.length) {
     for (const p of problems) console.error(p);

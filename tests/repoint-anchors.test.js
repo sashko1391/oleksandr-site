@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { planRepoint, verifyPlan, EXPECTED_F2 } from '../scripts/repoint-anchors.mjs';
+import { planRepoint, verifyPlan, EXPECTED_F2, EXPECTED_F3 } from '../scripts/repoint-anchors.mjs';
 import { SITE, PERSONAL_CONTACT, PHASES } from '../scripts/link-policy.mjs';
 import { loadSite, urlOf } from '../scripts/check-links.mjs';
 
@@ -165,11 +165,21 @@ describe('R5/R6 — breadcrumbs move to the hubs (Ф2)', () => {
     expect(output(plan, PARKINSON)).toContain(`"item": "${SITE}/parkinson/"`);
   });
 
-  it('leaves the seven journal posts that stay in «Поза кодом» untouched', () => {
+  it('leaves the seven journal posts that keep their section untouched under f2', () => {
     const rel = 'journal/velozaizd/index.html';
-    const plan = run(post(rel, 'Поза кодом', `${SITE}/journal/`), 'f2');
+    const plan = run(post(rel, 'Журнал', `${SITE}/journal/`), 'f2');
     expect(plan.changes).toEqual([]);
     expect(plan.stats).toEqual({ R5: 0, R6: 0 });
+  });
+
+  it('R7 (Ф3): those same posts are renamed «Поза кодом» → «Журнал», the URL untouched', () => {
+    const rel = 'journal/velozaizd/index.html';
+    const plan = run(post(rel, 'Поза кодом', `${SITE}/journal/`), 'f3');
+    expect(plan.stats).toEqual({ R7: 1 });
+    const out = output(plan, rel);
+    expect(out).toContain('"name": "Журнал"');
+    expect(out).toContain(`"item": "${SITE}/journal/"`);
+    expect(plan.errors).toEqual([]);
   });
 
   it('touches only position 2, and keeps the rest of the block byte for byte', () => {
@@ -206,8 +216,10 @@ describe('public/ (integration)', () => {
     }
   });
 
-  it('the Ф2 inventory is the one doc/HUBS_PLAN.md fixed', () => {
+  it('the migration inventories are the ones the plans fixed', () => {
     expect(EXPECTED_F2).toEqual({ R5: 12, R6: 9 });
+    expect(EXPECTED_F3, 'seven journal posts keep the section and are renamed').toEqual({ R7: 7 });
+    expect(verifyPlan(loadSite(), planRepoint(loadSite(), 'f3'), EXPECTED_F3, PHASES['f2-done'])).toEqual([]);
     expect(verifyPlan(loadSite(), planRepoint(loadSite(), 'f2'), EXPECTED_F2, PHASES['f2-done'])).toEqual([]);
   });
 });

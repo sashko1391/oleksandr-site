@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>parkinsandr.tech — Поза кодом і не тільки</title>
+    <title>parkinsandr.tech — журнал і не тільки</title>
     <link>https://www.parkinsandr.tech/</link>
     <atom:link href="https://www.parkinsandr.tech/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.</description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Mon, 21 Sep 2026 01:46:37 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 02:20:33 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/preview.jpg</url>
       <title>parkinsandr.tech</title>
@@ -48,7 +48,7 @@
       <link>https://www.parkinsandr.tech/journal/eksperyment-nad-soboyu/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/eksperyment-nad-soboyu/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Публічна обіцянка виконувати рекомендації, зібрані з досліджень про хворобу Паркінсона: відмова від цигарок і алкоголю, повернення до фізичних вправ, харчове вікно 18:6. Фіксація точки відліку та правил звітування.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
@@ -58,7 +58,7 @@
       <link>https://www.parkinsandr.tech/journal/parkinson-shcho-robyty/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/parkinson-shcho-robyty/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Карта рішень при хворобі Паркінсона за рівнем доказів станом на серпень 2026: стандарт допомоги, втручання за показаннями, допоміжні методи для окремих симптомів, недоведені підходи та експериментальні терапії.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
@@ -68,7 +68,7 @@
       <link>https://www.parkinsandr.tech/journal/hoverla/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/hoverla/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Sat, 29 Aug 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Особистий репортаж про підйом на Говерлу з хворобою Паркінсона: трансфер до бази Заросляк, вибір між синім і зеленим маршрутом, трекінгові палиці, ціни та планування прийому ліків під час сходження.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/hoverla/og.jpg" type="image/jpeg" length="159108"/>
@@ -78,7 +78,7 @@
       <link>https://www.parkinsandr.tech/journal/rannii-parkinsonizm/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/rannii-parkinsonizm/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Пояснення раннього та ювенільного паркінсонізму простими словами: вікові межі, перші симптоми, помилкові діагнози, леводопа-проба, on/off-феномен, дискінезії, порушення імпульс-контролю і що є в лікуванні станом на 2026 рік. З особистого досвіду людини з діагнозом із 27 років.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
@@ -138,7 +138,7 @@
       <link>https://www.parkinsandr.tech/journal/diahnoz-u-27/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/diahnoz-u-27/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Особиста історія життя з хворобою Паркінсона: перші симптоми, помилкові діагнози, леводопа, війна, переїзд у село і погляд на хворобу як на виклик.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
@@ -258,7 +258,7 @@
       <link>https://www.parkinsandr.tech/journal/velozaizd/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/velozaizd/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
       <description><![CDATA[Щоденник велоподорожі Україною: 20 днів, ≈2350 км на e-bike з хворобою Паркінсона, день за днем.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/velozaizd/og.jpg" type="image/jpeg" length="144807"/>
@@ -288,7 +288,7 @@
       <link>https://www.parkinsandr.tech/journal/pamyati-maksyma-babaka/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/pamyati-maksyma-babaka/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Поза кодом]]></category>
+      <category><![CDATA[Журнал]]></category>
       <pubDate>Thu, 13 Feb 2025 00:00:00 GMT</pubDate>
       <description><![CDATA[Спомин про друга Максима Бабака — воїна ЗСУ, який загинув під Курахово, захищаючи Україну.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/maks-og.jpg" type="image/jpeg" length="128029"/>

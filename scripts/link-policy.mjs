@@ -103,7 +103,7 @@ export const HUB_MEMBERS = {
     also: [],
   },
   'journal/': {
-    name: 'Поза кодом',
+    name: 'Журнал',
     primary: [
       'journal/velozaizd/index.html',
       'journal/velyke-budivnytstvo/index.html',

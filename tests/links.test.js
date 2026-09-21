@@ -348,13 +348,13 @@ const F2_INVENTORY = {
   'journal/kabachok-starosta/index.html': 'Творчість',
   'journal/viddil-vtrachenoho-chasu/index.html': 'Творчість',
   'journal/poverny-meni-chas/index.html': 'Творчість',
-  'journal/velozaizd/index.html': 'Поза кодом',
-  'journal/velyke-budivnytstvo/index.html': 'Поза кодом',
-  'journal/zhyly-buly/index.html': 'Поза кодом',
-  'journal/vira-i-religiya/index.html': 'Поза кодом',
-  'journal/vira-i-religiya-2/index.html': 'Поза кодом',
-  'journal/bytva-tserkov/index.html': 'Поза кодом',
-  'journal/pamyati-maksyma-babaka/index.html': 'Поза кодом',
+  'journal/velozaizd/index.html': 'Журнал',
+  'journal/velyke-budivnytstvo/index.html': 'Журнал',
+  'journal/zhyly-buly/index.html': 'Журнал',
+  'journal/vira-i-religiya/index.html': 'Журнал',
+  'journal/vira-i-religiya-2/index.html': 'Журнал',
+  'journal/bytva-tserkov/index.html': 'Журнал',
+  'journal/pamyati-maksyma-babaka/index.html': 'Журнал',
   'blog/devlog-business-empire-idle/index.html': 'Код',
   'blog/devlog-empire-online/index.html': 'Код',
   'blog/jarvis-ai-assistant/index.html': 'Код',
@@ -372,7 +372,7 @@ const F2_INVENTORY = {
 const HUB_URL = {
   'Паркінсон': `${SITE}/parkinson/`,
   'Творчість': `${SITE}/creative/`,
-  'Поза кодом': `${SITE}/journal/`,
+  'Журнал': `${SITE}/journal/`,
   'Код': `${SITE}/code/`,
   'Послуги': `${SITE}/services/`,
 };
@@ -505,7 +505,7 @@ describe('phases f2-pre → f2-done', () => {
       ['Послуги', `${SITE}/services/`], // projects/*
       ['Паркінсон', `${SITE}/parkinson/`],
       ['Творчість', `${SITE}/creative/`],
-      ['Поза кодом', `${SITE}/journal/`],
+      ['Журнал', `${SITE}/journal/`],
       ['Код', `${SITE}/code/`],
       ['Послуги', `${SITE}/services/`], // the nine library articles
     ]);

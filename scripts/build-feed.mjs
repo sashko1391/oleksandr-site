@@ -13,7 +13,7 @@ const SITE = 'https://www.parkinsandr.tech';
 const AUTHOR = 'Олександр Кравченко';
 const MAX_ITEMS = 30;
 const SECTIONS = [
-  { dir: 'journal', fallbackCategory: 'Поза кодом' },
+  { dir: 'journal', fallbackCategory: 'Журнал' },
   { dir: 'blog', fallbackCategory: 'Блог' },
 ];
 const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif' };
@@ -184,7 +184,7 @@ export function build(items) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>parkinsandr.tech — Поза кодом і не тільки</title>
+    <title>parkinsandr.tech — журнал і не тільки</title>
     <link>${SITE}/</link>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.</description>
