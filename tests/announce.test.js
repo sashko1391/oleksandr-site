@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent } from '../scripts/announce.mjs';
+import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv } from '../scripts/announce.mjs';
 import { HUB_MEMBERS, primaryHub } from '../scripts/link-policy.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
@@ -25,6 +25,29 @@ describe('normalizeSlug', () => {
     for (const bad of ['journal', '/journal/', 'journal/a/b', '', 'Journal/Hoverla', '../etc/passwd']) {
       expect(() => normalizeSlug(bad), bad).toThrow(/not a post slug/);
     }
+  });
+});
+
+describe('parseArgs', () => {
+  it('finds the slug with no --note present (regression: indexOf(-1) + 1 ate the first argument)', () => {
+    expect(parseArgs(['journal/hoverla', '--dry', '--only=tg']))
+      .toMatchObject({ slug: 'journal/hoverla', dry: true, only: 'tg', force: false, note: '' });
+    expect(parseArgs(['journal/hoverla']).slug).toBe('journal/hoverla');
+  });
+  it('takes the note as the next argument without mistaking it for the slug', () => {
+    expect(parseArgs(['--note', 'З архіву.', 'journal/hoverla']))
+      .toMatchObject({ slug: 'journal/hoverla', note: 'З архіву.' });
+    expect(parseArgs(['journal/hoverla', '--note', 'З архіву.']).note).toBe('З архіву.');
+  });
+  it('takes the note attached with an equals sign', () => {
+    expect(parseArgs(['journal/hoverla', '--note=З архіву.']).note).toBe('З архіву.');
+  });
+  it('rejects a missing slug, an empty note and an unknown --only', () => {
+    expect(() => parseArgs(['--dry'])).toThrow(/usage:/);
+    expect(() => parseArgs(['--note', 'journal/hoverla'])).toThrow(/usage:/); // the note ate the only argument
+    expect(() => parseArgs(['journal/hoverla', '--note', '  '])).toThrow(/non-empty/);
+    expect(() => parseArgs(['journal/hoverla', '--note='])).toThrow(/non-empty/);
+    expect(() => parseArgs(['journal/hoverla', '--only=email'])).toThrow(/--only must be/);
   });
 });
 
@@ -75,6 +98,13 @@ describe('tgEscape / composePost', () => {
     expect(text).not.toMatch(/[<>]/);
   });
 
+  it('puts an optional note above the title, escaped, and nothing when it is empty', () => {
+    const noted = composePost(item, 'journal/hoverla', 'З архіву & <старе>.');
+    expect(noted.startsWith('З архіву &amp; &lt;старе&gt;.\n\n<b>')).toBe(true);
+    expect(composePost(item, 'journal/hoverla', '   ')).toBe(composePost(item, 'journal/hoverla'));
+    expect(composePost(item, 'journal/hoverla', '')).toBe(composePost(item, 'journal/hoverla'));
+  });
+
   it('skips the teaser when the post has no description', () => {
     const text = composePost({ ...item, description: '' }, 'journal/hoverla');
     expect(text).toBe(`<b>${tgEscape(item.title)}</b>\n\n${item.link}\n\n#паркінсон`);
@@ -99,6 +129,32 @@ describe('readItem (against the real posts)', () => {
 
   it('explains itself when the post does not exist', () => {
     expect(() => readItem('journal/nope')).toThrow(/no such post/);
+  });
+});
+
+describe('assertEnv', () => {
+  const ok = { TELEGRAM_BOT_TOKEN: '8012345678:AAFqhtXV0EDlZJ-lWZqIsYtF-4-NqQivkNc', TELEGRAM_CHANNEL_ID: '@parkinsandr' };
+
+  it('accepts a whole token and either channel form', () => {
+    expect(() => assertEnv(ok)).not.toThrow();
+    expect(() => assertEnv({ ...ok, TELEGRAM_CHANNEL_ID: '-1001234567890' })).not.toThrow();
+  });
+  it('rejects a token pasted without its numeric id (what returns a bare 404 from Telegram)', () => {
+    const half = { ...ok, TELEGRAM_BOT_TOKEN: ok.TELEGRAM_BOT_TOKEN.split(':')[1] };
+    expect(() => assertEnv(half)).toThrow(/whole bot token/);
+    expect(() => assertEnv({ ...ok, TELEGRAM_BOT_TOKEN: '8012345678' })).toThrow(/whole bot token/);
+  });
+  it('rejects a missing variable and a malformed channel', () => {
+    expect(() => assertEnv({ TELEGRAM_CHANNEL_ID: '@x_channel' })).toThrow(/TELEGRAM_BOT_TOKEN is not set/);
+    expect(() => assertEnv({ ...ok, TELEGRAM_CHANNEL_ID: '' })).toThrow(/TELEGRAM_CHANNEL_ID is not set/);
+    expect(() => assertEnv({ ...ok, TELEGRAM_CHANNEL_ID: 'parkinsandr' })).toThrow(/@username/);
+  });
+  it('never puts a value in the message it throws', () => {
+    try {
+      assertEnv({ ...ok, TELEGRAM_BOT_TOKEN: 'AAFqhtXV0EDlZJ-lWZqIsYtF-4-NqQivkNc' });
+    } catch (e) {
+      expect(e.message).not.toContain('AAFqht');
+    }
   });
 });
 

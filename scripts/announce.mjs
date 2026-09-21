@@ -6,6 +6,7 @@
 //   node scripts/announce.mjs journal/hoverla --dry      # print the post, send nothing, touch nothing
 //   node scripts/announce.mjs journal/hoverla --only=tg  # skip the feeds
 //   node scripts/announce.mjs journal/hoverla --force    # post again although it is already marked sent
+//   node scripts/announce.mjs journal/hoverla --note "З архіву."   # one line of context above the title
 //
 // Secrets come from the environment or a gitignored .env: TELEGRAM_BOT_TOKEN (same bot as the comment
 // notifications) and TELEGRAM_CHANNEL_ID (@username of the public channel). Nothing is written to the repo:
@@ -15,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { parsePost, writeFeeds } from './build-feed.mjs';
 import { primaryHub, HUB_MEMBERS } from './link-policy.mjs';
+import { tgEscape } from '../lib/security.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(ROOT, 'public');
@@ -41,19 +43,41 @@ export function hashtagFor(slug) {
   return `#${name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '_')}`;
 }
 
-/** Escape the three characters Telegram's HTML parse mode reserves. */
-export const tgEscape = (s) =>
-  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+export { tgEscape }; // the site's own helper, so the escaping rule has one definition
 
-/** The channel post: bold headline, the post's own teaser, the link (its preview card), one hashtag. */
-export function composePost(item, slug) {
+/**
+ * The channel post: an optional line of context (for an older post, so it does not read as new), the
+ * bold headline, the post's own teaser, the bare link (Telegram turns it into the OG card), one hashtag.
+ */
+export function composePost(item, slug, note = '') {
+  const lead = note.trim() ? `${tgEscape(note.trim())}\n\n` : '';
   const teaser = item.description ? `\n\n${tgEscape(item.description)}` : '';
-  return `<b>${tgEscape(item.title)}</b>${teaser}\n\n${item.link}\n\n${hashtagFor(slug)}`;
+  return `${lead}<b>${tgEscape(item.title)}</b>${teaser}\n\n${item.link}\n\n${hashtagFor(slug)}`;
 }
 
 export const readState = () => (existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {});
 export const markSent = (state, slug, channel) =>
   ({ ...state, [slug]: { ...state[slug], [channel]: new Date().toISOString() } });
+
+/**
+ * Fail before the network call, with a message that names the problem. A half-copied bot token (the part
+ * after the colon, which is what a password manager often hands back) makes Telegram answer a bare 404,
+ * and nothing in that answer says the token is malformed. Values are never logged.
+ */
+export function assertEnv(env = process.env) {
+  for (const key of ['TELEGRAM_BOT_TOKEN', 'TELEGRAM_CHANNEL_ID']) {
+    if (!env[key]) throw new Error(`${key} is not set — put it in the gitignored .env`);
+  }
+  if (!/^\d{5,}:[A-Za-z0-9_-]{20,}$/.test(env.TELEGRAM_BOT_TOKEN)) {
+    throw new Error(
+      'TELEGRAM_BOT_TOKEN is not a whole bot token: it must be «<цифри>:<решта>» — ' +
+        'числовий id бота й двокрапка теж частина токена'
+    );
+  }
+  if (!/^(@[A-Za-z]\w{3,}|-100\d+)$/.test(env.TELEGRAM_CHANNEL_ID)) {
+    throw new Error('TELEGRAM_CHANNEL_ID must be @username or a -100… numeric id');
+  }
+}
 
 /** Load a gitignored .env without a dependency; never overrides what is already in the environment. */
 function loadEnv() {
@@ -76,18 +100,31 @@ export function readItem(slug) {
   return item;
 }
 
-async function main(argv) {
+const USAGE = 'usage: announce.mjs <section/slug> [--dry] [--only=tg|feed] [--force] [--note "…"]';
+
+/**
+ * Parse the command line. `--note` takes its value either attached (`--note=…`) or as the next argument,
+ * and that next argument must not be mistaken for the slug — the bug this function exists to keep fixed.
+ */
+export function parseArgs(argv) {
   const flags = argv.filter((a) => a.startsWith('--'));
-  const [slugArg] = argv.filter((a) => !a.startsWith('--'));
-  if (!slugArg) throw new Error('usage: announce.mjs <section/slug> [--dry] [--only=tg|feed] [--force]');
-  const dry = flags.includes('--dry');
-  const force = flags.includes('--force');
+  const noteAt = argv.indexOf('--note');
+  const noteValueAt = noteAt === -1 ? -1 : noteAt + 1; // -1 means "no argument is the note's value"
+  const [slugArg] = argv.filter((a, i) => !a.startsWith('--') && i !== noteValueAt);
+  if (!slugArg) throw new Error(USAGE);
   const only = flags.find((f) => f.startsWith('--only='))?.slice('--only='.length);
   if (only && !['tg', 'feed'].includes(only)) throw new Error(`--only must be tg or feed, got ${only}`);
+  const attached = flags.find((f) => f.startsWith('--note='));
+  const note = attached ? attached.slice('--note='.length) : noteAt === -1 ? '' : (argv[noteValueAt] ?? '');
+  if ((attached || noteAt !== -1) && !note.trim()) throw new Error('--note needs a non-empty line');
+  return { slug: normalizeSlug(slugArg), dry: flags.includes('--dry'), force: flags.includes('--force'), only, note };
+}
 
-  const slug = normalizeSlug(slugArg);
+async function main(argv) {
+  const { slug, dry, force, only, note } = parseArgs(argv);
   const item = readItem(slug);
-  const text = composePost(item, slug);
+  const text = composePost(item, slug, note);
+
 
   if (only !== 'tg') {
     if (dry) console.log('— feeds: would regenerate (skipped by --dry)');
@@ -106,9 +143,7 @@ async function main(argv) {
     console.log(text);
     return;
   }
-  for (const key of ['TELEGRAM_BOT_TOKEN', 'TELEGRAM_CHANNEL_ID']) {
-    if (!process.env[key]) throw new Error(`${key} is not set — put it in the gitignored .env`);
-  }
+  assertEnv();
   const { sendToChannel } = await import('../lib/telegram.js');
   const res = await sendToChannel(text);
   writeFileSync(STATE, JSON.stringify(markSent(state, slug, 'tg'), null, 2), 'utf8');
