@@ -347,7 +347,7 @@ const F2_INVENTORY = {
   'journal/holodylnyi-apokalipsys/index.html': 'Творчість',
   'journal/my-zh-tilky-na-kavu/index.html': 'Творчість',
   'journal/sarai/index.html': 'Творчість',
-  'journal/volodymyr-i-tramp/index.html': 'Творчість',
+  'journal/nobel-plache/index.html': 'Творчість',
   'journal/kabachok-starosta/index.html': 'Творчість',
   'journal/viddil-vtrachenoho-chasu/index.html': 'Творчість',
   'journal/poverny-meni-chas/index.html': 'Творчість',
@@ -390,7 +390,7 @@ const F2_ALSO = {
     'journal/hoverla/index.html', 'journal/holodylnyi-apokalipsys/index.html',
     'journal/kabachok-starosta/index.html', 'journal/viddil-vtrachenoho-chasu/index.html',
     'journal/poverny-meni-chas/index.html', 'journal/my-zh-tilky-na-kavu/index.html',
-    'journal/sarai/index.html', 'journal/volodymyr-i-tramp/index.html',
+    'journal/sarai/index.html', 'journal/nobel-plache/index.html',
   ],
   'code/': [ // «SEO й AI-пошук» — owned by /services/, shown here too
     'blog/seo-bez-reklamy-keis-atlas/index.html', 'blog/getting-cited-ai-poshuk/index.html',

@@ -46,7 +46,7 @@
 
 ## Правила
 1. **URL постів не переносимо.** Розділи — хаби поверх наявних URL; один пост = один self-canonical, може бути в кількох
-   добірках. Перенесення — лише 1:1 через 301/308. `[advisory; биті внутрішні посилання ловить tests/links.test.js]`
+   добірках. Перенесення — лише 1:1 через 301/308. `[advisory; биті внутрішні посилання ловить tests/links.test.js, редиректи vercel.json — tests/policy.test.js]`
 2. **Комерційні сторінки не видаляємо** (`/services/*`, `/pricing/`, `/projects/*`, статті для замовників). `[advisory]`
 3. **`@id` сутностей стабільні:** Person — `https://www.parkinsandr.tech/pro-mene/#author` (старий `/#author` заборонено);
    ProfessionalService — `https://www.parkinsandr.tech/#business` (не змінюється, навіть коли вузол переїде на `/services/`);
@@ -69,7 +69,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 26 файлів, 464 тести: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 26 файлів, 466 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
     subscribe, subscribe-ui]`
@@ -119,7 +119,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v1.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 464 тести) · db/ (міграції) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 466 тестів) · db/ (міграції) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -169,7 +169,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (2
 
 ## Технічні нотатки
 - Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (лише в коментарях), `/js/comments.v1.js`.
-- `vercel.json`: `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
+- `vercel.json`: `redirects` — перенесені URL (1:1, `permanent`; ціль мусить існувати, старий файл — зникнути);
+  `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
   для сканування). **Наслідок:** виклики API теж треба робити зі слешем (`/api/subscribe/`), інакше кожен
   запит коштує зайвий 308, а one-click POST від поштового клієнта може за ним і не піти. `comments.v1.js`
   досі ходить без слеша (працює через редирект); виправити — разом із наступним бампом до `v2`

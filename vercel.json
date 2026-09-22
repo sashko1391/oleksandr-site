@@ -1,6 +1,10 @@
 {
   "trailingSlash": true,
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/journal/volodymyr-i-tramp(/?)", "destination": "/journal/nobel-plache/", "permanent": true },
+    { "source": "/audio/volodymyr-i-tramp.mp3", "destination": "/audio/nobel-plache.mp3", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/js/script.js", "destination": "https://plausible.io/js/script.js" },
     { "source": "/api/event", "destination": "https://plausible.io/api/event" }

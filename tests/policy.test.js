@@ -134,3 +134,28 @@ describe('embedded videos', () => {
     }
   });
 });
+
+describe('moved URLs (AGENTS rule 1: a move is 1:1, through a permanent redirect)', () => {
+  const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
+  const onDisk = (url) => {
+    const path = join(PUBLIC, url.replace(/^\//, ''));
+    return url.endsWith('/') ? existsSync(join(path, 'index.html')) : existsSync(path);
+  };
+
+  it('every redirect is permanent and lands on a file that exists', () => {
+    for (const r of vercel.redirects ?? []) {
+      expect(r.permanent, `${r.source} must be a 308`).toBe(true);
+      expect(r.destination, `${r.source}: relative, canonical destination`).toMatch(/^\/[^?#]*$/);
+      expect(onDisk(r.destination), `${r.source} → ${r.destination}, which does not exist`).toBe(true);
+    }
+  });
+
+  it('the old address is gone from disk and from the sitemap — nothing left for the redirect to shadow', () => {
+    const sitemap = readFileSync(join(PUBLIC, 'sitemap.xml'), 'utf8');
+    for (const r of vercel.redirects ?? []) {
+      const old = r.source.replace('(/?)', '/');
+      expect(onDisk(old), `${old} still exists — which one is real?`).toBe(false);
+      expect(sitemap, `${old} is still in the sitemap`).not.toContain(`${SITE}${old}<`);
+    }
+  });
+});

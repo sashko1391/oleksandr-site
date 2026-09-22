@@ -104,7 +104,7 @@ export const HUB_MEMBERS = {
       'journal/poverny-meni-chas/index.html',
       'journal/my-zh-tilky-na-kavu/index.html',
       'journal/sarai/index.html',
-      'journal/volodymyr-i-tramp/index.html',
+      'journal/nobel-plache/index.html',
     ],
     also: [],
   },
@@ -132,7 +132,7 @@ export const HUB_MEMBERS = {
       'journal/poverny-meni-chas/index.html',
       'journal/my-zh-tilky-na-kavu/index.html',
       'journal/sarai/index.html',
-      'journal/volodymyr-i-tramp/index.html',
+      'journal/nobel-plache/index.html',
     ],
   },
   'code/': {
