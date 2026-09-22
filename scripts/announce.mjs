@@ -167,6 +167,16 @@ export function parseArgs(argv) {
   return { slug: normalizeSlug(slugArg), dry: flags.includes('--dry'), force: flags.includes('--force'), only, note };
 }
 
+/**
+ * Which channels a run touches: all three by default, exactly the one named by --only. Pure, so the rule
+ * is testable — `main()` only obeys it (it once mailed subscribers on `--only=tg`).
+ */
+export const channelsFor = (only) => ({
+  feed: !only || only === 'feed',
+  tg: !only || only === 'tg',
+  email: !only || only === 'email',
+});
+
 const EMAIL_PER_RUN = 90; // Resend free tier allows 100 letters a day; leave room for confirmations
 const EMAIL_PACE_MS = 600; // …and ~2 requests a second
 
@@ -260,14 +270,14 @@ async function main(argv) {
   const text = composePost(item, slug, note);
 
 
-  if (!only || only === 'feed') {
+  const run = channelsFor(only);
+
+  if (run.feed) {
     if (dry) console.log('— feeds: would regenerate (skipped by --dry)');
     else for (const { feed, count } of writeFeeds()) console.log(`— ${feed.file}: ${count} items`);
   }
 
-  if (only === 'feed') return;
-
-  if (only === 'email') return sendEmails(slug, item, { dry });
+  if (!run.tg) return run.email ? sendEmails(slug, item, { dry }) : undefined;
 
   const state = readState();
   const decision = postDecision(state, slug, force);
@@ -280,7 +290,7 @@ async function main(argv) {
     console.log(text);
     console.log('');
     // …and keep going: a preview that hides one of the two channels is not a preview.
-    if (sectionOf(slug)) await sendEmails(slug, item, { dry });
+    if (run.email && sectionOf(slug)) await sendEmails(slug, item, { dry });
     return;
   }
   assertEnv();
@@ -294,7 +304,7 @@ async function main(argv) {
 
   // Email last: its state lives in the database, per recipient, so a failure here never costs the
   // channel post — and re-running only picks up whoever has not been sent to.
-  if (sectionOf(slug)) await sendEmails(slug, item, { dry });
+  if (run.email && sectionOf(slug)) await sendEmails(slug, item, { dry });
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

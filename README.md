@@ -28,7 +28,7 @@ api/      Vercel Functions: коментарі, підписка (subscribe / co
 lib/      спільні модулі бекенду (db, kv, email, telegram, security, schema, http)
 scripts/  генератори й утиліти (RSS, анонси, інʼєкції, валідатор посилань, IndexNow, Patreon)
 db/       SQL-міграції Supabase (застосовані; файли — джерело правди схеми)
-tests/    vitest — 26 файлів, 461 тест
+tests/    vitest — 26 файлів, 463 тести
 doc/      плани, журнали, контекст
 ```
 

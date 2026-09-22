@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv, postDecision } from '../scripts/announce.mjs';
+import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv, postDecision, channelsFor } from '../scripts/announce.mjs';
 import { HUB_MEMBERS, primaryHub } from '../scripts/link-policy.mjs';
 
 const PUBLIC = join(process.cwd(), 'public');
@@ -129,6 +129,23 @@ describe('--dry previews both channels', () => {
     const src = readFileSync(join(process.cwd(), 'scripts', 'announce.mjs'), 'utf8');
     const dryBranch = src.split('if (dry) {')[2].split('return;')[0];
     expect(dryBranch).toContain('sendEmails(slug, item, { dry })');
+  });
+});
+
+describe('--only picks exactly one channel', () => {
+  it('runs all three by default and only the named one otherwise', () => {
+    expect(channelsFor(undefined)).toEqual({ feed: true, tg: true, email: true });
+    expect(channelsFor('feed')).toEqual({ feed: true, tg: false, email: false });
+    expect(channelsFor('tg')).toEqual({ feed: false, tg: true, email: false });
+    expect(channelsFor('email')).toEqual({ feed: false, tg: false, email: true });
+  });
+
+  it('main() mails nobody unless the email channel is on (regression: --only=tg sent the letters)', () => {
+    const src = readFileSync(join(process.cwd(), 'scripts', 'announce.mjs'), 'utf8');
+    const main = src.slice(src.indexOf('async function main('));
+    const calls = main.split('\n').filter((line) => line.includes('sendEmails('));
+    expect(calls.length, 'main() no longer sends email at all?').toBeGreaterThanOrEqual(3);
+    for (const line of calls) expect(line, 'an email send without the --only guard').toContain('run.email');
   });
 });
 
