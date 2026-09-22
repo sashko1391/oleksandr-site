@@ -346,6 +346,7 @@ const F2_INVENTORY = {
   'journal/hoverla/index.html': 'Паркінсон',
   'journal/holodylnyi-apokalipsys/index.html': 'Творчість',
   'journal/my-zh-tilky-na-kavu/index.html': 'Творчість',
+  'journal/sarai/index.html': 'Творчість',
   'journal/kabachok-starosta/index.html': 'Творчість',
   'journal/viddil-vtrachenoho-chasu/index.html': 'Творчість',
   'journal/poverny-meni-chas/index.html': 'Творчість',
@@ -388,6 +389,7 @@ const F2_ALSO = {
     'journal/hoverla/index.html', 'journal/holodylnyi-apokalipsys/index.html',
     'journal/kabachok-starosta/index.html', 'journal/viddil-vtrachenoho-chasu/index.html',
     'journal/poverny-meni-chas/index.html', 'journal/my-zh-tilky-na-kavu/index.html',
+    'journal/sarai/index.html',
   ],
   'code/': [ // «SEO й AI-пошук» — owned by /services/, shown here too
     'blog/seo-bez-reklamy-keis-atlas/index.html', 'blog/getting-cited-ai-poshuk/index.html',
@@ -544,7 +546,7 @@ describe('public/ (integration)', () => {
     const commercial = all.filter((rel) => /^(services|projects|blog)\/[^/]+\/index\.html$/.test(rel));
     const journal = all.filter((rel) => /^journal\/[^/]+\/index\.html$/.test(rel));
     expect(commercial.length).toBeGreaterThan(20);
-    expect(journal.length).toBe(17); // новий пост журналу — оновлювати свідомо, це запобіжник від дрейфу
+    expect(journal.length).toBe(18); // новий пост журналу — оновлювати свідомо, це запобіжник від дрейфу
     for (const [name, phase] of Object.entries(PHASES)) {
       const governed = name === 'f2-done' ? [...commercial, ...journal] : commercial;
       const badly = governed.filter((rel) => phase.breadcrumbs.filter((b) => b.pages.test(rel)).length !== 1);
