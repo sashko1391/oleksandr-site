@@ -1,7 +1,7 @@
 // scripts/announce.mjs — the publish fan-out (feeds + Telegram channel). Only the pure parts are
 // exercised here; sending is a network call the script makes behind --dry / explicit env.
 import { describe, it, expect } from 'vitest';
-import { readdirSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { normalizeSlug, hashtagFor, tgEscape, composePost, readItem, markSent, parseArgs, assertEnv, postDecision } from '../scripts/announce.mjs';
 import { HUB_MEMBERS, primaryHub } from '../scripts/link-policy.mjs';
@@ -120,6 +120,15 @@ describe('tgEscape / composePost', () => {
   it('skips the teaser when the post has no description', () => {
     const text = composePost({ ...item, description: '' }, 'journal/hoverla');
     expect(text).toBe(`<b>${tgEscape(item.title)}</b>\n\n${item.link}\n\n#паркінсон`);
+  });
+});
+
+describe('--dry previews both channels', () => {
+  it('the dry branch does not return before the email preview', () => {
+    // it used to: the run printed the channel post and stopped, so «кому піде лист» was invisible
+    const src = readFileSync(join(process.cwd(), 'scripts', 'announce.mjs'), 'utf8');
+    const dryBranch = src.split('if (dry) {')[2].split('return;')[0];
+    expect(dryBranch).toContain('sendEmails(slug, item, { dry })');
   });
 });
 

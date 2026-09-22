@@ -278,6 +278,9 @@ async function main(argv) {
   if (dry) {
     console.log(`— telegram: would post to ${process.env.TELEGRAM_CHANNEL_ID ?? '(TELEGRAM_CHANNEL_ID unset)'}:\n`);
     console.log(text);
+    console.log('');
+    // …and keep going: a preview that hides one of the two channels is not a preview.
+    if (sectionOf(slug)) await sendEmails(slug, item, { dry });
     return;
   }
   assertEnv();
