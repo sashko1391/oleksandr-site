@@ -7,7 +7,7 @@
     <description><![CDATA[Оповідання, байки, пісні та кліпи Олександра Кравченка.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Tue, 22 Sep 2026 02:34:39 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 05:12:46 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Творчість</title>
@@ -24,6 +24,16 @@
       <pubDate>Tue, 22 Sep 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Сатиричне оповідання: Петро хоче поставити сарай для двох кіз «по процедурі» — і доходить через архів, академію наук і Кабмін до референдуму.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/sarai/og.jpg" type="image/jpeg" length="151606"/>
+    </item>
+    <item>
+      <title><![CDATA[Володимир і Трамп — пісня про телефонну розмову]]></title>
+      <link>https://www.parkinsandr.tech/journal/volodymyr-i-tramp/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/volodymyr-i-tramp/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Пісня]]></category>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Пісня-сатира «Володимир і Трамп»: через ціну на дизель президент США дзвонить в Україну вимагати миру. Текст пісні мій, музика зроблена в Suno.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/volodymyr-i-tramp/og.jpg" type="image/jpeg" length="118773"/>
     </item>
     <item>
       <title><![CDATA[Ми ж тільки на каву! — пісня про зустріч подруг]]></title>
