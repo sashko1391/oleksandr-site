@@ -1,13 +1,16 @@
 # parkinsandr.tech — особистий сайт Олександра Кравченка
 
 Автор і розробник: щоденник, програмування, творчість, життя з хворобою Паркінсона; окремо — розробка сайтів на замовлення.
-Сайт у процесі переробки з сайту послуг в особистий — див. [`doc/PERSONAL_SITE_PLAN.md`](doc/PERSONAL_SITE_PLAN.md).
+Переробка з сайту послуг в особистий: фази Ф0–Ф4 виконані, далі Ф5 (⛔ заблоковано) і Ф6 —
+див. [`doc/PERSONAL_SITE_PLAN.md`](doc/PERSONAL_SITE_PLAN.md).
 
 ## Стек
 - Статичний HTML/CSS без build step (`public/`), хостинг Vercel.
-- Vercel Functions (`api/`, `lib/`): коментарі — Supabase Postgres, Upstash KV, Cloudflare Turnstile, премодерація в Telegram.
-- RSS: `public/feed.xml` — увесь сайт, плюс фід кожного розділу (`/parkinson/`, `/code/`, `/creative/`,
-  `/journal/`); усе генерується скриптом із метаданих постів.
+- Vercel Functions (`api/`, `lib/`): коментарі й підписка — Supabase Postgres, Upstash KV, Cloudflare Turnstile,
+  премодерація в Telegram, листи через Resend; два cron-джоби чистять дані за строками.
+- Три канали підписки: RSS (`public/feed.xml` — увесь сайт, плюс фід кожного розділу `/parkinson/`, `/code/`,
+  `/creative/`, `/journal/`), Telegram-канал [@parkinsandr](https://t.me/parkinsandr) і email
+  (подвійне підтвердження, розсилка нових постів, one-click відписка).
 
 ## Чат-бот і форми заявок
 ```
@@ -20,11 +23,12 @@
 
 ## Структура
 ```
-public/   сторінки, зображення, шрифти, feed.xml, sitemap.xml
-api/      Vercel Functions (коментарі, Telegram-вебхук, cron)
-lib/      спільні модулі бекенду
-scripts/  генератори й утиліти (RSS, інʼєкції, IndexNow, імпорт із Patreon)
-tests/    vitest
+public/   52 сторінки, зображення, шрифти, 5 RSS-фідів, sitemap.xml (51 URL)
+api/      Vercel Functions: коментарі, підписка (subscribe / confirm / unsubscribe), Telegram-вебхук, 2 cron
+lib/      спільні модулі бекенду (db, kv, email, telegram, security, schema, http)
+scripts/  генератори й утиліти (RSS, анонси, інʼєкції, валідатор посилань, IndexNow, Patreon)
+db/       SQL-міграції Supabase (застосовані; файли — джерело правди схеми)
+tests/    vitest — 26 файлів, 461 тест
 doc/      плани, журнали, контекст
 ```
 
@@ -36,7 +40,7 @@ npm run check:links                   # валідатор посилань і �
 npm run smoke:forms                   # браузерний smoke всіх лід-форм (Playwright + системний Chrome)
 node scripts/build-feed.mjs           # регенерувати feed.xml — загальний і по розділах
 node scripts/inject-rss.mjs           # RSS <link> у <head> (загальний скрізь, фід розділу — на хабі й постах)
-npm run announce -- journal/slug      # анонс поста: фіди + пост у Telegram-канал (--dry щоб подивитись)
+npm run announce -- journal/slug      # анонс: фіди + Telegram-канал + лист підписникам (--dry щоб подивитись)
 node scripts/inject-comments.mjs      # блок коментарів у journal + blog (ідемпотентно)
 scripts/indexnow.sh /journal/slug/    # IndexNow для конкретних шляхів
 ```

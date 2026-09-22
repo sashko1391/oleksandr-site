@@ -33,13 +33,15 @@
 | `doc/HUBS_PLAN.md` | ✅ Ф2 виконано 2026-09-21: хаби, архів `/blog/`, рамка рубрики, breadcrumbs → хаби (`f2-done`) |
 | `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
 | `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
-| `doc/SUBSCRIPTION_PLAN.md` | 🟢 Ф4: RSS, Telegram-канал з автопостингом, email-підписка з подвійним підтвердженням |
+| `doc/SUBSCRIPTION_PLAN.md` | ✅ Ф4 виконано 2026-09-21: RSS по розділах, Telegram-канал, email із розсилкою |
 | `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: дані GSC, зроблене 2026-09-21, що міряти далі |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
 `/parkinson/`, архів `/blog/`, рамка рубрики й breadcrumbs на хаби ·
-Ф3 ✅ особиста головна + наскрізне меню · Ф4 підписка (RSS ✅, Telegram ✅, Email ✅ — лишився живий тест) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro · Ф7 членство (за попитом).
+Ф3 ✅ особиста головна + наскрізне меню · Ф4 ✅ підписка: RSS по розділах, Telegram-канал, email із розсилкою
+(увесь ланцюжок перевірено живим прогоном 2026-09-21) · Ф5 продаж контенту (⛔ заблоковано) · Ф6 Astro ·
+Ф7 членство (за попитом).
 Паралельно: 🔴 **індексація — пріоритет №1**. Перед роботою над фазою — звір її статус у плані.
 
 ## Правила
@@ -67,9 +69,10 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — tests/handlers, security, schema, feed, policy, links, lead-forms, prices, testimonials,
-    claims, faq-schema, images, hubs, nav, homepage, parkinson-frame, parkinson-claims, services-page, journal-index,
-    announce, subscribe, subscribe-ui]`
+    `[enforced: npm test — 26 файлів, 461 тест: handlers, security, schema, feed, email, policy, links,
+    internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
+    parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
+    subscribe, subscribe-ui]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -103,8 +106,9 @@
 ```
 public/
 ├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
-├── 404.html (noindex) · robots.txt · sitemap.xml (50 URL) · feed.xml (RSS усього сайту)
-├── journal/              ← «Поза кодом»: index (стрічка всіх 16 постів + фільтр жанрів, посилання на хаби)
+├── 404.html (noindex) · robots.txt · sitemap.xml (51 URL) · feed.xml (RSS усього сайту)
+├── journal/              ← «Журнал»: index (стрічка всіх 17 постів + фільтр жанрів, посилання на хаби)
+├── journal/{slug}/       ← 17 постів: есеї, оповідання, пісні, щоденник, подорожі, рубрика Паркінсон
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
 ├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
 ├── blog/                 ← архів усіх статей (Ф2, не в меню)
@@ -113,8 +117,9 @@ public/
 ├── services/{slug}/      ← 5 лендингів: nextjs, landing, ai, redesign, kyiv
 ├── projects/{slug}/      ← 6 кейсів
 ├── pricing/ · pro-mene/ (author page) · privacy/
-├── js/comments.v1.js · fonts/ (self-hosted woff2) · images/ (WebP + JPG)
-api/ · lib/ · scripts/ · tests/ · doc/
+├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
+├── js/comments.v1.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 461 тест) · db/ (міграції) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -172,6 +177,16 @@ api/ · lib/ · scripts/ · tests/ · doc/
   crons: очистка коментарів (3:00) і підписників (3:30).
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.
+- Postgres (Supabase, ЄС): `posts`, `comments`, `subscribers`, `announcement_deliveries`; міграції — `db/*.sql`
+  (застосовані, файли лишаються джерелом правди схеми). RLS увімкнено без політик: доступ лише через пулер,
+  авторизація в коді функцій.
+- **Зовнішні залежності можуть тихо померти.** 2026-09-21 виявилося, що безкоштовне сховище Upstash KV зникло —
+  і форма коментарів не приймала коментарі **з 11 серпня**, бо лічильники недоступні → fail-closed 503. Перевіряти
+  час від часу: `POST /api/comments/` і `POST /api/subscribe/` із завідомо невалідною капчею мають віддавати **400**;
+  503 або зависання = KV чи база.
+- **Зміна пароля бази або секрету — це два місця.** `DATABASE_URL` живе у Vercel env, і після зміни пароля в Supabase
+  потрібен редеплой, інакше функції висять на підключенні (у логах статус 0 / 504). `EMAIL_HASH_SECRET` замінювати
+  не можна безболісно: від нього залежать хеш адреси (suppression) і токени відписки у вже надісланих листах.
 - Лаб-PSI цього сайту шумить (cold Vercel edge) — мірити 3–4 прогони, дивитись на медіану.
 
 ## Стан SEO (2026-09, якісно — цифри в gitignored baseline)
@@ -193,6 +208,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 | Хаб розділу | CollectionPage, ItemList, BreadcrumbList | FAQPage |
 | `/services/` | CollectionPage, ItemList(Service), BreadcrumbList, FAQPage, ProfessionalService (вузол тут із Ф3) | — |
 | Пост журналу / блогу | Article, BreadcrumbList | FAQPage (лише реальний FAQ) |
+| Пост про пісню чи кліп | Article + BreadcrumbList + MusicRecording або VideoObject | — |
 | Кейс | Article, BreadcrumbList | SoftwareApplication, LocalBusiness клієнта |
 | Сервісний лендинг | Service, BreadcrumbList, FAQPage | HowTo |
 | Паркінсон (YMYL) | Article + видимий дисклеймер, джерела, дата перевірки | — |
@@ -225,6 +241,7 @@ api/ · lib/ · scripts/ · tests/ · doc/
 | `COMMENTS_PLAN.md`, `AUDIT_FIXES_PLAN.md`, `AUTHOR_PAGE_PLAN.md`, `GETTING_CITED_ARTICLE_PLAN.md`, `TEPLIY_DVIR_CASE_PLAN.md`, `QUICKFIXES_PLAN.md`, `HOMEPAGE_B_PLAN.md`, `reviews/hub-spoke-changes.md` | ✅ виконані (історія) |
 | `SEO.md`, `PARKINSANDR_TECH_12_WEEK_ACTION_PLAN.md`, `SEED_KEYWORDS.md`, `seed-keywords-intent-map.md` | 🗄 історичні: комерційна SEO-стратегія квітня 2026 |
 | `leads.csv` | шаблон обліку заявок |
+| `INDEXING_PLAN.md` | 🟢 трек індексації: що зроблено 21.09.2026, що міряти при повторному експорті GSC |
 | `baseline/`, `research/`, `prompts/`, `overviews/`, частина `abaic_council/` | gitignored робочі матеріали |
 
 ## Зовнішні стандарти
