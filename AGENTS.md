@@ -69,7 +69,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 26 файлів, 463 тести: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 26 файлів, 464 тести: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
     subscribe, subscribe-ui]`
@@ -119,7 +119,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v1.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 463 тести) · db/ (міграції) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 464 тести) · db/ (міграції) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 

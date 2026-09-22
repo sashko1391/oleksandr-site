@@ -119,3 +119,18 @@ describe('policy: scheduled jobs', () => {
     }
   });
 });
+
+describe('embedded videos', () => {
+  const ld = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((m) => m[1]).join('\n');
+
+  it('a page plays only the video its schema is about (regression: a copied handler played another song)', () => {
+    const withVideo = pages.filter((p) => p.html.includes('youtube-nocookie.com/embed/'));
+    expect(withVideo.length, 'the facade pages disappeared?').toBeGreaterThanOrEqual(3);
+    for (const { rel, html } of withVideo) {
+      const embedded = [...new Set([...html.matchAll(/youtube-nocookie\.com\/embed\/([\w-]{11})/g)].map((m) => m[1]))];
+      expect(embedded, `${rel}: more than one video behind the play button`).toHaveLength(1);
+      expect(ld(html), `${rel}: plays ${embedded[0]}, which its JSON-LD never mentions`).toContain(embedded[0]);
+    }
+  });
+});

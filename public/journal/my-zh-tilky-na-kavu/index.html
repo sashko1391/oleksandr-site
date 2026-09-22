@@ -310,6 +310,7 @@
     iframe.allowFullscreen = true;
     btn.remove();
     frame.appendChild(iframe);
+    if (typeof gtag === 'function') gtag('event', 'video_play', { video_id: 'MKh1cLwTAQo' });
   });
 })();
 </script>
@@ -318,24 +319,6 @@
   <p>© 2026 <a href="/pro-mene/">Oleksandr Kravchenko</a> — Усі права та пікселі захищені · <a href="/privacy/">Політика приватності</a></p>
 </footer>
 
-<script>
-(function(){
-  var btn = document.getElementById('video-play');
-  if (!btn) return;
-  btn.addEventListener('click', function(){
-    var frame = document.getElementById('video-frame');
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube-nocookie.com/embed/xfXhs1Xy_yk?autoplay=1&rel=0';
-    iframe.title = 'Поверни мені час';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    iframe.allowFullscreen = true;
-    frame.innerHTML = '';
-    frame.appendChild(iframe);
-    if (typeof gtag === 'function') gtag('event', 'video_play', { video_id: 'xfXhs1Xy_yk' });
-  });
-})();
-</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w7i1iwx0ah");</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y891WWYE79"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-Y891WWYE79");</script>
