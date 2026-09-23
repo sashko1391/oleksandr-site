@@ -7,7 +7,7 @@
     <description><![CDATA[Оповідання, байки, пісні та кліпи Олександра Кравченка.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Tue, 22 Sep 2026 05:17:23 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 01:25:46 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Творчість</title>
@@ -15,6 +15,16 @@
       <width>144</width>
       <height>144</height>
     </image>
+    <item>
+      <title><![CDATA[Русский выбор — пісня-сатира про вибори в росії]]></title>
+      <link>https://www.parkinsandr.tech/journal/russkiy-vybor/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/russkiy-vybor/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Пісня]]></category>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Пісня-сатира «Русский выбор» про вибори, де бюлетень довгий, а вибору немає. Ідея й текст мої, аранжування зроблене в Suno.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/russkiy-vybor/og.jpg" type="image/jpeg" length="99019"/>
+    </item>
     <item>
       <title><![CDATA[Нобель плаче — пісня про телефонну розмову Трампа]]></title>
       <link>https://www.parkinsandr.tech/journal/nobel-plache/</link>
