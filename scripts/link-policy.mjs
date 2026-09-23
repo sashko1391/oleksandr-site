@@ -106,6 +106,7 @@ export const HUB_MEMBERS = {
       'journal/sarai/index.html',
       'journal/nobel-plache/index.html',
       'journal/russkiy-vybor/index.html',
+      'journal/polove-doslidzhennia/index.html',
     ],
     also: [],
   },
@@ -135,6 +136,7 @@ export const HUB_MEMBERS = {
       'journal/sarai/index.html',
       'journal/nobel-plache/index.html',
       'journal/russkiy-vybor/index.html',
+      'journal/polove-doslidzhennia/index.html',
     ],
   },
   'code/': {
