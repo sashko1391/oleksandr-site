@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Wed, 23 Sep 2026 02:46:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 05:22:57 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — журнал і не тільки</title>
@@ -15,6 +15,16 @@
       <width>144</width>
       <height>144</height>
     </image>
+    <item>
+      <title><![CDATA[Москва горить — пісню видалив TikTok за сім годин]]></title>
+      <link>https://www.parkinsandr.tech/journal/moskva-horyt/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/moskva-horyt/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Пісня]]></category>
+      <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Пісня-протест «Москва горить»: ролик за сім годин зібрав 5 тисяч переглядів і 1800 вподобань, а ввечері TikTok його видалив.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/moskva-horyt/og.jpg" type="image/jpeg" length="101797"/>
+    </item>
     <item>
       <title><![CDATA[Польове дослідження]]></title>
       <link>https://www.parkinsandr.tech/journal/polove-doslidzhennia/</link>
@@ -304,16 +314,6 @@
       <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Практичний гайд: як обрати веб-розробника для бізнесу і не пошкодувати. 9 критеріїв, червоні прапорці, реальні приклади.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Велосипедом навколо України — 20 днів у дорозі]]></title>
-      <link>https://www.parkinsandr.tech/journal/velozaizd/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/velozaizd/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Журнал]]></category>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
-      <description><![CDATA[Щоденник велоподорожі Україною: 20 днів, ≈2350 км на e-bike з хворобою Паркінсона, день за днем.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/velozaizd/og.jpg" type="image/jpeg" length="144807"/>
     </item>
   </channel>
 </rss>

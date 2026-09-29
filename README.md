@@ -23,7 +23,7 @@
 
 ## Структура
 ```
-public/   56 сторінок, зображення, аудіо, шрифти, 5 RSS-фідів, sitemap.xml (55 URL)
+public/   57 сторінок, зображення, аудіо, відео, шрифти, 5 RSS-фідів, sitemap.xml (56 URL)
 api/      Vercel Functions: коментарі, підписка (subscribe / confirm / unsubscribe), Telegram-вебхук, 2 cron
 lib/      спільні модулі бекенду (db, kv, email, telegram, security, schema, http)
 scripts/  генератори й утиліти (RSS, анонси, інʼєкції, валідатор посилань, IndexNow, Patreon)
