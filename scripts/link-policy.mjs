@@ -108,6 +108,7 @@ export const HUB_MEMBERS = {
       'journal/russkiy-vybor/index.html',
       'journal/polove-doslidzhennia/index.html',
       'journal/moskva-horyt/index.html',
+      'journal/kabachok-starosta-seriya-1/index.html',
     ],
     also: [],
   },
@@ -139,6 +140,7 @@ export const HUB_MEMBERS = {
       'journal/russkiy-vybor/index.html',
       'journal/polove-doslidzhennia/index.html',
       'journal/moskva-horyt/index.html',
+      'journal/kabachok-starosta-seriya-1/index.html',
     ],
   },
   'code/': {

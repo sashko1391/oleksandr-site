@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Tue, 29 Sep 2026 05:27:42 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 11:10:04 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — журнал і не тільки</title>
@@ -15,6 +15,16 @@
       <width>144</width>
       <height>144</height>
     </image>
+    <item>
+      <title><![CDATA[Кабачок-староста, серія 1 — AI-екранізація байки]]></title>
+      <link>https://www.parkinsandr.tech/journal/kabachok-starosta-seriya-1/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/journal/kabachok-starosta-seriya-1/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Кліп]]></category>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Перша з чотирьох серій за байкою «Кабачок-староста»: 57 секунд, вісім шотів, Seedance і ElevenLabs. Розповідаю, як це зроблено.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/kabachok-starosta-seriya-1/og.jpg" type="image/jpeg" length="73937"/>
+    </item>
     <item>
       <title><![CDATA[Москва горить — пісню видалив TikTok за сім годин]]></title>
       <link>https://www.parkinsandr.tech/journal/moskva-horyt/</link>
@@ -303,16 +313,6 @@
       <category><![CDATA[Блог]]></category>
       <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Чесне порівняння React/Next.js і Tilda для бізнес-сайтів.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Як обрати розробника сайту у 2026 — 9 критеріїв]]></title>
-      <link>https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/yak-obrati-rozrobnyka/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Практичний гайд: як обрати веб-розробника для бізнесу і не пошкодувати. 9 критеріїв, червоні прапорці, реальні приклади.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
     </item>
   </channel>
