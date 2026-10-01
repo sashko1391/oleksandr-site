@@ -352,6 +352,7 @@ const F2_INVENTORY = {
   'journal/polove-doslidzhennia/index.html': 'Творчість',
   'journal/moskva-horyt/index.html': 'Творчість',
   'journal/kabachok-starosta-seriya-1/index.html': 'Творчість',
+  'journal/vidbiy/index.html': 'Творчість',
   'journal/kabachok-starosta/index.html': 'Творчість',
   'journal/viddil-vtrachenoho-chasu/index.html': 'Творчість',
   'journal/poverny-meni-chas/index.html': 'Творчість',
@@ -398,6 +399,7 @@ const F2_ALSO = {
     'journal/polove-doslidzhennia/index.html',
     'journal/moskva-horyt/index.html',
     'journal/kabachok-starosta-seriya-1/index.html',
+    'journal/vidbiy/index.html',
   ],
   'code/': [ // «SEO й AI-пошук» — owned by /services/, shown here too
     'blog/seo-bez-reklamy-keis-atlas/index.html', 'blog/getting-cited-ai-poshuk/index.html',
@@ -554,7 +556,7 @@ describe('public/ (integration)', () => {
     const commercial = all.filter((rel) => /^(services|projects|blog)\/[^/]+\/index\.html$/.test(rel));
     const journal = all.filter((rel) => /^journal\/[^/]+\/index\.html$/.test(rel));
     expect(commercial.length).toBeGreaterThan(20);
-    expect(journal.length).toBe(23); // новий пост журналу — оновлювати свідомо, це запобіжник від дрейфу
+    expect(journal.length).toBe(24); // новий пост журналу — оновлювати свідомо, це запобіжник від дрейфу
     for (const [name, phase] of Object.entries(PHASES)) {
       const governed = name === 'f2-done' ? [...commercial, ...journal] : commercial;
       const badly = governed.filter((rel) => phase.breadcrumbs.filter((b) => b.pages.test(rel)).length !== 1);
