@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, щоденник, подорожі та оповідання — усі записи журналу, від найновіших.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Thu, 01 Oct 2026 11:39:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 05:18:47 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Журнал</title>
@@ -16,13 +16,13 @@
       <height>144</height>
     </image>
     <item>
-      <title><![CDATA[Відбій — повість у темпах: анотація й історія створення]]></title>
+      <title><![CDATA[Відбій — фантастична повість: де читати й як вона писалася]]></title>
       <link>https://www.parkinsandr.tech/journal/vidbiy/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/journal/vidbiy/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
       <category><![CDATA[Повість]]></category>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Дописав фантастичну повість «Відбій»: 16 глав про фізика, чиї дежавю збуваються. Анотація й історія написання — від задуму 2024-го.]]></description>
+      <description><![CDATA[Фантастична повість «Відбій» про фізика, чиї дежавю збуваються: перша частина відкрита на Самвидаві. Анотація й історія написання.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/vidbiy/og.jpg" type="image/jpeg" length="23531"/>
     </item>
     <item>
