@@ -23,12 +23,12 @@
 
 ## Структура
 ```
-public/   59 сторінок, зображення, аудіо, відео, шрифти, 5 RSS-фідів, sitemap.xml (58 URL)
+public/   60 сторінок, зображення, аудіо, відео, шрифти, 5 RSS-фідів, sitemap.xml (59 URL)
 api/      Vercel Functions: коментарі, підписка (subscribe / confirm / unsubscribe), Telegram-вебхук, 2 cron
 lib/      спільні модулі бекенду (db, kv, email, telegram, security, schema, http)
 scripts/  генератори й утиліти (RSS, анонси, інʼєкції, валідатор посилань, IndexNow, Patreon)
 db/       SQL-міграції Supabase (застосовані; файли — джерело правди схеми)
-tests/    vitest — 26 файлів, 469 тестів
+tests/    vitest — 27 файлів, 476 тестів
 doc/      плани, журнали, контекст
 ```
 

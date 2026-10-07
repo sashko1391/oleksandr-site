@@ -69,10 +69,10 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 26 файлів, 469 тестів: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 27 файлів, 476 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
-    subscribe, subscribe-ui]`
+    subscribe, subscribe-ui, register-post]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -106,9 +106,9 @@
 ```
 public/
 ├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
-├── 404.html (noindex) · robots.txt · sitemap.xml (58 URL) · feed.xml (RSS усього сайту)
-├── journal/              ← «Журнал»: index (стрічка всіх 24 постів + фільтр жанрів, посилання на хаби)
-├── journal/{slug}/       ← 24 пости: есеї, оповідання, пісні, щоденник, подорожі, рубрика Паркінсон
+├── 404.html (noindex) · robots.txt · sitemap.xml (59 URL) · feed.xml (RSS усього сайту)
+├── journal/              ← «Журнал»: index (стрічка всіх 25 постів + фільтр жанрів, посилання на хаби)
+├── journal/{slug}/       ← 25 постів: есеї, оповідання, пісні, щоденник, подорожі, рубрика Паркінсон
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
 ├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
 ├── blog/                 ← архів усіх статей (Ф2, не в меню)
@@ -119,7 +119,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v1.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (26 файлів, 469 тестів) · db/ (міграції) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (27 файлів, 476 тестів) · db/ (міграції) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -142,6 +142,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (2
   (сам запис файлів — послідовний, без відкату вже записаних). Ідемпотентні: повторний прогін — 0 змін
 - `npm run smoke:forms [-- --screenshots <dir>]` — браузерний smoke всіх 7 лід-форм: успіх, відмова воркера,
   без JavaScript + специфіка `/services/` (Playwright + системний Chrome, воркер підмінено; не входить у `npm test`)
+- `npm run register:post -- <розділ/slug> [--dry]` — реєструє slug у таблиці `posts` (інакше коментарі
+  віддають 404); `DATABASE_URL` — з gitignored `.env`, сторінка має існувати, повтор безпечний
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
 - `db/*.sql` — міграції Supabase (застосовані; файл лишається як джерело правди схеми)
@@ -150,7 +152,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (12) · tests/ (2
 ## Чек-лист нового поста
 1. Клон наявного поста того ж розділу (inline CSS, шрифти, аналітика). Title < 60, description < 155, canonical, OG/Twitter.
 2. JSON-LD: Article (author → `/pro-mene/#author`) + BreadcrumbList; FAQPage — лише для реального видимого FAQ.
-3. Коментарі: блок перед `</article>` (`inject-comments.mjs`) **+ `INSERT INTO posts(slug)` у Supabase**, інакше API 404.
+3. Коментарі: блок перед `</article>` (`inject-comments.mjs`) **+ `npm run register:post -- <розділ/slug>`**,
+   інакше API 404. Скрипт не залежить від MCP-конектора: бере `DATABASE_URL` з `.env` і спершу перевіряє, що сторінка існує.
    `[advisory — перевір GET /api/comments?slug=… → 200]`
 4. `sitemap.xml` (lastmod), пост у `HUB_MEMBERS` (`scripts/link-policy.mjs`) — інакше він не потрапить ні на хаб,
    ні у фід розділу, `node scripts/build-feed.mjs && node scripts/inject-rss.mjs`, картка в індексі розділу.

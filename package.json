@@ -7,7 +7,8 @@
     "test": "vitest run",
     "check:links": "node scripts/check-links.mjs",
     "smoke:forms": "node scripts/smoke-forms.mjs",
-    "announce": "node scripts/announce.mjs"
+    "announce": "node scripts/announce.mjs",
+    "register:post": "node scripts/register-post.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.34.3",
