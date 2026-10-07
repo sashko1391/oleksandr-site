@@ -34,7 +34,7 @@
 | `doc/PARKINSON_EDITORIAL_POLICY.md` | ✅ затверджено 2026-09-21; текст у проді — `/parkinson/redaktsiina-polityka/` |
 | `doc/PARKINSON_CLAIM_AUDIT.md` | ✅ аудит «твердження → джерело» 5 постів рубрики (Ф2, крок 2a) |
 | `doc/SUBSCRIPTION_PLAN.md` | ✅ Ф4 виконано 2026-09-21: RSS по розділах, Telegram-канал, email із розсилкою |
-| `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: дані GSC, зроблене 2026-09-21, що міряти далі |
+| `doc/INDEXING_PLAN.md` | 🟢 трек «Індексація»: зроблене 2026-09-21, замір і виправлення 2026-10-07, наступний замір ~04.11 |
 | `doc/baseline/` | 🔒 gitignored: сирі метрики baseline Ф0 |
 
 Фази: Ф0 ✅ baseline · Ф1 ✅ `/services/` · Ф1.5 ✅ чесні форми й факти · Ф2 ✅ хаби `/code/`, `/creative/`,
@@ -191,13 +191,17 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 - **Зміна пароля бази або секрету — це два місця.** `DATABASE_URL` живе у Vercel env, і після зміни пароля в Supabase
   потрібен редеплой, інакше функції висять на підключенні (у логах статус 0 / 504). `EMAIL_HASH_SECRET` замінювати
   не можна безболісно: від нього залежать хеш адреси (suppression) і токени відписки у вже надісланих листах.
+- **Домен:** `parkinsandr.tech` → `www` — постійний **308**, налаштовано у Vercel → Domains (не в коді; до
+  2026-10-07 був тимчасовий 307). Перевірка: `curl -sI https://parkinsandr.tech/` → `308`.
 - Лаб-PSI цього сайту шумить (cold Vercel edge) — мірити 3–4 прогони, дивитись на медіану.
 
-## Стан SEO (2026-09, якісно — цифри в gitignored baseline)
+## Стан SEO (2026-10, якісно — цифри в gitignored baseline)
 - **Добре:** унікальні title/description/canonical/OG; Article + BreadcrumbList з `@id`; robots.txt пускає AI-ботів;
   sitemap повний; RSS; self-hosted шрифти; a11y (skip link, `<main>`, WCAG AA); аналітика внизу `<body>`.
-- 🔴 **Індексація:** значна частина сторінок за 7 місяців без жодного показу — переважно журнал (усі пости про
-  Паркінсон, проза) і майже всі сервісні лендинги; цифри — у gitignored `doc/baseline/` (правило 9).
+- 🔴 **Індексація:** після хабів, меню й 308-редиректів (21.09) в індексі вже більшість сайтмапа, журнал уперше
+  отримав покази й кліки (замір 2026-10-07). Поза індексом лишаються переважно сервісні лендинги, два devlog-и
+  та «Діагноз у 27»; без показів — більшість прози. Розбивка й дії — `doc/INDEXING_PLAN.md`, цифри — у
+  gitignored `doc/baseline/` (правило 9).
 - Комерційні запити не вийшли в топ-30; органіку дають особистий пост розробника (Джарвіс) і кейси за назвами клієнтів.
 - Комерційні CTA ведуть на форму `/services/#contact`, лендинги — на хаб `/services/`; «напишіть мені» в постах про
   Паркінсон — на особистий Telegram (Ф1, крок 3). Від Ф2 жодна сторінка не залежить від якорів головної:
@@ -245,7 +249,7 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 | `COMMENTS_PLAN.md`, `AUDIT_FIXES_PLAN.md`, `AUTHOR_PAGE_PLAN.md`, `GETTING_CITED_ARTICLE_PLAN.md`, `TEPLIY_DVIR_CASE_PLAN.md`, `QUICKFIXES_PLAN.md`, `HOMEPAGE_B_PLAN.md`, `reviews/hub-spoke-changes.md` | ✅ виконані (історія) |
 | `SEO.md`, `PARKINSANDR_TECH_12_WEEK_ACTION_PLAN.md`, `SEED_KEYWORDS.md`, `seed-keywords-intent-map.md` | 🗄 історичні: комерційна SEO-стратегія квітня 2026 |
 | `leads.csv` | шаблон обліку заявок |
-| `INDEXING_PLAN.md` | 🟢 трек індексації: що зроблено 21.09.2026, що міряти при повторному експорті GSC |
+| `INDEXING_PLAN.md` | 🟢 трек індексації: зроблене 21.09, замір GSC і виправлення 07.10.2026, що міряти далі |
 | `baseline/`, `research/`, `prompts/`, `overviews/`, частина `abaic_council/` | gitignored робочі матеріали |
 
 ## Зовнішні стандарти
