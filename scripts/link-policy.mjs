@@ -110,6 +110,7 @@ export const HUB_MEMBERS = {
       'journal/moskva-horyt/index.html',
       'journal/kabachok-starosta-seriya-1/index.html',
       'journal/vidbiy/index.html',
+      'journal/kabachok-starosta-seriya-2/index.html',
     ],
     also: [],
   },
@@ -143,6 +144,7 @@ export const HUB_MEMBERS = {
       'journal/moskva-horyt/index.html',
       'journal/kabachok-starosta-seriya-1/index.html',
       'journal/vidbiy/index.html',
+      'journal/kabachok-starosta-seriya-2/index.html',
     ],
   },
   'code/': {
