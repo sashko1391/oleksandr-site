@@ -150,6 +150,7 @@ export const HUB_MEMBERS = {
   'code/': {
     name: 'Код',
     primary: [
+      'blog/ukrposhta-medusa/index.html',
       'blog/devlog-business-empire-idle/index.html',
       'blog/devlog-empire-online/index.html',
       'blog/jarvis-ai-assistant/index.html',
@@ -177,9 +178,10 @@ export const HUB_MEMBERS = {
   },
   'blog/': {
     name: 'Блог',
-    primary: [], // the archive owns nothing: it lists all twelve articles
+    primary: [], // the archive owns nothing: it lists every article
     also: [
       'blog/chek-list-zamovlennya-sajtu/index.html',
+      'blog/ukrposhta-medusa/index.html',
       'blog/devlog-business-empire-idle/index.html',
       'blog/devlog-empire-online/index.html',
       'blog/getting-cited-ai-poshuk/index.html',

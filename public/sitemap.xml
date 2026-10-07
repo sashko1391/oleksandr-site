@@ -91,6 +91,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.parkinsandr.tech/blog/ukrposhta-medusa/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.parkinsandr.tech/blog/devlog-business-empire-idle/</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>

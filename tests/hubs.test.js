@@ -134,7 +134,7 @@ describe('section hubs', () => {
   it('every blog post is reachable from a hub', () => {
     const archive = read('blog/index.html');
     const posts = HUB_MEMBERS['blog/'].also;
-    expect(posts).toHaveLength(12);
+    expect(posts).toHaveLength(13);
     for (const file of posts) expect(archive).toContain(`href="/${file.replace('index.html', '')}"`);
   });
 

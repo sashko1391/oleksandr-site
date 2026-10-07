@@ -364,6 +364,7 @@ const F2_INVENTORY = {
   'journal/vira-i-religiya-2/index.html': 'Журнал',
   'journal/bytva-tserkov/index.html': 'Журнал',
   'journal/pamyati-maksyma-babaka/index.html': 'Журнал',
+  'blog/ukrposhta-medusa/index.html': 'Код',
   'blog/devlog-business-empire-idle/index.html': 'Код',
   'blog/devlog-empire-online/index.html': 'Код',
   'blog/jarvis-ai-assistant/index.html': 'Код',
@@ -408,7 +409,8 @@ const F2_ALSO = {
     'blog/internal-linking/index.html',
   ],
   'services/': [],
-  'blog/': [ // the archive lists all twelve
+  'blog/': [ // the archive lists every article
+    'blog/ukrposhta-medusa/index.html',
     'blog/chek-list-zamovlennya-sajtu/index.html', 'blog/devlog-business-empire-idle/index.html',
     'blog/devlog-empire-online/index.html', 'blog/getting-cited-ai-poshuk/index.html',
     'blog/internal-linking/index.html', 'blog/jarvis-ai-assistant/index.html',
@@ -456,7 +458,7 @@ describe('Ф2 — HUB_MEMBERS', () => {
     expect([...shown].sort()).toEqual(journal.sort());
   });
 
-  it('lists all twelve articles in the /blog/ archive and owns none of them', () => {
+  it('lists every article in the /blog/ archive and owns none of them', () => {
     const blog = Object.keys(F2_INVENTORY).filter((f) => f.startsWith('blog/'));
     expect(HUB_MEMBERS['blog/'].also.sort()).toEqual(blog.sort());
     expect(HUB_MEMBERS['blog/'].primary).toEqual([]);

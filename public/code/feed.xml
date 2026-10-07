@@ -7,7 +7,7 @@
     <description><![CDATA[Devlog-и власних проєктів, AI-інструменти й розбори пошукової видимості з даними.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Wed, 07 Oct 2026 04:38:07 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 19:29:17 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Код</title>
@@ -15,6 +15,16 @@
       <width>144</width>
       <height>144</height>
     </image>
+    <item>
+      <title><![CDATA[Укрпошта в Medusa: пастки, яких немає в документації]]></title>
+      <link>https://www.parkinsandr.tech/blog/ukrposhta-medusa/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/ukrposhta-medusa/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Код]]></category>
+      <pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Як я додав Укрпошту другим перевізником у магазин на Medusa: довідник, що бреше прапорцями, тариф, який диктує UX, і пастки деплою.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/ukrposhta-medusa/og.jpg" type="image/jpeg" length="33923"/>
+    </item>
     <item>
       <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
       <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
