@@ -17,7 +17,7 @@
       ]
     },
     {
-      "source": "/js/comments.v1.js",
+      "source": "/js/comments.v2.js",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]

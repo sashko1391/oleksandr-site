@@ -1,12 +1,23 @@
 /* Коментарі parkinsandr.tech — first-party, без залежностей.
-   Lazy-init, textContent-only рендер (XSS-safe), Turnstile explicit, 1 рівень тредів. */
+   Lazy-init, textContent-only рендер (XSS-safe), Turnstile explicit, 1 рівень тредів.
+   v2: API зі слешем (vercel.json має trailingSlash — без нього кожен запит коштує 308), таймаут POST,
+   і чесна реакція на Turnstile, який не приїхав: кажемо про блокувальник, а не просимо пройти перевірку,
+   якої на сторінці немає. Зразок — subscribe.v2.js. */
 (function () {
   'use strict';
   var SITE_KEY = '0x4AAAAAAD06Nen_zKGLZ_hN';
+  var API = '/api/comments/';
+  var CAPTCHA_TIMEOUT = 8000;
+  var REQUEST_TIMEOUT = 15000;
+  var CAPTCHA_MSG = 'Перевірка Cloudflare не завантажилась — її часто ріжуть блокувальники. ' +
+    'Без неї коментар не надіслати: вимкніть блокувальник для цього сайту й оновіть сторінку.';
+  var EXPIRED_MSG = 'Перевірка застаріла — пройдіть її ще раз.';
   var root = document.getElementById('comments');
   if (!root || !root.dataset.slug) return;
   var slug = root.dataset.slug;
   var inited = false, widgetId = null, parentId = null;
+  var captchaDead = false; // Turnstile не приїхав або впав: краще сказати правду, ніж мовчки чекати
+  var statusNode = null;
 
   var io = new IntersectionObserver(function (entries) {
     for (var i = 0; i < entries.length; i++) {
@@ -141,10 +152,35 @@
   }
 
   function loadComments() {
-    fetch('/api/comments?slug=' + encodeURIComponent(slug), { headers: { 'x-requested-with': 'fetch' } })
-      .then(function (r) { return r.ok ? r.json() : { comments: [] }; })
-      .then(function (d) { renderComments(d.comments || []); })
-      .catch(function () { renderComments([]); });
+    fetch(API + '?slug=' + encodeURIComponent(slug), { headers: { 'x-requested-with': 'fetch' } })
+      .then(function (r) {
+        if (r.status === 404) return { notConnected: true };
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        if (d.notConnected) renderNotConnected();
+        else renderComments(d.comments || []);
+      })
+      .catch(function () { renderLoadError(); });
+  }
+
+  // 404 = сторінку не зареєстровано в базі (`npm run register:post`): відправка гарантовано впаде теж,
+  // тож форму ховаємо, а не пропонуємо писати в нікуди.
+  var NOT_CONNECTED = 'Коментарі для цієї сторінки ще не підключені. Напишіть мені напряму — посилання на сторінці «Про мене».';
+  function renderNotConnected() {
+    var wrap = document.getElementById('cmt-listwrap');
+    wrap.textContent = '';
+    wrap.appendChild(el('p', 'cmt-empty', NOT_CONNECTED));
+    var form = root.querySelector('.cmt-form');
+    if (form) { form.hidden = true; form.style.display = 'none'; }
+  }
+
+  // «Ще немає коментарів» тут була б неправдою: ми не знаємо, чи вони є. Форма лишається робочою.
+  function renderLoadError() {
+    var wrap = document.getElementById('cmt-listwrap');
+    wrap.textContent = '';
+    wrap.appendChild(el('p', 'cmt-empty', 'Не вдалося завантажити коментарі. Спробуйте оновити сторінку пізніше.'));
   }
 
   function setReply(c) {
@@ -201,21 +237,39 @@
     form.appendChild(submit);
     var status = el('div', 'cmt-status'); status.id = 'cmt-status'; status.setAttribute('aria-live', 'polite');
     form.appendChild(status);
+    statusNode = status;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); submitForm(name, body, cb, hp, submit, status); });
     return form;
   }
 
   function setStatus(status, msg, kind) {
+    if (!status) return;
     status.textContent = msg;
     status.className = 'cmt-status' + (kind ? ' ' + kind : '');
+  }
+
+  // Повідомлення про перевірку не перекриває фінальне «✅ Дякую»: reset() після відправки перезапускає
+  // Turnstile, і його збій чи протухання через 5 хв інакше виглядали б як «коментар не пішов» → дубль.
+  // captchaDead при цьому все одно ставиться, тож наступна спроба скаже правду.
+  function captchaSay(msg) {
+    if (statusNode && /\bok\b/.test(statusNode.className)) return;
+    setStatus(statusNode, msg, 'err');
+  }
+
+  // Знімає лише повідомлення про перевірку: новий токен після reset() не повинен стерти «✅ Дякую».
+  function clearCaptchaStatus() {
+    if (statusNode && (statusNode.textContent === CAPTCHA_MSG || statusNode.textContent === EXPIRED_MSG)) {
+      setStatus(statusNode, '', '');
+    }
   }
 
   function submitForm(name, body, cb, hp, submit, status) {
     if (!name.value.trim() || !body.value.trim()) { setStatus(status, 'Заповніть ім’я і коментар.', 'err'); return; }
     if (!cb.checked) { setStatus(status, 'Потрібна згода на обробку даних.', 'err'); return; }
+    if (captchaDead) { setStatus(status, CAPTCHA_MSG, 'err'); return; }
     var token = window.turnstile && widgetId != null ? window.turnstile.getResponse(widgetId) : '';
-    if (!token) { setStatus(status, 'Пройдіть перевірку захисту від ботів.', 'err'); return; }
+    if (!token) { setStatus(status, 'Зачекайте секунду — перевірка захисту від ботів ще не завершилась.', 'err'); return; }
 
     var payload = {
       slug: slug, author_name: name.value.trim(), body: body.value.trim(),
@@ -224,42 +278,73 @@
     if (parentId != null) payload.parent_id = parentId;
 
     submit.disabled = true; setStatus(status, 'Надсилаю…', '');
-    fetch('/api/comments', {
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, REQUEST_TIMEOUT) : null;
+    var done = function () {
+      if (timer) clearTimeout(timer);
+      submit.disabled = false; // що б не сталося, кнопка не лишається мертвою
+      // токен одноразовий: після будь-якої відповіді він уже спалений або сумнівний
+      if (window.turnstile && widgetId != null) window.turnstile.reset(widgetId);
+    };
+    fetch(API, {
       method: 'POST',
+      signal: ctrl ? ctrl.signal : undefined,
       headers: { 'content-type': 'application/json', 'x-requested-with': 'fetch' },
       body: JSON.stringify(payload),
     }).then(function (r) {
-      submit.disabled = false;
+      done();
       if (r.status === 202) {
         setStatus(status, '✅ Дякую! Коментар з’явиться після модерації.', 'ok');
         name.value = ''; body.value = ''; cb.checked = false; clearReply();
-        if (window.turnstile && widgetId != null) window.turnstile.reset(widgetId);
       } else if (r.status === 429) {
-        setStatus(status, 'Забагато коментарів. Спробуйте трохи згодом.', 'err');
+        setStatus(status, 'Забагато спроб надіслати коментар. Спробуйте трохи згодом.', 'err');
+      } else if (r.status === 404) {
+        setStatus(status, NOT_CONNECTED, 'err');
+      } else if (r.status >= 500) {
+        // Винні не поля. 503 — сховище лімітів або база (так було 11.08–21.09.2026); 502/504 шлюзу можуть прийти
+        // вже після запису, тож «не збережено» стверджувати не можна.
+        setStatus(status, 'Збій на нашому боці — не вдалося підтвердити, що коментар збережено. ' +
+          'Текст лишився у формі, спробуйте пізніше.', 'err');
       } else {
-        setStatus(status, 'Не вдалося надіслати. Перевірте поля й спробуйте ще раз.', 'err');
+        setStatus(status, 'Перевірка не пройшла або поля заповнені неправильно — спробуйте ще раз.', 'err');
       }
-    }).catch(function () {
-      submit.disabled = false;
-      setStatus(status, 'Помилка мережі. Спробуйте ще раз.', 'err');
+    }).catch(function (e) {
+      done();
+      setStatus(status, e && e.name === 'AbortError'
+        ? 'Сервер не відповів вчасно — спробуйте ще раз.'
+        : 'Помилка мережі. Спробуйте ще раз.', 'err');
     });
   }
 
   function loadTurnstile() {
+    var giveUp = function () {
+      if (widgetId != null) return;
+      captchaDead = true;
+      captchaSay(CAPTCHA_MSG);
+    };
     if (window.turnstile) { renderWidget(); return; }
     var s = document.createElement('script');
     s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
     s.async = true; s.defer = true;
     s.onload = renderWidget;
+    s.onerror = giveUp; // заблокований розширенням чи мережею
     document.head.appendChild(s);
+    setTimeout(giveUp, CAPTCHA_TIMEOUT); // завантажився, але так і не намалювався
   }
   function renderWidget() {
     var elw = document.getElementById('cmt-turnstile');
-    if (!elw || !window.turnstile) return;
+    if (!elw || !window.turnstile || widgetId != null) return;
     widgetId = window.turnstile.render(elw, {
       sitekey: SITE_KEY,
-      'error-callback': function () {},
-      'expired-callback': function () { if (widgetId != null) window.turnstile.reset(widgetId); },
+      // Токен прийшов — навіть після помилки (Turnstile повторює сам): знімаємо вирок.
+      callback: function () { captchaDead = false; clearCaptchaStatus(); },
+      'error-callback': function () { captchaDead = true; captchaSay(CAPTCHA_MSG); },
+      'expired-callback': function () {
+        captchaSay(EXPIRED_MSG);
+        if (widgetId != null) window.turnstile.reset(widgetId);
+      },
     });
+    // Приїхав пізніше за таймаут — знімаємо вирок, інакше форма лишилася б мертвою назавжди.
+    if (widgetId != null && captchaDead) { captchaDead = false; clearCaptchaStatus(); }
   }
 })();

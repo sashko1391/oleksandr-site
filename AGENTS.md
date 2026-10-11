@@ -69,10 +69,10 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 27 файлів, 476 тестів: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 28 файлів, 490 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
-    subscribe, subscribe-ui, register-post]`
+    subscribe, subscribe-ui, comments-ui, register-post]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -118,8 +118,8 @@ public/
 ├── projects/{slug}/      ← 6 кейсів
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
-├── js/comments.v1.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (27 файлів, 476 тестів) · db/ (міграції) · doc/
+├── js/comments.v2.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (28 файлів, 490 тестів) · db/ (міграції) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -141,7 +141,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
   (лічильники, семантичний diff JSON-LD, валідатор) → запис; якщо перевірка не пройшла, не пишеться нічого
   (сам запис файлів — послідовний, без відкату вже записаних). Ідемпотентні: повторний прогін — 0 змін
 - `npm run smoke:forms [-- --screenshots <dir>]` — браузерний smoke всіх 7 лід-форм: успіх, відмова воркера,
-  без JavaScript + специфіка `/services/` (Playwright + системний Chrome, воркер підмінено; не входить у `npm test`)
+  без JavaScript + специфіка `/services/` + форма коментарів на пості (слеш в API, таймаут, збій і відновлення
+  Turnstile). Playwright + системний Chrome; воркер, API коментарів і Turnstile підмінено; не входить у `npm test`
 - `npm run register:post -- <розділ/slug> [--dry]` — реєструє slug у таблиці `posts` (інакше коментарі
   віддають 404); `DATABASE_URL` — з gitignored `.env`, сторінка має існувати, повтор безпечний
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
@@ -171,15 +172,14 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 - Коміти: `type(scope): summary`, один логічний change на коміт.
 
 ## Технічні нотатки
-- Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (лише в коментарях), `/js/comments.v1.js`.
+- Зовнішні скрипти: GA4, Clarity, Plausible (проксі), Turnstile (коментарі й підписка), `/js/comments.v2.js`.
 - `vercel.json`: `redirects` — перенесені URL (1:1, `permanent`; ціль мусить існувати, старий файл — зникнути);
   `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
   для сканування). **Наслідок:** виклики API теж треба робити зі слешем (`/api/subscribe/`), інакше кожен
   запит коштує зайвий 308, а one-click POST від поштового клієнта може за ним і не піти. Те саме з `source`
   кожного rewrite під `/api/*`: 308 спрацьовує раніше за rewrites, тож безслешевий source не матчиться ніколи
-  (проксі Plausible мовчав так 21.09–12.10.2026) `[enforced: tests/policy.test.js]`. `comments.v1.js`
-  досі ходить без слеша (працює через редирект); виправити — разом із наступним бампом до `v2`
-  rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml` і `/:section/feed.xml`;
+  (проксі Plausible мовчав так 21.09–12.10.2026) `[enforced: tests/policy.test.js]`.
+  rewrites Plausible; immutable-кеш `/fonts/*` і кожного `/js/<name>.vN.js` (правило на файл); headers `/feed.xml` і `/:section/feed.xml`;
   crons: очистка коментарів (3:00) і підписників (3:30).
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.

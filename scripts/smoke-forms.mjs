@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Browser smoke for every lead form on the site (/services/, five landings, the /pricing/ brief) plus the
-// /services/ page specifics: CTA tracking, honeypot, timeout and mobile a11y.
+// /services/ page specifics: CTA tracking, honeypot, timeout and mobile a11y — and the comments form on a post
+// (comments.v2.js: slashed API, request timeout, honest Turnstile failure and recovery).
 // The Worker is stubbed and every other external request is aborted — nothing leaves the machine.
 // `npm run smoke:forms [-- --screenshots <dir>]` (Playwright + system Chrome; not part of `npm test`).
 import { createServer } from 'node:http';
@@ -195,6 +196,231 @@ async function botQueueChecks(browser, base) {
   await ctx.context.close();
 }
 
+const COMMENTS_POST = '/blog/yak-obrati-rozrobnyka/';
+const COMMENTS_SLUG = 'blog/yak-obrati-rozrobnyka';
+
+/**
+ * Turnstile stand-in. `ok` hands out a token right after render; `error` fires the error callback first, and the
+ * check then calls window.__ts.give(token) the way the real widget does when its own retry succeeds.
+ */
+const turnstileStub = (mode) => `(function () {
+  var n = 0, opts = {};
+  window.__ts = {
+    resets: 0, token: '',
+    give: function (t) { window.__ts.token = t; if (opts.callback) opts.callback(t); },
+    fail: function () { if (opts['error-callback']) opts['error-callback'](); },
+    expire: function () { window.__ts.token = ''; if (opts['expired-callback']) opts['expired-callback'](); }
+  };
+  window.turnstile = {
+    render: function (el, o) {
+      opts = o; n++;
+      Promise.resolve().then(function () {
+        ${mode === 'error' ? "if (opts['error-callback']) opts['error-callback']();" : "window.__ts.give('stub-token');"}
+      });
+      return 'w' + n;
+    },
+    getResponse: function () { return window.__ts.token; },
+    reset: function () {
+      window.__ts.resets++; window.__ts.token = '';
+      Promise.resolve().then(function () { window.__ts.give('stub-token-after-reset'); });
+    },
+    remove: function () {}
+  };
+})();`;
+
+/**
+ * Open a post with the comments API stubbed (GET list, POST answer) and Turnstile replaced or blocked.
+ * `turnstileGate`: a promise the Turnstile script waits for (a script that arrives late); `clock`: fake timers from
+ * before the block initialises, so its 8-second captcha timeout can be fast-forwarded.
+ */
+async function openComments(browser, base, { turnstile = 'ok', postStatus = 202, postHangs = false, getStatus = 200, turnstileGate = null, clock = false } = {}) {
+  const context = await browser.newContext({ viewport: DESKTOP });
+  const calls = [];
+  await context.route('**/*', (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (url.origin === base && url.pathname.startsWith('/api/comments')) {
+      const post = request.method() === 'POST';
+      calls.push({ method: request.method(), path: url.pathname, search: url.search, headers: request.headers(), body: post ? request.postDataJSON() : null });
+      if (!post) return route.fulfill({ status: getStatus, contentType: 'application/json', body: JSON.stringify({ comments: [] }) });
+      if (postHangs) return undefined; // never answer: the page has to give up on its own
+      return route.fulfill({ status: postStatus, contentType: 'application/json', body: '{}' });
+    }
+    if (request.url().startsWith(base)) return route.continue();
+    if (url.hostname === 'challenges.cloudflare.com' && url.pathname.startsWith('/turnstile/')) {
+      if (turnstile === 'blocked') return route.abort(); // an ad blocker, as the reader sees it
+      const answer = () => route.fulfill({ status: 200, contentType: 'text/javascript', body: turnstileStub(turnstile) });
+      return turnstileGate ? turnstileGate.then(answer) : answer();
+    }
+    return route.abort(); // GA, Clarity, Plausible
+  });
+  const page = await context.newPage();
+  await page.goto(base + COMMENTS_POST, { waitUntil: 'load' });
+  if (clock) await page.clock.install();
+  await page.locator('#comments').scrollIntoViewIfNeeded(); // the block initialises lazily
+  await page.locator('.cmt-form').waitFor({ state: 'attached', timeout: 10000 });
+  return { page, calls, context };
+}
+
+const commentStatus = (page) => page.evaluate(() => document.getElementById('cmt-status').textContent);
+const waitStatus = (page, text) =>
+  page.waitForFunction((t) => document.getElementById('cmt-status').textContent.includes(t), text, { timeout: 10000 })
+    .then(() => true, () => false);
+
+async function fillComment(page) {
+  await page.fill('#cmt-name', 'Тест');
+  await page.fill('#cmt-body', 'Smoke-коментар');
+  await page.check('#cmt-consent');
+}
+
+/** comments.v2.js: what the reader sees in each outcome, and what actually goes over the wire. */
+async function commentsChecks(browser, base) {
+  // Happy path: slashed GET and POST, the token travels, and the fresh token after reset() keeps «Дякую».
+  const ok = await openComments(browser, base);
+  await ok.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token');
+  await fillComment(ok.page);
+  await ok.page.click('.cmt-submit');
+  const thanked = await waitStatus(ok.page, 'Дякую');
+  await ok.page.waitForFunction(() => window.__ts.resets > 0 && window.__ts.token === 'stub-token-after-reset');
+  const get = ok.calls.find((c) => c.method === 'GET');
+  const post = ok.calls.find((c) => c.method === 'POST');
+  check('comments: the list and the submit both call /api/comments/ with the slash (no 308)',
+    get?.path === '/api/comments/' && get?.search === `?slug=${encodeURIComponent(COMMENTS_SLUG)}` && post?.path === '/api/comments/',
+    JSON.stringify({ get: get && get.path + get.search, post: post?.path }));
+  check('comments: the POST carries the slug, the Turnstile token and the CSRF marker',
+    post?.body?.slug === COMMENTS_SLUG && post?.body?.turnstileToken === 'stub-token' && post?.headers['x-requested-with'] === 'fetch',
+    JSON.stringify(post?.body));
+  check('comments: «Дякую» survives the fresh token that reset() brings',
+    thanked && (await commentStatus(ok.page)).includes('Дякую'), await commentStatus(ok.page));
+  // the re-run after reset() errors, or its token expires five minutes later: still «Дякую», never «не пішов»
+  await ok.page.evaluate(() => { window.__ts.fail(); window.__ts.expire(); });
+  const afterNoise = await commentStatus(ok.page);
+  check('comments: a captcha error or expiry after the comment was sent does not overwrite «Дякую»',
+    afterNoise.includes('Дякую'), afterNoise);
+  await ok.context.close();
+
+  // An expired token before submit: the reader is told, the widget is re-run, and the fresh token clears it.
+  const stale = await openComments(browser, base);
+  await stale.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token');
+  await stale.page.evaluate(() => window.__ts.expire());
+  await stale.page.waitForFunction(() => window.__ts.token === 'stub-token-after-reset');
+  const staleState = await stale.page.evaluate(() => ({ resets: window.__ts.resets, text: document.getElementById('cmt-status').textContent }));
+  check('comments: an expired check is re-run, and the fresh token clears the warning',
+    staleState.resets === 1 && staleState.text === '', JSON.stringify(staleState));
+  await stale.context.close();
+
+  // Turnstile loads but never renders (8 s), then arrives late: the verdict comes, then it is lifted.
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const late = await openComments(browser, base, { turnstileGate: gate, clock: true });
+  const beforeTimeout = await commentStatus(late.page);
+  await late.page.clock.fastForward(9000);
+  let toldLate = false;
+  for (let i = 0; i < 50 && !toldLate; i++) { // poll with Node timers: the page's timers are fake now
+    toldLate = (await commentStatus(late.page)).includes('блокувальники');
+    if (!toldLate) await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  release();
+  await late.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token', null, { timeout: 10000 });
+  const lifted = (await commentStatus(late.page)) === '';
+  check('comments: no captcha after 8 s says so; a late arrival lifts the verdict',
+    beforeTimeout === '' && toldLate && lifted, `before="${beforeTimeout}" told=${toldLate} lifted=${lifted}`);
+  await late.context.close();
+
+  // Every refusal the API can give: a true sentence, the text kept, a live button.
+  for (const [code, text] of [[400, 'Перевірка не пройшла'], [404, 'не підключені'], [429, 'Забагато спроб'], [502, 'не вдалося підтвердити']]) {
+    const refused = await openComments(browser, base, { postStatus: code });
+    await refused.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token');
+    await fillComment(refused.page);
+    await refused.page.click('.cmt-submit');
+    const said = await waitStatus(refused.page, text);
+    const state = await refused.page.evaluate(() => ({
+      body: document.getElementById('cmt-body').value, disabled: document.querySelector('.cmt-submit').disabled,
+    }));
+    check(`comments: ${code} — says «${text}…», keeps the text, the button stays live`,
+      said && state.body === 'Smoke-коментар' && !state.disabled, JSON.stringify({ said, ...state, status: await commentStatus(refused.page) }));
+    await refused.context.close();
+  }
+
+  // Turnstile blocked: the reader is told why, and no request that is bound to fail goes out.
+  const blocked = await openComments(browser, base, { turnstile: 'blocked' });
+  const toldBlocked = await waitStatus(blocked.page, 'блокувальники');
+  await fillComment(blocked.page);
+  await blocked.page.click('.cmt-submit');
+  const blockedState = await blocked.page.evaluate(() => ({
+    text: document.getElementById('cmt-status').textContent, disabled: document.querySelector('.cmt-submit').disabled,
+  }));
+  check('comments: a blocked Turnstile says so and sends nothing',
+    toldBlocked && blockedState.text.includes('блокувальники') && !blockedState.disabled &&
+      !blocked.calls.some((c) => c.method === 'POST'),
+    JSON.stringify({ toldBlocked, ...blockedState, posts: blocked.calls.filter((c) => c.method === 'POST').length }));
+  await blocked.context.close();
+
+  // Turnstile errors, then its own retry succeeds: the verdict is lifted and the comment goes through.
+  const flaky = await openComments(browser, base, { turnstile: 'error' });
+  const toldError = await waitStatus(flaky.page, 'блокувальники');
+  await flaky.page.evaluate(() => window.__ts.give('recovered-token'));
+  const cleared = (await commentStatus(flaky.page)) === '';
+  await fillComment(flaky.page);
+  await flaky.page.click('.cmt-submit');
+  const recovered = await waitStatus(flaky.page, 'Дякую');
+  const flakyPost = flaky.calls.find((c) => c.method === 'POST');
+  check('comments: after a Turnstile error and a successful retry the comment is sent',
+    toldError && cleared && recovered && flakyPost?.body?.turnstileToken === 'recovered-token',
+    JSON.stringify({ toldError, cleared, recovered, token: flakyPost?.body?.turnstileToken }));
+  await flaky.context.close();
+
+  // Our 5xx: the reader is not told to check the fields, and the text stays in the form.
+  const down = await openComments(browser, base, { postStatus: 503 });
+  await down.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token');
+  await fillComment(down.page);
+  await down.page.click('.cmt-submit');
+  const blamedUs = await waitStatus(down.page, 'на нашому боці');
+  const kept = await down.page.evaluate(() => ({
+    body: document.getElementById('cmt-body').value, disabled: document.querySelector('.cmt-submit').disabled,
+  }));
+  check('comments: on 503 says it is our fault and keeps the text',
+    blamedUs && kept.body === 'Smoke-коментар' && !kept.disabled, JSON.stringify(kept));
+  await down.context.close();
+
+  // The POST never answers: no endless «Надсилаю…» — the timeout ends in an honest message and a live button.
+  const hang = await openComments(browser, base, { postHangs: true });
+  await hang.page.waitForFunction(() => window.__ts && window.__ts.token === 'stub-token');
+  await hang.page.clock.install(); // after init: only the request timer needs to be fake
+  await fillComment(hang.page);
+  await hang.page.click('.cmt-submit');
+  const waiting = (await commentStatus(hang.page)) === 'Надсилаю…' &&
+    (await hang.page.evaluate(() => document.querySelector('.cmt-submit').disabled));
+  await hang.page.clock.fastForward(16000);
+  let gaveUp = false;
+  for (let i = 0; i < 50 && !gaveUp; i++) { // poll with Node timers: the page's timers are fake now
+    gaveUp = (await commentStatus(hang.page)).includes('не відповів вчасно');
+    if (!gaveUp) await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  const alive = !(await hang.page.evaluate(() => document.querySelector('.cmt-submit').disabled));
+  check('comments: a POST that never answers gives up after the timeout with a live button',
+    waiting && gaveUp && alive, `waiting=${waiting} gaveUp=${gaveUp} alive=${alive}`);
+  await hang.context.close();
+
+  // The list cannot load: say so instead of «Ще немає коментарів», and keep the form.
+  const noList = await openComments(browser, base, { getStatus: 503 });
+  await noList.page.waitForFunction(() => document.getElementById('cmt-listwrap').textContent.length > 0);
+  const listText = await noList.page.evaluate(() => document.getElementById('cmt-listwrap').textContent);
+  check('comments: a failed list load is not passed off as «no comments yet»',
+    listText.includes('Не вдалося завантажити') && !listText.includes('Ще немає') && (await noList.page.locator('.cmt-form').isVisible()),
+    listText);
+  await noList.context.close();
+
+  // The page is not registered in `posts` (GET 404): say so and hide a form whose POST would 404 too.
+  const unregistered = await openComments(browser, base, { getStatus: 404 });
+  await unregistered.page.waitForFunction(() => document.getElementById('cmt-listwrap').textContent.length > 0);
+  const unregText = await unregistered.page.evaluate(() => document.getElementById('cmt-listwrap').textContent);
+  const formShown = await unregistered.page.locator('.cmt-form').isVisible();
+  check('comments: an unregistered page says comments are not connected and hides the form',
+    unregText.includes('не підключені') && !formShown, JSON.stringify({ unregText, formShown }));
+  await unregistered.context.close();
+}
+
 async function desktopChecks(browser, base) {
   // Happy path.
   const ok = await open(browser, base);
@@ -310,6 +536,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await botHonestyChecks(browser, base);
     await desktopChecks(browser, base);
     await mobileChecks(browser, base);
+    await commentsChecks(browser, base);
     const i = process.argv.indexOf('--screenshots');
     if (i !== -1) await screenshots(browser, base, process.argv[i + 1]);
   } finally {

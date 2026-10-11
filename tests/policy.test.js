@@ -131,6 +131,22 @@ describe('policy: trailing slash on /api/*', () => {
     for (const r of api) expect(r.source, `${r.source} is shadowed by the 308`).toMatch(/\/$/);
   });
 
+  it('every /api/ path the browser can call carries the slash before its query', () => {
+    // Any quoted '/api/…' literal in a page or a public script — a fetch argument or a constant that
+    // feeds one. Without the slash each call pays a 308 (comments.v1.js did, until v2).
+    const jsFiles = readdirSync(join(PUBLIC, 'js'))
+      .filter((n) => n.endsWith('.js'))
+      .map((n) => ({ rel: `js/${n}`, html: readFileSync(join(PUBLIC, 'js', n), 'utf8') }));
+    const bad = [];
+    for (const { rel, html } of [...pages, ...jsFiles]) {
+      for (const m of html.matchAll(/(['"`])(\/api\/[^'"`\s]*)\1/g)) {
+        const path = m[2].split('?')[0];
+        if (!path.endsWith('/')) bad.push(`${rel}: ${m[2]}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
   it('the Plausible snippet on every page posts to the slashed proxy', () => {
     const snippets = pages.flatMap((p) =>
       [...p.html.matchAll(/\bdata-api\s*=\s*["']([^"']*)["']/gi)].map((m) => ({ rel: p.rel, api: m[1] }))

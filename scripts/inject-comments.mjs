@@ -25,7 +25,7 @@ for (const file of files) {
   const slug = file.replace(/^public\//, '').replace(/\/index\.html$/, '');
   const block =
     `  <section id="comments" data-slug="${slug}" aria-label="Коментарі"></section>\n` +
-    `  <script src="/js/comments.v1.js" defer></script>\n`;
+    `  <script src="/js/comments.v2.js" defer></script>\n`;
 
   const out = html.slice(0, idx) + block + html.slice(idx);
   writeFileSync(file, out);
