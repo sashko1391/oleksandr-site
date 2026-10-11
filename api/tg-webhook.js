@@ -32,10 +32,20 @@ export default async function handler(req, res) {
   const cq = update.callback_query;
   if (!cq) return res.status(200).json({ ok: true }); // ignore non-callback updates
 
-  // 2) admin allowlist — only the owner's private chat may moderate
-  const adminChat = String(process.env.TELEGRAM_CHAT_ID);
+  // 2) admin allowlist — only the owner's private chat may moderate.
+  // Explicit guards BEFORE String(): with a missing env and a message-less callback (inline mode)
+  // both sides would become the literal "undefined" and the allowlist would fail open.
+  const adminChat = process.env.TELEGRAM_CHAT_ID;
+  if (!adminChat) {
+    console.error(JSON.stringify({ level: 'error', event: 'config_telegram_chat_id_missing' }));
+    return res.status(401).end();
+  }
+  if (!cq.message?.chat?.id) {
+    await tgReply(() => answerCallback(cq.id, 'Некоректна дія'));
+    return res.status(200).json({ ok: false }); // 200: a non-2xx would make Telegram redeliver it
+  }
   const adminUser = process.env.TELEGRAM_ADMIN_USER_ID;
-  const chatOk = String(cq.message?.chat?.id) === adminChat;
+  const chatOk = String(cq.message.chat.id) === String(adminChat);
   const userOk = !adminUser || String(cq.from?.id) === String(adminUser);
   // 200 (not 403): the update was delivered and rejected — a non-2xx would make
   // Telegram redeliver the same unauthorized tap over and over.

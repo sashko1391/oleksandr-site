@@ -311,6 +311,31 @@ describe('tg-webhook', () => {
     expect(res.statusCode).toBe(401);
     process.env.TG_WEBHOOK_SECRET = saved;
   });
+  it('401 fail-closed when TELEGRAM_CHAT_ID env is missing — even for a callback with no message', async () => {
+    // Regression: String(undefined) on both sides used to compare equal, so a message-less callback
+    // (inline mode) passed the admin allowlist whenever the env var was absent.
+    const saved = process.env.TELEGRAM_CHAT_ID;
+    delete process.env.TELEGRAM_CHAT_ID;
+    const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      const res = mockRes();
+      await webhookHandler(webhookReq({ message: undefined }), res);
+      expect(res.statusCode).toBe(401);
+      expect(sqlMock).not.toHaveBeenCalled();
+      expect(errSpy.mock.calls.some(([m]) => String(m).includes('config_telegram_chat_id_missing'))).toBe(true);
+    } finally {
+      process.env.TELEGRAM_CHAT_ID = saved;
+      errSpy.mockRestore();
+    }
+  });
+  it('200 {ok:false} for a callback with no message (inline mode), no DB write', async () => {
+    const res = mockRes();
+    await webhookHandler(webhookReq({ message: undefined }), res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ok).toBe(false);
+    expect(sqlMock).not.toHaveBeenCalled();
+    expect(editMessageTextMock).not.toHaveBeenCalled();
+  });
   it('200 ok for non-callback updates', async () => {
     const res = mockRes();
     await webhookHandler({ method: 'POST', headers: { 'x-telegram-bot-api-secret-token': 'wh-secret' }, body: { message: {} } }, res);
