@@ -11,7 +11,7 @@
 
 - Static HTML без build step (Astro — фаза Ф6); хостинг Vercel (`vercel.json`); деплой = `git push` у `main`.
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
-- Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event`).
+- Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event/`).
 - Підписка: RSS (загальний + по розділах), публічний Telegram-канал `@parkinsandr` (`t.me/parkinsandr`,
   URL — константа `TELEGRAM_CHANNEL` у `scripts/link-policy.mjs`) і email через Resend
   (домен `send.parkinsandr.tech`, подвійне підтвердження, таблиця `subscribers`; форма — на 4 хабах).
@@ -175,7 +175,9 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 - `vercel.json`: `redirects` — перенесені URL (1:1, `permanent`; ціль мусить існувати, старий файл — зникнути);
   `trailingSlash: true` + `cleanUrls: true` (неканонічні URL → 308 на форму зі слешем, без дублів
   для сканування). **Наслідок:** виклики API теж треба робити зі слешем (`/api/subscribe/`), інакше кожен
-  запит коштує зайвий 308, а one-click POST від поштового клієнта може за ним і не піти. `comments.v1.js`
+  запит коштує зайвий 308, а one-click POST від поштового клієнта може за ним і не піти. Те саме з `source`
+  кожного rewrite під `/api/*`: 308 спрацьовує раніше за rewrites, тож безслешевий source не матчиться ніколи
+  (проксі Plausible мовчав так 21.09–12.10.2026) `[enforced: tests/policy.test.js]`. `comments.v1.js`
   досі ходить без слеша (працює через редирект); виправити — разом із наступним бампом до `v2`
   rewrites Plausible; immutable-кеш `/fonts/*`, `/js/*.v1.js`; headers `/feed.xml` і `/:section/feed.xml`;
   crons: очистка коментарів (3:00) і підписників (3:30).

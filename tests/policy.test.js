@@ -120,6 +120,26 @@ describe('policy: scheduled jobs', () => {
   });
 });
 
+describe('policy: trailing slash on /api/*', () => {
+  const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
+
+  it('every /api/ rewrite source ends with a slash — redirects run before rewrites', () => {
+    // trailingSlash:true answers /api/event with a 308 to /api/event/ before any rewrite is tried, so a
+    // slashless source never matches and the slashed URL falls through to a 404 (Plausible, 2026-09-21).
+    const api = vercel.rewrites.filter((r) => r.source.startsWith('/api/'));
+    expect(api.length, 'the Plausible proxy is expected among the rewrites').toBeGreaterThan(0);
+    for (const r of api) expect(r.source, `${r.source} is shadowed by the 308`).toMatch(/\/$/);
+  });
+
+  it('the Plausible snippet on every page posts to the slashed proxy', () => {
+    const snippets = pages.flatMap((p) =>
+      [...p.html.matchAll(/\bdata-api\s*=\s*["']([^"']*)["']/gi)].map((m) => ({ rel: p.rel, api: m[1] }))
+    );
+    expect(snippets.length, 'every page carries the Plausible snippet').toBe(pages.length);
+    for (const s of snippets) expect(s.api, s.rel).toBe('/api/event/');
+  });
+});
+
 describe('embedded videos', () => {
   const ld = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
     .map((m) => m[1]).join('\n');
