@@ -550,7 +550,7 @@ describe('public/ (integration)', () => {
     };
     expect(size('f1-pre', 'cta-links')).toEqual([22, 25]);
     expect(size('f1-done', 'cta-links')).toEqual([17, 19]);
-    expect(size('f1-done', 'hub-links')).toEqual([5, 5]);
+    expect(size('f1-done', 'hub-links')).toEqual([6, 6]);
     for (const phase of ['f1-pre', 'f1-done']) expect(size(phase, 'contact-links')).toEqual([2, 3]);
   });
 

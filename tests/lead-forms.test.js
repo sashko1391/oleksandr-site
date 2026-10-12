@@ -30,11 +30,12 @@ const shared = readFileSync(join(PUBLIC, 'js', 'lead-form.v1.js'), 'utf8');
 const formTags = (html) => html.match(/<form[^>]+data-lead-form[^>]*>/gi) ?? [];
 
 describe('lead forms', () => {
-  it('there are exactly seven of them: /services/, five landings and the /pricing/ brief', () => {
+  it('there are exactly eight of them: /services/, six landings and the /pricing/ brief', () => {
     expect(formPages.map((p) => p.rel).sort()).toEqual([
       'pricing/index.html',
       'services/ai/index.html',
       'services/index.html',
+      'services/internet-magazyn/index.html',
       'services/kyiv/index.html',
       'services/landing/index.html',
       'services/nextjs/index.html',

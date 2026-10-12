@@ -89,7 +89,7 @@ describe('/services/ page contract', () => {
     expect(section('contact')).toMatch(/<button type="submit"[^>]*>Обговорити проєкт<\/button>/);
   });
 
-  it('describes in JSON-LD only what is visible: collection, 5 services, breadcrumbs', () => {
+  it('describes in JSON-LD only what is visible: collection, its services, breadcrumbs', () => {
     const [collection] = nodes('CollectionPage');
     expect(collection.url).toBe(`${SITE}/services/`);
     expect(collection.about).toEqual({ '@id': BUSINESS_ID });

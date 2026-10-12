@@ -66,6 +66,7 @@ describe('FAQ schema', () => {
       'pricing/index.html',
       'services/ai/index.html',
       'services/index.html',
+      'services/internet-magazyn/index.html',
       'services/kyiv/index.html',
       'services/landing/index.html',
       'services/nextjs/index.html',

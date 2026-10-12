@@ -68,7 +68,7 @@ const CTA_AFTER = {
 
 /** Notes under the landing forms link the hub instead of sending people to another form (plan v3). */
 const HUB_LINKS = Object.fromEntries(
-  ['ai', 'kyiv', 'landing', 'nextjs', 'redesign'].map((slug) => [`services/${slug}/index.html`, ['сторінці послуг']])
+  ['ai', 'internet-magazyn', 'kyiv', 'landing', 'nextjs', 'redesign'].map((slug) => [`services/${slug}/index.html`, ['сторінці послуг']])
 );
 
 /** R2 of Ф1: «напишіть мені» error-report links in Parkinson posts (3 in 2 files). */
@@ -235,8 +235,9 @@ const BLOG_CRUMB = { pages: /^blog\/[^/]+\/index\.html$/, name: 'Блог', item
  */
 const ID_COUNTS = {
   [`${SITE}/#business`]: {
-    'services/index.html': 7, // the one definition + CollectionPage.about + provider of 5 services
+    'services/index.html': 8, // the one definition + CollectionPage.about + provider of 6 services
     'services/ai/index.html': 1, // the landings only reference it
+    'services/internet-magazyn/index.html': 1,
     'services/kyiv/index.html': 1,
     'services/landing/index.html': 1,
     'services/nextjs/index.html': 1,
