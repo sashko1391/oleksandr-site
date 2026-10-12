@@ -69,7 +69,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 29 файлів, 495 тестів: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 29 файлів, 502 тести: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
     subscribe, subscribe-ui, comments-ui, register-post, db-schema]`
@@ -106,9 +106,10 @@
 ```
 public/
 ├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
-├── 404.html (noindex) · robots.txt · sitemap.xml (60 URL) · feed.xml (RSS усього сайту)
+├── 404.html (noindex) · robots.txt · sitemap.xml (65 URL) · feed.xml (RSS усього сайту)
 ├── journal/              ← «Журнал»: index (стрічка всіх 25 постів + фільтр жанрів, посилання на хаби)
 ├── journal/{slug}/       ← 25 постів: есеї, оповідання, пісні, щоденник, подорожі, рубрика Паркінсон
+├── journal/vidbiy/{part}/ ← 5 сторінок повісті «Відбій»: largo, andante, allegro, presto, koda
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
 ├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
 ├── blog/                 ← архів усіх статей (Ф2, не в меню)
@@ -119,7 +120,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v2.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (29 файлів, 495 тестів) · db/ (міграції + `README.md`) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (29 файлів, 502 тести) · db/ (міграції + `README.md`) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
