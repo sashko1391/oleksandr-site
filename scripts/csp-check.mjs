@@ -40,7 +40,7 @@ export function stubKind(url, base) {
   const u = new URL(url);
   const host = u.hostname;
   if (u.origin === new URL(base).origin && (u.pathname.startsWith('/api/event') || u.pathname.startsWith('/api/lead'))) return 'beacon';
-  if (/(^|\.)(google-analytics\.com|analytics\.google\.com|doubleclick\.net)$/.test(host)) return 'beacon';
+  if (/(^|\.)(google-analytics\.com|analytics\.google\.com|doubleclick\.net|googlesyndication\.com|googleadservices\.com)$/.test(host)) return 'beacon';
   if (/^(www\.)?google\.[a-z]{2,3}(\.[a-z]{2})?$/.test(host)) return 'beacon'; // Google Signals on any country domain
   if (host === 'c.bing.com') return 'beacon';
   // Clarity: only the tag and the recorder script are code; every other *.clarity.ms request (uploads, the c.gif

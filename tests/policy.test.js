@@ -218,9 +218,13 @@ describe('policy: security headers', () => {
     expect(allows('connect-src', 'https://region1.google-analytics.com')).toBe(true);
     // GA4 also collects on the bare domain, which a *.analytics.google.com wildcard does not cover (check:csp, 2026-10-12)
     expect(allows('connect-src', 'https://analytics.google.com')).toBe(true);
-    expect(allows('connect-src', 'https://stats.g.doubleclick.net')).toBe(true); // Google Signals
-    expect(allows('connect-src', 'https://www.google.com')).toBe(true); // the tag's conversion ping
-    expect(allows('img-src', 'https://www.google.com.ua')).toBe(true); // Signals audiences, on the visitor's country domain
+    // with ad consent denied, the Ads conversion of a lead is a cookieless ping to one fixed host
+    expect(allows('connect-src', 'https://pagead2.googlesyndication.com')).toBe(true);
+    expect(allows('img-src', 'https://pagead2.googlesyndication.com')).toBe(true); // the image fallback, other browsers
+    // …and nothing of Signals: no doubleclick, no Google domain of any country (consent default, D10)
+    for (const origin of ['https://stats.g.doubleclick.net', 'https://www.google.com', 'https://www.google.com.ua']) {
+      expect(allows('connect-src', origin) || allows('img-src', origin), origin).toBe(false);
+    }
     expect(allows('script-src', 'https://www.clarity.ms')).toBe(true); // the tag
     expect(allows('script-src', 'https://scripts.clarity.ms')).toBe(true); // the recorder it loads
     expect(allows('connect-src', 'https://x.clarity.ms')).toBe(true); // the upload
@@ -230,6 +234,28 @@ describe('policy: security headers', () => {
     expect(allows('media-src', 'self')).toBe(true); // /audio/*.mp3, /video/*.mp4
     const worker = code.some(({ text }) => text.includes('workers.dev'));
     expect(allows('connect-src', 'https://oleksandr-site.sashko1391.workers.dev'), 'the lead Worker, while anything calls it').toBe(worker);
+  });
+});
+
+describe('policy: analytics without ad signals', () => {
+  // No ads are run or planned. With ad consent denied by default GA4 still counts pages, but sends nothing to
+  // doubleclick and nothing to the visitor's country Google domain (google.de, google.pl…), which no CSP could list
+  // in full. allow_google_signals:false in config was tried first and changed nothing (check:csp, 2026-10-12).
+  it('every page denies ad storage, ad user data and ad personalisation before GA4 starts', () => {
+    for (const p of pages) {
+      const snippet = p.html.match(/gtag\(\s*["']consent["'][\s\S]*?gtag\(\s*["']config["']/)?.[0];
+      expect(snippet, `${p.rel}: consent default must come before js/config`).toBeTruthy();
+      const defaults = snippet.match(/gtag\(\s*["']consent["']\s*,\s*["']default["']\s*,\s*\{([^}]*)\}/)?.[1] ?? '';
+      for (const key of ['ad_storage', 'ad_user_data', 'ad_personalization']) {
+        expect(defaults, `${p.rel}: ${key}`).toMatch(new RegExp(`${key}:\\s*["']denied["']`));
+      }
+      expect(defaults, `${p.rel}: page analytics itself stays on`).not.toMatch(/analytics_storage:\s*["']denied["']/);
+      // one default, and exactly in this order: consent, then js, then config — later commands see the default
+      const at = (re) => p.html.search(re);
+      expect((p.html.match(/gtag\(\s*["']consent["']\s*,\s*["']default["']/g) || []).length, p.rel).toBe(1);
+      expect(at(/gtag\(\s*["']consent["']/), p.rel).toBeLessThan(at(/gtag\(\s*["']js["']/));
+      expect(at(/gtag\(\s*["']js["']/), p.rel).toBeLessThan(at(/gtag\(\s*["']config["']/));
+    }
   });
 });
 

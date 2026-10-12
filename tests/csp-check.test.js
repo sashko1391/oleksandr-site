@@ -10,6 +10,7 @@ describe('csp-check: what never reaches the network', () => {
     ['https://analytics.google.com/g/collect?v=2&tid=G-X', 'GA4 collect on the bare domain'],
     ['https://region1.google-analytics.com/g/collect?v=2', 'GA4 regional collect'],
     ['https://stats.g.doubleclick.net/g/collect?v=2', 'Google Signals'],
+    ['https://pagead2.googlesyndication.com/measurement/conversion?en=generate_lead', 'an Ads conversion of a lead'],
     ['https://www.google.com/ccm/collect?en=page_view', 'the tag conversion ping'],
     ['https://www.google.com.ua/ads/ga-audiences?v=1', 'Signals audiences, Ukraine'],
     ['https://www.google.de/ads/ga-audiences?v=1', 'Signals audiences, any other country'],

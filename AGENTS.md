@@ -12,6 +12,11 @@
 - Static HTML без build step (Astro — фаза Ф6); хостинг Vercel (`vercel.json`); деплой = `git push` у `main`.
 - Домен parkinsandr.tech; мова контенту — українська, код і конфіги — англійська; гео — Київська область.
 - Аналітика: GA4 `G-Y891WWYE79`, Microsoft Clarity `w7i1iwx0ah`, Plausible (first-party проксі `/js/script.js` + `/api/event/`).
+  GA4 — без рекламних cookie, персоналізації й Google Signals: `gtag("consent","default",…)` відмовляє `ad_storage`,
+  `ad_user_data`, `ad_personalization` до `js`/`config` (реклами немає; Signals слав би пікселі на країнові домени
+  Google, яких CSP не перелічить) `[enforced: tests/policy.test.js]`. Новий пост клонує сніпет разом із цим рядком.
+  Конверсії Google Ads із лід-форм лишаються: без cookie й неперсоналізовані (`npa=1`), але з URL сторінки, referrer
+  і User-Agent, на `pagead2.googlesyndication.com`. Прибрати й їх — відвʼязати Google Ads в адмінці GA4 і цей хост із CSP.
 - Підписка: RSS (загальний + по розділах), публічний Telegram-канал `@parkinsandr` (`t.me/parkinsandr`,
   URL — константа `TELEGRAM_CHANNEL` у `scripts/link-policy.mjs`) і email через Resend
   (домен `send.parkinsandr.tech`, подвійне підтвердження, таблиця `subscribers`; форма — на 4 хабах).
@@ -69,7 +74,7 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 30 файлів, 527 тестів: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 30 файлів, 529 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
     subscribe, subscribe-ui, comments-ui, register-post, db-schema, csp-check]`
@@ -120,7 +125,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v2.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (14) · tests/ (30 файлів, 527 тестів) · db/ (міграції + `README.md`) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (14) · tests/ (30 файлів, 529 тестів) · db/ (міграції + `README.md`) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
