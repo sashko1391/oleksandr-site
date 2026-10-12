@@ -120,6 +120,119 @@ describe('policy: scheduled jobs', () => {
   });
 });
 
+describe('policy: security headers', () => {
+  const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
+  const rule = vercel.headers[0];
+  const header = (key) => rule.headers.find((h) => h.key.toLowerCase() === key.toLowerCase())?.value;
+  const cspKey = rule.headers.map((h) => h.key).find((k) => /^Content-Security-Policy(-Report-Only)?$/.test(k));
+  /** 'script-src a b; img-src c' → { 'script-src': ['a', 'b'], 'img-src': ['c'] } */
+  const csp = Object.fromEntries(
+    (header(cspKey ?? '') ?? '').split(';').map((d) => d.trim()).filter(Boolean)
+      .map((d) => { const [name, ...values] = d.split(/\s+/); return [name, values]; })
+  );
+  /** Does a CSP source list allow this origin? Handles 'self', exact origins and https://*.host wildcards. */
+  const allows = (directive, origin) => {
+    const list = csp[directive] ?? csp['default-src'] ?? [];
+    if (origin === 'self') return list.includes("'self'");
+    const { protocol, hostname } = new URL(origin);
+    return list.some((src) => {
+      const m = src.match(/^(https?:)\/\/(\*\.)?([^/:]+)$/);
+      if (!m || m[1] !== protocol) return false;
+      return m[2] ? hostname.endsWith(`.${m[3]}`) : hostname === m[3];
+    });
+  };
+  /** Executable code of the site: inline <script> bodies (not JSON-LD, not src=) and the first-party /js files. */
+  const code = [
+    ...pages.flatMap((p) =>
+      [...p.html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+        .filter((m) => !/\bsrc\s*=/.test(m[1]) && !/application\/ld\+json/.test(m[1]))
+        .map((m) => ({ where: `${p.rel} (inline)`, text: m[2] }))
+    ),
+    ...readdirSync(join(PUBLIC, 'js')).filter((n) => n.endsWith('.js'))
+      .map((n) => ({ where: `js/${n}`, text: readFileSync(join(PUBLIC, 'js', n), 'utf8') })),
+  ];
+  const originsIn = (text) => [...text.matchAll(/https:\/\/[a-z0-9.-]+\.[a-z]{2,}/gi)].map((m) => m[0].toLowerCase());
+
+  it('one rule covers every page and skips /api/, whose functions set their own (no-referrer on token pages)', () => {
+    expect(rule.source).toBe('/((?!api/).*)');
+    const keys = rule.headers.map((h) => h.key.toLowerCase());
+    for (const other of vercel.headers.slice(1)) {
+      for (const h of other.headers) expect(keys, `${other.source} must not override ${h.key}`).not.toContain(h.key.toLowerCase());
+    }
+  });
+
+  it('sets the fixed headers to exactly these values', () => {
+    expect(header('X-Content-Type-Options')).toBe('nosniff');
+    expect(header('X-Frame-Options')).toBe('DENY');
+    expect(header('Referrer-Policy')).toBe('strict-origin-when-cross-origin');
+    // only features Chrome knows: an unknown one (interest-cohort) is a console error on every page
+    expect(header('Permissions-Policy')).toBe('camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+  });
+
+  it('carries exactly one CSP, and Report-Only has none of the directives it would ignore with a console error', () => {
+    const csps = rule.headers.filter((h) => /^Content-Security-Policy/i.test(h.key));
+    expect(csps).toHaveLength(1);
+    if (cspKey === 'Content-Security-Policy-Report-Only') {
+      for (const d of ['frame-ancestors', 'upgrade-insecure-requests', 'sandbox']) expect(csp[d], d).toBeUndefined();
+    } else {
+      // enforce: the two directives report-only had to leave out (plan, step 3) must be back
+      expect(csp['frame-ancestors']).toEqual(["'none'"]);
+      expect(csp['upgrade-insecure-requests']).toEqual([]);
+    }
+  });
+
+  it('is strict where it can be: no wildcards, no http:, no eval, no plugins, no foreign <base> or form target', () => {
+    for (const [name, values] of Object.entries(csp)) {
+      for (const v of values) {
+        expect(v, name).not.toBe('*');
+        expect(v, name).not.toMatch(/^http:/);
+        expect(v, name).not.toBe("'unsafe-eval'");
+      }
+    }
+    expect(csp['default-src']).toEqual(["'self'"]);
+    expect(csp['object-src']).toEqual(["'none'"]);
+    expect(csp['base-uri']).toEqual(["'self'"]);
+    expect(csp['form-action']).toEqual(["'self'"]);
+  });
+
+  it('allows every external script the pages load, and every origin their code talks to', () => {
+    const scripts = pages.flatMap((p) =>
+      [...p.html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["'](https:\/\/[^/"']+)/gi)].map((m) => ({ where: p.rel, origin: m[1] }))
+    );
+    expect(scripts.length).toBeGreaterThan(0);
+    for (const s of scripts) expect(allows('script-src', s.origin), `${s.where}: ${s.origin}`).toBe(true);
+    // A literal origin in executable code is fetched, framed or injected as a script somewhere: one of the
+    // fetch directives must name it. (Link targets live in HTML attributes, not in code, so none are caught here.)
+    const fetchers = ['script-src', 'connect-src', 'frame-src', 'img-src', 'media-src'];
+    const missing = [];
+    for (const { where, text } of code) {
+      for (const origin of originsIn(text)) {
+        if (!fetchers.some((d) => allows(d, origin))) missing.push(`${where}: ${origin}`);
+      }
+    }
+    expect([...new Set(missing)]).toEqual([]);
+  });
+
+  it('names each third party in the directive it actually needs', () => {
+    expect(allows('script-src', 'https://www.googletagmanager.com')).toBe(true);
+    expect(allows('connect-src', 'https://region1.google-analytics.com')).toBe(true);
+    // GA4 also collects on the bare domain, which a *.analytics.google.com wildcard does not cover (check:csp, 2026-10-12)
+    expect(allows('connect-src', 'https://analytics.google.com')).toBe(true);
+    expect(allows('connect-src', 'https://stats.g.doubleclick.net')).toBe(true); // Google Signals
+    expect(allows('connect-src', 'https://www.google.com')).toBe(true); // the tag's conversion ping
+    expect(allows('img-src', 'https://www.google.com.ua')).toBe(true); // Signals audiences, on the visitor's country domain
+    expect(allows('script-src', 'https://www.clarity.ms')).toBe(true); // the tag
+    expect(allows('script-src', 'https://scripts.clarity.ms')).toBe(true); // the recorder it loads
+    expect(allows('connect-src', 'https://x.clarity.ms')).toBe(true); // the upload
+    expect(allows('script-src', 'https://challenges.cloudflare.com')).toBe(true); // Turnstile api.js
+    expect(allows('frame-src', 'https://challenges.cloudflare.com')).toBe(true); // …and its widget
+    expect(allows('frame-src', 'https://www.youtube-nocookie.com')).toBe(true); // the video facade
+    expect(allows('media-src', 'self')).toBe(true); // /audio/*.mp3, /video/*.mp4
+    const worker = code.some(({ text }) => text.includes('workers.dev'));
+    expect(allows('connect-src', 'https://oleksandr-site.sashko1391.workers.dev'), 'the lead Worker, while anything calls it').toBe(worker);
+  });
+});
+
 describe('policy: trailing slash on /api/*', () => {
   const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'));
 

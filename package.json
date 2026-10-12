@@ -8,7 +8,8 @@
     "check:links": "node scripts/check-links.mjs",
     "smoke:forms": "node scripts/smoke-forms.mjs",
     "announce": "node scripts/announce.mjs",
-    "register:post": "node scripts/register-post.mjs"
+    "register:post": "node scripts/register-post.mjs",
+    "check:csp": "node scripts/csp-check.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.34.3",

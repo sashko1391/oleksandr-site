@@ -332,6 +332,23 @@ describe('/api/subscribe/confirm', () => {
     expect(sqlMock, 'a prefetching mail scanner must not confirm anything').not.toHaveBeenCalled();
   });
 
+  it('the token pages carry their own strict CSP — nothing loads, only their own form posts', async () => {
+    // vercel.json keeps its site-wide headers off /api/, so these pages must set their own.
+    for (const handler of [confirmHandler, unsubscribeHandler]) {
+      const res = mockRes();
+      await handler({ method: 'GET', query: { token }, headers: {} }, res);
+      const csp = res.headers['Content-Security-Policy'];
+      expect(csp, handler.name).toContain("default-src 'none'");
+      expect(csp).toContain("style-src 'unsafe-inline'"); // the page's own <style>
+      expect(csp).toContain("form-action 'self'"); // the confirm / unsubscribe button
+      expect(csp).toContain("frame-ancestors 'none'");
+      expect(csp).toContain("base-uri 'none'");
+      expect(csp, 'no script runs on a page that holds a token').not.toMatch(/script-src/);
+      expect(res.headers['X-Content-Type-Options']).toBe('nosniff');
+      expect(res.headers['Referrer-Policy']).toBe('no-referrer');
+    }
+  });
+
   it('GET does not leak the token through the Referer or into a cache', async () => {
     const res = mockRes();
     await confirmHandler({ method: 'GET', query: { token }, headers: {} }, res);

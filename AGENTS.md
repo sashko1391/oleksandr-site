@@ -69,10 +69,10 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 29 файлів, 502 тести: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 30 файлів, 527 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
-    subscribe, subscribe-ui, comments-ui, register-post, db-schema]`
+    subscribe, subscribe-ui, comments-ui, register-post, db-schema, csp-check]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -120,7 +120,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v2.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (29 файлів, 502 тести) · db/ (міграції + `README.md`) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (14) · tests/ (30 файлів, 527 тестів) · db/ (міграції + `README.md`) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -144,6 +144,11 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 - `npm run smoke:forms [-- --screenshots <dir>]` — браузерний smoke всіх 7 лід-форм: успіх, відмова воркера,
   без JavaScript + специфіка `/services/` + форма коментарів на пості (слеш в API, таймаут, збій і відновлення
   Turnstile). Playwright + системний Chrome; воркер, API коментарів і Turnstile підмінено; не входить у `npm test`
+- `npm run check:csp [-- --local | --base <url> | --only <path>]` — браузерна перевірка CSP: усі сторінки sitemap
+  і реальна 404, коментарі й підписка з Turnstile, відео-фасад, лід-форма; падає на будь-якому порушенні чи зламаному
+  заголовку, а також коли інтеграція сторінки (GA, Clarity, Plausible, Turnstile, YouTube, форма) так і не відпрацювала.
+  Маяки, воркер, плеєр YouTube і медіа підмінено вже після перевірки CSP — без хітів і заявок
+  `[enforced: tests/csp-check.test.js]`; не входить у `npm test`
 - `npm run register:post -- <розділ/slug> [--dry]` — реєструє slug у таблиці `posts` (інакше коментарі
   віддають 404); `DATABASE_URL` — з gitignored `.env`, сторінка має існувати, повтор безпечний
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
@@ -182,6 +187,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
   кожного rewrite під `/api/*`: 308 спрацьовує раніше за rewrites, тож безслешевий source не матчиться ніколи
   (проксі Plausible мовчав так 21.09–12.10.2026) `[enforced: tests/policy.test.js]`.
   rewrites Plausible; immutable-кеш `/fonts/*` і кожного `/js/<name>.vN.js` (правило на файл); headers `/feed.xml` і `/:section/feed.xml`;
+  **перше** правило `headers` — security-заголовки на все, крім `/api/` (CSP поки Report-Only; перед зміною політики —
+  `npm run check:csp -- --local`); сторінки з токеном у функціях ставлять свій суворіший CSP `[enforced: tests/policy.test.js]`;
   crons: очистка коментарів (3:00) і підписників (3:30).
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.
