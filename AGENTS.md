@@ -192,8 +192,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (14) · tests/ (3
   кожного rewrite під `/api/*`: 308 спрацьовує раніше за rewrites, тож безслешевий source не матчиться ніколи
   (проксі Plausible мовчав так 21.09–12.10.2026) `[enforced: tests/policy.test.js]`.
   rewrites Plausible; immutable-кеш `/fonts/*` і кожного `/js/<name>.vN.js` (правило на файл); headers `/feed.xml` і `/:section/feed.xml`;
-  **перше** правило `headers` — security-заголовки на все, крім `/api/` (CSP поки Report-Only; перед зміною політики —
-  `npm run check:csp -- --local`); сторінки з токеном у функціях ставлять свій суворіший CSP `[enforced: tests/policy.test.js]`;
+  **перше** правило `headers` — security-заголовки на все, крім `/api/` (CSP блокує з 2026-10-12; перед зміною політики —
+  `npm run check:csp -- --local`, після деплою — `npm run check:csp`); сторінки з токеном у функціях ставлять свій суворіший CSP `[enforced: tests/policy.test.js]`;
   crons: очистка коментарів (3:00) і підписників (3:30).
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.

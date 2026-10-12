@@ -64,7 +64,12 @@ const LOCAL_HOST = 'csp-check.test';
 function serveLocal() {
   const vercel = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8'));
   const rule = vercel.headers[0];
-  const headers = Object.fromEntries(rule.headers.map((h) => [h.key, h.value]));
+  // upgrade-insecure-requests would rewrite every request of this http:// copy to https:// and break it; on the
+  // real https site it upgrades nothing, so dropping it here changes nothing the check is about.
+  const headers = Object.fromEntries(rule.headers.map((h) => [
+    h.key,
+    /^Content-Security-Policy$/i.test(h.key) ? h.value.replace(/;\s*upgrade-insecure-requests\b/, '') : h.value,
+  ]));
   let plausible = null; // vercel.json rewrites /js/script.js to Plausible; do the same, fetched once
   const server = createServer(async (req, res) => {
     const path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);

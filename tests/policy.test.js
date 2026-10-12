@@ -169,16 +169,12 @@ describe('policy: security headers', () => {
     expect(header('Permissions-Policy')).toBe('camera=(), microphone=(), geolocation=(), payment=(), usb=()');
   });
 
-  it('carries exactly one CSP, and Report-Only has none of the directives it would ignore with a console error', () => {
+  it('enforces the CSP — a slide back to Report-Only would silently stop blocking', () => {
     const csps = rule.headers.filter((h) => /^Content-Security-Policy/i.test(h.key));
-    expect(csps).toHaveLength(1);
-    if (cspKey === 'Content-Security-Policy-Report-Only') {
-      for (const d of ['frame-ancestors', 'upgrade-insecure-requests', 'sandbox']) expect(csp[d], d).toBeUndefined();
-    } else {
-      // enforce: the two directives report-only had to leave out (plan, step 3) must be back
-      expect(csp['frame-ancestors']).toEqual(["'none'"]);
-      expect(csp['upgrade-insecure-requests']).toEqual([]);
-    }
+    expect(csps.map((h) => h.key)).toEqual(['Content-Security-Policy']);
+    // the two directives Report-Only had to leave out (plan, step 3) are back
+    expect(csp['frame-ancestors']).toEqual(["'none'"]);
+    expect(csp['upgrade-insecure-requests']).toEqual([]);
   });
 
   it('is strict where it can be: no wildcards, no http:, no eval, no plugins, no foreign <base> or form target', () => {
