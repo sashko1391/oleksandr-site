@@ -69,10 +69,10 @@
    дані — лише в gitignored `doc/baseline/`. `[advisory — перевір diff перед комітом]`
 10. **Коміт і push — лише на явне прохання власника** («коміт» / «пуш»). `[advisory]`
 11. **Бекенд коментарів і скрипти змінюються разом із тестами;** `npm test` зелений до коміту.
-    `[enforced: npm test — 28 файлів, 490 тестів: handlers, security, schema, feed, email, policy, links,
+    `[enforced: npm test — 29 файлів, 495 тестів: handlers, security, schema, feed, email, policy, links,
     internal-links, lead-forms, prices, testimonials, claims, faq-schema, images, hubs, nav, homepage,
     parkinson-frame, parkinson-claims, services-page, journal-index, repoint-anchors, announce, announce-email,
-    subscribe, subscribe-ui, comments-ui, register-post]`
+    subscribe, subscribe-ui, comments-ui, register-post, db-schema]`
 12. **Внутрішні посилання цілісні:** кожне same-origin посилання — `href`/`src`/`srcset`/`poster`/`xlink:href`, CSS
     `url()` у `<style>` і `style=""`, абсолютний `<meta content>` (`og:image`), URL у JSON-LD (крім `@id` сутностей;
     `item.@id` breadcrumbs — посилання) — веде на наявний файл у канонічній формі (www, https, зі слешем, без зайвого
@@ -119,7 +119,7 @@ public/
 ├── pricing/ · pro-mene/ (author page) · privacy/
 ├── {parkinson,code,creative,journal}/feed.xml ← фіди розділів (Ф4)
 ├── js/comments.v2.js · js/lead-form.v1.js · js/subscribe.v2.js · fonts/ (woff2) · images/ (WebP + JPG)
-api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (28 файлів, 490 тестів) · db/ (міграції) · doc/
+api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (29 файлів, 495 тестів) · db/ (міграції + `README.md`) · doc/
 ```
 Індексів `/projects/` і `/blog/` немає; кейси й статті для замовників зібрано на `/services/`.
 
@@ -147,7 +147,8 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
   віддають 404); `DATABASE_URL` — з gitignored `.env`, сторінка має існувати, повтор безпечний
 - `scripts/indexnow.sh [paths]` — IndexNow (Bing/Yandex)
 - `scripts/patreon-login.mjs`, `scripts/patreon-fetch.mjs <url>` — імпорт постів із Patreon (Playwright + системний Chrome)
-- `db/*.sql` — міграції Supabase (застосовані; файл лишається як джерело правди схеми)
+- `db/*.sql` — міграції Supabase; порядок відтворення, статус кожного файлу (Applied / Reconstructed / Pending)
+  і як застосувати на прод — у `db/README.md` `[enforced: tests/db-schema.test.js]`
 - `deploy.sh`, `update.sh` — legacy (копіювання з ~/Downloads); фактичний деплой = git push
 
 ## Чек-лист нового поста
@@ -184,8 +185,9 @@ api/ (7 функцій) · lib/ (7 модулів) · scripts/ (13) · tests/ (2
 - Коментарі: `lib/db.js` — `prepare:false`, `ssl:'require'`, `max:1`; `DATABASE_URL` — лише IPv4 transaction pooler;
   зміна env у Vercel потребує редеплою.
 - Postgres (Supabase, ЄС): `posts`, `comments`, `subscribers`, `announcement_deliveries`; міграції — `db/*.sql`
-  (застосовані, файли лишаються джерелом правди схеми). RLS увімкнено без політик: доступ лише через пулер,
-  авторизація в коді функцій.
+  (джерело правди схеми; порядок і статуси — `db/README.md`). RLS увімкнено на всіх таблицях; політики — лише
+  anon-SELECT на `posts` і схвалені `comments` (страховка від витоку anon-ключа). Функції ходять через пулер
+  роллю `postgres` (власник таблиць, `BYPASSRLS`), тож RLS на них не діє, а авторизація — у коді функцій.
 - **Зовнішні залежності можуть тихо померти.** 2026-09-21 виявилося, що безкоштовне сховище Upstash KV зникло —
   і форма коментарів не приймала коментарі **з 11 серпня**, бо лічильники недоступні → fail-closed 503. Перевіряти
   час від часу: `POST /api/comments/` і `POST /api/subscribe/` із завідомо невалідною капчею мають віддавати **400**;

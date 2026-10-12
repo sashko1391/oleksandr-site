@@ -95,6 +95,7 @@ CREATE INDEX idx_comments_created     ON comments(created_at);  -- retention-cro
 -- user_agent ПРИБРАНО: PII без користі для антиспаму (Turnstile ефективніший).
 -- rate-limit НЕ через Postgres COUNT — див. §4.3 (Upstash/Vercel KV).
 ```
+> **Жива схема (2026-10):** `db/2026-07-13-comments-baseline.sql` — відтворено з проду, разом з anon-SELECT політиками; блок вище — історичний задум.
 > **slug-валідація на рівні БД (High-review):** `comments.slug` — FK на `posts(slug)`, тож коментар до неіснуючої сторінки фізично неможливий (жодного bloat-спаму). `posts` сідимо 18 slug-ами; для нового поста — `INSERT` slug (додати в чек-лист публікації). `ON DELETE CASCADE` прибирає коментарі при видаленні статті.
 >
 > **`parent_id` цілісність:** FK недостатньо — у POST-валідації (§4.2) перевіряти: parent існує, `parent.slug = new.slug`, `parent.parent_id IS NULL` (1 рівень), `parent.status='approved'`.
