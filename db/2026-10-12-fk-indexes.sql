@@ -1,4 +1,5 @@
--- Pending: apply by hand with psql (db/README.md), never inside a transaction — CONCURRENTLY refuses to run in one.
+-- Applied 2026-10-12 through psql and the session pooler. To re-run: by hand with psql (db/README.md), never inside
+-- a transaction — CONCURRENTLY refuses to run in one.
 -- Covering indexes for the two foreign keys that had none (Supabase advisor «unindexed_foreign_keys», 2026-10-10),
 -- and the (ip_hash, created_at) index nothing reads since the comment rate limit moved to KV. The two «unused»
 -- indexes on subscribers stay: removing them is not worth a migration on a table of a few rows.

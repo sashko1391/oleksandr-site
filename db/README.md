@@ -10,7 +10,7 @@
 | 2 | `2026-09-21-subscribers.sql` | Applied 2026-09-21 |
 | 3 | `2026-09-21-subscribers-retention.sql` | Applied 2026-09-21 |
 | 4 | `2026-09-21-announcement-deliveries.sql` | Applied 2026-09-21 |
-| 5 | `2026-10-12-fk-indexes.sql` | Pending |
+| 5 | `2026-10-12-fk-indexes.sql` | Applied 2026-10-12 |
 
 - **Applied `<дата>`** — цей файл застосовано на прод того дня.
 - **Reconstructed `<дата>`** — таблиці створено раніше вручну; файл того дня відтворено з живої схеми.
