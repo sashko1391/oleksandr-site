@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Mon, 12 Oct 2026 02:40:51 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 17:28:44 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — журнал і не тільки</title>
@@ -15,6 +15,16 @@
       <width>144</width>
       <height>144</height>
     </image>
+    <item>
+      <title><![CDATA[Взаємодопомога: сусідська допомога взимку — пілот в одній громаді]]></title>
+      <link>https://www.parkinsandr.tech/blog/vzaiemodopomoha/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/vzaiemodopomoha/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Код]]></category>
+      <pubDate>Tue, 13 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Пілот сусідської взаємодопомоги на зиму: тепло й зарядка, дрова, техніка на позичку і щоденна перевірка самотніх. Шукаю громаду-партнера.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/vzaiemodopomoha/og.jpg" type="image/jpeg" length="101054"/>
+    </item>
     <item>
       <title><![CDATA[Укрпошта в Medusa: пастки, яких немає в документації]]></title>
       <link>https://www.parkinsandr.tech/blog/ukrposhta-medusa/</link>
@@ -304,16 +314,6 @@
       <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Як створити персонального AI-помічника як Джарвіс із Залізної людини. Реальний проєкт: 30+ AI-інструментів, голосове управління, трекер здоров'я.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
-    </item>
-    <item>
-      <title><![CDATA[Devlog: Empire Online — браузерна бізнес-MMO]]></title>
-      <link>https://www.parkinsandr.tech/blog/devlog-empire-online/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/devlog-empire-online/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Як я будую мультиплеєрну бізнес-симуляцію з політикою, коаліціями та сезонами.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/empire-online.webp" type="image/webp" length="31426"/>
     </item>
   </channel>
 </rss>

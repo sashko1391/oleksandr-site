@@ -151,6 +151,7 @@ export const HUB_MEMBERS = {
     name: 'Код',
     primary: [
       'blog/ukrposhta-medusa/index.html',
+      'blog/vzaiemodopomoha/index.html',
       'blog/devlog-business-empire-idle/index.html',
       'blog/devlog-empire-online/index.html',
       'blog/jarvis-ai-assistant/index.html',
@@ -182,6 +183,7 @@ export const HUB_MEMBERS = {
     also: [
       'blog/chek-list-zamovlennya-sajtu/index.html',
       'blog/ukrposhta-medusa/index.html',
+      'blog/vzaiemodopomoha/index.html',
       'blog/devlog-business-empire-idle/index.html',
       'blog/devlog-empire-online/index.html',
       'blog/getting-cited-ai-poshuk/index.html',

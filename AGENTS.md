@@ -111,14 +111,14 @@
 ```
 public/
 ├── index.html            ← головна: особиста (Ф3) — інтро + свіжі пости 4 розділів + один блок про роботу
-├── 404.html (noindex) · robots.txt · sitemap.xml (66 URL) · feed.xml (RSS усього сайту)
+├── 404.html (noindex) · robots.txt · sitemap.xml (67 URL) · feed.xml (RSS усього сайту)
 ├── journal/              ← «Журнал»: index (стрічка всіх 25 постів + фільтр жанрів, посилання на хаби)
 ├── journal/{slug}/       ← 25 постів: есеї, оповідання, пісні, щоденник, подорожі, рубрика Паркінсон
 ├── journal/vidbiy/{part}/ ← 5 сторінок повісті «Відбій»: largo, andante, allegro, presto, koda
 ├── parkinson/            ← хаб рубрики (Ф2) + `redaktsiina-polityka/` — редполітика рубрики
 ├── code/ · creative/     ← хаби «Код» і «Творчість» (Ф2)
 ├── blog/                 ← архів усіх статей (Ф2, не в меню)
-├── blog/{slug}/          ← 13 статей: 6 для замовників, devlog-и, AI/SEO-кейси, кейс доставки
+├── blog/{slug}/          ← 14 статей: 6 для замовників, devlog-и, AI/SEO-кейси, кейс доставки, пілот «Взаємодопомога»
 ├── services/             ← хаб `/services/` (Ф1: послуги, кейси, ціни, FAQ, форма `#contact`)
 ├── services/{slug}/      ← 6 лендингів: nextjs, landing, internet-magazyn, ai, redesign, kyiv
 ├── projects/{slug}/      ← 6 кейсів
