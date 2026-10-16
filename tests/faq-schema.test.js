@@ -60,6 +60,7 @@ describe('FAQ schema', () => {
       'blog/seo-bez-reklamy-keis-atlas/index.html',
       'blog/skilky-koshtuye-sajt/index.html',
       'blog/tilda-vs-webflow-vs-kastom/index.html',
+      'blog/vzaiemodopomoha/index.html',
       'blog/yak-zamovyty-sajt/index.html',
       'journal/parkinson-shcho-robyty/index.html',
       'journal/rannii-parkinsonizm/index.html',
