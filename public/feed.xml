@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Fri, 16 Oct 2026 07:36:59 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 02:17:26 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — журнал і не тільки</title>
@@ -306,13 +306,13 @@
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
     </item>
     <item>
-      <title><![CDATA[Як я створив свого Джарвіса — AI-помічник із фільму в реальність]]></title>
+      <title><![CDATA[Як я створив свого Джарвіса — і чому ним став Claude Code]]></title>
       <link>https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</link>
       <guid isPermaLink="true">https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</guid>
       <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
       <category><![CDATA[Блог]]></category>
       <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Як створити персонального AI-помічника як Джарвіс із Залізної людини. Реальний проєкт: 30+ AI-інструментів, голосове управління, трекер здоров'я.]]></description>
+      <description><![CDATA[Мій Джарвіс у 2026 — Claude Code: веде 13 проєктів, стежить за ноутбуком, здоров'ям і списком справ. Що працює, що ні і чому я закрив власний додаток.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
     </item>
   </channel>
