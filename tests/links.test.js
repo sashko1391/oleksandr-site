@@ -364,6 +364,7 @@ const F2_INVENTORY = {
   'journal/vira-i-religiya-2/index.html': 'Журнал',
   'journal/bytva-tserkov/index.html': 'Журнал',
   'journal/pamyati-maksyma-babaka/index.html': 'Журнал',
+  'blog/chyste-nebo/index.html': 'Код',
   'blog/ukrposhta-medusa/index.html': 'Код',
   'blog/vzaiemodopomoha/index.html': 'Код',
   'blog/devlog-business-empire-idle/index.html': 'Код',
@@ -411,6 +412,7 @@ const F2_ALSO = {
   ],
   'services/': [],
   'blog/': [ // the archive lists every article
+    'blog/chyste-nebo/index.html',
     'blog/ukrposhta-medusa/index.html',
     'blog/vzaiemodopomoha/index.html',
     'blog/chek-list-zamovlennya-sajtu/index.html', 'blog/devlog-business-empire-idle/index.html',

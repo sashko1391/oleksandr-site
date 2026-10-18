@@ -150,6 +150,7 @@ export const HUB_MEMBERS = {
   'code/': {
     name: 'Код',
     primary: [
+      'blog/chyste-nebo/index.html',
       'blog/ukrposhta-medusa/index.html',
       'blog/vzaiemodopomoha/index.html',
       'blog/devlog-business-empire-idle/index.html',
@@ -182,6 +183,7 @@ export const HUB_MEMBERS = {
     primary: [], // the archive owns nothing: it lists every article
     also: [
       'blog/chek-list-zamovlennya-sajtu/index.html',
+      'blog/chyste-nebo/index.html',
       'blog/ukrposhta-medusa/index.html',
       'blog/vzaiemodopomoha/index.html',
       'blog/devlog-business-empire-idle/index.html',
