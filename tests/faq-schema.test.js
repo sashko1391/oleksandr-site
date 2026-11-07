@@ -54,7 +54,6 @@ const faqPages = pages.flatMap((p) => {
 describe('FAQ schema', () => {
   it('the pages that declare a FAQ are the ones that show one', () => {
     expect(faqPages.map((p) => p.rel).sort()).toEqual([
-      'blog/chek-list-zamovlennya-sajtu/index.html',
       'blog/chyste-nebo/index.html',
       'blog/getting-cited-ai-poshuk/index.html',
       'blog/internal-linking/index.html',

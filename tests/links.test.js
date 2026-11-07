@@ -370,7 +370,6 @@ const F2_INVENTORY = {
   'blog/devlog-business-empire-idle/index.html': 'Код',
   'blog/devlog-empire-online/index.html': 'Код',
   'blog/jarvis-ai-assistant/index.html': 'Код',
-  'blog/chek-list-zamovlennya-sajtu/index.html': 'Послуги',
   'blog/react-vs-tilda/index.html': 'Послуги',
   'blog/skilky-koshtuye-sajt/index.html': 'Послуги',
   'blog/tilda-vs-webflow-vs-kastom/index.html': 'Послуги',
@@ -414,7 +413,7 @@ const F2_ALSO = {
     'blog/chyste-nebo/index.html',
     'blog/ukrposhta-medusa/index.html',
     'blog/vzaiemodopomoha/index.html',
-    'blog/chek-list-zamovlennya-sajtu/index.html', 'blog/devlog-business-empire-idle/index.html',
+    'blog/devlog-business-empire-idle/index.html',
     'blog/devlog-empire-online/index.html', 'blog/getting-cited-ai-poshuk/index.html',
     'blog/internal-linking/index.html', 'blog/jarvis-ai-assistant/index.html',
     'blog/react-vs-tilda/index.html',
@@ -551,9 +550,10 @@ describe('public/ (integration)', () => {
       const files = PHASES[phase].links.find((l) => l.rule === rule).files;
       return [Object.keys(files).length, Object.values(files).flat().length];
     };
-    // 22 files and 25 CTAs at Ф1; the SEO case of Atlas (1 file, 2 CTAs) moved to orditera.com.ua on 2026-11-06.
-    expect(size('f1-pre', 'cta-links')).toEqual([21, 23]);
-    expect(size('f1-done', 'cta-links')).toEqual([16, 17]);
+    // 22 files and 25 CTAs at Ф1; moved to orditera.com.ua: the SEO case of Atlas (1 file, 2 CTAs) on 2026-11-06,
+    // the website-ordering checklist (1 file, 1 CTA) on 2026-11-08.
+    expect(size('f1-pre', 'cta-links')).toEqual([20, 22]);
+    expect(size('f1-done', 'cta-links')).toEqual([15, 16]);
     expect(size('f1-done', 'hub-links')).toEqual([6, 6]);
     for (const phase of ['f1-pre', 'f1-done']) expect(size(phase, 'contact-links')).toEqual([2, 3]);
   });

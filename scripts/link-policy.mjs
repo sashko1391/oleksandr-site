@@ -17,7 +17,6 @@ const CASE = 'Обговорити ваш проєкт';
 
 /** R1 of Ф1 before step 3: commercial chat CTAs, file → anchor texts (25 in 22 files). Unlisted files are unconstrained. */
 const CTA_BEFORE = {
-  'blog/chek-list-zamovlennya-sajtu/index.html': [TALK],
   'blog/devlog-business-empire-idle/index.html': [TALK],
   'blog/devlog-empire-online/index.html': [TALK],
   'blog/getting-cited-ai-poshuk/index.html': [TALK, TALK],
@@ -46,7 +45,6 @@ const CTA_BEFORE = {
  * callout now links a real AI case, so it is no longer a CTA.
  */
 const CTA_AFTER = {
-  'blog/chek-list-zamovlennya-sajtu/index.html': [TALK],
   'blog/devlog-business-empire-idle/index.html': [TALK],
   'blog/devlog-empire-online/index.html': [TALK],
   'blog/getting-cited-ai-poshuk/index.html': [TALK, TALK],
@@ -163,7 +161,6 @@ export const HUB_MEMBERS = {
   'services/': {
     name: 'Послуги',
     primary: [
-      'blog/chek-list-zamovlennya-sajtu/index.html',
       'blog/react-vs-tilda/index.html',
       'blog/skilky-koshtuye-sajt/index.html',
       'blog/tilda-vs-webflow-vs-kastom/index.html',
@@ -178,7 +175,6 @@ export const HUB_MEMBERS = {
     name: 'Блог',
     primary: [], // the archive owns nothing: it lists every article
     also: [
-      'blog/chek-list-zamovlennya-sajtu/index.html',
       'blog/chyste-nebo/index.html',
       'blog/ukrposhta-medusa/index.html',
       'blog/vzaiemodopomoha/index.html',
