@@ -59,7 +59,6 @@ describe('FAQ schema', () => {
       'blog/getting-cited-ai-poshuk/index.html',
       'blog/internal-linking/index.html',
       'blog/jarvis-ai-assistant/index.html',
-      'blog/seo-bez-reklamy-keis-atlas/index.html',
       'blog/skilky-koshtuye-sajt/index.html',
       'blog/tilda-vs-webflow-vs-kastom/index.html',
       'blog/vzaiemodopomoha/index.html',

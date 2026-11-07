@@ -7,7 +7,7 @@
     <description><![CDATA[Есеї, оповідання, щоденники та статті Олександра Кравченка — розробка, життя, дорога.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Sun, 18 Oct 2026 12:45:19 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 05:08:24 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — журнал і не тільки</title>
@@ -144,16 +144,6 @@
       <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[«Поверни мені час» — кліп і пісня, які я зробив за мотивами оповідання «Відділ втраченого часу». Про роки, які хочеться забрати назад.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/poverny-meni-chas/og.jpg" type="image/jpeg" length="64396"/>
-    </item>
-    <item>
-      <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
-      <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[SEO-кейс інтернет-магазину Atlas, якому недоступна реклама: зростання з 3 до 346 кліків у 28-денному вікні Google Search Console, що спрацювало (canonical, картки товарів, FAQ, реальні запити), що не спрацювало (масовий блог, keyword stuffing) і обмеження даних.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/atlas.webp" type="image/webp" length="29630"/>
     </item>
     <item>
       <title><![CDATA[Відділ втраченого часу]]></title>
@@ -313,6 +303,16 @@
       <category><![CDATA[Блог]]></category>
       <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Внутрішня перелінковка та кластерна структура сайту: покрокова інструкція з прикладами.]]></description>
+      <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
+    </item>
+    <item>
+      <title><![CDATA[Як я створив свого Джарвіса — і чому ним став Claude Code]]></title>
+      <link>https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</link>
+      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/jarvis-ai-assistant/</guid>
+      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
+      <category><![CDATA[Блог]]></category>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Мій Джарвіс у 2026 — Claude Code: веде 13 проєктів, стежить за ноутбуком, здоров'ям і списком справ. Що працює, що ні і чому я закрив власний додаток.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/preview.jpg" type="image/jpeg" length="69793"/>
     </item>
   </channel>

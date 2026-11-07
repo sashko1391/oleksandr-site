@@ -376,7 +376,6 @@ const F2_INVENTORY = {
   'blog/tilda-vs-webflow-vs-kastom/index.html': 'Послуги',
   'blog/yak-obrati-rozrobnyka/index.html': 'Послуги',
   'blog/yak-zamovyty-sajt/index.html': 'Послуги',
-  'blog/seo-bez-reklamy-keis-atlas/index.html': 'Послуги',
   'blog/getting-cited-ai-poshuk/index.html': 'Послуги',
   'blog/internal-linking/index.html': 'Послуги',
 };
@@ -407,7 +406,7 @@ const F2_ALSO = {
     'journal/kabachok-starosta-seriya-2/index.html',
   ],
   'code/': [ // «SEO й AI-пошук» — owned by /services/, shown here too
-    'blog/seo-bez-reklamy-keis-atlas/index.html', 'blog/getting-cited-ai-poshuk/index.html',
+    'blog/getting-cited-ai-poshuk/index.html',
     'blog/internal-linking/index.html',
   ],
   'services/': [],
@@ -418,7 +417,7 @@ const F2_ALSO = {
     'blog/chek-list-zamovlennya-sajtu/index.html', 'blog/devlog-business-empire-idle/index.html',
     'blog/devlog-empire-online/index.html', 'blog/getting-cited-ai-poshuk/index.html',
     'blog/internal-linking/index.html', 'blog/jarvis-ai-assistant/index.html',
-    'blog/react-vs-tilda/index.html', 'blog/seo-bez-reklamy-keis-atlas/index.html',
+    'blog/react-vs-tilda/index.html',
     'blog/skilky-koshtuye-sajt/index.html', 'blog/tilda-vs-webflow-vs-kastom/index.html',
     'blog/yak-obrati-rozrobnyka/index.html', 'blog/yak-zamovyty-sajt/index.html',
   ],
@@ -552,8 +551,9 @@ describe('public/ (integration)', () => {
       const files = PHASES[phase].links.find((l) => l.rule === rule).files;
       return [Object.keys(files).length, Object.values(files).flat().length];
     };
-    expect(size('f1-pre', 'cta-links')).toEqual([22, 25]);
-    expect(size('f1-done', 'cta-links')).toEqual([17, 19]);
+    // 22 files and 25 CTAs at Ф1; the SEO case of Atlas (1 file, 2 CTAs) moved to orditera.com.ua on 2026-11-06.
+    expect(size('f1-pre', 'cta-links')).toEqual([21, 23]);
+    expect(size('f1-done', 'cta-links')).toEqual([16, 17]);
     expect(size('f1-done', 'hub-links')).toEqual([6, 6]);
     for (const phase of ['f1-pre', 'f1-done']) expect(size(phase, 'contact-links')).toEqual([2, 3]);
   });

@@ -314,8 +314,11 @@ describe('moved URLs (AGENTS rule 1: a move is 1:1, through a permanent redirect
   };
 
   it('every redirect is permanent and lands on a file that exists', () => {
+    // A post moved to the firm's site (owner's decision, 2026-11-06) is still 1:1 and permanent, on another domain.
+    const movedToFirm = /^https:\/\/www\.orditera\.com\.ua\/statti\/[a-z0-9-]+\/$/;
     for (const r of vercel.redirects ?? []) {
       expect(r.permanent, `${r.source} must be a 308`).toBe(true);
+      if (movedToFirm.test(r.destination)) continue;
       expect(r.destination, `${r.source}: relative, canonical destination`).toMatch(/^\/[^?#]*$/);
       expect(onDisk(r.destination), `${r.source} → ${r.destination}, which does not exist`).toBe(true);
     }

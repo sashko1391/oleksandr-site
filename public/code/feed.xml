@@ -7,7 +7,7 @@
     <description><![CDATA[Devlog-и власних проєктів, AI-інструменти й розбори пошукової видимості з даними.]]></description>
     <language>uk</language>
     <copyright>© 2026 Олександр Кравченко</copyright>
-    <lastBuildDate>Sun, 18 Oct 2026 12:45:19 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 05:08:24 GMT</lastBuildDate>
     <image>
       <url>https://www.parkinsandr.tech/images/rss-logo.png</url>
       <title>parkinsandr.tech — Код</title>
@@ -44,16 +44,6 @@
       <pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Як я додав Укрпошту другим перевізником у магазин на Medusa: довідник, що бреше прапорцями, тариф, який диктує UX, і пастки деплою.]]></description>
       <enclosure url="https://www.parkinsandr.tech/images/ukrposhta-medusa/og.jpg" type="image/jpeg" length="33923"/>
-    </item>
-    <item>
-      <title><![CDATA[SEO без реклами: з 3 до 346 кліків на місяць]]></title>
-      <link>https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</link>
-      <guid isPermaLink="true">https://www.parkinsandr.tech/blog/seo-bez-reklamy-keis-atlas/</guid>
-      <dc:creator><![CDATA[Олександр Кравченко]]></dc:creator>
-      <category><![CDATA[Блог]]></category>
-      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[SEO-кейс інтернет-магазину Atlas, якому недоступна реклама: зростання з 3 до 346 кліків у 28-денному вікні Google Search Console, що спрацювало (canonical, картки товарів, FAQ, реальні запити), що не спрацювало (масовий блог, keyword stuffing) і обмеження даних.]]></description>
-      <enclosure url="https://www.parkinsandr.tech/images/atlas.webp" type="image/webp" length="29630"/>
     </item>
     <item>
       <title><![CDATA[AI-пошук: 60% Share of Voice за 5 тижнів]]></title>
